@@ -1,28 +1,27 @@
 import './App.css';
-import LineChart from './cmp/line-chart/line-chart';
-import { MyGraph } from './cmp/network-graph/networkGraph';
-import { MultiGraph } from './cmp/network-graph/networkGraph';
+import  { AreaChart } from './cmp/line-chart/line-chart';
 import { FormNewProject } from './pages/form-new-project/form';
 import { LoginPage } from './pages/login-signup/loginSignup';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import appleStock from '@visx/mock-data/lib/mocks/appleStock';
+import { BarChart } from './cmp/bar-chart/bar-chart';
+import { PieChart } from './cmp/pie/pie';
 
-//import {DisplayGraph} from './cmp/adi/adi'
 
 function App() {
+  
   return (
     <BrowserRouter>
 
     <div className="App">
-     {/* <LoginPage /> */}
-     {/* <FormNewProject /> */}
-     {/* <MyGraph /> */}
-     {/* <MultiGraph /> */}
-     <Routes >
-      <Route path='/' element ={<MyGraph />} />
-      <Route path='/chart' element ={<LineChart />}/>
 
+     <Routes >
+      <Route path='/' element ={<LoginPage />} />
+      <Route path='/addProject' element ={<FormNewProject />} />
+      <Route path='/barChart' element ={<BarChart width={700} height={500}/>} />
+      <Route path='/pieChart' element ={<PieChart width={700} height={500} />} />
+      <Route path='/chart' element ={<AreaChart width={600} height={600} dataArray={appleStock}/>}/>
      </Routes>
-     {/* <LineChart/> */}
     </div>
     </BrowserRouter>
   );

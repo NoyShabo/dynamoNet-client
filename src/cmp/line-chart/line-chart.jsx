@@ -1,244 +1,149 @@
-// import React from 'react';
-// import { XYPlot,
-//   XAxis,
-//   YAxis,
-//   VerticalGridLines,
-//   HorizontalGridLines,
-//   LineMarkSeries } from 'react-vis';
-
-// const timeRanges = [{
-//   network: {
-//     numberOfNodes: 9752,
-//     numberOfEdges: 20677,
-//     density: 0.0004348852464091734,
-//     diameter: 6,
-//     radius: 0,
-//     reciprocity: 1,
-//     degreeCentrality: 0.8024165831775307
-//   }
-// },
-// {
-//   network: {
-//     numberOfNodes: 39663,
-//     numberOfEdges: 47995,
-//     density: 0.00006101910334266666,
-//     diameter: 4,
-//     radius: 0,
-//     reciprocity: 1,
-//     degreeCentrality: 0.6122687803693816
-//   }
-// },{
-//   network: {
-//     numberOfNodes: 1590,
-//     numberOfEdges: 4692,
-//     density: 0.0037142144697626367,
-//     diameter: 4,
-//     radius: 2,
-//     reciprocity: 1,
-//     degreeCentrality: 1.0630729527466065
-//   }
-// }]
-
-// function LineChart(props) {
-//   // const data = [
-//   //   { x: 0, y: 10 },
-//   //   { x: 1, y: 5 },
-//   //   { x: 2, y: 15 },
-//   //   { x: 3, y: 20 },
-//   //   { x: 4, y: 7 }
-//   // ];
-//   const data = timeRanges.map((timeRange, index) => {
-//     return {
-//       x: index,
-//       y: timeRange.network.numberOfNodes
-//     }
-//   });
-
-//   return (
-//     <XYPlot width={300} height={300}>
-//       <VerticalGridLines />
-//       <HorizontalGridLines />
-//       <XAxis />
-//       <YAxis />
-//       <LineMarkSeries
-//         className="linemark-series-example"
-//         style={{
-//           strokeWidth: '3px'
-//         }}
-//         lineStyle={{stroke: 'red'}}
-//         markStyle={{stroke: 'blue'}}
-//         data={[{x: 1, y: 10}, {x: 2, y: 5}, {x: 3, y: 15}]}
-//         fill={{
-//           type: 'linear',
-//           gradient: ['#000', '#fff']
-//         }}
-//       />
-//       <LineMarkSeries
-//         className="linemark-series-example-2"
-//         curve={'curveMonotoneX'}
-//         data={[{x: 1, y: 11}, {x: 1.5, y: 29}, {x: 3, y: 7}]}
-//       />
-//     </XYPlot>
-//   );
-// }
-
-// export default LineChart;
-
-
 import React, { useMemo, useCallback, useEffect } from 'react';
-import { AreaClosed, Line, Bar } from '@visx/shape';
-import appleStock, { AppleStock } from '@visx/mock-data/lib/mocks/appleStock';
+import { AreaClosed,  Bar } from '@visx/shape';
+import appleStock from '@visx/mock-data/lib/mocks/appleStock';
 import { curveMonotoneX } from '@visx/curve';
-import { GridRows, GridColumns } from '@visx/grid';
 import { scaleTime, scaleLinear } from '@visx/scale';
-import { withTooltip, Tooltip, TooltipWithBounds, defaultStyles } from '@visx/tooltip';
-import { WithTooltipProvidedProps } from '@visx/tooltip/lib/enhancers/withTooltip';
+import {  defaultStyles,useTooltip,useTooltipInPortal } from '@visx/tooltip';
 import { localPoint } from '@visx/event';
 import { LinearGradient } from '@visx/gradient';
-// import d3 from 'd3-array';
 import { max, extent, bisector } from 'd3-array';
 import { timeFormat } from 'd3-time-format';
-
-// type TooltipData = AppleStock;
-
-const stock = appleStock.slice(800);
-export const background = '#3b6978';
-export const background2 = '#204051';
-export const accentColor = '#edffea';
-export const accentColorDark = '#75daad';
-const tooltipStyles = {
-  ...defaultStyles,
-  background,
-  border: '1px solid white',
-  color: 'white',
-};
+import { Group } from '@visx/group';
+import { AxisLeft, AxisBottom } from '@visx/axis';
+import { GridRows  } from '@visx/grid';
 
 // util
 const formatDate = timeFormat("%b %d, '%y");
+
+// const dataArray =[
+//   {date: '2007-04-24T07:00:00.000Z', close: 93.24},
+//   {date: '2007-04-25T07:00:00.000Z', close: 95.35},
+//   {date: '2007-04-26T07:00:00.000Z', close: 98.84},  
+//   {date: '2007-04-27T07:00:00.000Z', close: 99.92},
+//   {date: '2007-04-30T07:00:00.000Z', close: 99.8},
+//   {date: '2007-05-01T07:00:00.000Z', close: 99.47},
+//   {date: '2007-05-02T07:00:00.000Z', close: 100.39}
+// ]
 
 // accessors
 const getDate = (d) => new Date(d.date);
 const getStockValue = (d) => d.close;
 const bisectDate = bisector((d) => new Date(d.date)).left;
 
-// export type AreaProps = {
-//   width: number;
-//   height: number;
-//   margin?: { top: number; right: number; bottom: number; left: number };
-// };
+export function AreaChart({dataArray,width,height}) {
 
 
-export default withTooltip(
-  ({
-    width = '500px',
-    height = "500px",
-    margin = { top: 0, right: 0, bottom: 0, left: 0 },
+
+  useEffect(()=>{
+    console.log('====================================');
+    // console.log(bisectDate);
+    console.log('====================================');
+    // console.log(appleStock);
+  })
+  const {
+    tooltipData,
+    tooltipLeft,
+    tooltipTop,
     showTooltip,
     hideTooltip,
-    tooltipData =appleStock,
-    tooltipTop = 0,
-    tooltipLeft = 0,
-  }) => {
-    
-    useEffect(() => {
-      
+  } = useTooltip();
+
+  const { containerRef, TooltipInPortal } = useTooltipInPortal({
+    // use TooltipWithBounds
+    detectBounds: true,
+    // when tooltip containers are scrolled, this will correctly update the Tooltip position
+    scroll: true,
+  })
+
+  const dataSorted = dataArray.sort(({ date: dateA }, { date: dateB }) => new Date(dateA) - new Date(dateB));
+  const stock = dataSorted.map(dataItem => ({ date: new Date(dataItem.date), close: dataItem.close }))
+
+  const dateScale = useMemo(() => {
+    return scaleTime({ range: [0, width], domain: extent(stock, getDate) })
+  }, [width])
+
+  const stockValueScale = useMemo(() => {
+    const domain = [0, (max(stock, getStockValue) || 0) + height / 3]
+    return scaleLinear({ range: [height, 0], domain, nice: true, })
+  }, [height])
+
+  const handleTooltip = useCallback(
+    (event) => {
+      const { x } = localPoint(event) || { x: 0 };
+
+      const x0 = dateScale.invert(x);
+      const index = bisectDate(stock, x0, 1);
+
       console.log('====================================');
-      console.log('dddddddd',stock);
+      console.log(index, 'index');
       console.log('====================================');
-    }, [])
-    
-    if (width < 10) return null;
+      const d0 = stock[index - 1];
+      const d1 = stock[index];
+      let d = d0;
+      if (d1 && getDate(d1)) {
+        d = x0.valueOf() - getDate(d0).valueOf() > getDate(d1).valueOf() - x0.valueOf() ? d1 : d0;
+      }
 
-    // bounds
-    const innerWidth = width - margin.left - margin.right;
-    const innerHeight = height - margin.top - margin.bottom;
+      showTooltip({
+        tooltipData: d,
+        tooltipLeft: parseFloat(dateScale(getDate(d))) /* Use x for cursor position */,
+        tooltipTop: stockValueScale(getStockValue(d)),
+      });
+    },
+    [showTooltip, stockValueScale, dateScale],
+  );
 
-    // scales
-    const dateScale = useMemo(
-      () =>
-        scaleTime({
-          range: [margin.left, innerWidth + margin.left],
-          domain: extent(stock, getDate) ,
-        }),
-      [innerWidth, margin.left],
-    );
-    const stockValueScale = useMemo(
-      () =>
-        scaleLinear({
-          range: [innerHeight + margin.top, margin.top],
-          domain: [0, (max(stock, getStockValue) || 0) + innerHeight / 3],
-          nice: true,
-        }),
-      [margin.top, innerHeight],
-    );
 
-    // tooltip handler
-    const handleTooltip = useCallback(
-      (event) => {
-        const { x } = localPoint(event) || { x: 0 };
-        const x0 = dateScale.invert(x);
-        const index = bisectDate(stock, x0, 1);
-        const d0 = stock[index - 1];
-        const d1 = stock[index];
-        let d = d0;
-        if (d1 && getDate(d1)) {
-          d = x0.valueOf() - getDate(d0).valueOf() > getDate(d1).valueOf() - x0.valueOf() ? d1 : d0;
-        }
-        showTooltip({
-          tooltipData: d,
-          tooltipLeft: x,
-          tooltipTop: stockValueScale(getStockValue(d)),
-        });
-      },
-      [showTooltip, stockValueScale, dateScale],
-    );
-
-    return (
-      <div>
-        <svg width={width} height={height}>
+  return (
+    <div ref={containerRef}>
+      <svg width={width} height={height} viewBox={`0 0 ${+width - 20} ${+height + 20}`}>
+        <Group>
+          <LinearGradient id="area-background-gradient" from={"rgba(29, 152, 188,0.9)"} to={"rgba(29, 152, 188,0.1)"}  />
+          <LinearGradient id="area-gradient" from={"rgba(29, 152, 188,0.9)"} to={"rgba(29, 152, 188,0.1)"}  toOpacity={0.1} />
           <rect
             x={0}
             y={0}
             width={width}
             height={height}
-            fill="url(#area-background-gradient)"
+            fill="rgba(0,0,0,0.1)"
             rx={14}
           />
-          <LinearGradient id="area-background-gradient" from={background} to={background2} />
-          <LinearGradient id="area-gradient" from={accentColor} to={accentColor} toOpacity={0.1} />
           <GridRows
-            left={margin.left}
             scale={stockValueScale}
-            width={innerWidth}
-            strokeDasharray="1,3"
-            stroke={accentColor}
-            strokeOpacity={0}
+            width={width}
+            strokeDasharray="1,1"
+            stroke={"white"}
+            strokeOpacity={0.1}
             pointerEvents="none"
           />
-          <GridColumns
-            top={margin.top}
-            scale={dateScale}
-            height={innerHeight}
-            strokeDasharray="1,3"
-            stroke={accentColor}
-            strokeOpacity={0.2}
-            pointerEvents="none"
-          />
+
           <AreaClosed
             data={stock}
             x={(d) => dateScale(getDate(d)) ?? 0}
             y={(d) => stockValueScale(getStockValue(d)) ?? 0}
             yScale={stockValueScale}
-            strokeWidth={1}
-            stroke="url(#area-gradient)"
+            // strokeWidth={1}
+            // strokeLinecap="round"
+            // stroke="url(#area-gradient)"
             fill="url(#area-gradient)"
             curve={curveMonotoneX}
           />
+          <AxisBottom tickLabelProps={() => ({
+            fill: '#EBF0F3',
+            fontSize: 11,
+            textAnchor: 'middle',
+          })} top={height} scale={dateScale} numTicks={width > 520 ? 10 : 5} />
+          <AxisLeft
+            tickLabelProps={() => ({
+              fill: '#EBF0F3',
+              fontSize: 11,
+              textAnchor: 'end',
+            })}
+            numTicks={height > 520 ? 10 : 5}
+            scale={stockValueScale} />
           <Bar
-            x={margin.left}
-            y={margin.top}
-            width={innerWidth}
-            height={innerHeight}
+            width={width}
+            height={height}
             fill="transparent"
             rx={14}
             onTouchStart={handleTooltip}
@@ -248,14 +153,6 @@ export default withTooltip(
           />
           {tooltipData && (
             <g>
-              <Line
-                from={{ x: tooltipLeft, y: margin.top }}
-                to={{ x: tooltipLeft, y: innerHeight + margin.top }}
-                stroke={accentColorDark}
-                strokeWidth={2}
-                pointerEvents="none"
-                strokeDasharray="5,2"
-              />
               <circle
                 cx={tooltipLeft}
                 cy={tooltipTop + 1}
@@ -271,39 +168,42 @@ export default withTooltip(
                 cx={tooltipLeft}
                 cy={tooltipTop}
                 r={4}
-                fill={accentColorDark}
+                fill={"green"}
                 stroke="white"
                 strokeWidth={2}
                 pointerEvents="none"
               />
             </g>
           )}
-        </svg>
-        {tooltipData && (
-          <div>
-            <TooltipWithBounds
-              key={Math.random()}
-              top={tooltipTop - 12}
-              left={tooltipLeft + 12}
-              style={tooltipStyles}
-            >
-              {`$${getStockValue(tooltipData)}`}
-            </TooltipWithBounds>
-            <Tooltip
-              top={innerHeight + margin.top - 14}
-              left={tooltipLeft}
-              style={{
-                ...defaultStyles,
-                minWidth: 72,
-                textAlign: 'center',
-                transform: 'translateX(-50%)',
-              }}
-            >
-              {formatDate(getDate(tooltipData))}
-            </Tooltip>
-          </div>
-        )}
-      </div>
-    );
-  },
-);
+
+
+        </Group>
+      </svg>
+
+      {tooltipData && (
+        <div>
+          <TooltipInPortal
+            key={Math.random()}
+            top={tooltipTop - 12}
+            left={tooltipLeft}
+            offsetLeft={30}
+            style={{...defaultStyles}}
+          >
+            {`${getStockValue(tooltipData)}`}
+          </TooltipInPortal>
+          <TooltipInPortal
+            top={height - 14}
+            left={tooltipLeft}
+            style={{
+              ...defaultStyles,
+            }}
+          >
+            {formatDate(getDate(tooltipData))}
+          </TooltipInPortal>
+        </div>
+      )}
+    </div>
+
+
+  );
+}
