@@ -1,29 +1,19 @@
-import './App.css';
-import LineChart from './cmp/line-chart/line-chart';
-import { MyGraph } from './cmp/network-graph/networkGraph';
-import { MultiGraph } from './cmp/network-graph/networkGraph';
-import { FormNewProject } from './pages/form-new-project/form';
-import { LoginPage } from './pages/login-signup/loginSignup';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
-//import {DisplayGraph} from './cmp/adi/adi'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import ReactGraphVis from "./cmp/network-graph-vis/networkGraphVis";
+import { FormNewProject } from "./pages/form-new-project/form";
+import { LoginPage } from "./pages/login-signup/loginSignup";
 
 function App() {
   return (
     <BrowserRouter>
-
-    <div className="App">
-     {/* <LoginPage /> */}
-     {/* <FormNewProject /> */}
-     {/* <MyGraph /> */}
-     {/* <MultiGraph /> */}
-     <Routes >
-      <Route path='/' element ={<MyGraph />} />
-      <Route path='/chart' element ={<LineChart />}/>
-
-     </Routes>
-     {/* <LineChart/> */}
-    </div>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<ReactGraphVis />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/form" element={<FormNewProject />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }
