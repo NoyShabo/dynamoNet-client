@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
     "@emotion/cache": "^11.10.5",
     "@emotion/react": "^11.10.6",
     "@emotion/serialize": "^1.1.1",
@@ -15,22 +16,33 @@
     "@react-sigma/core": "^3.2.0",
     "@react-sigma/layout-core": "^3.2.0",
     "@react-sigma/layout-forceatlas2": "^3.2.0",
+=======
+    "@mantine/core": "^5.10.4",
+    "@mantine/dates": "^5.10.4",
+    "@mantine/form": "^5.10.4",
+    "@react-spring/web": "^9.6.1",
+>>>>>>> a180c2e4272d83cfd76e3cf4ba18a1185f7a3038
     "@tabler/icons-react": "^2.4.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@visx/axis": "^3.0.1",
     "@visx/curve": "^3.0.0",
     "@visx/event": "^3.0.1",
     "@visx/gradient": "^3.0.0",
     "@visx/grid": "^3.0.1",
+    "@visx/legend": "^3.0.0",
     "@visx/mock-data": "^3.0.0",
     "@visx/scale": "^3.0.0",
     "@visx/shape": "^3.0.0",
     "@visx/tooltip": "^3.0.0",
+<<<<<<< HEAD
     "d3": "^7.8.2",
     "dayjs": "^1.11.7",
     "graphology": "^0.25.1",
     "graphology-gexf": "^0.10.3",
+=======
+>>>>>>> a180c2e4272d83cfd76e3cf4ba18a1185f7a3038
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
@@ -39,7 +51,7 @@
     "react-scripts": "5.0.1",
     "react-sigma": "^1.2.35",
     "react-tsparticles": "^2.9.3",
-    "react-vis": "^1.11.12",
+    "react-use": "^17.4.0",
     "sass": "^1.58.3",
     "sigma": "^2.4.0",
     "tsparticles": "^2.9.3",
