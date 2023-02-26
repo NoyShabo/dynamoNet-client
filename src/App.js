@@ -1,24 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import LineChart from './cmp/line-chart/line-chart';
+import { MyGraph } from './cmp/network-graph/networkGraph';
+import { MultiGraph } from './cmp/network-graph/networkGraph';
+import { FormNewProject } from './pages/form-new-project/form';
+import { LoginPage } from './pages/login-signup/loginSignup';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+//import {DisplayGraph} from './cmp/adi/adi'
 
 function App() {
   return (
+    <BrowserRouter>
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     {/* <LoginPage /> */}
+     {/* <FormNewProject /> */}
+     {/* <MyGraph /> */}
+     {/* <MultiGraph /> */}
+     <Routes >
+      <Route path='/' element ={<MyGraph />} />
+      <Route path='/chart' element ={<LineChart />}/>
+
+     </Routes>
+     {/* <LineChart/> */}
     </div>
+    </BrowserRouter>
   );
 }
 
