@@ -59,7 +59,7 @@ export function BarChart({ width, height, isPercent=false, events = false }) {
         round: true,
         domain: [0, Math.max(...data.map(getLabelFrequency))],
       }),
-    [yMax],
+    [yMax ],
   )
 
   return width < 10 ? null : (

@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback, useEffect } from 'react';
 import { AreaClosed,  Bar } from '@visx/shape';
-import appleStock from '@visx/mock-data/lib/mocks/appleStock';
+// import appleStock from '@visx/mock-data/lib/mocks/appleStock';
 import { curveMonotoneX } from '@visx/curve';
 import { scaleTime, scaleLinear } from '@visx/scale';
 import {  defaultStyles,useTooltip,useTooltipInPortal } from '@visx/tooltip';
@@ -60,12 +60,12 @@ export function AreaChart({dataArray,width,height}) {
 
   const dateScale = useMemo(() => {
     return scaleTime({ range: [0, width], domain: extent(stock, getDate) })
-  }, [width])
+  }, [width,stock])
 
   const stockValueScale = useMemo(() => {
     const domain = [0, (max(stock, getStockValue) || 0) + height / 3]
     return scaleLinear({ range: [height, 0], domain, nice: true, })
-  }, [height])
+  }, [height,stock])
 
   const handleTooltip = useCallback(
     (event) => {
@@ -90,7 +90,7 @@ export function AreaChart({dataArray,width,height}) {
         tooltipTop: stockValueScale(getStockValue(d)),
       });
     },
-    [showTooltip, stockValueScale, dateScale],
+    [showTooltip, stockValueScale, dateScale,stock],
   );
 
 
