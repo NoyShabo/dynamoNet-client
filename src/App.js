@@ -30,7 +30,7 @@ function App() {
               <AreaChart width={600} height={600} dataArray={appleStock} />
             }
           />
-          <Route path="/networkGraph" element={<DisplayGraph />} />
+          <Route path="/networkGraph" element={<DisplayGraph width="100vw" height="100vh"/>} />
           <Route path="/timeRange" element={<Timerange />} />
         </Routes>
       </div>

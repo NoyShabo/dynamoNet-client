@@ -1,4 +1,4 @@
-import { SigmaContainer, useLoadGraph, useSigma } from "@react-sigma/core";
+import { SigmaContainer, useLoadGraph } from "@react-sigma/core";
 import "@react-sigma/core/lib/react-sigma.min.css";
 import { useWorkerLayoutForceAtlas2 } from "@react-sigma/layout-forceatlas2";
 import Graph from "graphology";
@@ -8,7 +8,7 @@ import network from "../../data/network.json";
 export const LoadGraph = () => {
   const loadGraph = useLoadGraph();
   // const { position, assign } = useLayoutCircular();
-  const { start, kill, isRunning } = useWorkerLayoutForceAtlas2({
+  const { start, kill } = useWorkerLayoutForceAtlas2({
     settings: { slowDown: 15 },
   });
   useEffect(() => {
@@ -35,7 +35,7 @@ export const LoadGraph = () => {
         y: Math.random(),
         size: 3,
         label: node.label,
-        color: "#FA4F40",
+        color: "rgba(29, 152, 188,0.9)",
       });
     });
     edges.forEach((edge) => {
@@ -64,9 +64,9 @@ export const LoadGraph = () => {
   return null;
 };
 
-export const DisplayGraph = () => {
+export const DisplayGraph = ({width, height}) => {
   return (
-    <SigmaContainer>
+    <SigmaContainer style={{width, height, backgroundColor:"#263145"} } >
       <LoadGraph />
     </SigmaContainer>
   );
