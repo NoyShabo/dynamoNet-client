@@ -65,7 +65,7 @@ export function BarChart({ width, height, isPercent=false, events = false }) {
   return width < 10 ? null : (
     <svg width={width} height={height}>
       <GradientTealBlue id="teal" />
-      <rect width={width} height={height} fill="#1C273B" rx={14} />
+      <rect width={width} height={height} fill="#263145" rx={14} />
       <Group top={verticalMargin / 2} left={margins.left}>
         {data.map((d) => {
           const window = getLabel(d)
@@ -75,7 +75,7 @@ export function BarChart({ width, height, isPercent=false, events = false }) {
           const barY = yMax - barHeight
           return (
             <Bar
-                fontFamily='Sunflower'
+              fontFamily='Sunflower'
               key={`bar-${window}`}
               x={barX}
               y={barY}
@@ -83,9 +83,9 @@ export function BarChart({ width, height, isPercent=false, events = false }) {
               height={barHeight}
               strokeWidth={1}
               
-            stroke="rgba(10, 102, 128,0.3)"
+            stroke="rgba(10, 102, 128,0.8)"
             // fill="url(#area-gradient) "
-              fill="rgba(29, 152, 188,0.9)"
+              fill="rgba(29, 152, 188,0.6)"
               onClick={() => {
                 if (events) alert(`clicked: ${JSON.stringify(Object.values(d))}`)
               }}

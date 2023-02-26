@@ -59,7 +59,7 @@ export default function AnimatedPie({
               x={centroidX}
               y={centroidY}
               dy=".33em"
-              fontSize={12}
+              fontSize={22}
               textAnchor="middle"
               pointerEvents="none"
               fontFamily="cursive"

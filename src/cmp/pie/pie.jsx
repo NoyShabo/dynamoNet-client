@@ -10,18 +10,14 @@ import './pie.scss';
 
 const defaultMargin = { top: 30, right: 30, bottom: 30, left: 30 };
 
-const dataObject2 ={
-  timeRange_1:20,
-  timeRange_2:50,
-  timeRange_3:125,
-}
+
 
 export function PieChart({
   width,
   height,
   margin = defaultMargin,
   animate = true,
-  dataObject=dataObject2,
+  dataObject,
 }) {
 
 
@@ -37,7 +33,8 @@ export function PieChart({
     return {
       label: name,
       usage: Number(dataObject[name]),
-      percent: Math.floor(100 * Number(dataObject[name]) / sum)
+      // percent: 100 * (Number(dataObject[name]) / sum)
+      percent: (100 * (Number(dataObject[name]) / sum)).toFixed(2)
     }
   });
 
@@ -100,8 +97,8 @@ export function PieChart({
             />
           )}
         </Pie>
-        <Text  textAnchor='middle' fill='#fff' fontSize={14} fontWeight={200} fontFamily='cursive' dy={-10}>{active ? active.label:''}</Text> 
-        <Text  textAnchor='middle' fill='#fff' fontSize={14} fontWeight={200} fontFamily='cursive' dy={10}>{active ?active.usage: ''}</Text>
+        <Text  textAnchor='middle' fill='#FFF' fontSize={16} fontWeight={200} fontFamily='cursive' dy={-10}>{active ? active.label:''}</Text> 
+        <Text  textAnchor='middle' fill='#FFF' fontSize={16} fontWeight={200} fontFamily='cursive' dy={10}>{active ?active.usage: ''}</Text>
       </Group>
         {animate && (
           <text
@@ -109,7 +106,7 @@ export function PieChart({
             x={width - 16}
             y={height - 16}
             fill="white"
-            fontSize={14}
+            fontSize={18}
             fontWeight={300}
             pointerEvents="none"
             fontFamily='cursive'          >

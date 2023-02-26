@@ -1,9 +1,7 @@
 import React from "react";
 import Graph from "react-graph-vis";
-// import network.json from data
-import network from "../../data/network.json";
 
-export default function GraphComponent() {
+export function GraphComponent() {
   const nodes = [];
   const edges = [];
   const NUM_NODES = 100;
@@ -152,7 +150,7 @@ export default function GraphComponent() {
       filter: "physics", // 'layout', 'physics', 'interaction', 'configure'
       showButton: true,
     },
-    height: "100%",
+    height: "800px",
   };
 
   const events = {

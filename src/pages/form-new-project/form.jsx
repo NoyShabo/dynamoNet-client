@@ -68,7 +68,7 @@ export function FormNewProject() {
       {(provided) => (
         <Group ref={provided.innerRef} mt="xs"  {...provided.draggableProps}>
           <Center className="container-row" mx="auto"  {...provided.dragHandleProps}>
-            <IconGridDots size={35} color='#c70e0e' />
+            <IconGridDots size={35} color='#55bbee' />
             <TextInput className='input-user' onPaste={(e)=>{handelInputText(e,index)}} ml='15px' w='280px' placeholder="Twitter Username" {...form.getInputProps(`dataset.${index}.name`)} />
           </Center>
         </Group>
@@ -91,7 +91,7 @@ export function FormNewProject() {
     <div className='form-new-project-container'>
     <MantineProvider theme={{
       colors: {
-        brand: ['#F0BBDD', '#ED9BCF', '#EC7CC3', '#ED5DB8', '#F13EAF', '#d6204e', '	#c70e0e', '	#f40d30', '#fb3310', '	#dd1717'],
+        brand: ['#63BBEC', '#4384a5', '#63BBEC', '#06AAFF', '#38aae4', '#78b8d8', '	#38aae4', '	#4384a5', '#4384a5', '#38aae4'],
       },
       primaryColor: 'brand',
     }}

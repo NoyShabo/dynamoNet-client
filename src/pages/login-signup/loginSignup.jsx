@@ -2,8 +2,30 @@ import { useState,useCallback  } from 'react'
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import './login-signup.scss'
+const BASE_URL="localhost:3000";
 
 export function LoginPage(){
+
+    const signUp = async () => {
+
+        let isNameExistResponse;
+        try{
+           isNameExistResponse = await fetch(`${BASE_URL}/api/auth/signup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                }
+            });
+            if (isNameExistResponse.status === 400) {
+                // notifyError('userName is already exist')
+                return false;
+            }
+            return true;
+        }catch(err){
+                // notifyError('server error')
+            return false;
+        }
+    }
 
     const [isSignup, setIsSignup] = useState(false);
     
@@ -29,7 +51,7 @@ export function LoginPage(){
             options={{
                 background: {
                     color: {
-                        value: "#FF416D",
+                        value: "#263145",
                     },
                 },
                 fpsLimit: 120,
@@ -106,7 +128,7 @@ export function LoginPage(){
                     <input type="text" placeholder="Name" />
                     <input type="email" placeholder="Email" />
                     <input type="password" placeholder="Password" />
-                    <button>Sign Up</button>
+                    <button onClick={()=>{signUp()}} >Sign Up</button>
                 </form>
             </div>
         <div className="form-container sign-in-container">
