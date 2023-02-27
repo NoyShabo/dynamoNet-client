@@ -9,11 +9,10 @@
   align-items: center;
   box-shadow: -4px 2px 18px 0px;
   position: fixed;
+  z-index: 5000;
+
 }
 
-.nav{
-    z-index: 5000;
-}
 
 .navbar .logo{
   color:  #f5b921;

@@ -9,12 +9,9 @@ import { FormNewProject } from "./pages/form-new-project/form";
 import { LoginPage } from "./pages/login-signup/loginSignup";
 import { Timerange } from "./pages/timerange/timerange";
 import { Navbar } from "./cmp/navbar/navbar";
-<<<<<<< Updated upstream
 import { Profile } from "./pages/profile/profile";
 
-=======
 import { MultiTableDrag } from "./cmp/table/table";
->>>>>>> Stashed changes
 
 function App() {
   return (
@@ -40,11 +37,8 @@ function App() {
           />
           <Route path="/networkGraph" element={<DisplayGraph width="100vw" height="100vh"/>} />
           <Route path="/timeRange" element={<Timerange />} />
-<<<<<<< Updated upstream
           <Route path="/profile" element={<Profile/>} />
-=======
           <Route path="/table" element={<MultiTableDrag />} />
->>>>>>> Stashed changes
         </Routes>
       </div>
     </BrowserRouter>
