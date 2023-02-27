@@ -8,7 +8,7 @@
 }
 
 .form-new-project-container{
-    width: 690px;
+    width: 650px;
     // height: 400px;
     margin: auto;
     // border: 0.5px solid;
@@ -28,8 +28,6 @@
     .add-btn{
         width: 127px;
         font-size: 13px;
-        margin-left: 40px;
-
     }
 
     .red-btn{
@@ -41,3 +39,19 @@
         background: #b4b4b4;
     }
 }
+
+@media only screen and (max-width: 390px){
+    .form-new-project-container{
+        .add-btn{
+            width: 110px;
+            font-size: 10px;
+        }
+    
+        .red-btn{
+            width: 124px;
+            font-size: 10px;
+        }
+    }
+}
+
+

@@ -4,6 +4,7 @@ import { useWorkerLayoutForceAtlas2 } from "@react-sigma/layout-forceatlas2";
 import Graph from "graphology";
 import { useEffect } from "react";
 import network from "../../data/network.json";
+import './networkGraph.scss'
 
 export const LoadGraph = () => {
   const loadGraph = useLoadGraph();
@@ -66,8 +67,11 @@ export const LoadGraph = () => {
 
 export const DisplayGraph = ({width, height}) => {
   return (
-    <SigmaContainer style={{width, height, backgroundColor:"#263145"} } >
-      <LoadGraph />
-    </SigmaContainer>
+    <div className="display-graph">
+      <SigmaContainer className="graph-container" style={{width, height, backgroundColor:"#263145"} } >
+          <LoadGraph />
+      </SigmaContainer>
+    </div>
+
   );
 };

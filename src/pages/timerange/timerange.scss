@@ -14,7 +14,18 @@
     }
     .container-chart{
         display: flex;
-        width: 1000px;
+        width: 80vw;
         margin: 0 auto;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 }
+
+// @media only screen and (max-width: 768px) {
+//     .timerange{
+//         .container-chart{
+//             width: 600px;
+//         }
+//     }
+    
+//    }

@@ -67,10 +67,10 @@ export function FormNewProject() {
     <Draggable key={index} index={index} draggableId={index.toString()}>
       {(provided) => (
         <Group ref={provided.innerRef} mt="xs"  {...provided.draggableProps}>
-          <Center className="container-row" mx="auto"  {...provided.dragHandleProps}>
+          <Group position="left" className="container-row"   {...provided.dragHandleProps}>
             <IconGridDots size={35} color='#55bbee' />
-            <TextInput className='input-user' onPaste={(e)=>{handelInputText(e,index)}} ml='15px' w='280px' placeholder="Twitter Username" {...form.getInputProps(`dataset.${index}.name`)} />
-          </Center>
+            <TextInput className='input-user'  onPaste={(e)=>{handelInputText(e,index)}}  placeholder="Twitter Username" {...form.getInputProps(`dataset.${index}.name`)} />
+          </Group>
         </Group>
       )}
     </Draggable>
@@ -109,7 +109,7 @@ export function FormNewProject() {
         </Stepper.Step>
 
         <Stepper.Step label="Second step" description="Add Twitter usernames">
-        <Box sx={{ maxWidth: 500 }} mx="auto">
+        <Box >
         <h3>Add Usernames from twitter</h3>
         <DragDropContext
         onDragEnd={({ destination, source }) =>
@@ -126,7 +126,7 @@ export function FormNewProject() {
         </Droppable>
       </DragDropContext>
 
-      <Group position="center" mt="md" >
+      <Group position="left" mt="md" >
         <Button mb='20px' className="add-btn" onClick={() => form.insertListItem('dataset', { name: '' })} >
           Add UserName
         </Button>
@@ -146,9 +146,9 @@ export function FormNewProject() {
         <Stepper.Completed>
           Completed! Form values:
 
-          <Code block mt="xl">
+          {/* <Code block mt="xl">
             {JSON.stringify(form.values, null, 2)}
-          </Code>
+          </Code> */}
         </Stepper.Completed>
       </Stepper>
 

@@ -12,7 +12,7 @@ export function Timerange() {
   return (
     <div className="timerange">
       <h2 className="title">Before election</h2>
-      <DisplayGraph width="98vw" height="95vh"/> 
+      <DisplayGraph width="80vw" height="70vh"/> 
       <h2 className="title">Metrics</h2>
       <div className="container-chart">
         <PieChart width={300} height={300} dataObject={retweetsQuote} />
