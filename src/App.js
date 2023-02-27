@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { BarChart } from "./cmp/bar-chart/bar-chart";
 import { AreaChart } from "./cmp/line-chart/line-chart";
-import { Navbar } from "./cmp/navbar/navbar";
 import { DisplayGraph } from "./cmp/network-graph/networkGraph";
 import { PieChart } from "./cmp/pie/pie";
 import { MultiTableDrag } from "./cmp/table/table";
@@ -11,7 +10,6 @@ import { FormNewProject } from "./pages/form-new-project/form";
 import { LoginPage } from "./pages/login-signup/loginSignup";
 import { Timerange } from "./pages/timerange/timerange";
 import { Navbar } from "./cmp/navbar/navbar";
-import { MultiTableDrag } from "./cmp/table/table";
 import { Profile } from "./pages/profile/profile";
 
 function App() {
