@@ -13,12 +13,20 @@
 
 }
 
-
-.navbar .logo{
-  color:  #f5b921;
-  font-size: 28px;
-  font-weight: 600;
+.logo{
+  background-image: url(./DynamoNet_logo.png);
+  width: 200px;
+  height: 80px;
+  background-repeat: no-repeat;
+  background-size: contain;
+ background-position: center;
 }
+
+// .navbar .logo{
+//   color:  #f5b921;
+//   font-size: 28px;
+//   font-weight: 600;
+// }
 
 .navbar .links{
   list-style: none;
@@ -40,7 +48,7 @@
 .nav-links {
     color: #fff;
     text-decoration: none;
-    padding: 0.9rem 1rem;
+    padding: 0.7rem 1rem;
     height: 100%;
     border-bottom: 3px solid transparent;
   }
@@ -72,7 +80,7 @@
 
 @media(max-width: 768px){
   .navbar{
-    position: relative;
+    position: absolute;
     transition: 0.5s all ease-in-out;
   }
 
@@ -97,11 +105,18 @@
     font-size: 20px;
   }
 
-  .navbar .logo{
-    position: absolute;
-    top: 23px;
+  
+.logo{
+  position: absolute;
+    top: 5px;
     left: 20px;
-  }
+  background-image: url(./DynamoNet_logo.png);
+  width: 200px;
+  height: 80px;
+  background-repeat: no-repeat;
+  background-size: contain;
+ background-position: center;
+}
 
   .navbar .toggle-icon{
     display: block;
