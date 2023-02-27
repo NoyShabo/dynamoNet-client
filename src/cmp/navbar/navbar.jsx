@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import {Icon} from 'react-icons-kit'
 import {menu} from 'react-icons-kit/feather/menu'
 import {x} from 'react-icons-kit/feather/x'
-import "./navbar2.scss";
+import "./navbar.scss";
 import { NavLink } from "react-router-dom";
 
 export const Navbar = () => {
@@ -35,7 +35,7 @@ export const Navbar = () => {
          <li className="nav-item">
             <NavLink
                 exact="true"
-                to="/timerange"
+                to="/profile"
                 className="nav-links"
                 onClick={handleToggle}
             >

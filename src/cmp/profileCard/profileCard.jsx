@@ -1,0 +1,34 @@
+
+import React from "react";
+import "./profileCard.scss";
+import avatar from "./image-rita.png";
+
+export function ProfileCard(props) {
+	return (
+		<div className="card-container">
+			<header>
+				<img src={avatar} alt={props.name} />
+			</header>
+			<h1 className="bold-text">
+				{props.name} 
+			</h1>
+			<h2 className="normal-text">{props.email}</h2>
+			<h2 className="normal-text">Join at: {props.joinDate}</h2>
+
+			<div className="social-container">
+				<div className="followers">
+					<h1 className="bold-text">{props.processingProjects}</h1>
+					<h2 className="smaller-text">Projects in processing</h2>
+				</div>
+				<div className="likes">
+					<h1 className="bold-text">{props.openProjects}</h1>
+					<h2 className="smaller-text">Open Projects</h2>
+				</div>
+				{/* <div className="photos">
+					<h1 className="bold-text">{props.photos}</h1>
+					<h2 className="smaller-text">Close Projects</h2>
+				</div> */}
+			</div>
+		</div>
+	);
+}
