@@ -8,6 +8,7 @@ import { PieChart } from "./cmp/pie/pie";
 import { FormNewProject } from "./pages/form-new-project/form";
 import { LoginPage } from "./pages/login-signup/loginSignup";
 import { Timerange } from "./pages/timerange/timerange";
+import { Navbar } from "./cmp/navbar/navbar";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           />
           <Route path="/networkGraph" element={<DisplayGraph width="100vw" height="100vh"/>} />
           <Route path="/timeRange" element={<Timerange />} />
+          <Route path="/navbar" element={<Navbar />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -29,6 +29,7 @@
     "@visx/shape": "^3.0.0",
     "@visx/tooltip": "^3.0.0",
     "dayjs": "^1.11.7",
+    "fontawesome": "^5.6.3",
     "graphology": "^0.25.1",
     "graphology-layout-forceatlas2": "^0.10.1",
     "react": "18.2.0",
