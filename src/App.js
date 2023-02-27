@@ -14,6 +14,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+      <Navbar />
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/addProject" element={<FormNewProject />} />
@@ -33,7 +34,7 @@ function App() {
           />
           <Route path="/networkGraph" element={<DisplayGraph width="100vw" height="100vh"/>} />
           <Route path="/timeRange" element={<Timerange />} />
-          <Route path="/navbar" element={<Navbar />} />
+          {/* <Route path="/navbar" element={<Navbar />} /> */}
         </Routes>
       </div>
     </BrowserRouter>
