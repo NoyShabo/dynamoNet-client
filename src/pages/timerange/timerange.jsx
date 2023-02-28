@@ -1,6 +1,7 @@
 import { DisplayGraph } from "../../cmp/network-graph/networkGraph";
 import { PieChart } from "../../cmp/pie/pie";
 import "./timerange.scss";
+import timeRange from "../../data/timeRange.json";
 
 export function Timerange() {
   const retweetsQuote = {
@@ -12,7 +13,7 @@ export function Timerange() {
   return (
     <div className="timerange">
       <h2 className="title">Before election</h2>
-      <DisplayGraph width="80vw" height="70vh"/> 
+      <DisplayGraph width="80vw" height="70vh" network={timeRange.network}/> 
       <h2 className="title">Metrics</h2>
       <div className="container-chart">
         <PieChart width={300} height={300} dataObject={retweetsQuote} />

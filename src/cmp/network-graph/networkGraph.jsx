@@ -3,31 +3,20 @@ import "@react-sigma/core/lib/react-sigma.min.css";
 import { useWorkerLayoutForceAtlas2 } from "@react-sigma/layout-forceatlas2";
 import Graph from "graphology";
 import { useEffect } from "react";
-import network from "../../data/network.json";
 import './networkGraph.scss'
 
-export const LoadGraph = () => {
-  const loadGraph = useLoadGraph();
-  // const { position, assign } = useLayoutCircular();
+export const LoadGraph = ({network}) => {
+  const nodes = network.nodes.map((node) => {
+    return { id: node, label: node }
+  });
+  const edges = network.edges.map((edge) => {
+    return { from: edge.source, to: edge.destination }
+  })
+const loadGraph = useLoadGraph();
   const { start, kill } = useWorkerLayoutForceAtlas2({
     settings: { slowDown: 15 },
   });
   useEffect(() => {
-    const nodes = [];
-    const edges = [];
-
-    const nodeSet = {};
-    network.edges.forEach((edge) => {
-      nodeSet[edge.source] = { id: edge.source, label: edge.source };
-      nodeSet[edge.destination] = {
-        id: edge.destination,
-        label: edge.destination,
-      };
-    });
-    network.edges.forEach((edge) => {
-      edges.push({ from: edge.source, to: edge.destination });
-    });
-    nodes.push(...Object.values(nodeSet));
 
     const graph = new Graph();
     nodes.forEach((node) => {
@@ -36,7 +25,7 @@ export const LoadGraph = () => {
         y: Math.random(),
         size: 3,
         label: node.label,
-        color: "rgba(29, 152, 188,0.9)",
+        color: "#70d8bd",
       });
     });
     edges.forEach((edge) => {
@@ -65,11 +54,11 @@ export const LoadGraph = () => {
   return null;
 };
 
-export const DisplayGraph = ({width, height}) => {
+export const DisplayGraph = ({width, height, network}) => {
   return (
     <div className="display-graph">
-      <SigmaContainer className="graph-container" style={{width, height, backgroundColor:"#263145"} } >
-          <LoadGraph />
+      <SigmaContainer className="graph-container" style={{width, height, backgroundColor:"#fff"} } >
+          <LoadGraph network={network} />
       </SigmaContainer>
     </div>
 

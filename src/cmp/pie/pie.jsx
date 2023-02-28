@@ -40,10 +40,10 @@ export function PieChart({
 
   const usage = (d) => d.usage;
   const colorsRange = [
-    'rgba(29, 152, 188,0.9)',
-    'rgba(29, 152, 188,0.6)',
-    'rgba(29, 152, 188,0.4)',
-    'rgba(29, 152, 199,0.2)',
+    'rgb(112, 216, 189,0.9)',
+    'rgb(31, 166, 130,0.9)',
+    'rgb(5, 245, 181,0.9)',
+    'rgba(179, 255, 235,0.9)',
     'rgba(255,255,255,0.2)',
     'rgba(255,255,255,0.1)'
   ];
@@ -63,7 +63,8 @@ export function PieChart({
   const padding = 30;
 
   return (
-    <div className='pie-chart'>
+    // <div className='pie-chart'>
+    <>
       <svg width={width} height={height} viewBox={`0 ${-padding / 2} ${+width} ${+height + padding}`} xmlns="http://www.w3.org/2000/svg">
         <Group top={centerY + margin.top} left={centerX + margin.left}>
           <Pie
@@ -114,7 +115,8 @@ export function PieChart({
         )}
       </svg>
       <LegendPie arr={labelsArray} setStateActive={setState} domain={labelsNames} range={colorsRange} />
-    </div>
+      </>
+    // </div>
 
   );
 }

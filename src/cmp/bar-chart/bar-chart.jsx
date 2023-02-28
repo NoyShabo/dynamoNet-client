@@ -4,18 +4,20 @@ import { Bar } from '@visx/shape'
 import { Group } from '@visx/group'
 import { GridRows } from '@visx/grid';
 import { GradientTealBlue } from '@visx/gradient'
+import { Text } from "@visx/text";
+
 
 import { scaleBand, scaleLinear } from '@visx/scale'
 
 
-const data = [
-    {window: 'TimeRange 1', frequency: 20},
-    {window: 'TimeRange 2', frequency:70},
-    {window: 'TimeRange 3', frequency:80},
-    {window: 'TimeRange 4', frequency:55},
-    {window: 'TimeRange 5', frequency:45},
-    {window: 'TimeRange 6', frequency: 70}
-]
+// const data = [
+//     {window: 'TimeRange 1', frequency: 20},
+//     {window: 'TimeRange 2', frequency:70},
+//     {window: 'TimeRange 3', frequency:80},
+//     {window: 'TimeRange 4', frequency:55},
+//     {window: 'TimeRange 5', frequency:45},
+//     {window: 'TimeRange 6', frequency: 70}
+// ]
 // const data = [
 //     {window: 'TimeRange 1', frequency: 0.8024165831775307},
 //     {window: 'TimeRange 2', frequency:0.6122687803693816},
@@ -34,12 +36,17 @@ const margins = {
   left: 30,
 }
 
-export function BarChart({ width, height, isPercent=false, events = false }) {
+// max width 80% of the page view width
+const maxWidth = 0.8 * window.innerWidth;
+
+export function BarChart({ width, height, data, isPercent=false, events = false }) {
   // bounds
+  width = width<maxWidth ? width : maxWidth;
   const xMax = width - margins.left
   const yMax = height - verticalMargin
   
   const getLabelFrequency = (d) => Number(d.frequency) * (isPercent ?100 :1)
+  
   // scales, memoize for performance
   const xScale = useMemo(
     () =>
@@ -49,7 +56,7 @@ export function BarChart({ width, height, isPercent=false, events = false }) {
         domain: data.map(getLabel),
         padding: 0.4,
       }),
-    [xMax],
+    [xMax, data],
   )
 
   const yScale = useMemo(
@@ -59,14 +66,15 @@ export function BarChart({ width, height, isPercent=false, events = false }) {
         round: true,
         domain: [0, Math.max(...data.map(getLabelFrequency))],
       }),
-    [yMax ],
+    [yMax, data, getLabelFrequency],
   )
 
   return width < 10 ? null : (
     <svg width={width} height={height}>
-      <GradientTealBlue id="teal" />
+      <GradientTealBlue id="teal"  />
       <rect width={width} height={height} fill="#263145" rx={14} />
       <Group top={verticalMargin / 2} left={margins.left}>
+      {/* <Text textAnchor='middle' fill='#FFF' fontSize={16} fontWeight={200} dy={-300}fontFamily='cursive'>Title</Text> */}
         {data.map((d) => {
           const window = getLabel(d)
           const barWidth = xScale.bandwidth()
@@ -85,7 +93,7 @@ export function BarChart({ width, height, isPercent=false, events = false }) {
               
             stroke="rgba(10, 102, 128,0.8)"
             // fill="url(#area-gradient) "
-              fill="rgba(29, 152, 188,0.6)"
+              fill="rgb(112, 216, 189,0.8)"
               onClick={() => {
                 if (events) alert(`clicked: ${JSON.stringify(Object.values(d))}`)
               }}

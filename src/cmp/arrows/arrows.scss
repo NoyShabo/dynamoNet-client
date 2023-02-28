@@ -1,0 +1,30 @@
+
+$left-arrow-color: #333;
+$left-arrow-font-size: 16px;
+$left-arrow-font-weight: bold;
+$left-arrow-text-align: left;
+$left-arrow-padding: 0;
+$left-arrow-cursor: pointer;
+$left-arrow-icon: '\2190';
+$left-arrow-icon-rotation: 180deg;
+$left-arrow-icon-margin: 10px;
+
+.left-arrow {
+    border: none;
+    background-color: transparent;
+    color: $left-arrow-color;
+    font-size: $left-arrow-font-size;
+    font-weight: $left-arrow-font-weight;
+    text-align: $left-arrow-text-align;
+    padding: $left-arrow-padding;
+    cursor: $left-arrow-cursor;
+    background-color: #696666;
+
+    &::before {
+        content: $left-arrow-icon;
+        display: inline-block;
+        transform: rotate($left-arrow-icon-rotation);
+        margin-right: $left-arrow-icon-margin;
+    }
+}
+
