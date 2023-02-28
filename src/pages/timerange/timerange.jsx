@@ -5,9 +5,8 @@ import timeRange from "../../data/timeRange.json";
 
 export function Timerange() {
   const retweetsQuote = {
-    retweets: 32000,
-    quotes: 52220,
-    // timeRange_3:125,
+    retweets: timeRange.network.retweetNetworkMetrics.numberOfEdges,
+    quotes: timeRange.network.quoteNetworkMetrics.numberOfEdges,
   };
 
   return (
@@ -16,8 +15,11 @@ export function Timerange() {
       <DisplayGraph width="80vw" height="70vh" network={timeRange.network}/> 
       <h2 className="title">Metrics</h2>
       <div className="container-chart">
-        <PieChart width={300} height={300} dataObject={retweetsQuote} />
-        <PieChart width={300} height={300} dataObject={retweetsQuote} />
+        {/* {if (retweetsQuote.retweets > 0 && retweetsQuote.quotes > 0 ) {
+          <PieChart width={300} height={300} dataObject={retweetsQuote} />
+        } else {
+          <div className="no-data">No data</div>
+        } } */}
       </div>
     </div>
   );

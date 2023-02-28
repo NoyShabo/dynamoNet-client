@@ -121,15 +121,15 @@ export function Project(){
                                                                     }} />
                         </div>
                         <div className='chart-container'>
-                            <div className='small-title-project'>Overall Metrics</div>
+                            <div className='title-project'>Overall Metrics</div>
                             <MetricsBox {...project.sourceNetwork.networkMetrics} />
                         </div>
                         <div className='chart-container'>
-                            <div className='small-title-project'>Retweets Only Metrics</div>
+                            <div className='title-project'>Retweets Only Metrics</div>
                             <MetricsBox {...project.sourceNetwork.retweetNetworkMetrics} />
                         </div>
                         <div className='chart-container'>
-                            <div className='small-title-project'>Quotes Only Metrics</div>
+                            <div className='title-project'>Quotes Only Metrics</div>
                             <MetricsBox {...project.sourceNetwork.quoteNetworkMetrics} />
                         </div>
                     </div>

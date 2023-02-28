@@ -6,24 +6,15 @@ export function StatBox({ title, subtitle, progress, increase, icon }){
   return (
     <Box width="100%" m="0 30px" p="12px 0" overflow="hidden">
       <Box display="flex" justifyContent="space-between">
-        <Box>
+        <Box className="overflow-ellipsis">
           {icon}
           <Typography
             variant="h4"
             fontWeight="bold"
-            
-            sx={{ 
-              color:"#fff", 
-              fontFamily:"Source Sans Pro",
-              // ellipsis when overflow:
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              width: "100%"
-              // display: "inline-block",
-              // fontSize:"20px"
-
-             }}
+            sx={{    
+              color: "#fff",
+              fontFamily: "Source Sans Pro",
+            }}
           >
             {title}
           </Typography>
