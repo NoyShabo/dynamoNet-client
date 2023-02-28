@@ -1,6 +1,8 @@
 import { MetricsBox } from "../../cmp/metricsBox/metricsBox";
 import { PieChart } from "../../cmp/pie/pie";
 
+import "../../globalStyle.scss";
+
 export function NetworkMetrics({ network }) {
   const retweetsQuote = {
     retweets: network.retweetNetworkMetrics.numberOfEdges,

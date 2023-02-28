@@ -6,11 +6,11 @@ import "../../globalStyle.scss";
 
 import { BarChart } from "../../cmp/bar-chart/bar-chart";
 import { LineChart } from "../../cmp/line-chart/line-chart";
-import { MetricsBox } from "../../cmp/metricsBox/metricsBox";
-import { PieChart } from "../../cmp/pie/pie";
 import project from "../../data/project.json";
 
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
+
+import { DeleteButton } from "../../cmp/delete-button/deleteButton";
 
 const timeRanges = project.timeRanges;
 const cards = timeRanges.map((timeRange) => {
@@ -89,14 +89,19 @@ timeRanges.forEach((timeRange) => {
 });
 
 export function Project() {
+  const handleDelete = (id) => {
+    console.log("Delete");
+  };
+
   return (
     <div className="project-page">
       <div className="project-container">
-        <div className="title-project">Project Title</div>
-        <div className="small-title-project">Project Description</div>
+        <div className="project-header">
+          <div className="title-project">Project Title</div>
+          <div className="small-title-project">Project Description</div>
 
-        <Scroll items={cards} />
-
+          <Scroll items={cards} />
+        </div>
         <div className="network-evolution">
           <div className="title-project">Network Evolution</div>
           <div className="small-title-project">
@@ -175,6 +180,10 @@ export function Project() {
           </div>
           <NetworkMetrics network={project.sourceNetwork} />
         </div>
+        <DeleteButton
+          onDelete={handleDelete}
+          title={`Delete Project: ${project.title}`}
+        />
       </div>
     </div>
   );
