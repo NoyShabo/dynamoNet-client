@@ -3,21 +3,20 @@ import "@react-sigma/core/lib/react-sigma.min.css";
 import { useWorkerLayoutForceAtlas2 } from "@react-sigma/layout-forceatlas2";
 import Graph from "graphology";
 import { useEffect } from "react";
-import './networkGraph.scss'
+import "./networkGraph.scss";
 
-export const LoadGraph = ({network}) => {
+export const LoadGraph = ({ network }) => {
   const nodes = network.nodes.map((node) => {
-    return { id: node, label: node }
+    return { id: node, label: node };
   });
   const edges = network.edges.map((edge) => {
-    return { from: edge.source, to: edge.destination }
-  })
-const loadGraph = useLoadGraph();
+    return { from: edge.source, to: edge.destination };
+  });
+  const loadGraph = useLoadGraph();
   const { start, kill } = useWorkerLayoutForceAtlas2({
     settings: { slowDown: 15 },
   });
   useEffect(() => {
-
     const graph = new Graph();
     nodes.forEach((node) => {
       graph.addNode(node.id, {
@@ -49,18 +48,20 @@ const loadGraph = useLoadGraph();
     return () => {
       kill();
     };
-  }, [loadGraph, start, kill]);
+  }, [loadGraph, start]);
 
   return null;
 };
 
-export const DisplayGraph = ({width, height, network}) => {
+export const DisplayGraph = ({ width, height, network }) => {
   return (
     <div className="display-graph">
-      <SigmaContainer className="graph-container" style={{width, height, backgroundColor:"#fff"} } >
-          <LoadGraph network={network} />
+      <SigmaContainer
+        className="graph-container"
+        style={{ width, height, backgroundColor: "#DEE4E7" }}
+      >
+        <LoadGraph network={network} />
       </SigmaContainer>
     </div>
-
   );
 };

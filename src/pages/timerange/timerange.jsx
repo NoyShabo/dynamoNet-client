@@ -1,25 +1,26 @@
 import { DisplayGraph } from "../../cmp/network-graph/networkGraph";
-import { PieChart } from "../../cmp/pie/pie";
-import "./timerange.scss";
+import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 import timeRange from "../../data/timeRange.json";
+import "../../globalStyle.scss";
+import "./timerange.scss";
 
 export function Timerange() {
-  const retweetsQuote = {
-    retweets: timeRange.network.retweetNetworkMetrics.numberOfEdges,
-    quotes: timeRange.network.quoteNetworkMetrics.numberOfEdges,
-  };
-
   return (
     <div className="timerange">
-      <h2 className="title">Before election</h2>
-      <DisplayGraph width="80vw" height="70vh" network={timeRange.network}/> 
-      <h2 className="title">Metrics</h2>
-      <div className="container-chart">
-        {/* {if (retweetsQuote.retweets > 0 && retweetsQuote.quotes > 0 ) {
-          <PieChart width={300} height={300} dataObject={retweetsQuote} />
-        } else {
-          <div className="no-data">No data</div>
-        } } */}
+      <div className="timerange-container">
+        <div className="title-project">{timeRange.title}</div>
+        <div className="small-title-project">
+          {new Date(timeRange.startDate).toLocaleDateString()} ↔{" "}
+          {new Date(timeRange.endDate).toLocaleDateString()}
+        </div>
+        <div className="network-container">
+          <DisplayGraph
+            width="80vw"
+            height="70vh"
+            network={timeRange.network}
+          />
+        </div>
+        <NetworkMetrics network={timeRange.network} />
       </div>
     </div>
   );
