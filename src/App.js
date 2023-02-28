@@ -13,6 +13,7 @@ import { Navbar } from "./cmp/navbar/navbar";
 import { Profile } from "./pages/profile/profile";
 import { Project } from "./pages/project/project";
 import { ProjectsPage } from "./pages/projects/projects";
+import { NodesPage } from "./pages/nodesMetrics/nodesMetrics";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/table" element={<MultiTableDrag />} />
           <Route path="/project" element={<Project />} />
           <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/nodes" element={<NodesPage />} />
         </Routes>
       </div>
     </BrowserRouter>
