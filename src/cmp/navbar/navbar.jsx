@@ -16,7 +16,9 @@ export const Navbar = () => {
 
   return (
     <nav className={toggle?'navbar expanded':'navbar'}>
-        <h2 className='logo'>DynamoNet</h2>
+        <NavLink  to="/timerange"> 
+              <h2 className='logo'></h2>
+          </NavLink>
         <div className='toggle-icon' onClick={handleToggle}>
           {toggle?<Icon icon={x} size={28}/>:<Icon icon={menu} size={28}/>}
         </div>
@@ -24,12 +26,23 @@ export const Navbar = () => {
         <li className="nav-item">
             <NavLink
                 exact="true"
-                to="/addProject"
+                to="/timerange"
                 className="nav-links"
                 onClick={handleToggle}
 
             >
                 My Projects
+            </NavLink>
+         </li>
+         <li className="nav-item">
+            <NavLink
+                exact="true"
+                to="/addProject"
+                className="nav-links"
+                onClick={handleToggle}
+
+            >
+                New Project
             </NavLink>
          </li>
          <li className="nav-item">

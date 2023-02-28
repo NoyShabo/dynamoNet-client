@@ -5,12 +5,12 @@ import { BarChart } from "./cmp/bar-chart/bar-chart";
 import { AreaChart } from "./cmp/area-chart/area-chart";
 import { DisplayGraph } from "./cmp/network-graph/networkGraph";
 import { PieChart } from "./cmp/pie/pie";
+import { MultiTableDrag } from "./cmp/table/table";
 import { FormNewProject } from "./pages/form-new-project/form";
 import { LoginPage } from "./pages/login-signup/loginSignup";
 import { Timerange } from "./pages/timerange/timerange";
 import { Navbar } from "./cmp/navbar/navbar";
 import { Profile } from "./pages/profile/profile";
-import { MultiTableDrag } from "./cmp/table/table";
 import { Project } from "./pages/project/project";
 import { ProjectsPage } from "./pages/projects/projects";
 
@@ -18,7 +18,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-      <Navbar />
+        <Navbar />
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/addProject" element={<FormNewProject />} />
@@ -36,7 +36,10 @@ function App() {
               <AreaChart width={600} height={600} dataArray={appleStock} />
             }
           />
-          <Route path="/networkGraph" element={<DisplayGraph width="100vw" height="100vh"/>} />
+          <Route
+            path="/networkGraph"
+            element={<DisplayGraph width="100vw" height="100vh" />}
+          />
           <Route path="/timeRange" element={<Timerange />} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/table" element={<MultiTableDrag />} />

@@ -1,4 +1,15 @@
 .profilePage{
     background-color:#263145;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //  padding: 120px;
 }
+
+.profilePage-container{
+    width: 650px;
+    margin: auto;
+
+}
+

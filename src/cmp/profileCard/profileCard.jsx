@@ -1,13 +1,12 @@
 
 import React from "react";
 import "./profileCard.scss";
-import avatar from "./image-rita.png";
 
 export function ProfileCard(props) {
 	return (
 		<div className="card-container">
 			<header>
-				<img src={avatar} alt={props.name} />
+				{/* <img src={avatar} alt={props.name} /> */}
 			</header>
 			<h1 className="bold-text">
 				{props.name} 
@@ -24,10 +23,7 @@ export function ProfileCard(props) {
 					<h1 className="bold-text">{props.openProjects}</h1>
 					<h2 className="smaller-text">Open Projects</h2>
 				</div>
-				{/* <div className="photos">
-					<h1 className="bold-text">{props.photos}</h1>
-					<h2 className="smaller-text">Close Projects</h2>
-				</div> */}
+
 			</div>
 		</div>
 	);
