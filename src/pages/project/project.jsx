@@ -9,6 +9,8 @@ import { LineChart } from "../../cmp/line-chart/line-chart";
 import { MetricsBox } from "../../cmp/metricsBox/metricsBox";
 import { PieChart } from "../../cmp/pie/pie";
 import project from "../../data/project.json";
+import calendarImg from '../../images/calendar.png'
+
 
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 
@@ -16,6 +18,7 @@ const timeRanges = project.timeRanges;
 const cards = timeRanges.map((timeRange) => {
   return (
     <CardTimeRange
+      imgUrl={calendarImg}
       key={timeRange._id}
       id={timeRange._id}
       title={timeRange.title}

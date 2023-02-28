@@ -4,6 +4,7 @@ import "./profileCard.scss";
 
 export function ProfileCard(props) {
 	return (
+		<div className="profile-page">
 		<div className="card-container">
 			<header>
 				{/* <img src={avatar} alt={props.name} /> */}
@@ -25,6 +26,7 @@ export function ProfileCard(props) {
 				</div>
 
 			</div>
+		</div>
 		</div>
 	);
 }

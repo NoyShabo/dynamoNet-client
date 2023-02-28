@@ -14,6 +14,7 @@ import { Profile } from "./pages/profile/profile";
 import { Project } from "./pages/project/project";
 import { ProjectsPage } from "./pages/projects/projects";
 
+
 function App() {
   return (
     <BrowserRouter>

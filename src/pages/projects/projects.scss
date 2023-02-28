@@ -1,0 +1,18 @@
+.projects{
+    background-color: #263145;
+    padding-top: 80px;
+    min-height: 100vh;
+    
+ 
+    .projects-container{
+        max-width: 80vw;
+        margin: 0 auto;
+        margin-top: 100px;
+    }
+    
+    .cards-container{
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+}
