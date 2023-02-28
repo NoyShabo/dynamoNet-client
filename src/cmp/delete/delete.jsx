@@ -14,7 +14,7 @@ const buttonStyle = {
   },
 };
 
-export function DeleteButton({ onDelete, title, message }) {
+export function Delete({ onDelete, title, message }) {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
   const handleDelete = (event) => {
@@ -55,10 +55,22 @@ export function DeleteButton({ onDelete, title, message }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handleConfirmDelete(false)} autoFocus>
+          <Button
+            onClick={(event) => {
+              event.preventDefault();
+              handleConfirmDelete(false);
+            }}
+            autoFocus
+          >
             Cancel
           </Button>
-          <Button onClick={() => handleConfirmDelete(true)} color="error">
+          <Button
+            onClick={(event) => {
+              event.preventDefault();
+              handleConfirmDelete(true);
+            }}
+            color="error"
+          >
             Delete
           </Button>
         </DialogActions>

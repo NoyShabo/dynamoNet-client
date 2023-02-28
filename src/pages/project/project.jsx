@@ -1,16 +1,14 @@
-import { CardTimeRange } from "../../cmp/card/card";
-import "./project.scss";
-
-import { Scroll } from "../../cmp/scroll/scroll";
-import "../../globalStyle.scss";
-
+import React, { useState } from "react";
 import { BarChart } from "../../cmp/bar-chart/bar-chart";
+import { CardTimeRange } from "../../cmp/card/card";
+import { Delete } from "../../cmp/delete/delete";
+import { Edit } from "../../cmp/edit/edit";
 import { LineChart } from "../../cmp/line-chart/line-chart";
-import project from "../../data/project.json";
-
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
-
-import { DeleteButton } from "../../cmp/delete-button/deleteButton";
+import { Scroll } from "../../cmp/scroll/scroll";
+import project from "../../data/project.json";
+import "../../globalStyle.scss";
+import "./project.scss";
 
 const timeRanges = project.timeRanges;
 const cards = timeRanges.map((timeRange) => {
@@ -89,17 +87,39 @@ timeRanges.forEach((timeRange) => {
 });
 
 export function Project() {
+  const [title, setTitle] = useState(project.title);
+  const [description, setDescription] = useState(project.description);
+
   const handleDelete = (id) => {
     console.log("Delete");
+  };
+
+  const handleEdit = (values) => {
+    setTitle(values[0]);
+    setDescription(values[1]);
   };
 
   return (
     <div className="project-page">
       <div className="project-container">
         <div className="project-header">
-          <div className="title-project">Project Title</div>
-          <div className="small-title-project">Project Description</div>
-
+          {/* <div className="title-project">Project Title</div>
+          <div className="small-title-project">Project Description</div> */}
+          <Edit
+            inputs={[
+              {
+                type: "text",
+                value: title,
+                className: "title-project",
+              },
+              {
+                type: "text",
+                value: description,
+                className: "small-title-project",
+              },
+            ]}
+            onSubmit={handleEdit}
+          />
           <Scroll items={cards} />
         </div>
         <div className="network-evolution">
@@ -180,7 +200,7 @@ export function Project() {
           </div>
           <NetworkMetrics network={project.sourceNetwork} />
         </div>
-        <DeleteButton
+        <Delete
           onDelete={handleDelete}
           title={`Delete Project: ${project.title}`}
         />
