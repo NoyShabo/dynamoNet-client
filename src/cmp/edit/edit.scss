@@ -1,0 +1,19 @@
+.edit-container {
+    .form-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        input {
+            border: none;
+            outline: none;
+            background: none,
+        }
+    }
+
+    .edit-button-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+}
