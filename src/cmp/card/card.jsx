@@ -12,7 +12,7 @@ export function GlobalCard({id, title, description,imgUrl=projectImg, linkTo, mo
       shadow="sm"
       p="xl"
       component={Link}
-      to={`/timeRange`}
+      to={linkTo}
       fontFamily="Source Sans Pro"
     > 
       <Card.Section >

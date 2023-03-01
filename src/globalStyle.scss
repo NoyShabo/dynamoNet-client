@@ -2,17 +2,20 @@
     box-sizing: border-box;
 }
 
+// little bold
 @font-face {
     font-family: Source Sans Pro;
     src: url('./fonts/SourceSansPro-Black.ttf');
 
 }
 
+// regulr
 @font-face {
     font-family: SourceSansProR;
     src: url('./fonts/SourceSansPro-Regular.ttf');
 
 }
+// light
 @font-face {
     font-family: Source SansProLight;
     src: url('./fonts/SourceSansPro-Light.ttf');

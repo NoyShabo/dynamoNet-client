@@ -6,6 +6,8 @@ import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 import timeRange from "../../data/timeRange.json";
 import "../../globalStyle.scss";
 import "./timerange.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 export function Timerange() {
   const [timeRangeTitle, setTimeRangeTitle] = useState(timeRange.title);

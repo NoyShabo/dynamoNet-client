@@ -45,7 +45,7 @@ function App() {
           <Route path="/timeRange" element={<Timerange />} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/table" element={<MultiTableDrag />} />
-          <Route path="/project" element={<Project />} />
+          <Route path="/project/:projectId" element={<Project />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/nodes" element={<NodesPage />} />
         </Routes>

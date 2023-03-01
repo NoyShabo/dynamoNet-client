@@ -32,14 +32,6 @@ const bisectDate = bisector((d) => new Date(d.date)).left;
 
 export function AreaChart({dataArray,width,height}) {
 
-
-
-  useEffect(()=>{
-    console.log('====================================');
-    // console.log(bisectDate);
-    console.log('====================================');
-    // console.log(appleStock);
-  })
   const {
     tooltipData,
     tooltipLeft,
@@ -73,10 +65,6 @@ export function AreaChart({dataArray,width,height}) {
 
       const x0 = dateScale.invert(x);
       const index = bisectDate(stock, x0, 1);
-
-      console.log('====================================');
-      console.log(index, 'index');
-      console.log('====================================');
       const d0 = stock[index - 1];
       const d1 = stock[index];
       let d = d0;
