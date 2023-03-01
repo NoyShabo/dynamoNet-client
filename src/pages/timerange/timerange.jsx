@@ -24,7 +24,6 @@ export function Timerange() {
 
   const getTimeRangeById = async (id, withNetwork = false) => {
     const res = await getTimeRange(id, withNetwork);
-    console.log("timeRanges res: ", res);
     dispatch(setTimeRange(res));
   };
 
@@ -36,7 +35,6 @@ export function Timerange() {
   }, [timeRangeId, dispatch]);
 
   useEffect(() => {
-    console.log(timeRange);
     if (timeRange) {
       setTimeRangeTitle(timeRange.title);
       getTimeRangeById(timeRangeId, true);

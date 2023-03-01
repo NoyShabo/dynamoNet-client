@@ -141,7 +141,7 @@ export function Project() {
       setTitle(res.project.title);
       setDescription(res.project.description);
     } catch (err) {
-      console.log(JSON.stringify(err));
+      console.error("Updating project error!: ", err);
       // notify user about error
     }
   };

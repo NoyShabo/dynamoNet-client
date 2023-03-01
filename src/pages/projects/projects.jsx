@@ -7,7 +7,6 @@ import { getProjects } from "../../serverApi/rest/projectApi.js";
 import "./projects.scss";
 
 const makecards = (projects) => {
-  console.log("projects: ", projects);
   return projects.map((currProject) => {
     return (
       <GlobalCard
@@ -35,7 +34,7 @@ export function ProjectsPage() {
       const res = await getProjects();
       dispatch(setProjects(res));
     } catch (e) {
-      console.log(e);
+      console.error("error fetching projects!: ", e);
     }
   };
 
