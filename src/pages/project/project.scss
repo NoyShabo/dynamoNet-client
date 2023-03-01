@@ -11,13 +11,14 @@
     background-color: #263145;
     
     margin: 0 auto;
-    padding-top: 80px;
+    padding-top: 100px;
     padding-bottom: 10px;
+    min-height: 100vh;
 
    .project-container {
         max-width: 80vw;
         margin: 0 auto;
-        margin-top: 50px;
+        // margin-top: 50px;
         display: flex;
         justify-content: center;
         align-items: center;

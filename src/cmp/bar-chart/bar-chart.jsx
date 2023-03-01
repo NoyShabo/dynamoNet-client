@@ -77,6 +77,7 @@ export function BarChart({ width, height, data, isPercent=false, events = false 
       {/* <Text textAnchor='middle' fill='#FFF' fontSize={16} fontWeight={200} dy={-300}fontFamily='cursive'>Title</Text> */}
         {data.map((d) => {
           const window = getLabel(d)
+          const key = d.key
           const barWidth = xScale.bandwidth()
           const barHeight = yMax - (yScale(getLabelFrequency(d)) ?? 0)
           const barX = xScale(window)
@@ -84,16 +85,16 @@ export function BarChart({ width, height, data, isPercent=false, events = false 
           return (
             <Bar
               fontFamily='Sunflower'
-              key={`bar-${window}`}
+              key={key} 
               x={barX}
               y={barY}
               width={barWidth}
               height={barHeight}
               strokeWidth={1}
               
-            stroke="rgba(10, 102, 128,0.8)"
+            stroke="rgba(10, 102, 128,0.9)"
             // fill="url(#area-gradient) "
-              fill="rgb(112, 216, 189,0.8)"
+              fill="rgb(112, 216, 189,0.9)"
               onClick={() => {
                 if (events) alert(`clicked: ${JSON.stringify(Object.values(d))}`)
               }}

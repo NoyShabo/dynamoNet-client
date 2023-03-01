@@ -1,19 +1,18 @@
-const baseUrl = "http://localhost:3000/";
+const baseUrl = 'http://localhost:3500/';
 
 // get post patch delete with auth
 export const get = async (url, token) => {
-  const res = await fetch(`${baseUrl}${url}`, {
+  return await fetch(`${baseUrl}${url}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
-  return handleResult(res, "get");
 };
 
 export const post = async (url, data, token) => {
-  const res = await fetch(`${baseUrl}${url}`, {
+  return await fetch(`${baseUrl}${url}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,11 +20,10 @@ export const post = async (url, data, token) => {
     },
     body: JSON.stringify(data),
   });
-  return handleResult(res, "post");
 };
 
-export const patch = async (url, data, token) => {
-  const res = await fetch(`${baseUrl}${url}`, {
+export const update = async (url, data, token) => {
+  return await fetch(`${baseUrl}${url}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -33,18 +31,16 @@ export const patch = async (url, data, token) => {
     },
     body: JSON.stringify(data),
   });
-  return handleResult(res, "patch");
 };
 
 export const del = async (url, token) => {
-  const res = await fetch(`${baseUrl}${url}`, {
+  return await fetch(`${baseUrl}${url}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
-  return handleResult(res, "delete");
 };
 
 export const handleError = (res) => {
@@ -59,7 +55,7 @@ export const handleResult = async (
   customMessage = null
 ) => {
   const resData = await res.json();
-  console.log("serverApi", resData);
+  // console.log("serverApi", resData);
   if (res && resData && res.status < 400) {
     return resData;
   }

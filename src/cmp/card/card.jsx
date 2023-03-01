@@ -5,14 +5,14 @@ import projectImg from './project.png'
 
 import './card.scss'
 
-export function CardTimeRange({id, title, description,imgUrl=projectImg, moreDescription}) {
+export function GlobalCard({id, title, description,imgUrl=projectImg, linkTo, moreDescription}) {
   return (
     <div className='card-container'>
     <Card
       shadow="sm"
       p="xl"
       component={Link}
-      to={`/timeRange`}
+      to={linkTo}
       fontFamily="Source Sans Pro"
     > 
       <Card.Section >
