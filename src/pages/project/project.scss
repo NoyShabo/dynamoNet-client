@@ -12,40 +12,19 @@
     
     margin: 0 auto;
     padding-top: 80px;
+    padding-bottom: 10px;
 
    .project-container {
         max-width: 80vw;
         margin: 0 auto;
-        margin-top: 100px;
-
-    .project-title {
-        font-size: $title-font-size;
-        font-weight: $title-font-weight;
-        color: $title-color;
-        text-align: $title-text-align;
-    }
-    .project-description {
-        font-size: $description-font-size;
-        line-height: $description-line-height;
-        color: $description-color;
-        text-align: $description-text-align;
-    }
-   }
-
-    .charts-list{
+        margin-top: 50px;
         display: flex;
         justify-content: center;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
-    }
+        align-items: center;
+        flex-direction: column;
 
-    .chart-container{
-        margin: 30px;
-        box-shadow: 0px 2px 7px 0px;
-        padding: 30px;
-    }
-    .chart-container-line{
-        width: 100%;
-        height: 500px;
-    }
+        .project-header {
+            width: 100%;
+        }
+   }
 }

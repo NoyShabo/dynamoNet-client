@@ -2,29 +2,12 @@ import { useState,useCallback  } from 'react'
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import './login-signup.scss'
-const BASE_URL="localhost:3000";
 
 export function LoginPage(){
 
     const signUp = async () => {
 
-        let isNameExistResponse;
-        try{
-           isNameExistResponse = await fetch(`${BASE_URL}/api/auth/signup`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                }
-            });
-            if (isNameExistResponse.status === 400) {
-                // notifyError('userName is already exist')
-                return false;
-            }
-            return true;
-        }catch(err){
-                // notifyError('server error')
-            return false;
-        }
+        
     }
 
     const [isSignup, setIsSignup] = useState(false);

@@ -1,0 +1,202 @@
+{
+  "projects": [
+    {
+      "_id": "63fcc4f456cde2fae0231880",
+      "createdDate": "2023-02-27T14:48:47.130Z",
+      "title": "Project of 4 People",
+      "description": "This is a project of 4 people",
+      "dataset": [
+        "realDonaldTrump",
+        "JoeBiden",
+        "BernieSanders",
+        "KamalaHarris"
+      ],
+      "startDate": "2022-06-01T22:00:00.000Z",
+      "endDate": "2022-07-31T22:00:00.000Z",
+      "edgeType": "unset",
+      "timeRanges": [
+        {
+          "_id": "63fd0655c7b88a02f666bbed",
+          "startDate": "2022-06-01T00:00:00.000Z",
+          "endDate": "2022-06-15T00:00:00.000Z",
+          "network": "63fd0655c7b88a02f666bbec",
+          "title": "1-15 June"
+        },
+        {
+          "_id": "63fd0657c7b88a02f666bbef",
+          "startDate": "2022-06-16T00:00:00.000Z",
+          "endDate": "2022-06-30T00:00:00.000Z",
+          "network": "63fd0656c7b88a02f666bbee",
+          "title": "time range 1"
+        },
+        {
+          "_id": "63fd0658c7b88a02f666bbf1",
+          "startDate": "2022-07-01T00:00:00.000Z",
+          "endDate": "2022-07-15T00:00:00.000Z",
+          "network": "63fd0658c7b88a02f666bbf0",
+          "title": "time range 2"
+        },
+        {
+          "_id": "63fd065ac7b88a02f666bbf3",
+          "startDate": "2022-07-16T00:00:00.000Z",
+          "endDate": "2022-07-31T00:00:00.000Z",
+          "network": "63fd065ac7b88a02f666bbf2",
+          "title": "time range 3"
+        }
+      ],
+      "sourceNetwork": {
+        "_id": "63fcc4f256cde2fae023187e",
+        "networkMetrics": {
+          "numberOfNodes": 41215,
+          "numberOfEdges": 52634,
+          "density": 0.00006197211253758393,
+          "diameter": 4,
+          "radius": 0,
+          "reciprocity": 1,
+          "degreeCentrality": 0.6209707330685392
+        },
+        "retweetNetworkMetrics": {
+          "numberOfNodes": 1588,
+          "numberOfEdges": 4690,
+          "density": 0.003721991813205214,
+          "diameter": 4,
+          "radius": 2,
+          "reciprocity": 1,
+          "degreeCentrality": 1.0644112671445405
+        },
+        "quoteNetworkMetrics": {
+          "numberOfNodes": 39627,
+          "numberOfEdges": 47944,
+          "density": 0.00006106506591927632,
+          "diameter": 4,
+          "radius": 1,
+          "reciprocity": 1,
+          "degreeCentrality": 0.6122193671713805
+        },
+        "nodeMetrics": {}
+      },
+      "favoriteNodes": [
+        "realDonaldTrump",
+        "JoeBiden",
+        "BernieSanders",
+        "KamalaHarris"
+      ],
+      "status": "ready"
+    },
+    {
+      "_id": "63fcf8ca0cd41b9f7c241b17",
+      "createdDate": "2023-02-27T18:39:06.553Z",
+      "title": "November 2",
+      "description": "dataset of 2, for 1 month with limit 2",
+      "dataset": ["TulsiGabbard", "amyklobuchar"],
+      "startDate": "2022-11-01T22:00:00.000Z",
+      "endDate": "2022-11-25T22:00:00.000Z",
+      "edgeType": "unset",
+      "timeRanges": [
+        {
+          "_id": "63fd08c15db8fa44ffcd419d",
+          "startDate": "2022-11-05T00:00:00.000Z",
+          "endDate": "2022-11-14T00:00:00.000Z",
+          "network": "63fd08c05db8fa44ffcd419c",
+          "title": "time range 0"
+        },
+        {
+          "_id": "63fd08c25db8fa44ffcd419f",
+          "startDate": "2022-11-19T00:00:00.000Z",
+          "endDate": "2022-11-26T00:00:00.000Z",
+          "network": "63fd08c25db8fa44ffcd419e",
+          "title": "time range 1"
+        }
+      ],
+      "favoriteNodes": [],
+      "__v": 0,
+      "sourceNetwork": {
+        "_id": "63fcf8effd9c4ac8e993522f",
+        "networkMetrics": {
+          "numberOfNodes": 365,
+          "numberOfEdges": 370,
+          "density": 0.005569772693060365,
+          "diameter": 2,
+          "radius": 1,
+          "reciprocity": 1,
+          "degreeCentrality": 0.9888596252232615
+        },
+        "retweetNetworkMetrics": {
+          "numberOfNodes": 6,
+          "numberOfEdges": 4,
+          "density": 0.26666666666666666,
+          "diameter": 2,
+          "radius": 0,
+          "reciprocity": 1,
+          "degreeCentrality": 0.8
+        },
+        "quoteNetworkMetrics": {
+          "numberOfNodes": 361,
+          "numberOfEdges": 366,
+          "density": 0.005632502308402586,
+          "diameter": 2,
+          "radius": 1,
+          "reciprocity": 1,
+          "degreeCentrality": 0.9999071494893222
+        },
+        "nodeMetrics": {}
+      },
+      "status": "ready"
+    },
+    {
+      "_id": "63fde043d543f9e4a7436139",
+      "createdDate": "2023-02-28T10:02:15.653Z",
+      "title": "Project of 10 People",
+      "description": "This is a project of 10 people",
+      "dataset": [
+        "realDonaldTrump",
+        "JoeBiden",
+        "BernieSanders",
+        "KamalaHarris",
+        "AndrewYang",
+        "PeteButtigieg",
+        "ElizabethWarren",
+        "MikeBloomberg",
+        "TulsiGabbard",
+        "amyklobuchar"
+      ],
+      "startDate": "2022-02-01T22:00:00.000Z",
+      "endDate": "2022-05-01T22:00:00.000Z",
+      "edgeType": "unset",
+      "timeRanges": [],
+      "sourceNetwork": {
+        "_id": "63fde03fd543f9e4a7436137",
+        "networkMetrics": {
+          "numberOfNodes": 201132,
+          "numberOfEdges": 336788,
+          "density": 0.0000166504670290727,
+          "diameter": 4,
+          "radius": 2,
+          "reciprocity": 1,
+          "degreeCentrality": 0.6383497708861895
+        },
+        "retweetNetworkMetrics": {
+          "numberOfNodes": 9751,
+          "numberOfEdges": 20677,
+          "density": 0.000434974453639206,
+          "diameter": 6,
+          "radius": 3,
+          "reciprocity": 1,
+          "degreeCentrality": 0.8024988545833761
+        },
+        "quoteNetworkMetrics": {
+          "numberOfNodes": 194528,
+          "numberOfEdges": 316111,
+          "density": 0.00001670735087617039,
+          "diameter": 4,
+          "radius": 2,
+          "reciprocity": 1,
+          "degreeCentrality": 0.6467639119008176
+        },
+        "nodeMetrics": {}
+      },
+      "favoriteNodes": [],
+      "status": "ready"
+    }
+  ]
+}
