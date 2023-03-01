@@ -14,7 +14,7 @@ export const post = async (url, data, token) => {
   return handleResult(res, "post");
 };
 
-export const patch = async (url, data, token) => {
+export const update = async (url, data, token) => {
   const res = await fetch(`${baseUrl}${url}`, {
     method: "PATCH",
     headers: {
