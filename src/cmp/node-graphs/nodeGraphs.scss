@@ -2,6 +2,12 @@
 
 
 .graphs{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+
     .chart-container{
     margin: 30px;
     box-shadow: 0px 2px 7px 0px;

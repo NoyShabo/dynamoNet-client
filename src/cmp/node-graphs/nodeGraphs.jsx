@@ -4,6 +4,56 @@ import './nodeGraphs.scss'
 
 import { BarChart } from '../bar-chart/bar-chart';
 import {LineChart} from '../line-chart/line-chart';
+import {NodeCard} from '../node-details/nodeDetails'
+
+
+function getNodeSelectedDetails(name){
+    console.log(name=="JoeBiden")
+    ///fetche 
+    let fetchNode;
+    if(name=="BernieSanders"){
+    return fetchNode= {
+        "_id": "63f61e5a43ed141319fe4084",
+        "twitterId": "74076264",
+        "name": "BernieSanders",
+        "screenName": "RevMaryLou",
+        "location": "Rochester, NY",
+        "description": "I am a retired minister and teacher. I am a singer/songwriter. I am poor. My son & I are medically disabled and share housing. I seek a just society.",
+        "followersCount": 55,
+        "friendsCount": 3,
+        "statusesCount": 44,
+        "registrationDateTwitter": "2009-09-14T04:54:35.000Z"
+    };
+    }
+    if(name=="JoeBiden"){
+        return fetchNode= {
+            "_id": "63f61e5a43ed141319fe4084",
+            "twitterId": "74076264",
+            "name": "JoeBiden",
+            "screenName": "RevMaryLou",
+            "location": "Rochester, NY",
+            "description": "I am a retired minister and teacher. I am a singer/songwriter. I am poor. My son & I are medically disabled and share housing. I seek a just society.",
+            "followersCount": 3,
+            "friendsCount": 44,
+            "statusesCount": 55,
+            "registrationDateTwitter": "2009-09-14T04:54:35.000Z"
+        };
+        }     
+        
+            return fetchNode= {
+                "_id": "63f61e5a43ed141319fe4084",
+                "twitterId": "74076264",
+                "name": "KamalaHarris",
+                "screenName": "RevMaryLou",
+                "location": "Rochester, NY",
+                "description": "I am a retired minister and teacher. I am a singer/songwriter. I am poor. My son & I are medically disabled and share housing. I seek a just society.",
+                "followersCount": 3,
+                "friendsCount": 44,
+                "statusesCount": 55,
+                "registrationDateTwitter": "2009-09-14T04:54:35.000Z"
+            };
+            
+}
 
 function getNodeMetrics(timeRanges, nodeName) {
     const result = [];
@@ -44,6 +94,7 @@ export function NodeGraphs({ timeRanges, nodeName }) {
     const [closenessCentralityMetricData, setclosenessCentralityMetricData] = useState([]); 
     const [betweennessCentralityMetricData, setbetweennessCentralityMetricData] = useState([]); 
     const [localClusteringCoefficientMetricData, setlocalClusteringCoefficientMetricData] = useState([]); 
+    const [nodeSelected,setNodeSelected]=useState({}); 
 
     useEffect(() => {
         setNodeMetrics(getNodeMetrics(timeRanges, nodeName));
@@ -56,9 +107,14 @@ export function NodeGraphs({ timeRanges, nodeName }) {
         setlocalClusteringCoefficientMetricData(getNodeMetricsByMetricName("localClusteringCoefficient", nodeMetrics));
     }, [nodeMetrics]);
  
+    useEffect(() => {
+        setNodeSelected(getNodeSelectedDetails( nodeName));
+    }, [nodeSelected]);
+
     return (
         <div className='graphs'>
-            <div className="head-title">{nodeName} Evolution</div>
+            <NodeCard nodeDetails={nodeSelected}></NodeCard>
+            <div className="head-title"> Node Evolution</div>
             <div className="charts-list">
                 <div className='chart-container'>
                     <div className='small-title-project'>Degree Evolution</div>

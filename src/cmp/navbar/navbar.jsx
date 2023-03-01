@@ -26,7 +26,7 @@ export const Navbar = () => {
         <li className="nav-item">
             <NavLink
                 exact="true"
-                to="/timerange"
+                to="/projects"
                 className="nav-links"
                 onClick={handleToggle}
 

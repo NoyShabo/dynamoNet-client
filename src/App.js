@@ -14,6 +14,7 @@ import { Profile } from "./pages/profile/profile";
 import { Project } from "./pages/project/project";
 import { ProjectsPage } from "./pages/projects/projects";
 import { NodesPage } from "./pages/nodesMetrics/nodesMetrics";
+import { NodeCard } from "./cmp/node-details/nodeDetails";
 
 
 function App() {
@@ -48,6 +49,8 @@ function App() {
           <Route path="/project" element={<Project />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/nodes" element={<NodesPage />} />
+          <Route path="/nodeCard" element={<NodeCard />} />
+
         </Routes>
       </div>
     </BrowserRouter>

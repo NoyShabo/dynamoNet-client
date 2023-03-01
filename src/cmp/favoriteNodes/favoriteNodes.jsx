@@ -24,16 +24,24 @@ export function AddNewNode({ addNode }) {
     );
 }
 
-export function FavoriteNodes() {
+export function FavoriteNodes({setSelectedNode}) {
 
     const [nodes, setNodes] = useState([{
-        name: "Noy Sabo",
+        _id: "63f61e5a43ed141319fe4084",
+        twitterId: "74076264",
+        name: "JoeBiden",
+        screenName: "RevMaryLou",
+        location: "Rochester, NY",
+        description: "I am a retired minister and teacher. I am a singer/songwriter. I am poor. My son & I are medically disabled and share housing. I seek a just society.",
+        followersCount: 328,
+        friendsCount: 807,
+        statusesCount: 28674,
+        registrationDateTwitter: "2009-09-14"
+    }, {
+        name: "BernieSanders",
         isSelected: false
     }, {
-        name: "Adi peled",
-        isSelected: false
-    }, {
-        name: "noor haj dawood",
+        name: "KamalaHarris",
         isSelected: false
     }]);
 
@@ -59,7 +67,7 @@ export function FavoriteNodes() {
                 <h1>Favorite Nodes</h1>
                 <div className="nodes-list">
                     {nodes.map((node, index) => (
-                        <div className="node">
+                        <div className="node" onClick={()=>setSelectedNode(node.name)}> 
                             <span>
                                 {node.name}
                             </span>
