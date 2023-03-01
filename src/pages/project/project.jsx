@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BarChart } from "../../cmp/bar-chart/bar-chart";
-import { CardTimeRange } from "../../cmp/card/card";
+import { GlobalCard } from "../../cmp/card/card";
 import { Delete } from "../../cmp/delete/delete";
 import { Edit } from "../../cmp/edit/edit";
 import { LineChart } from "../../cmp/line-chart/line-chart";
@@ -10,11 +10,12 @@ import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 import { Scroll } from "../../cmp/scroll/scroll";
 import "../../globalStyle.scss";
 import "./project.scss";
+import { useSelector } from "react-redux";
 
 const timeRanges = project.timeRanges;
 const cards = timeRanges.map((timeRange) => {
   return (
-    <CardTimeRange
+    <GlobalCard
       imgUrl={calendarImg}
       key={timeRange._id}
       id={timeRange._id}
@@ -89,6 +90,9 @@ timeRanges.forEach((timeRange) => {
 });
 
 export function Project() {
+  // const projects = useSelector((state)=>state.project);
+  // console.log('projects', projects);
+
   const [title, setTitle] = useState(project.title);
   const [description, setDescription] = useState(project.description);
 

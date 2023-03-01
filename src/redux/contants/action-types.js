@@ -1,0 +1,5 @@
+export const ProjectActionTypes ={
+    GET_PROJECTS: "GET_PROJECTS",
+    ADD_PROJECT: "ADD_PROJECT",
+    DELETE_PROJECT: "DELETE_PROJECT"
+}

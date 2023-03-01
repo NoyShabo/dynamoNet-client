@@ -1,54 +1,37 @@
-import { CardTimeRange } from "../../cmp/card/card"
-import projects from "../../data/projects.json";
-
+import { GlobalCard } from "../../cmp/card/card"
 import "./projects.scss"
 import '../../globalStyle.scss'
+import { useSelector } from "react-redux";
 
-const projectsArray = projects.projects;
-const cards = projectsArray.map((currProject) => {
-  return (
-    <CardTimeRange
-      key={currProject._id}
-      id={currProject._id}
-      title={currProject.title}
-      description={`${new Date(
-        currProject.startDate
-      ).toLocaleDateString()} ↔  ${new Date(
-        currProject.endDate
-      ).toLocaleDateString()}`}
-      moreDescription={currProject.description}
-    />
-  );
-});
-
-cards.push(
-    <CardTimeRange
-      key="55"
-      title="The best Title"
-      description={`${new Date().toLocaleDateString()} ↔  
-        ${new Date().toLocaleDateString()}`}
-      moreDescription="this is a descriptionnnnnnnnnnnnnnnnnnn"
-    />
-)
-cards.push(
-    <CardTimeRange
-      key="56"
-      title="The best Title"
-      description={`${new Date().toLocaleDateString()} ↔  
-        ${new Date().toLocaleDateString()}`}
-      moreDescription="this is a descriptionnnnnnnnnnnnnnnnnnn"
-    />
-)
-
+const makecards = (projects) =>{
+  return projects.map((currProject) => {
+    return (
+      <GlobalCard
+        key={currProject._id}
+        id={currProject._id}
+        title={currProject.title}
+        linkTo={`/project/${currProject._id}`}
+        description={`${new Date(
+          currProject.startDate
+        ).toLocaleDateString()} ↔  ${new Date(
+          currProject.endDate
+        ).toLocaleDateString()}`}
+        moreDescription={currProject.description}
+      />
+    );
+  });
+}
 
 export function ProjectsPage(){
+
+  const projects = useSelector((state)=>state.allProjects.projects);
     return (
     <div className="projects">
          <div className="projects-container">
             <div className="title-project ">My Projects</div>
             <div className="small-title-project">All My Projects</div>
             <div className="cards-container">
-                {cards}
+                {makecards(projects)}
             </div>
          </div>
     </div>)
