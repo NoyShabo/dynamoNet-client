@@ -20,7 +20,7 @@ export function Timerange() {
   const timeRange = useSelector((state) => state.timeRangeModule.timeRange);
   const dispatch = useDispatch();
   const [timeRangeTitle, setTimeRangeTitle] = useState("");
-  const { timeRangeId } = useParams();
+  const { timeRangeId, projectId } = useParams();
 
   const getTimeRangeById = async (id, withNetwork = false) => {
     const res = await getTimeRange(id, withNetwork);
@@ -45,6 +45,15 @@ export function Timerange() {
     console.log("Delete");
   };
 
+  const handleUpdate = async (title) => {
+    try {
+      const res = await updateTimeRange(timeRangeId, projectId, { title });
+      setTimeRangeTitle(title);
+    } catch (e) {
+      console.error("error updating time range: ", e);
+    }
+  };
+
   return (
     <div className="timerange">
       {!timeRange && (
@@ -58,11 +67,11 @@ export function Timerange() {
                 inputs={[
                   {
                     type: "text",
-                    value: timeRangeTitle,
+                    value: timeRangeTitle || timeRange.title,
                     className: "title-project",
                   },
                 ]}
-                onSubmit={(values) => setTimeRangeTitle(values[0])}
+                onSubmit={(values) => handleUpdate(values[0])}
               />
 
               <div className="small-title-project">

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GlobalCard } from "../../cmp/card/card";
 import "../../globalStyle.scss";
+import projectImg from "../../images/project_folder.png";
 import { setProjects } from "../../redux/actions/projectActions";
 import { getProjects } from "../../serverApi/rest/projectApi.js";
 import "./projects.scss";
@@ -10,6 +11,7 @@ const makecards = (projects) => {
   return projects.map((currProject) => {
     return (
       <GlobalCard
+        imgUrl={projectImg}
         key={currProject._id}
         id={currProject._id}
         title={currProject.title}

@@ -42,7 +42,10 @@ function App() {
             path="/networkGraph"
             element={<DisplayGraph width="100vw" height="100vh" />}
           />
-          <Route path="/timeRange/:timeRangeId" element={<Timerange />} />
+          <Route
+            path="/project/:projectId/timeRange/:timeRangeId"
+            element={<Timerange />}
+          />
           <Route path="/profile" element={<Profile />} />
           <Route path="/table" element={<MultiTableDrag />} />
           <Route path="/project/:projectId" element={<Project />} />

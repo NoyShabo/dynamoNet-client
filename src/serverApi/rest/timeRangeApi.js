@@ -22,7 +22,7 @@ export const createTimeRanges = async (body) => {
 
 export const updateTimeRange = async (timeRangeId, projectId, body) => {
   const res = await serverApi.update(
-    `api/timeRanges/${timeRangeId}/project/${projectId}`,
+    `api/timeRanges/${timeRangeId}/projects/${projectId}`,
     body
   );
   return serverApi.handleResult(res, "Update a time range error");

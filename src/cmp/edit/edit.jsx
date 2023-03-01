@@ -2,7 +2,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./edit.scss";
 
 const buttonStyle = {
@@ -12,10 +12,12 @@ const buttonStyle = {
 };
 
 export function Edit(props) {
-  const [values, setValues] = useState(
-    props.inputs.map((input) => input.value)
-  );
+  const [values, setValues] = useState([]);
   const [editMode, setEditMode] = useState(false);
+
+  useEffect(() => {
+    setValues(props.inputs.map((input) => input.value));
+  }, [props.inputs]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

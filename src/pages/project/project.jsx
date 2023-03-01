@@ -9,6 +9,7 @@ import { LineChart } from "../../cmp/line-chart/line-chart";
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 import { Scroll } from "../../cmp/scroll/scroll";
 import "../../globalStyle.scss";
+import newTimeRangeImg from "../../images/add_timerange.png";
 import calendarImg from "../../images/calendar.png";
 import {
   removeSelectedProject,
@@ -25,7 +26,7 @@ function getTimeRangeCards(project) {
         imgUrl={calendarImg}
         key={timeRange._id}
         id={timeRange._id}
-        linkTo={`/timeRange/${timeRange._id}`}
+        linkTo={`/project/${project._id}/timeRange/${timeRange._id}`}
         title={timeRange.title}
         description={`${new Date(
           timeRange.startDate
@@ -168,7 +169,22 @@ export function Project() {
               ]}
               onSubmit={handleEdit}
             />
-            <Scroll items={getTimeRangeCards(project)} />
+            <div className="small-title-project">
+              {new Date(project.startDate).toLocaleDateString()} ↔{" "}
+              {new Date(project.endDate).toLocaleDateString()}
+            </div>
+            <Scroll
+              items={[
+                ...getTimeRangeCards(project),
+                <GlobalCard
+                  imgUrl={newTimeRangeImg}
+                  key="newTimeRangeForm"
+                  linkTo="/addProject"
+                  title="New Time Range"
+                  description="Create new time ranges"
+                />,
+              ]}
+            />
           </div>
           {project.timeRanges.length === 0 ? (
             <div className="small-title-project">No Time Ranges</div>
