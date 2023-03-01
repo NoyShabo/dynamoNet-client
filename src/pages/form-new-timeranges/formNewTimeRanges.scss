@@ -1,0 +1,40 @@
+.form-new-timeranges {
+    display: flex;
+    justify-content: center;
+    background-color: #263145;
+    height: 100vh;
+
+    .form-new-project-container {
+        width: 650px;
+        height: fit-content;
+        margin: auto;
+        padding: 62px;
+        box-shadow: 0px 3px 12px 3px;
+        border-radius: 15px;
+        background-color: rgb(226, 225, 225);
+
+        h3 {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .container-row {
+            align-items: start;
+        }
+
+        .add-btn {
+            width: 127px;
+            font-size: 13px;
+        }
+
+        .red-btn {
+            background: #a9a9a9;
+            width: 155px;
+            font-size: 13px;
+        }
+
+        .red-btn:hover {
+            background: #b4b4b4;
+        }
+    }
+}

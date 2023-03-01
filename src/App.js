@@ -9,6 +9,7 @@ import { NodeCard } from "./cmp/node-details/nodeDetails";
 import { PieChart } from "./cmp/pie/pie";
 import { MultiTableDrag } from "./cmp/table/table";
 import { FormNewProject } from "./pages/form-new-project/form";
+import { FormNewTimeRanges } from "./pages/form-new-timeranges/formNewTimeRanges";
 import { LoginPage } from "./pages/login-signup/loginSignup";
 import { NodesPage } from "./pages/nodesMetrics/nodesMetrics";
 import { Profile } from "./pages/profile/profile";
@@ -52,6 +53,10 @@ function App() {
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/nodes" element={<NodesPage />} />
           <Route path="/nodeCard" element={<NodeCard />} />
+          <Route
+            path="/project/:projectId/network/:networkId/addTimeRanges"
+            element={<FormNewTimeRanges />}
+          />
         </Routes>
       </div>
     </BrowserRouter>

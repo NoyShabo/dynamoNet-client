@@ -179,7 +179,7 @@ export function Project() {
                 <GlobalCard
                   imgUrl={newTimeRangeImg}
                   key="newTimeRangeForm"
-                  linkTo="/addProject"
+                  linkTo={`/project/${project._id}/network/${project.sourceNetwork._id}/addTimeRanges`}
                   title="New Time Range"
                   description="Create new time ranges"
                 />,
