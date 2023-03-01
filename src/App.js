@@ -1,20 +1,19 @@
 import appleStock from "@visx/mock-data/lib/mocks/appleStock";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { BarChart } from "./cmp/bar-chart/bar-chart";
 import { AreaChart } from "./cmp/area-chart/area-chart";
+import { BarChart } from "./cmp/bar-chart/bar-chart";
+import { Navbar } from "./cmp/navbar/navbar";
 import { DisplayGraph } from "./cmp/network-graph/networkGraph";
 import { PieChart } from "./cmp/pie/pie";
 import { MultiTableDrag } from "./cmp/table/table";
 import { FormNewProject } from "./pages/form-new-project/form";
 import { LoginPage } from "./pages/login-signup/loginSignup";
-import { Timerange } from "./pages/timerange/timerange";
-import { Navbar } from "./cmp/navbar/navbar";
+import { NodesPage } from "./pages/nodesMetrics/nodesMetrics";
 import { Profile } from "./pages/profile/profile";
 import { Project } from "./pages/project/project";
 import { ProjectsPage } from "./pages/projects/projects";
-import { NodesPage } from "./pages/nodesMetrics/nodesMetrics";
-
+import { Timerange } from "./pages/timerange/timerange";
 
 function App() {
   return (
@@ -42,8 +41,8 @@ function App() {
             path="/networkGraph"
             element={<DisplayGraph width="100vw" height="100vh" />}
           />
-          <Route path="/timeRange" element={<Timerange />} />
-          <Route path="/profile" element={<Profile/>} />
+          <Route path="/timeRange/:timeRangeId" element={<Timerange />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/table" element={<MultiTableDrag />} />
           <Route path="/project/:projectId" element={<Project />} />
           <Route path="/projects" element={<ProjectsPage />} />

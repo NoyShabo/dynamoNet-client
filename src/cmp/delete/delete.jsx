@@ -30,7 +30,7 @@ export function Delete({ onDelete, title, message }) {
   };
 
   return (
-    <div>
+    <>
       <Button
         variant="contained"
         color="error"
@@ -75,6 +75,6 @@ export function Delete({ onDelete, title, message }) {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }

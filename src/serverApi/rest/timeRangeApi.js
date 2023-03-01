@@ -8,6 +8,7 @@ export const getTimeRange = async (timeRangeId, withNetwork = true) => {
   } else {
     res = await serverApi.get(`api/timeRanges/${timeRangeId}`);
   }
+  console.log(res);
   return serverApi.handleResult(res, "Get time range error");
 };
 
