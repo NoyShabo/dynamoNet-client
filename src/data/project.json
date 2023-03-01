@@ -1,307 +1,302 @@
 {
-    "_id": "63fcc4f456cde2fae0231880",
-    "createdDate": "2023-02-27T14:48:47.130Z",
-    "title": "Project of 4 People",
-    "description": "This is a project of 4 people",
-    "dataset": [
-        "realDonaldTrump",
-        "JoeBiden",
-        "BernieSanders",
-        "KamalaHarris"
-    ],
-    "startDate": "2022-06-01T22:00:00.000Z",
-    "endDate": "2022-07-31T22:00:00.000Z",
-    "edgeType": "unset",
-    "timeRanges": [
-        {
-            "_id": "63fd0655c7b88a02f666bbed",
-            "startDate": "2022-06-01T00:00:00.000Z",
-            "endDate": "2022-06-15T00:00:00.000Z",
-            "network": {
-                "_id": "63fd0655c7b88a02f666bbec",
-                "networkMetrics": {
-                    "numberOfNodes": 138,
-                    "numberOfEdges": 193,
-                    "density": 0.020416798899820163,
-                    "diameter": 4,
-                    "radius": 1,
-                    "reciprocity": 1,
-                    "degreeCentrality": 0.8754830399313009
-                },
-                "retweetNetworkMetrics": {
-                    "numberOfNodes": null,
-                    "numberOfEdges": null,
-                    "density": null,
-                    "diameter": null,
-                    "radius": null,
-                    "reciprocity": null,
-                    "degreeCentrality": null
-                },
-                "quoteNetworkMetrics": {
-                    "numberOfNodes": null,
-                    "numberOfEdges": null,
-                    "density": null,
-                    "diameter": null,
-                    "radius": null,
-                    "reciprocity": null,
-                    "degreeCentrality": null
-                },
-                "nodeMetrics": {
-                    "realDonaldTrump": null,
-                    "JoeBiden": {
-                        "degree": 6,
-                        "inDegree": 6,
-                        "outDegree": 6,
-                        "closenessCentrality": 0.35080645161290325,
-                        "betweennessCentrality": 420.0000000000002,
-                        "localClusteringCoefficient": 0
-                    },
-                    "BernieSanders": {
-                        "degree": 66,
-                        "inDegree": 66,
-                        "outDegree": 66,
-                        "closenessCentrality": 1,
-                        "betweennessCentrality": 1176,
-                        "localClusteringCoefficient": 0
-                    },
-                    "KamalaHarris": {
-                        "degree": 121,
-                        "inDegree": 121,
-                        "outDegree": 121,
-                        "closenessCentrality": 0.8877551020408163,
-                        "betweennessCentrality": 3720,
-                        "localClusteringCoefficient": 0
-                    }
-                }
-            },
-            "title": "1-15 June"
-        },
-        {
-            "_id": "63fd0657c7b88a02f666bbef",
-            "startDate": "2022-06-16T00:00:00.000Z",
-            "endDate": "2022-06-30T00:00:00.000Z",
-            "network": {
-                "_id": "63fd0656c7b88a02f666bbee",
-                "networkMetrics": {
-                    "numberOfNodes": 230,
-                    "numberOfEdges": 388,
-                    "density": 0.014733244731346117,
-                    "diameter": 4,
-                    "radius": 1,
-                    "reciprocity": 1,
-                    "degreeCentrality": 0.8000842718149085
-                },
-                "retweetNetworkMetrics": {
-                    "numberOfNodes": null,
-                    "numberOfEdges": null,
-                    "density": null,
-                    "diameter": null,
-                    "radius": null,
-                    "reciprocity": null,
-                    "degreeCentrality": null
-                },
-                "quoteNetworkMetrics": {
-                    "numberOfNodes": null,
-                    "numberOfEdges": null,
-                    "density": null,
-                    "diameter": null,
-                    "radius": null,
-                    "reciprocity": null,
-                    "degreeCentrality": null
-                },
-                "nodeMetrics": {
-                    "realDonaldTrump": null,
-                    "JoeBiden": {
-                        "degree": 54,
-                        "inDegree": 54,
-                        "outDegree": 54,
-                        "closenessCentrality": 1,
-                        "betweennessCentrality": 135.99999999999994,
-                        "localClusteringCoefficient": 0
-                    },
-                    "BernieSanders": {
-                        "degree": 185,
-                        "inDegree": 185,
-                        "outDegree": 185,
-                        "closenessCentrality": 0.5222772277227723,
-                        "betweennessCentrality": 17304.833333333332,
-                        "localClusteringCoefficient": 0
-                    },
-                    "KamalaHarris": {
-                        "degree": 149,
-                        "inDegree": 149,
-                        "outDegree": 149,
-                        "closenessCentrality": 0.48394495412844035,
-                        "betweennessCentrality": 15600.166666666668,
-                        "localClusteringCoefficient": 0
-                    }
-                }
-            },
-            "title": "time range 1"
-        },
-        {
-            "_id": "63fd0658c7b88a02f666bbf1",
-            "startDate": "2022-07-01T00:00:00.000Z",
-            "endDate": "2022-07-15T00:00:00.000Z",
-            "network": {
-                "_id": "63fd0658c7b88a02f666bbf0",
-                "networkMetrics": {
-                    "numberOfNodes": 160,
-                    "numberOfEdges": 385,
-                    "density": 0.030267295597484277,
-                    "diameter": 4,
-                    "radius": 1,
-                    "reciprocity": 1,
-                    "degreeCentrality": 1.1284929543826128
-                },
-                "retweetNetworkMetrics": {
-                    "numberOfNodes": null,
-                    "numberOfEdges": null,
-                    "density": null,
-                    "diameter": null,
-                    "radius": null,
-                    "reciprocity": null,
-                    "degreeCentrality": null
-                },
-                "quoteNetworkMetrics": {
-                    "numberOfNodes": null,
-                    "numberOfEdges": null,
-                    "density": null,
-                    "diameter": null,
-                    "radius": null,
-                    "reciprocity": null,
-                    "degreeCentrality": null
-                },
-                "nodeMetrics": {
-                    "realDonaldTrump": null,
-                    "JoeBiden": {
-                        "degree": 103,
-                        "inDegree": 103,
-                        "outDegree": 103,
-                        "closenessCentrality": 0.44324324324324327,
-                        "betweennessCentrality": 1785.2142857142856,
-                        "localClusteringCoefficient": 0
-                    },
-                    "BernieSanders": {
-                        "degree": 182,
-                        "inDegree": 182,
-                        "outDegree": 182,
-                        "closenessCentrality": 1,
-                        "betweennessCentrality": 2850.0000000000005,
-                        "localClusteringCoefficient": 0
-                    },
-                    "KamalaHarris": {
-                        "degree": 100,
-                        "inDegree": 100,
-                        "outDegree": 100,
-                        "closenessCentrality": 0.6074074074074074,
-                        "betweennessCentrality": 2857.7857142857147,
-                        "localClusteringCoefficient": 0
-                    }
-                }
-            },
-            "title": "time range 2"
-        },
-        {
-            "_id": "63fd065ac7b88a02f666bbf3",
-            "startDate": "2022-07-16T00:00:00.000Z",
-            "endDate": "2022-07-31T00:00:00.000Z",
-            "network": {
-                "_id": "63fd065ac7b88a02f666bbf2",
-                "networkMetrics": {
-                    "numberOfNodes": 327,
-                    "numberOfEdges": 1106,
-                    "density": 0.020750079735839852,
-                    "diameter": 4,
-                    "radius": 2,
-                    "reciprocity": 1,
-                    "degreeCentrality": 1.3710712600283153
-                },
-                "retweetNetworkMetrics": {
-                    "numberOfNodes": null,
-                    "numberOfEdges": null,
-                    "density": null,
-                    "diameter": null,
-                    "radius": null,
-                    "reciprocity": null,
-                    "degreeCentrality": null
-                },
-                "quoteNetworkMetrics": {
-                    "numberOfNodes": null,
-                    "numberOfEdges": null,
-                    "density": null,
-                    "diameter": null,
-                    "radius": null,
-                    "reciprocity": null,
-                    "degreeCentrality": null
-                },
-                "nodeMetrics": {
-                    "realDonaldTrump": null,
-                    "JoeBiden": {
-                        "degree": 258,
-                        "inDegree": 258,
-                        "outDegree": 258,
-                        "closenessCentrality": 0.3622222222222222,
-                        "betweennessCentrality": 9233.743414264212,
-                        "localClusteringCoefficient": 0
-                    },
-                    "BernieSanders": {
-                        "degree": 451,
-                        "inDegree": 451,
-                        "outDegree": 451,
-                        "closenessCentrality": 0.649402390438247,
-                        "betweennessCentrality": 48256.88815858458,
-                        "localClusteringCoefficient": 0
-                    },
-                    "KamalaHarris": {
-                        "degree": 397,
-                        "inDegree": 397,
-                        "outDegree": 397,
-                        "closenessCentrality": 0.38717339667458434,
-                        "betweennessCentrality": 16979.368427151247,
-                        "localClusteringCoefficient": 0
-                    }
-                }
-            },
-            "title": "time range 3"
-        }
-    ],
-    "sourceNetwork": {
-        "_id": "63fcc4f256cde2fae023187e",
+  "_id": "63fcc4f456cde2fae0231880",
+  "createdDate": "2023-02-27T14:48:47.130Z",
+  "title": "Project of 4 People",
+  "description": "This is a project of 4 people",
+  "dataset": ["realDonaldTrump", "JoeBiden", "BernieSanders", "KamalaHarris"],
+  "startDate": "2022-06-01T22:00:00.000Z",
+  "endDate": "2022-07-31T22:00:00.000Z",
+  "edgeType": "all",
+  "timeRanges": [
+    {
+      "_id": "63ff2de3b1271047ae7d64b1",
+      "startDate": "2022-06-01T00:00:00.000Z",
+      "endDate": "2022-06-15T00:00:00.000Z",
+      "network": {
+        "_id": "63ff2de3b1271047ae7d64b0",
         "networkMetrics": {
-            "numberOfNodes": 41215,
-            "numberOfEdges": 52634,
-            "density": 0.00006197211253758393,
-            "diameter": 4,
-            "radius": 0,
-            "reciprocity": 1,
-            "degreeCentrality": 0.6209707330685392
+          "numberOfNodes": 5921,
+          "numberOfEdges": 7084,
+          "density": 0.0004041957850436148,
+          "diameter": 6,
+          "radius": 1,
+          "reciprocity": 1,
+          "degreeCentrality": 0.7123364177659667
         },
         "retweetNetworkMetrics": {
-            "numberOfNodes": 1588,
-            "numberOfEdges": 4690,
-            "density": 0.003721991813205214,
-            "diameter": 4,
-            "radius": 2,
-            "reciprocity": 1,
-            "degreeCentrality": 1.0644112671445405
+          "numberOfNodes": 138,
+          "numberOfEdges": 193,
+          "density": 0.020416798899820163,
+          "diameter": 4,
+          "radius": 1,
+          "reciprocity": 1,
+          "degreeCentrality": 0.8754830399313009
         },
         "quoteNetworkMetrics": {
-            "numberOfNodes": 39627,
-            "numberOfEdges": 47944,
-            "density": 0.00006106506591927632,
-            "diameter": 4,
-            "radius": 1,
-            "reciprocity": 1,
-            "degreeCentrality": 0.6122193671713805
+          "numberOfNodes": 5796,
+          "numberOfEdges": 6891,
+          "density": 0.000410327315080288,
+          "diameter": 4,
+          "radius": 1,
+          "reciprocity": 1,
+          "degreeCentrality": 0.7163165727659121
         },
-        "nodeMetrics": {}
+        "nodeMetrics": {
+          "realDonaldTrump": null,
+          "JoeBiden": {
+            "degree": 6,
+            "inDegree": 6,
+            "outDegree": 6,
+            "closenessCentrality": 0.2396339488176223,
+            "betweennessCentrality": 29575.000000000007,
+            "localClusteringCoefficient": 0
+          },
+          "BernieSanders": {
+            "degree": 4218,
+            "inDegree": 4218,
+            "outDegree": 4218,
+            "closenessCentrality": 0.5557851239669421,
+            "betweennessCentrality": 14532210.930260198,
+            "localClusteringCoefficient": 0
+          },
+          "KamalaHarris": {
+            "degree": 2859,
+            "inDegree": 2859,
+            "outDegree": 2859,
+            "closenessCentrality": 0.45932940080720275,
+            "betweennessCentrality": 11178333.069739792,
+            "localClusteringCoefficient": 0
+          }
+        }
+      },
+      "title": "time range 0"
     },
-    "favoriteNodes": [
-        "realDonaldTrump",
-        "JoeBiden",
-        "BernieSanders",
-        "KamalaHarris"
-    ],
-    "status": "ready"
+    {
+      "_id": "63ff2e06b1271047ae7d64b3",
+      "startDate": "2022-06-16T00:00:00.000Z",
+      "endDate": "2022-06-30T00:00:00.000Z",
+      "network": {
+        "_id": "63ff2e06b1271047ae7d64b2",
+        "networkMetrics": {
+          "numberOfNodes": 16379,
+          "numberOfEdges": 18555,
+          "density": 0.00013833838607050323,
+          "diameter": 4,
+          "radius": 1,
+          "reciprocity": 1,
+          "degreeCentrality": 0.7687917806569148
+        },
+        "retweetNetworkMetrics": {
+          "numberOfNodes": 230,
+          "numberOfEdges": 388,
+          "density": 0.014733244731346117,
+          "diameter": 4,
+          "radius": 1,
+          "reciprocity": 1,
+          "degreeCentrality": 0.8000842718149085
+        },
+        "quoteNetworkMetrics": {
+          "numberOfNodes": 16175,
+          "numberOfEdges": 18167,
+          "density": 0.00013888376578587305,
+          "diameter": 4,
+          "radius": 2,
+          "reciprocity": 1,
+          "degreeCentrality": 0.7692773682199404
+        },
+        "nodeMetrics": {
+          "realDonaldTrump": null,
+          "JoeBiden": {
+            "degree": 54,
+            "inDegree": 54,
+            "outDegree": 54,
+            "closenessCentrality": 1,
+            "betweennessCentrality": 135.99999999999994,
+            "localClusteringCoefficient": 0
+          },
+          "BernieSanders": {
+            "degree": 5909,
+            "inDegree": 5909,
+            "outDegree": 5909,
+            "closenessCentrality": 0.4188964281141979,
+            "betweennessCentrality": 67028390.89307992,
+            "localClusteringCoefficient": 0
+          },
+          "KamalaHarris": {
+            "degree": 12592,
+            "inDegree": 12592,
+            "outDegree": 12592,
+            "closenessCentrality": 0.6301274891191311,
+            "betweennessCentrality": 121264965.10692021,
+            "localClusteringCoefficient": 0
+          }
+        }
+      },
+      "title": "time range 1"
+    },
+    {
+      "_id": "63ff2ea5acadfce32f63ed2c",
+      "startDate": "2022-07-01T00:00:00.000Z",
+      "endDate": "2022-07-15T00:00:00.000Z",
+      "network": {
+        "_id": "63ff2ea5acadfce32f63ed2b",
+        "networkMetrics": {
+          "numberOfNodes": 12898,
+          "numberOfEdges": 13977,
+          "density": 0.0001680478221034718,
+          "diameter": 6,
+          "radius": 3,
+          "reciprocity": 1,
+          "degreeCentrality": 0.6055705772265888
+        },
+        "retweetNetworkMetrics": {
+          "numberOfNodes": 160,
+          "numberOfEdges": 385,
+          "density": 0.030267295597484277,
+          "diameter": 4,
+          "radius": 1,
+          "reciprocity": 1,
+          "degreeCentrality": 1.1284929543826128
+        },
+        "quoteNetworkMetrics": {
+          "numberOfNodes": 12752,
+          "numberOfEdges": 13592,
+          "density": 0.00016718249863936668,
+          "diameter": 4,
+          "radius": 2,
+          "reciprocity": 1,
+          "degreeCentrality": 0.6046645353459398
+        },
+        "nodeMetrics": {
+          "realDonaldTrump": null,
+          "JoeBiden": {
+            "degree": 103,
+            "inDegree": 103,
+            "outDegree": 103,
+            "closenessCentrality": 0.2607403513737541,
+            "betweennessCentrality": 334975.2142857142,
+            "localClusteringCoefficient": 0
+          },
+          "BernieSanders": {
+            "degree": 6063,
+            "inDegree": 6063,
+            "outDegree": 6063,
+            "closenessCentrality": 0.4652765251271691,
+            "betweennessCentrality": 55183289.29850442,
+            "localClusteringCoefficient": 0
+          },
+          "KamalaHarris": {
+            "degree": 7811,
+            "inDegree": 7811,
+            "outDegree": 7811,
+            "closenessCentrality": 0.5422780978009503,
+            "betweennessCentrality": 67967751.48720984,
+            "localClusteringCoefficient": 0
+          }
+        }
+      },
+      "title": "time range 0"
+    },
+    {
+      "_id": "63ff2eadacadfce32f63ed2e",
+      "startDate": "2022-07-16T00:00:00.000Z",
+      "endDate": "2022-07-31T00:00:00.000Z",
+      "network": {
+        "_id": "63ff2eadacadfce32f63ed2d",
+        "networkMetrics": {
+          "numberOfNodes": 6544,
+          "numberOfEdges": 8231,
+          "density": 0.00038446993688919683,
+          "diameter": 4,
+          "radius": 2,
+          "reciprocity": 1,
+          "degreeCentrality": 1.0366127650802235
+        },
+        "retweetNetworkMetrics": {
+          "numberOfNodes": 327,
+          "numberOfEdges": 1106,
+          "density": 0.020750079735839852,
+          "diameter": 4,
+          "radius": 2,
+          "reciprocity": 1,
+          "degreeCentrality": 1.3710712600283153
+        },
+        "quoteNetworkMetrics": {
+          "numberOfNodes": 6271,
+          "numberOfEdges": 7125,
+          "density": 0.0003624186370159899,
+          "diameter": 4,
+          "radius": 2,
+          "reciprocity": 1,
+          "degreeCentrality": 1.0098480078297223
+        },
+        "nodeMetrics": {
+          "realDonaldTrump": null,
+          "JoeBiden": {
+            "degree": 258,
+            "inDegree": 258,
+            "outDegree": 258,
+            "closenessCentrality": 0.33466318858370414,
+            "betweennessCentrality": 187324.22775664617,
+            "localClusteringCoefficient": 0
+          },
+          "BernieSanders": {
+            "degree": 6783,
+            "inDegree": 6783,
+            "outDegree": 6783,
+            "closenessCentrality": 0.8098774600816933,
+            "betweennessCentrality": 21080818.54897051,
+            "localClusteringCoefficient": 0
+          },
+          "KamalaHarris": {
+            "degree": 1191,
+            "inDegree": 1191,
+            "outDegree": 1191,
+            "closenessCentrality": 0.3618315544987004,
+            "betweennessCentrality": 4558595.223272831,
+            "localClusteringCoefficient": 0
+          }
+        }
+      },
+      "title": "time range 1"
+    }
+  ],
+  "sourceNetwork": {
+    "_id": "63fcc4f256cde2fae023187e",
+    "networkMetrics": {
+      "numberOfNodes": 41215,
+      "numberOfEdges": 52634,
+      "density": 0.00006197211253758393,
+      "diameter": 4,
+      "radius": 0,
+      "reciprocity": 1,
+      "degreeCentrality": 0.6209707330685392
+    },
+    "retweetNetworkMetrics": {
+      "numberOfNodes": 1588,
+      "numberOfEdges": 4690,
+      "density": 0.003721991813205214,
+      "diameter": 4,
+      "radius": 2,
+      "reciprocity": 1,
+      "degreeCentrality": 1.0644112671445405
+    },
+    "quoteNetworkMetrics": {
+      "numberOfNodes": 39627,
+      "numberOfEdges": 47944,
+      "density": 0.00006106506591927632,
+      "diameter": 4,
+      "radius": 1,
+      "reciprocity": 1,
+      "degreeCentrality": 0.6122193671713805
+    },
+    "nodeMetrics": {}
+  },
+  "favoriteNodes": [
+    "realDonaldTrump",
+    "JoeBiden",
+    "BernieSanders",
+    "KamalaHarris"
+  ],
+  "status": "ready"
 }

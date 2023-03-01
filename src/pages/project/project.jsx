@@ -4,11 +4,11 @@ import { GlobalCard } from "../../cmp/card/card";
 import { Delete } from "../../cmp/delete/delete";
 import { Edit } from "../../cmp/edit/edit";
 import { LineChart } from "../../cmp/line-chart/line-chart";
-import project from "../../data/project.json";
-import calendarImg from '../../images/calendar.png'
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 import { Scroll } from "../../cmp/scroll/scroll";
+import project from "../../data/project.json";
 import "../../globalStyle.scss";
+import calendarImg from "../../images/calendar.png";
 import "./project.scss";
 import { useSelector } from "react-redux";
 
