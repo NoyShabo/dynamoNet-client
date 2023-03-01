@@ -1,4 +1,5 @@
-const baseUrl = '';
+const baseUrl = 'http://localhost:3500/';
+
 
 export const post = async (url, body, auth = '') => {
     return fetch(baseUrl + url, {
@@ -55,20 +56,19 @@ export const handleResult = async (
     else throw new Error(handleError(resData));
 };
 
-// export const get = async (url, auth = '', authType:
-//     AuthType = {Authorization: true}) => {
-//     let requestHeaders = {}
-//     if (authType.Authorization) {
-//         requestHeaders = {Authorization: `Bearer ${auth}`}
-//     } else if (authType.code) {
-//         requestHeaders = {code: auth}
-//     }
-//     return fetch(baseUrl + url, {
-//         method: 'GET',
-//         headers: {
-//             ...requestHeaders
-//         },
-//     });
-// };
+export const get = async (url, auth = '', authType= {Authorization: true}) => {
+    let requestHeaders = {}
+    if (authType.Authorization) {
+        requestHeaders = {Authorization: `Bearer ${auth}`}
+    } else if (authType.code) {
+        requestHeaders = {code: auth}
+    }
+    return fetch(baseUrl + url, {
+        method: 'GET',
+        headers: {
+            ...requestHeaders
+        },
+    });
+};
 
 

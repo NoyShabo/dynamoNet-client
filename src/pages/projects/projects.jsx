@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { GlobalCard } from "../../cmp/card/card"
 import "./projects.scss"
 import '../../globalStyle.scss'
 import { useSelector } from "react-redux";
+import { getProjects } from "../../serverApi/rest/projectApi.js"
 
 const makecards = (projects) =>{
   return projects.map((currProject) => {
@@ -23,8 +25,24 @@ const makecards = (projects) =>{
 }
 
 export function ProjectsPage(){
-
   const projects = useSelector((state)=>state.allProjects.projects);
+
+  const fetchProjects = async ()=>{
+    try{
+      const res = await getProjects()
+      console.log('====================================');
+      console.log('res', res);
+      console.log('====================================');
+    }
+    catch(e){
+      console.log(e);
+    }
+    
+  }
+
+  useEffect(()=>{
+    fetchProjects()
+  },[])
     return (
     <div className="projects">
          <div className="projects-container">

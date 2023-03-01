@@ -26,6 +26,6 @@ export const updateProject = async (projectId,body)=>{
 
 export const deletsProject = async (projectId)=>{
     console.log(`Delete a project`);
-    const res = await serverApi.delete(`api/projects/${projectId}`);
+    const res = await serverApi.apiDelete(`api/projects/${projectId}`);
     return serverApi.handleResult(res, "Delete project error");
 }
