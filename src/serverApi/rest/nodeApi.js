@@ -23,7 +23,7 @@ export const addFavoriteNodeToProject = async (projectId, nodeId) => {
 
 export const removeFavoriteNodeFromProject = async (projectId, nodeId) => {
   console.log(`DELETE remove favorite node from project`);
-  const res = await serverApi.delete(
+  const res = await serverApi.del(
     `api/projects/${projectId}/favoriteNodes/${nodeId}`
   );
   return serverApi.handleResult(res, "Remove favorite node from project error");

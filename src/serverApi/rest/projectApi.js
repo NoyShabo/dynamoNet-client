@@ -29,8 +29,8 @@ export const updateProject = async (projectId, body) => {
   return serverApi.handleResult(res, "Update a project error");
 };
 
-export const deletsProject = async (projectId) => {
+export const deleteProject = async (projectId) => {
   console.log(`Delete a project`);
-  const res = await serverApi.delete(`api/projects/${projectId}`);
+  const res = await serverApi.del(`api/projects/${projectId}`);
   return serverApi.handleResult(res, "Delete project error");
 };

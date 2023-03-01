@@ -34,6 +34,6 @@ export const updateTimeRange = async (timeRangeId, projectId, body) => {
 
 export const deleteTimeRange = async (timeRangeId) => {
   console.log(`Delete a time range`);
-  const res = await serverApi.delete(`api/timeRanges/${timeRangeId}`);
+  const res = await serverApi.del(`api/timeRanges/${timeRangeId}`);
   return serverApi.handleResult(res, "Delete time range error");
 };
