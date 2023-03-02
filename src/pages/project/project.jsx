@@ -1,6 +1,7 @@
+import { Button } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BarChart } from "../../cmp/bar-chart/bar-chart";
 import { GlobalCard } from "../../cmp/card/card";
 import { Delete } from "../../cmp/delete/delete";
@@ -41,6 +42,7 @@ function getTimeRangeCards(project) {
 }
 
 export function Project() {
+  const navigate = useNavigate();
   const project = useSelector((state) => state.projectModule.project);
   const dispatch = useDispatch();
   const { projectId } = useParams();
@@ -284,6 +286,14 @@ export function Project() {
                   </div>
                 </div>
               )}
+              <Button
+                className="btn btn-primary"
+                onClick={() => {
+                  navigate(`/project/${project._id}/nodes`);
+                }}
+              >
+                Go to Node Metrics
+              </Button>
               <div className="source-network">
                 <div className="title-project">Source Network</div>
                 <div className="small-title-project">

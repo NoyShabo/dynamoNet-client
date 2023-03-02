@@ -51,7 +51,7 @@ function App() {
           <Route path="/table" element={<MultiTableDrag />} />
           <Route path="/project/:projectId" element={<Project />} />
           <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/nodes" element={<NodesPage />} />
+          <Route path="project/:projectId/nodes" element={<NodesPage />} />
           <Route path="/nodeCard" element={<NodeCard />} />
           <Route
             path="/project/:projectId/network/:networkId/addTimeRanges"
