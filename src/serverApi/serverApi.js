@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3500/';
+const baseUrl = "http://localhost:3500/";
 
 // get post patch delete with auth
 export const get = async (url, token) => {
@@ -33,13 +33,14 @@ export const update = async (url, data, token) => {
   });
 };
 
-export const del = async (url, token) => {
+export const del = async (url, data, token) => {
   return await fetch(`${baseUrl}${url}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify(data),
   });
 };
 

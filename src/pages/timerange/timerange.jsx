@@ -1,7 +1,7 @@
 import { set } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Delete } from "../../cmp/delete/delete";
 import { Edit } from "../../cmp/edit/edit";
 import { DisplayGraph } from "../../cmp/network-graph/networkGraph";
@@ -21,6 +21,7 @@ export function Timerange() {
   const dispatch = useDispatch();
   const [timeRangeTitle, setTimeRangeTitle] = useState("");
   const { timeRangeId, projectId } = useParams();
+  const navigate = useNavigate();
 
   const getTimeRangeById = async (id, withNetwork = false) => {
     const res = await getTimeRange(id, withNetwork);
@@ -32,17 +33,24 @@ export function Timerange() {
     return () => {
       // dispatch(removeSelectedTimeRange());
     };
-  }, [timeRangeId, dispatch]);
+  }, [timeRangeId]);
 
   useEffect(() => {
     if (timeRange) {
       setTimeRangeTitle(timeRange.title);
-      getTimeRangeById(timeRangeId, true);
+      if (timeRange.network && !timeRange.network.nodes)
+        getTimeRangeById(timeRangeId, true);
     }
   }, [timeRange]);
 
-  const handleDelete = (id) => {
-    console.log("Delete");
+  const handleDelete = async () => {
+    try {
+      const res = await deleteTimeRange(timeRangeId, projectId);
+      console.log(res);
+      navigate(`/project/${projectId}`);
+    } catch (e) {
+      console.error("error deleting time range: ", e);
+    }
   };
 
   const handleUpdate = async (title) => {

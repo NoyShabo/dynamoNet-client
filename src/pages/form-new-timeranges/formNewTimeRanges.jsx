@@ -150,6 +150,7 @@ export function FormNewTimeRanges() {
                     form.setFieldValue("edgeType", value.toLowerCase())
                   }
                   data={[
+                    { label: "All", value: "all" },
                     { label: "Retweet", value: "retweet" },
                     { label: "Quote", value: "quote" },
                   ]}

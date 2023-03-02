@@ -28,7 +28,17 @@ export const updateTimeRange = async (timeRangeId, projectId, body) => {
   return serverApi.handleResult(res, "Update a time range error");
 };
 
-export const deleteTimeRange = async (timeRangeId) => {
-  const res = await serverApi.del(`api/timeRanges/${timeRangeId}`);
+export const deleteTimeRange = async (timeRangeId, projectId) => {
+  const res = await serverApi.del(
+    `api/timeRanges/${timeRangeId}/projects/${projectId}`
+  );
   return serverApi.handleResult(res, "Delete time range error");
+};
+
+export const deleteTimeRanges = async (timeRangeIds, projectId) => {
+  const res = await serverApi.del(`api/timeRanges`, {
+    timeRanges: timeRangeIds,
+    projectId,
+  });
+  return serverApi.handleResult(res, "Delete time ranges error");
 };
