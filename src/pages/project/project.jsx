@@ -8,6 +8,7 @@ import { Edit } from "../../cmp/edit/edit";
 import { LineChart } from "../../cmp/line-chart/line-chart";
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 import { Scroll } from "../../cmp/scroll/scroll";
+import { ProjectStatus } from "../../constants";
 import "../../globalStyle.scss";
 import newTimeRangeImg from "../../images/add_timerange.png";
 import calendarImg from "../../images/calendar.png";
@@ -186,13 +187,13 @@ export function Project() {
               ]}
             />
           </div>
-          {project.status === "creating time ranges" && (
+          {project.status === ProjectStatus.CREATING_TIME_RANGES && (
             <div className="small-title-project">
               Creating Time Ranges. Please be patient
             </div>
           )}
           {project.timeRanges.length === 0 ? (
-            project.status === "ready" && (
+            project.status === ProjectStatus.READY && (
               <div className="small-title-project">No Time Ranges</div>
             )
           ) : (
