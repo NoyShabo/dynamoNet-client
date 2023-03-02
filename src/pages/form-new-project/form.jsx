@@ -13,12 +13,34 @@ import { useForm } from "@mantine/form";
 import { IconGridDots } from "@tabler/icons-react";
 import { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useNavigate, useParams } from "react-router-dom";
 import { createProject } from "../../serverApi/rest/projectApi";
 
 import "./form.scss";
 
 export function FormNewProject() {
   const [active, setActive] = useState(0);
+  const navigate = useNavigate();
+
+  const handleSubmission = async (values) => {
+    const dataset = values.dataset.map((user) => {
+      return {
+        name: user.name,
+      };
+    });
+    const project = {
+      title: values.title,
+      description: values.description,
+      dataset: dataset.map((user) => user.name),
+      startDate: values.timerange[0],
+      endDate: values.timerange[1],
+      userEmail: values.userEmail,
+    };
+    const res = await createProject(project);
+    // console.log(project);
+    // send the user to /project/:projectId
+    navigate(`/project/${res.project._id}`);
+  };
 
   const form = useForm({
     initialValues: {
@@ -26,6 +48,7 @@ export function FormNewProject() {
       description: "",
       dataset: [{ name: "" }],
       timerange: "",
+      userEmail: "",
     },
 
     validate: (values) => {
@@ -53,9 +76,27 @@ export function FormNewProject() {
         return errorsObj;
       }
 
+      if (active === 2) {
+        return {
+          timerange:
+            values.timerange.length < 2 ? "Please select a time range" : null,
+        };
+      }
+
+      if (active === 3) {
+        return {
+          userEmail:
+            values.userEmail.trim().length < 3
+              ? "Email must include at least 3 characters"
+              : null,
+        };
+      }
+
       return {};
     },
   });
+
+  form.onSubmit(handleSubmission);
 
   const handelInputText = (event, index) => {
     event.preventDefault();
@@ -211,9 +252,37 @@ export function FormNewProject() {
             </Stepper.Step>
             <Stepper.Completed>
               Completed! Form values:
-              {/* <Code block mt="xl">
-            {JSON.stringify(form.values, null, 2)}
-          </Code> */}
+              <Code block mt="xl">
+                {JSON.stringify(form.values, null, 2)}
+              </Code>
+              {/* input for user email */}
+              <TextInput
+                ta="start"
+                mt="md"
+                label="Email:"
+                placeholder="Email to get notified when the project is ready"
+                {...form.getInputProps("userEmail")}
+              />
+              <Button
+                mt="xl"
+                onClick={() => {
+                  form.reset();
+                  setActive(0);
+                }}
+              >
+                Reset form
+              </Button>
+              <Button
+                mt="xl"
+                onClick={() => {
+                  if (!form.validate().hasErrors) {
+                    handleSubmission(form.values);
+                  }
+                }}
+                // type="submit"
+              >
+                Submit form
+              </Button>
             </Stepper.Completed>
           </Stepper>
 

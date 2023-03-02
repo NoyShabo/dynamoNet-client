@@ -154,89 +154,97 @@ export function Project() {
         <div className="project-container title-project">Loading...</div>
       ) : (
         <div className="project-container">
-          <div className="project-header">
-            <Edit
-              inputs={[
-                {
-                  type: "text",
-                  value: title || project.title,
-                  className: "title-project",
-                },
-                {
-                  type: "text",
-                  value: description || project.description,
-                  className: "small-title-project",
-                },
-              ]}
-              onSubmit={handleEdit}
-            />
+          {project.status === ProjectStatus.IN_PROGRESS ? (
             <div className="small-title-project">
-              {new Date(project.startDate).toLocaleDateString()} ↔{" "}
-              {new Date(project.endDate).toLocaleDateString()}
+              Fetching data for project is in progress. Please be patient...
             </div>
-            <Scroll
-              items={[
-                ...getTimeRangeCards(project),
-                <GlobalCard
-                  imgUrl={newTimeRangeImg}
-                  key="newTimeRangeForm"
-                  linkTo={`/project/${project._id}/network/${project.sourceNetwork._id}/addTimeRanges`}
-                  title="New Time Range"
-                  description="Create new time ranges"
-                />,
-              ]}
-            />
-          </div>
-          {project.status === ProjectStatus.CREATING_TIME_RANGES && (
-            <div className="small-title-project">
-              Creating Time Ranges. Please be patient
-            </div>
-          )}
-          {project.timeRanges.length === 0 ? (
-            project.status === ProjectStatus.READY && (
-              <div className="small-title-project">No Time Ranges</div>
-            )
           ) : (
-            <div className="network-evolution">
-              <div className="title-project">Network Evolution</div>
-              <div className="small-title-project">
-                Evolution by all Time ranges
+            <>
+              <div className="project-header">
+                <Edit
+                  inputs={[
+                    {
+                      type: "text",
+                      value: title || project.title,
+                      className: "title-project",
+                    },
+                    {
+                      type: "text",
+                      value: description || project.description,
+                      className: "small-title-project",
+                    },
+                  ]}
+                  onSubmit={handleEdit}
+                />
+                <div className="small-title-project">
+                  {new Date(project.startDate).toLocaleDateString()} ↔{" "}
+                  {new Date(project.endDate).toLocaleDateString()}
+                </div>
+                <Scroll
+                  items={[
+                    ...getTimeRangeCards(project),
+                    <GlobalCard
+                      imgUrl={newTimeRangeImg}
+                      key="newTimeRangeForm"
+                      linkTo={`/project/${project._id}/network/${project.sourceNetwork._id}/addTimeRanges`}
+                      title="New Time Range"
+                      description="Create new time ranges"
+                    />,
+                  ]}
+                />
               </div>
+              {project.status === ProjectStatus.CREATING_TIME_RANGES && (
+                <div className="small-title-project">
+                  Creating time ranges. Please be patient...
+                </div>
+              )}
+              {project.timeRanges.length === 0 ? (
+                project.status === ProjectStatus.READY && (
+                  <div className="small-title-project">No Time Ranges</div>
+                )
+              ) : (
+                <div className="network-evolution">
+                  <div className="title-project">Network Evolution</div>
+                  <div className="small-title-project">
+                    Evolution by all Time ranges
+                  </div>
 
-              <div className="charts-list">
-                <div className="chart-container">
-                  <div className="small-title-project">
-                    Number of Nodes Evolution
-                  </div>
-                  <BarChart
-                    width={100 * numberOfNodes.length}
-                    height={400}
-                    data={numberOfNodes}
-                  />
-                </div>
-                <div className="chart-container">
-                  <div className="small-title-project">
-                    Number of Edges Evolution
-                  </div>
-                  <BarChart
-                    width={100 * numberOfEdges.length}
-                    height={400}
-                    data={numberOfEdges}
-                  />
-                </div>
-                <div className="chart-container">
-                  <div className="small-title-project">Density Evolution</div>
-                  <BarChart
-                    width={100 * density.length}
-                    height={400}
-                    data={density}
-                  />
-                </div>
-                {/* <div className='chart-container'>
+                  <div className="charts-list">
+                    <div className="chart-container">
+                      <div className="small-title-project">
+                        Number of Nodes Evolution
+                      </div>
+                      <BarChart
+                        width={100 * numberOfNodes.length}
+                        height={400}
+                        data={numberOfNodes}
+                      />
+                    </div>
+                    <div className="chart-container">
+                      <div className="small-title-project">
+                        Number of Edges Evolution
+                      </div>
+                      <BarChart
+                        width={100 * numberOfEdges.length}
+                        height={400}
+                        data={numberOfEdges}
+                      />
+                    </div>
+                    <div className="chart-container">
+                      <div className="small-title-project">
+                        Density Evolution
+                      </div>
+                      <BarChart
+                        width={100 * density.length}
+                        height={400}
+                        data={density}
+                      />
+                    </div>
+                    {/* <div className='chart-container'>
                                       <div className='small-title-project'>Degree Centrality Evolution</div>
                                       <BarChart width={100*degreeCentrality.length} height={400} data={degreeCentrality}/>
                                   </div> */}
-                {/* <div className='chart-container'>
+                    {/* <div className='chart-container'>
                                       <div className='small-title-project'>Diameter Evolution</div>
                                       <BarChart width={100*diameter.length} height={400} data={diameter}/>
                                   </div>
@@ -244,42 +252,51 @@ export function Project() {
                                       <div className='small-title-project'>Radius Evolution</div>
                                       <BarChart width={100*radius.length} height={400} data={radius}/>
                                   </div> */}
-                <div className="chart-container">
-                  <div className="small-title-project">
-                    Reciprocity Evolution
-                  </div>
-                  <BarChart
-                    width={100 * reciprocity.length}
-                    height={400}
-                    data={reciprocity}
-                  />
-                </div>
+                    <div className="chart-container">
+                      <div className="small-title-project">
+                        Reciprocity Evolution
+                      </div>
+                      <BarChart
+                        width={100 * reciprocity.length}
+                        height={400}
+                        data={reciprocity}
+                      />
+                    </div>
 
-                <div className="chart-container chart-container-line">
-                  <div className="small-title-project">
-                    Degree Centrality Evolution
+                    <div className="chart-container chart-container-line">
+                      <div className="small-title-project">
+                        Degree Centrality Evolution
+                      </div>
+                      <LineChart data={degreeCentrality} />
+                    </div>
+                    <div className="chart-container chart-container-line">
+                      <div className="small-title-project">
+                        Radius Evolution
+                      </div>
+                      <LineChart data={radius} />
+                    </div>
+                    <div className="chart-container chart-container-line">
+                      <div className="small-title-project">
+                        Diameter Evolution
+                      </div>
+                      <LineChart data={diameter} />
+                    </div>
                   </div>
-                  <LineChart data={degreeCentrality} />
                 </div>
-                <div className="chart-container chart-container-line">
-                  <div className="small-title-project">Radius Evolution</div>
-                  <LineChart data={radius} />
+              )}
+              <div className="source-network">
+                <div className="title-project">Source Network</div>
+                <div className="small-title-project">
+                  Metrics for the source network
                 </div>
-                <div className="chart-container chart-container-line">
-                  <div className="small-title-project">Diameter Evolution</div>
-                  <LineChart data={diameter} />
-                </div>
+                <NetworkMetrics network={project.sourceNetwork} />
               </div>
-            </div>
+              <Delete
+                onDelete={handleDelete}
+                title={`Delete Project: ${title}`}
+              />
+            </>
           )}
-          <div className="source-network">
-            <div className="title-project">Source Network</div>
-            <div className="small-title-project">
-              Metrics for the source network
-            </div>
-            <NetworkMetrics network={project.sourceNetwork} />
-          </div>
-          <Delete onDelete={handleDelete} title={`Delete Project: ${title}`} />
         </div>
       )}
     </div>
