@@ -12,15 +12,16 @@ import {
 import { DateRangePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { createTimeRanges } from "../../serverApi/rest/timeRangeApi";
 import "./formNewTimeRanges.scss";
 
 export function FormNewTimeRanges() {
   const [active, setActive] = useState(0);
   const { projectId, networkId } = useParams();
+  const navigate = useNavigate();
 
-  const handleSubmission = (values) => {
+  const handleSubmission = async (values) => {
     const timeWindows = values.timeWindows.map((timeWindow) => {
       return {
         title: timeWindow.title,
@@ -34,8 +35,10 @@ export function FormNewTimeRanges() {
       edgeType: values.edgeType,
       timeWindows: timeWindows,
     };
-    // createTimeRanges(timeRanges);
-    console.log(timeRanges);
+    await createTimeRanges(timeRanges);
+    // console.log(timeRanges);
+    // send the user to /project/:projectId
+    navigate(`/project/${projectId}`);
   };
 
   const form = useForm({
@@ -73,13 +76,14 @@ export function FormNewTimeRanges() {
         <DateRangePicker
           label="Date range"
           required
-          value={timeWindow.startDate}
-          onChange={(event) =>
-            form.setFieldValue(
-              `timeWindows.${index}.startDate`,
-              event.currentTarget.value
-            )
-          }
+          value={[
+            form.getInputProps(`timeWindows.${index}.startDate`).value,
+            form.getInputProps(`timeWindows.${index}.endDate`).value,
+          ]}
+          onChange={(values) => {
+            form.setFieldValue(`timeWindows.${index}.startDate`, values[0]);
+            form.setFieldValue(`timeWindows.${index}.endDate`, values[1]);
+          }}
         />
       </div>
     );
@@ -142,8 +146,8 @@ export function FormNewTimeRanges() {
                   placeholder="Edge Type"
                   required
                   value={form.values.edgeType}
-                  onChange={(event) =>
-                    form.setFieldValue("edgeType", event.currentTarget.value)
+                  onChange={(value) =>
+                    form.setFieldValue("edgeType", value.toLowerCase())
                   }
                   data={[
                     { label: "Retweet", value: "retweet" },

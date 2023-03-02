@@ -186,8 +186,15 @@ export function Project() {
               ]}
             />
           </div>
+          {project.status === "creating time ranges" && (
+            <div className="small-title-project">
+              Creating Time Ranges. Please be patient
+            </div>
+          )}
           {project.timeRanges.length === 0 ? (
-            <div className="small-title-project">No Time Ranges</div>
+            project.status === "ready" && (
+              <div className="small-title-project">No Time Ranges</div>
+            )
           ) : (
             <div className="network-evolution">
               <div className="title-project">Network Evolution</div>
