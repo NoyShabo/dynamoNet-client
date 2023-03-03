@@ -16,7 +16,7 @@ import { Profile } from "./pages/profile/profile";
 import { Project } from "./pages/project/project";
 import { ProjectsPage } from "./pages/projects/projects";
 import { Timerange } from "./pages/timerange/timerange";
-
+import {ContactList} from './cmp/sourceList/list'
 function App() {
   return (
     <BrowserRouter>
@@ -57,6 +57,9 @@ function App() {
             path="/project/:projectId/network/:networkId/addTimeRanges"
             element={<FormNewTimeRanges />}
           />
+          <Route path="/list" element={<ContactList />} />
+
+
         </Routes>
       </div>
     </BrowserRouter>
