@@ -16,9 +16,9 @@ import { Profile } from "./pages/profile/profile";
 import { Project } from "./pages/project/project";
 import { ProjectsPage } from "./pages/projects/projects";
 import { Timerange } from "./pages/timerange/timerange";
-import {ContactList} from './cmp/sourceList/list'
-// import {Tabs} from './cmp/tabs/tabs'
+import {DatasetList} from './cmp/sourceList/list'
 import { Tabs } from "./pages/project-tabs/projectTabs";
+// import {PageModal} from './cmp/modal/modal'
 
 function App() {
   return (
@@ -60,9 +60,10 @@ function App() {
             path="/project/:projectId/network/:networkId/addTimeRanges"
             element={<FormNewTimeRanges />}
           />
-          <Route path="/list" element={<ContactList />} />
+          <Route path="/list" element={<DatasetList />} />
           <Route path="/tabs" element={<Tabs />} />
 
+          {/* <Route path="/modal" element={<PageModal />} /> */}
 
         </Routes>
       </div>

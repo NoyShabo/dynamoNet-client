@@ -19,6 +19,7 @@ import {
 } from "../../redux/actions/projectActions";
 import { getProject, updateProject } from "../../serverApi/rest/projectApi";
 import "./project.scss";
+import {Modal} from '../../cmp/modal/modal'
 
 function getTimeRangeCards(project) {
   const timeRanges = project.timeRanges;
@@ -150,6 +151,11 @@ export function Project() {
     }
   };
 
+  const [isModalOpen, setModalIsOpen] = useState(false);
+		const toggleModal = () => {
+		setModalIsOpen(!isModalOpen);
+	};
+
   return (
     <div className="project-page">
       {!project ? (
@@ -182,6 +188,10 @@ export function Project() {
                   {new Date(project.startDate).toLocaleDateString()} ↔{" "}
                   {new Date(project.endDate).toLocaleDateString()}
                 </div>
+                {isModalOpen && <Modal onRequestClose={toggleModal} />}
+                <button onClick={toggleModal} type="button">
+                  Dataset
+                </button>
                 <Scroll
                   items={[
                     ...getTimeRangeCards(project),
