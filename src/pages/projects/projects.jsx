@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GlobalCard } from "../../cmp/card/card";
 import "../../globalStyle.scss";
-import projectImg from "../../images/project_folder.png";
+import projectImg from "../../images/folder.png";
 import { setProjects } from "../../redux/actions/projectActions";
 import { getProjects } from "../../serverApi/rest/projectApi.js";
 import "./projects.scss";
@@ -48,7 +48,6 @@ export function ProjectsPage() {
     <div className="projects">
       <div className="projects-container">
         <div className="title-project ">My Projects</div>
-        <div className="small-title-project">All My Projects</div>
         {projects && (
           <div className="cards-container">{makecards(projects)}</div>
         )}
