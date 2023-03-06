@@ -17,6 +17,9 @@ import { Project } from "./pages/project/project";
 import { ProjectsPage } from "./pages/projects/projects";
 import { Timerange } from "./pages/timerange/timerange";
 import {ContactList} from './cmp/sourceList/list'
+// import {Tabs} from './cmp/tabs/tabs'
+import { Tabs } from "./pages/project-tabs/projectTabs";
+
 function App() {
   return (
     <BrowserRouter>
@@ -58,6 +61,7 @@ function App() {
             element={<FormNewTimeRanges />}
           />
           <Route path="/list" element={<ContactList />} />
+          <Route path="/tabs" element={<Tabs />} />
 
 
         </Routes>
