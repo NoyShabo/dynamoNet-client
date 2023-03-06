@@ -6,7 +6,24 @@ import { useEffect } from "react";
 // import Sigma from "sigma";
 import "./networkGraph.scss";
 
+function genColor(seed) {
+  let color = Math.floor(Math.abs(Math.sin(seed) * 16777215));
+  color = color.toString(16);
+  // pad any colors shorter than 6 characters with leading 0s
+  while (color.length < 6) {
+    color = "0" + color;
+  }
+
+  return "#" + color;
+}
+
 export const LoadGraph = ({ network }) => {
+  const colors = {};
+  let i = 0;
+  for (const communityId in network.communities) {
+    colors[communityId] = genColor(i);
+    i++;
+  }
   const nodes = network.nodes.map((node) => {
     return { id: node, label: node };
   });
@@ -18,6 +35,12 @@ export const LoadGraph = ({ network }) => {
     settings: { slowDown: 15 },
   });
   // const container = document.getElementById("sigma-container");
+
+  const getNodeCommunity = (nodeId, communities) => {
+    for (const communityId in communities) {
+      if (communities[communityId].includes(nodeId)) return communityId;
+    }
+  };
 
   useEffect(() => {
     const graph = new Graph();
@@ -101,12 +124,13 @@ export const LoadGraph = ({ network }) => {
     // });
 
     nodes.forEach((node) => {
+      const nodeCommunity = getNodeCommunity(node.id, network.communities);
       graph.addNode(node.id, {
         x: Math.random(),
         y: Math.random(),
         size: 3,
         label: node.label,
-        color: "#70d8bd",
+        color: nodeCommunity ? colors[nodeCommunity] : "#70d8bd",
         // onClick: () => {
         //   console.log("clicked on node", node.id);
         // },
