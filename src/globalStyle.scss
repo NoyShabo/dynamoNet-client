@@ -1,6 +1,12 @@
+@font-face {
+    font-family: OpenSans-Light;
+    src: url('../src/fonts/OpenSans-Light.ttf');
+
+}
+
 .title-project{
     margin: 0;
-    font-family: Source Sans Pro,sans-serif;
+    font-family: OpenSans-Light ;
     font-size: 32px;
     font-weight: 300;
     line-height: 1.2;
@@ -11,9 +17,9 @@
 
 .small-title-project{
     margin: 0;
-    font-family:Source SansProLight,sans-serif;
+    font-family: OpenSans-Light;
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 200;
     line-height: 1.334;
     color: #70d8bd;
 }
@@ -81,4 +87,6 @@
     margin-left: 10px;
     cursor: pointer;
   }
+  
+
   

@@ -62,8 +62,8 @@ export default function AnimatedPie({
               fontSize={22}
               textAnchor="middle"
               pointerEvents="none"
-              fontFamily="cursive"
-            >
+              fontFamily="OpenSans-Light"
+              >
               {getKey(arc)}
             </text>
           </animated.g>

@@ -120,6 +120,8 @@ export const DisplayGraph = ({ width, height, network }) => {
       <SigmaContainer
         className="graph-container"
         style={{ width, height, backgroundColor: "#DEE4E7" }}
+
+
       >
         <LoadGraph network={network} />
         <ControlsContainer position={"bottom-left"}>

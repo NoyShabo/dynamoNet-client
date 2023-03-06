@@ -10,6 +10,7 @@
   box-shadow: -4px 2px 18px 0px;
   position: fixed;
   z-index: 30;
+  font-family: OpenSans-Regular;
 }
 
 .logo{
@@ -37,7 +38,7 @@
 .navbar .links li{
   margin: 0 15px;
   font-size: 14px;
-  font-weight: 600;
+  // font-weight: 600;
 }
 
 .navbar .toggle-icon{

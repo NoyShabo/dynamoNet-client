@@ -9,11 +9,11 @@ export function StatBox({ title, subtitle, progress, increase, icon }){
         <Box className="overflow-ellipsis">
           {icon}
           <Typography
-            variant="h4"
-            fontWeight="bold"
+            variant="h5"
+            fontWeight="700"
             sx={{    
               color: "#fff",
-              fontFamily: "Source Sans Pro",
+              fontFamily: "OpenSans-Light",
             }}
           >
             {title}
@@ -24,7 +24,7 @@ export function StatBox({ title, subtitle, progress, increase, icon }){
         </Box> */}
       </Box>
       <Box display="flex" justifyContent="space-between" mt="2px">
-        <Typography variant="h5" sx={{ color: "#4cceac", fontSize:"20px", fontFamily:"Source Sans Pro"  }}>
+        <Typography variant="h5" sx={{ color: "#4cceac", fontSize:"20px", fontFamily:"OpenSans-Light"  }}>
           {subtitle}
         </Typography>
         {/* <Typography

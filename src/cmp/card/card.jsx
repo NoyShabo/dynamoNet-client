@@ -13,7 +13,7 @@ export function GlobalCard({id, title, description,imgUrl=projectImg, linkTo, mo
       p="xl"
       component={Link}
       to={linkTo}
-      fontFamily="Source Sans Pro"
+      fontFamily="OpenSans-Light"
     > 
       <Card.Section >
         <Image

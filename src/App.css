@@ -20,6 +20,16 @@
   font-family: SourceSansProLight;
   src: url('./fonts/SourceSansPro-Light.ttf');
 }
+@font-face {
+  font-family: OpenSans-Light;
+  src: url('./fonts/OpenSans-Light.ttf');
+}
+
+@font-face {
+  font-family: OpenSans-Regular;
+  src: url('./fonts/OpenSans-Regular.ttf');
+}
+
 
 @font-face {
   font-family: Lato-Thin;
