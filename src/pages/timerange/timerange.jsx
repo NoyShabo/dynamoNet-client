@@ -15,6 +15,7 @@ import {
   getTimeRange,
   updateTimeRange,
 } from "../../serverApi/rest/timeRangeApi";
+// import { getNetwork } from "../../serverApi/rest/networkApi";
 import "./timerange.scss";
 import { getNetwork } from "../../serverApi/rest/networkApi";
 
@@ -38,6 +39,12 @@ export function Timerange() {
     const res = await getTimeRange(id, withNetwork);
     dispatch(setTimeRange(res));
   };
+
+  // const getNetworkById = async (id) => {
+  //   const res = await getNetwork(id);
+  //   timeRange.network = res.network;
+  //   setNetwork(res.network);
+  // };
 
   useEffect(() => {
     getTimeRangeById(timeRangeId);

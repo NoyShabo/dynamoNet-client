@@ -1,19 +1,19 @@
-import { Button } from "@mantine/core";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   ControlsContainer,
   FullScreenControl,
   SearchControl,
   SigmaContainer,
   useLoadGraph,
+  useRegisterEvents,
   ZoomControl,
 } from "@react-sigma/core";
 import "@react-sigma/core/lib/react-sigma.min.css";
-import {
-  LayoutForceAtlas2Control,
-  useWorkerLayoutForceAtlas2,
-} from "@react-sigma/layout-forceatlas2";
+import { LayoutForceAtlas2Control } from "@react-sigma/layout-forceatlas2";
 import Graph from "graphology";
 import { useEffect, useState } from "react";
+import { getNode } from "../../serverApi/rest/nodeApi";
+import { default as ContactInfo } from "../sourceList/list";
 import "./networkGraph.scss";
 
 function genColor(seed) {
@@ -26,14 +26,9 @@ function genColor(seed) {
   return "#" + color;
 }
 
-export const LoadGraph = ({ network }) => {
+export const LoadGraph = ({ network, exportGraph }) => {
   const [graph, setGraph] = useState();
-  // const [isLayoutRunning, setIsLayoutRunning] = useState(false);
-
   const loadGraph = useLoadGraph();
-  // const { start, stop } = useWorkerLayoutForceAtlas2({
-  //   settings: { slowDown: 10 },
-  // });
 
   const getNodeCommunity = (nodeId, communities) => {
     for (const communityId in communities) {
@@ -44,24 +39,6 @@ export const LoadGraph = ({ network }) => {
   useEffect(() => {
     loadGraph(graph);
   }, [loadGraph, graph]);
-
-  // useEffect(() => {
-  //   if (graph && isLayoutRunning) {
-  //     stop();
-  //     setIsLayoutRunning(false);
-  //   }
-  //   start();
-  //   setIsLayoutRunning(true);
-  // }, [graph, isLayoutRunning, stop]);
-
-  // useEffect(() => {
-  //   setIsLayoutRunning(true);
-  //   start();
-  //   return () => {
-  //     setIsLayoutRunning(false);
-  //     stop();
-  //   };
-  // }, [start, stop]);
 
   useEffect(() => {
     const colors = {};
@@ -74,19 +51,28 @@ export const LoadGraph = ({ network }) => {
       return { id: node, label: node };
     });
     const edges = network.edges.map((edge) => {
-      return { from: edge.source, to: edge.destination, label: edge.edgeType };
+      return {
+        from: edge.source,
+        to: edge.destination,
+        _id: edge._id,
+        edgeType: edge.edgeType,
+        edgeContent: edge.edgeContent,
+      };
     });
 
     const edgeMap = {};
     edges.forEach((edge) => {
       if (edgeMap[edge.from + edge.to]) {
         edgeMap[edge.from + edge.to].weight += 1;
+        edgeMap[edge.from + edge.to].edgeType.push(edge.edgeType);
+        edgeMap[edge.from + edge.to].edgeContent.push(edge.edgeContent);
       } else {
         edgeMap[edge.from + edge.to] = {
           from: edge.from,
           to: edge.to,
           weight: 1,
-          label: edge.label,
+          edgeType: [edge.edgeType],
+          edgeContent: [edge.edgeContent],
         };
       }
     });
@@ -104,59 +90,135 @@ export const LoadGraph = ({ network }) => {
     Object.values(edgeMap).forEach((edge) => {
       graph.addEdgeWithKey(edge.from + edge.to, edge.from, edge.to, {
         weight: edge.weight,
-        label: edge.label,
+        edgeType: edge.edgeType,
+        edgeContent: edge.edgeContent,
       });
     });
     setGraph(graph);
+    exportGraph(graph);
   }, [network]);
 
   return null;
 };
 
 export const DisplayGraph = ({ width, height, network }) => {
-  // const [isLayoutRunning, setIsLayoutRunning] = useState(false);
+  const [selectedNode, setSelectedNode] = useState();
+  const [selectedEdge, setSelectedEdge] = useState();
+  const [graph, setGraph] = useState();
+
+  const GraphEvents = () => {
+    const registerEvents = useRegisterEvents();
+
+    useEffect(() => {
+      registerEvents({
+        // node events
+        clickNode: (event) => {
+          console.log("clickNode", event.node, event.preventSigmaDefault);
+          getNode(event.node)
+            .then((node) => {
+              setSelectedNode(node.node);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+        // enterNode: (event) => console.log("enterNode", event.node),
+        // leaveNode: (event) => console.log("leaveNode", event.node),
+        // edge events
+        clickEdge: (event) => {
+          const edge = graph.getEdgeAttributes(event.edge);
+          setSelectedEdge(edge);
+        },
+        // enterEdge: (event) => {
+        //   console.log("enterEdge", event.edge);
+        // },
+        // leaveEdge: (event) => console.log("leaveEdge", event.edge),
+      });
+    }, [registerEvents]);
+
+    return null;
+  };
   return (
-    <div className="display-graph">
-      <SigmaContainer
-        className="graph-container"
-        style={{
-          width,
-          height,
-          backgroundColor: "#DEE4E7",
-        }}
-      >
-        <LoadGraph network={network} />
-        <ControlsContainer position={"bottom-left"}>
-          <LayoutForceAtlas2Control
-            // run based on number of nodes
-            autoRunFor={
-              network && network.nodes.length > 1000
-                ? network.nodes.length
-                : 1000
-            }
-            settings={{
-              slowDown: 10,
-              barnesHutOptimize: true,
-              barnesHutTheta: 0.5,
-              gravity: 1,
-              iterationsPerRender: 1,
-              linLogMode: true,
-              outboundAttractionDistribution: true,
-              strongGravityMode: true,
-              scalingRatio: 1,
-              adjustSizes: true,
-              edgeWeightInfluence: 0,
-              scalingMode: "outside",
-              worker: true,
-            }}
-          />
-          <ZoomControl />
-          <FullScreenControl />
-        </ControlsContainer>
-        <ControlsContainer position={"top-right"} className="search">
-          <SearchControl />
-        </ControlsContainer>
-      </SigmaContainer>
-    </div>
+    <>
+      <div className="display-graph">
+        {selectedNode && (
+          <div className="popup">
+            <div className="popup_inner">
+              <ContactInfo
+                person={selectedNode}
+                closePopup={() => setSelectedNode(null)}
+              />
+              <button onClick={() => setSelectedNode(null)}>
+                <CloseIcon />
+              </button>
+            </div>
+          </div>
+        )}
+        {selectedEdge && (
+          <div className="popup">
+            <div className="popup_inner">
+              <div className="edge-popup">
+                <div className="edge-popup__title">
+                  <h3>Edge</h3>
+                  <button onClick={() => setSelectedEdge(null)}>
+                    <CloseIcon />
+                  </button>
+                </div>
+                <div className="edge-popup__content">
+                  <div className="edge-popup__content__item">
+                    <h4>Edge Type</h4>
+                    <p>{selectedEdge.edgeType.join(", ")}</p>
+                  </div>
+                  <div className="edge-popup__content__item">
+                    <h4>Edge Content</h4>
+                    <p>{selectedEdge.edgeContent.join(", ")}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        <SigmaContainer
+          className="graph-container"
+          style={{
+            width,
+            height,
+            backgroundColor: "#DEE4E7",
+          }}
+        >
+          <LoadGraph network={network} exportGraph={setGraph} />
+          <GraphEvents />
+          <ControlsContainer position={"bottom-left"}>
+            <LayoutForceAtlas2Control
+              autoRunFor={
+                network && network.nodes.length > 1000
+                  ? network.nodes.length
+                  : 1000
+              }
+              settings={{
+                slowDown: 10,
+                barnesHutOptimize: true,
+                barnesHutTheta: 0.5,
+                gravity: 1,
+                iterationsPerRender: 1,
+                linLogMode: true,
+                outboundAttractionDistribution: true,
+                strongGravityMode: true,
+                scalingRatio: 1,
+                adjustSizes: true,
+                edgeWeightInfluence: 0,
+                scalingMode: "outside",
+                worker: true,
+              }}
+            />
+            <ZoomControl />
+            <FullScreenControl />
+          </ControlsContainer>
+          <ControlsContainer position={"top-right"} className="search">
+            <SearchControl />
+          </ControlsContainer>
+        </SigmaContainer>
+      </div>
+    </>
   );
 };
