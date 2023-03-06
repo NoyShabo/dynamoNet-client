@@ -7,6 +7,7 @@ import { Navbar } from "./cmp/navbar/navbar";
 import { DisplayGraph } from "./cmp/network-graph/networkGraph";
 import { NodeCard } from "./cmp/node-details/nodeDetails";
 import { PieChart } from "./cmp/pie/pie";
+import { ContactList } from "./cmp/sourceList/list";
 import { MultiTableDrag } from "./cmp/table/table";
 import { FormNewProject } from "./pages/form-new-project/form";
 import { FormNewTimeRanges } from "./pages/form-new-timeranges/formNewTimeRanges";
@@ -16,9 +17,6 @@ import { Profile } from "./pages/profile/profile";
 import { Project } from "./pages/project/project";
 import { ProjectsPage } from "./pages/projects/projects";
 import { Timerange } from "./pages/timerange/timerange";
-import {ContactList} from './cmp/sourceList/list'
-// import {Tabs} from './cmp/tabs/tabs'
-import { Tabs } from "./pages/project-tabs/projectTabs";
 
 function App() {
   return (
@@ -61,9 +59,6 @@ function App() {
             element={<FormNewTimeRanges />}
           />
           <Route path="/list" element={<ContactList />} />
-          <Route path="/tabs" element={<Tabs />} />
-
-
         </Routes>
       </div>
     </BrowserRouter>

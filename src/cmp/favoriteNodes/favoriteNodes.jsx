@@ -67,6 +67,7 @@ export function FavoriteNodes({ setSelectedNode, favoriteNodes }) {
 
   useEffect(() => {
     setNodes(favoriteNodes);
+    if (favoriteNodes.length) setSelectedNode(favoriteNodes[0]);
   }, [favoriteNodes]);
 
   return (
