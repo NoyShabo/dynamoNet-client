@@ -119,14 +119,21 @@ export const DisplayGraph = ({ width, height, network }) => {
     <div className="display-graph">
       <SigmaContainer
         className="graph-container"
-        style={{ width, height, backgroundColor: "#DEE4E7" }}
-
-
+        style={{
+          width,
+          height,
+          backgroundColor: "#DEE4E7",
+        }}
       >
         <LoadGraph network={network} />
         <ControlsContainer position={"bottom-left"}>
           <LayoutForceAtlas2Control
-            autoRunFor={4000}
+            // run based on number of nodes
+            autoRunFor={
+              network && network.nodes.length > 1000
+                ? network.nodes.length
+                : 1000
+            }
             settings={{
               slowDown: 10,
               barnesHutOptimize: true,
