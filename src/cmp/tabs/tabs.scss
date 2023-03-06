@@ -13,7 +13,7 @@
 
 body {
     background: #263145;
-    font-family: var(--ff);
+    font-family:OpenSans-Regular;
     height: 100%;
 }
 
@@ -22,7 +22,7 @@ body {
 .tabs__content {
     padding: 30px;
     color: var(--paragraph);
-    font-family: inherit;
+    font-family: OpenSans-Light;
     font-weight: 400;
     font-size: 16px;
     line-height: 1.4;
@@ -32,7 +32,7 @@ body {
 .tabs__content h3 {
     color: #ffffff;;
     font-weight: 700;
-    font-family: inherit;
+    font-family: OpenSans-Regular;
     font-size: 24px;
     margin-bottom: 10px;
 }

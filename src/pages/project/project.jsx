@@ -1,4 +1,5 @@
 import PeopleIcon from "@mui/icons-material/People";
+import { fontWeight } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -150,10 +151,11 @@ export function Project() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    fontFamily: "OpenSans-Light",
                   }}
                 >
-                  <PeopleIcon />
-                  Dataset
+                  <PeopleIcon /> 
+                   <span className="text-dataset"> Dataset</span>
                 </button>
                 <Scroll
                   items={[

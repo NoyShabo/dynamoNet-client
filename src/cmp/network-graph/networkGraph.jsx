@@ -169,6 +169,8 @@ export const DisplayGraph = ({ width, height, network }) => {
         className="graph-container"
         // id="sigma-container"
         style={{ width, height, backgroundColor: "#DEE4E7" }}
+
+
       >
         <LoadGraph network={network} />
       </SigmaContainer>

@@ -23,7 +23,7 @@ export default function LegendPie({ domain, range, setStateActive, arr }) {
                 <LegendItem
                   key={`legend-quantile-${label.datum + i}`}
                   margin="0 5px"
-                  fontFamily='cursive'
+                  fontFamily="OpenSans-Light"
                   onClick={() => {
                     console.log('label', label);
                     setStateActive({ active: arr[label.index] });
@@ -40,7 +40,7 @@ export default function LegendPie({ domain, range, setStateActive, arr }) {
                   <svg width={legendGlyphSize} height={legendGlyphSize}>
                     <rect fill={label.value} width={legendGlyphSize} height={legendGlyphSize} />
                   </svg>
-                  <LegendLabel align="left" margin="0 0 5px 4px" fontFamily="cursive">
+                  <LegendLabel align="left" margin="0 0 5px 4px" fontFamily="OpenSans-Light">
                     <div className='text-label'>{label.text}</div>
                   </LegendLabel>
                 </LegendItem>
