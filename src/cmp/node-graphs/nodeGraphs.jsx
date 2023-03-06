@@ -6,15 +6,6 @@ import { LineChart } from "../line-chart/line-chart";
 import { NodeCard } from "../node-details/nodeDetails";
 import "./nodeGraphs.scss";
 
-async function getNodeSelectedDetails(name) {
-  try {
-    const res = await getNode(name);
-    return res.node;
-  } catch (err) {
-    console.log("err: ", err);
-  }
-}
-
 function getNodeMetrics(timeRanges, nodeName) {
   const result = [];
   for (const timeRange of timeRanges) {
@@ -81,10 +72,18 @@ export function NodeGraphs({ timeRanges, nodeName }) {
     );
   }, [nodeMetrics]);
 
+  const getNodeSelectedDetails = async (nodeName) => {
+    try {
+      const res = await getNode(nodeName);
+      setNodeSelected(res.node);
+    } catch (err) {
+      console.log("err: ", err);
+    }
+  };
+
   useEffect(() => {
-    console.log("nodeSelected", nodeSelected);
     console.log("nodeName", nodeName);
-    setNodeSelected(getNodeSelectedDetails(nodeName));
+    getNodeSelectedDetails(nodeName);
   }, [nodeName]);
 
   return (

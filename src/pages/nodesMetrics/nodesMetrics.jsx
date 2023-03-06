@@ -1,9 +1,8 @@
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FavoriteNodes } from "../../cmp/favoriteNodes/favoriteNodes";
 import { NodeGraphs } from "../../cmp/node-graphs/nodeGraphs";
 import "./nodesMetrics.scss";
-// import project from "../../data/project.json";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 export function NodesPage() {
   const myProject = useSelector((state) => state.projectModule.project);
@@ -23,7 +22,10 @@ export function NodesPage() {
     <div className="nodesPage">
       {project && (
         <div className="nodesPage-container">
-          <FavoriteNodes setSelectedNode={setSelectedNode}></FavoriteNodes>
+          <FavoriteNodes
+            setSelectedNode={setSelectedNode}
+            favoriteNodes={project.favoriteNodes}
+          ></FavoriteNodes>
           <NodeGraphs
             timeRanges={project.timeRanges}
             nodeName={selectedNode}

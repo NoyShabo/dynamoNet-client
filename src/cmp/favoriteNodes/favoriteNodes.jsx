@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./favoriteNodes.scss";
 
 export function AddNewNode({ addNode }) {
@@ -25,38 +25,10 @@ export function AddNewNode({ addNode }) {
   );
 }
 
-export function FavoriteNodes({ setSelectedNode }) {
-  const [nodes, setNodes] = useState([
-    {
-      _id: "63f61e5a43ed141319fe4084",
-      twitterId: "74076264",
-      name: "JoeBiden",
-      screenName: "RevMaryLou",
-      location: "Rochester, NY",
-      description:
-        "I am a retired minister and teacher. I am a singer/songwriter. I am poor. My son & I are medically disabled and share housing. I seek a just society.",
-      followersCount: 328,
-      friendsCount: 807,
-      statusesCount: 28674,
-      registrationDateTwitter: "2009-09-14",
-    },
-    {
-      name: "BernieSanders",
-      isSelected: false,
-    },
-    {
-      name: "KamalaHarris",
-      isSelected: false,
-    },
-  ]);
+export function FavoriteNodes({ setSelectedNode, favoriteNodes }) {
+  const [nodes, setNodes] = useState([]);
 
   const addNode = (name) => setNodes([...nodes, { name }]);
-
-  const toggleTask = (index) => {
-    const newTasks = [...nodes];
-    newTasks[index].isCompleted = !newTasks[index].isCompleted;
-    setNodes(newTasks);
-  };
 
   const removeNode = (index) => {
     const newNodes = [...nodes];
@@ -64,23 +36,28 @@ export function FavoriteNodes({ setSelectedNode }) {
     setNodes(newNodes);
   };
 
+  useEffect(() => {
+    setNodes(favoriteNodes);
+  }, [favoriteNodes]);
+
   return (
     <>
       <div className="favoriteNodes">
         <h1>Favorite Nodes</h1>
         <div className="nodes-list">
-          {nodes.map((node, index) => (
-            <div
-              key={node.name}
-              className="node"
-              onClick={() => setSelectedNode(node.name)}
-            >
-              <span>{node.name}</span>
-              <button onClick={() => removeNode(index)}>
-                <i className="fa fa-minus"></i>
-              </button>
-            </div>
-          ))}
+          {nodes &&
+            nodes.map((node, index) => (
+              <div
+                key={node}
+                className="node"
+                onClick={() => setSelectedNode(node)}
+              >
+                <span>{node}</span>
+                <button onClick={() => removeNode(index)}>
+                  <i className="fa fa-minus"></i>
+                </button>
+              </div>
+            ))}
           <AddNewNode addNode={addNode} />
         </div>
       </div>
