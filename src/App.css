@@ -2,6 +2,7 @@
   scrollbar-width: thin;
   scrollbar-color: #111 #444;
   box-sizing: border-box;
+  font-family: "Open Sans";
 }
 
 @font-face {

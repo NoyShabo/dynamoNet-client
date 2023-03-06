@@ -10,13 +10,13 @@
 
 body {
   margin: 0;
-  font-family: OpenSans-Regular;
+  /* font-family: OpenSans-Regular; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: OpenSans-Regular;
+  /* font-family: OpenSans-Regular; */
 }
 
 *{

@@ -73,6 +73,7 @@ export function FavoriteNodes({ setSelectedNode, favoriteNodes }) {
   return (
     <>
       <div className="favoriteNodes">
+        
         <h1>Favorite Nodes</h1>
         <div className="nodes-list">
           {nodes &&

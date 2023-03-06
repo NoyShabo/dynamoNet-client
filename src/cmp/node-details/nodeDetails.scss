@@ -17,7 +17,7 @@ max-width: 550px;
 
 
 .wrapper {
-font-family: SourceSansProLight;
+// font-family: SourceSansProLight;
  position: relative;
  width:100%;
  margin: 50px auto 20px;
@@ -33,7 +33,7 @@ font-family: SourceSansProLight;
 .header {
   font-size: 30px;
   padding: 5px;
-  font-family: 'PT Sans Narrow', sans-serif;
+  // font-family: 'PT Sans Narrow', sans-serif;
 }
 
 
@@ -70,7 +70,7 @@ font-family: SourceSansProLight;
 
   }
   .item{
-    font-family: SourceSansProR;
+    // font-family: SourceSansProR;
     font-weight: 10px;
     font-size: 12px;
         @include trans($time:.2s);

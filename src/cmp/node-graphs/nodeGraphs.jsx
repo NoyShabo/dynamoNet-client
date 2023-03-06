@@ -90,7 +90,7 @@ export function NodeGraphs({ timeRanges, nodeName }) {
   return (
     <div className="graphs">
       <NodeCard nodeDetails={nodeSelected}></NodeCard>
-      <div className="head-title"> Node Evolution</div>
+      {/* <div className="head-title"> Node Evolution</div> */}
       <div className="charts-list">
         <div className="chart-container">
           <div className="small-title-project">Degree Evolution</div>

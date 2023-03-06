@@ -78,7 +78,7 @@ export function PieChart({
                 : labelsArray
             }
             pieValue={usage}
-            fontFamily="OpenSans-Light"
+            fontFamily="Open Sans"
             outerRadius={donutThickness}
             innerRadius={({ data }) => {
               const size = active && active.label === data.label;
@@ -110,7 +110,7 @@ export function PieChart({
             fill="#FFF"
             fontSize={16}
             fontWeight={200}
-            fontFamily="OpenSans-Light"
+            fontFamily="Open Sans"
             dy={-10}
           >
             {active ? active.label : ""}
@@ -120,7 +120,7 @@ export function PieChart({
             fill="#FFF"
             fontSize={16}
             fontWeight={200}
-            fontFamily="OpenSans-Light"
+            fontFamily="Open Sans"
             dy={10}
           >
             {active ? active.usage : ""}
@@ -135,7 +135,7 @@ export function PieChart({
             fontSize={18}
             fontWeight={300}
             pointerEvents="none"
-            fontFamily="OpenSans-Light"
+            fontFamily="Open Sans"
             ></text>
         )}
       </svg>
