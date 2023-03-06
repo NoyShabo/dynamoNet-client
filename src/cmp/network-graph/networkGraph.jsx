@@ -1,7 +1,17 @@
 import { Button } from "@mantine/core";
-import { SigmaContainer, useLoadGraph } from "@react-sigma/core";
+import {
+  ControlsContainer,
+  FullScreenControl,
+  SearchControl,
+  SigmaContainer,
+  useLoadGraph,
+  ZoomControl,
+} from "@react-sigma/core";
 import "@react-sigma/core/lib/react-sigma.min.css";
-import { useWorkerLayoutForceAtlas2 } from "@react-sigma/layout-forceatlas2";
+import {
+  LayoutForceAtlas2Control,
+  useWorkerLayoutForceAtlas2,
+} from "@react-sigma/layout-forceatlas2";
 import Graph from "graphology";
 import { useEffect, useState } from "react";
 import "./networkGraph.scss";
@@ -16,14 +26,14 @@ function genColor(seed) {
   return "#" + color;
 }
 
-export const LoadGraph = ({ network, renderLayout }) => {
+export const LoadGraph = ({ network }) => {
   const [graph, setGraph] = useState();
-  const [isLayoutRunning, setIsLayoutRunning] = useState(false);
+  // const [isLayoutRunning, setIsLayoutRunning] = useState(false);
 
   const loadGraph = useLoadGraph();
-  const { start, stop } = useWorkerLayoutForceAtlas2({
-    settings: { slowDown: 10 },
-  });
+  // const { start, stop } = useWorkerLayoutForceAtlas2({
+  //   settings: { slowDown: 10 },
+  // });
 
   const getNodeCommunity = (nodeId, communities) => {
     for (const communityId in communities) {
@@ -31,36 +41,27 @@ export const LoadGraph = ({ network, renderLayout }) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (renderLayout) {
-  //     setIsLayoutRunning(true);
-  //     start();
-  //   } else {
-  //     setIsLayoutRunning(false);
-  //     stop();
-  //   }
-  // }, [renderLayout, start, stop]);
   useEffect(() => {
     loadGraph(graph);
   }, [loadGraph, graph]);
 
-  useEffect(() => {
-    if (graph && isLayoutRunning) {
-      stop();
-      setIsLayoutRunning(false);
-    }
-    start();
-    setIsLayoutRunning(true);
-  }, [graph, isLayoutRunning, stop]);
+  // useEffect(() => {
+  //   if (graph && isLayoutRunning) {
+  //     stop();
+  //     setIsLayoutRunning(false);
+  //   }
+  //   start();
+  //   setIsLayoutRunning(true);
+  // }, [graph, isLayoutRunning, stop]);
 
-  useEffect(() => {
-    setIsLayoutRunning(true);
-    start();
-    return () => {
-      setIsLayoutRunning(false);
-      stop();
-    };
-  }, [start, stop]);
+  // useEffect(() => {
+  //   setIsLayoutRunning(true);
+  //   start();
+  //   return () => {
+  //     setIsLayoutRunning(false);
+  //     stop();
+  //   };
+  // }, [start, stop]);
 
   useEffect(() => {
     const colors = {};
@@ -73,12 +74,22 @@ export const LoadGraph = ({ network, renderLayout }) => {
       return { id: node, label: node };
     });
     const edges = network.edges.map((edge) => {
-      return { from: edge.source, to: edge.destination };
+      return { from: edge.source, to: edge.destination, label: edge.edgeType };
     });
-    // setColors(colors);
-    // setNodes(nodes);
-    // setEdges(edges);
 
+    const edgeMap = {};
+    edges.forEach((edge) => {
+      if (edgeMap[edge.from + edge.to]) {
+        edgeMap[edge.from + edge.to].weight += 1;
+      } else {
+        edgeMap[edge.from + edge.to] = {
+          from: edge.from,
+          to: edge.to,
+          weight: 1,
+          label: edge.label,
+        };
+      }
+    });
     const graph = new Graph();
     nodes.forEach((node) => {
       const nodeCommunity = getNodeCommunity(node.id, network.communities);
@@ -88,25 +99,13 @@ export const LoadGraph = ({ network, renderLayout }) => {
         size: 3,
         label: node.label,
         color: nodeCommunity ? colors[nodeCommunity] : "#70d8bd",
-        // onClick: () => {
-        //   console.log("clicked on node", node.id);
-        // },
       });
     });
-    edges.forEach((edge) => {
-      if (graph.hasEdge(edge.from, edge.to)) {
-        const edgeData = graph.getEdgeAttributes(edge.from, edge.to);
-        graph.updateEdgeAttribute(
-          edge.from,
-          edge.to,
-          "weight",
-          () => edgeData.weight + 1
-        );
-      } else {
-        graph.addEdgeWithKey(edge.from + edge.to, edge.from, edge.to, {
-          weight: 1,
-        });
-      }
+    Object.values(edgeMap).forEach((edge) => {
+      graph.addEdgeWithKey(edge.from + edge.to, edge.from, edge.to, {
+        weight: edge.weight,
+        label: edge.label,
+      });
     });
     setGraph(graph);
   }, [network]);
@@ -115,28 +114,39 @@ export const LoadGraph = ({ network, renderLayout }) => {
 };
 
 export const DisplayGraph = ({ width, height, network }) => {
-  const [isLayoutRunning, setIsLayoutRunning] = useState(false);
+  // const [isLayoutRunning, setIsLayoutRunning] = useState(false);
   return (
     <div className="display-graph">
       <SigmaContainer
         className="graph-container"
         style={{ width, height, backgroundColor: "#DEE4E7" }}
       >
-        <LoadGraph network={network} renderLayout={isLayoutRunning} />
-        <Button
-          onClick={() => {
-            setIsLayoutRunning(false);
-          }}
-        >
-          Stop Layout
-        </Button>
-        <Button
-          onClick={() => {
-            setIsLayoutRunning(true);
-          }}
-        >
-          Start Layout
-        </Button>
+        <LoadGraph network={network} />
+        <ControlsContainer position={"bottom-left"}>
+          <LayoutForceAtlas2Control
+            autoRunFor={4000}
+            settings={{
+              slowDown: 10,
+              barnesHutOptimize: true,
+              barnesHutTheta: 0.5,
+              gravity: 1,
+              iterationsPerRender: 1,
+              linLogMode: true,
+              outboundAttractionDistribution: true,
+              strongGravityMode: true,
+              scalingRatio: 1,
+              adjustSizes: true,
+              edgeWeightInfluence: 0,
+              scalingMode: "outside",
+              worker: true,
+            }}
+          />
+          <ZoomControl />
+          <FullScreenControl />
+        </ControlsContainer>
+        <ControlsContainer position={"top-right"}>
+          <SearchControl />
+        </ControlsContainer>
       </SigmaContainer>
     </div>
   );

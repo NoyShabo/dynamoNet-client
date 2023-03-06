@@ -17,7 +17,7 @@
     "@nivo/core": "^0.80.0",
     "@nivo/line": "^0.80.0",
     "@react-sigma/core": "^3.2.0",
-    "@react-sigma/layout-forceatlas2": "^3.2.0",
+    "@react-sigma/layout-forceatlas2": "^3.3.0",
     "@react-spring/web": "^9.6.1",
     "@reduxjs/toolkit": "^1.9.3",
     "@tabler/icons-react": "^2.4.0",
