@@ -29,6 +29,12 @@ img {
 	margin-top: 75px;
 }
 
+.title{
+	font-weight: bold;
+	font-size: 1.5rem;
+	text-align: center;
+	padding: 10px 20px 0px 20px;
+}
 .bold-text {
 	font-weight: bold;
 	font-size: 1.1rem;
@@ -43,7 +49,7 @@ img {
 .normal-text {
 	font-weight: normal;
 	font-size: 0.95rem;
-	color: hsl(0, 0%, 50%);
+	color: hsl(0, 0%, 0%);
 	text-align: center;
 	padding-bottom: 10px;
 }
@@ -51,7 +57,7 @@ img {
 .details{
 	font-weight: normal;
 	font-size: 0.8rem;
-	color: hsl(0, 0%, 50%);
+	color: hsl(0, 1%, 20%);
 	text-align: center;
 	padding-bottom: 10px;
 }
@@ -59,8 +65,8 @@ img {
 /* SOCIAL STATS */
 .smaller-text {
 	font-weight: normal;
-	font-size: 0.7rem;
-	color: hsl(0, 0%, 50%);
+	font-size: 0.75rem;
+	color: hsl(0, 0%, 0%);
 	text-align: center;
 	letter-spacing: 1px;
 	padding-bottom: 20px;
@@ -83,5 +89,9 @@ img {
 
 .photos {
 	flex: 1;
+}
+
+.text-profile{
+	margin-top: 10px;
 }
 }
