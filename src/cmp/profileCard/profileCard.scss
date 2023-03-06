@@ -75,7 +75,7 @@ img {
 
 .social-container {
 	display: flex;
-	border-top: solid rgb(206, 206, 206) 1px;
+	// border-top: solid rgb(206, 206, 206) 1px;
 	text-align: center;
 }
 
@@ -93,5 +93,21 @@ img {
 
 .text-profile{
 	margin-top: 10px;
+}
+
+.button-container{
+	border-top: solid rgb(206, 206, 206) 1px;
+	margin-top: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	button{
+		margin-top: 15px;
+		background-color: rgb(19, 36, 73);
+		margin-bottom: 20px;
+
+	}
+
 }
 }
