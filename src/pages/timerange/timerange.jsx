@@ -98,7 +98,6 @@ export function Timerange() {
               {/* select to filter network edges */}
               <div className="network-filter">
                 <Select
-                  label="Filter network edges"
                   placeholder="Select edge type"
                   data={[
                     { label: "All", value: "all" },

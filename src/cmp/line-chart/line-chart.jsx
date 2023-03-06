@@ -1,8 +1,7 @@
-import React from "react";
 import { ResponsiveLine } from "@nivo/line";
+import React from "react";
 
-export function LineChart ({ isDashboard = false, data }) {
-
+export function LineChart({ isDashboard = false, data }) {
   return (
     <ResponsiveLine
       theme={{
@@ -41,7 +40,7 @@ export function LineChart ({ isDashboard = false, data }) {
       }}
       curve="catmullRom"
       data={data}
-      colors= '#70d8bd'
+      colors="#70d8bd"
       margin={{ top: 50, right: 120, bottom: 50, left: 60 }}
       xScale={{ type: "point" }}
       yScale={{
@@ -59,7 +58,7 @@ export function LineChart ({ isDashboard = false, data }) {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "transportation",
+        legend: isDashboard ? undefined : "Time Ranges",
         legendOffset: 30,
         legendPosition: "middle",
       }}
@@ -69,16 +68,16 @@ export function LineChart ({ isDashboard = false, data }) {
         tickValues: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "count",
+        legend: isDashboard ? undefined : "Value",
         legendOffset: -40,
         legendPosition: "middle",
       }}
       enableGridX={false}
       enableGridY={!isDashboard}
       pointSize={10}
-      pointColor= '#70d8bd'
+      pointColor="#70d8bd"
       pointBorderWidth={2}
-      pointBorderColor='#70d8bd'
+      pointBorderColor="#70d8bd"
       pointLabelYOffset={-12}
       useMesh={true}
       legends={[
@@ -109,5 +108,4 @@ export function LineChart ({ isDashboard = false, data }) {
       ]}
     />
   );
-};
-
+}
