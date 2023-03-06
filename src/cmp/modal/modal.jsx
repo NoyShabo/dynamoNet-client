@@ -5,7 +5,6 @@ import {DatasetList} from  '../sourceList/list';
 
 export const Modal = ({ onRequestClose }) => {
 	// Use useEffect to add an event listener to the document
-    console.log("here")
 	useEffect(() => {
 		function onKeyDown(event) {
 			if (event.keyCode === 27) {
