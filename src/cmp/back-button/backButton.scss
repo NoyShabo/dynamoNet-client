@@ -1,0 +1,11 @@
+.back-button {
+    position: absolute;
+    top: 110px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    // background: url(../images/back-button.png) no-repeat;
+    background-size: 50px 50px;
+    cursor: pointer;
+    z-index: 1;
+}

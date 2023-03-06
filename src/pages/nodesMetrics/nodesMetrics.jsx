@@ -4,19 +4,19 @@ import { FavoriteNodes } from "../../cmp/favoriteNodes/favoriteNodes";
 import { NodeGraphs } from "../../cmp/node-graphs/nodeGraphs";
 import "./nodesMetrics.scss";
 
-export function NodesPage() {
-  const myProject = useSelector((state) => state.projectModule.project);
-  const [project, setProject] = useState();
-  const dispatch = useDispatch();
+export function NodesPage({ project }) {
+  // const myProject = useSelector((state) => state.projectModule.project);
+  // const [project, setProject] = useState();
+  // const dispatch = useDispatch();
   const [selectedNode, setSelectedNode] = useState();
 
-  useEffect(() => {
-    console.log("project: ", myProject);
-    if (myProject && myProject.favoriteNodes) {
-      setProject(myProject);
-      setSelectedNode(myProject.favoriteNodes[0]);
-    }
-  }, []);
+  // useEffect(() => {
+  //   console.log("project: ", myProject);
+  //   if (myProject && myProject.favoriteNodes) {
+  //     setProject(myProject);
+  //     setSelectedNode(myProject.favoriteNodes[0]);
+  //   }
+  // }, []);
 
   return (
     <div className="nodesPage">

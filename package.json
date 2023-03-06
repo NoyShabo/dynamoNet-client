@@ -52,6 +52,7 @@
     "react-tsparticles": "^2.9.3",
     "react-use": "^17.4.0",
     "redux": "^4.2.1",
+    "redux-persist": "^6.0.0",
     "sass": "^1.58.3",
     "sigma": "^2.4.0",
     "tsparticles": "^2.9.3",

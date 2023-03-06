@@ -2,13 +2,13 @@ import { Button } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { BarChart } from "../../cmp/bar-chart/bar-chart";
 import { GlobalCard } from "../../cmp/card/card";
 import { Delete } from "../../cmp/delete/delete";
 import { Edit } from "../../cmp/edit/edit";
-import { LineChart } from "../../cmp/line-chart/line-chart";
+import { NetworkEvolution } from "../../cmp/network-evolution/networkEvolution";
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 import { Scroll } from "../../cmp/scroll/scroll";
+import { Tabs } from "../../cmp/tabs/tabs";
 import { ProjectStatus } from "../../constants";
 import "../../globalStyle.scss";
 import newTimeRangeImg from "../../images/add_timerange.png";
@@ -18,6 +18,7 @@ import {
   setProject,
 } from "../../redux/actions/projectActions";
 import { getProject, updateProject } from "../../serverApi/rest/projectApi";
+import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
 import {Modal} from '../../cmp/modal/modal'
 
@@ -42,73 +43,23 @@ function getTimeRangeCards(project) {
   return cards;
 }
 
+function SourceNetwork({ network }) {
+  return (
+    <div className="source-network">
+      <div className="title-project">Source Network</div>
+      <div className="small-title-project">Metrics for the source network</div>
+      <NetworkMetrics network={network} />
+    </div>
+  );
+}
+
 export function Project() {
   const navigate = useNavigate();
   const project = useSelector((state) => state.projectModule.project);
   const dispatch = useDispatch();
   const { projectId } = useParams();
-  const [numberOfNodes, setNumberOfNodes] = useState([]);
-  const [numberOfEdges, setNumberOfEdges] = useState([]);
-  const [density, setDensity] = useState([]);
-  const [reciprocity, setReciprocity] = useState([]);
-  const [degreeCentrality, setDegreeCentrality] = useState([
-    { id: "Degree Centrality", data: [] },
-  ]);
-  const [radius, setRadius] = useState([{ id: "Radius", data: [] }]);
-  const [diameter, setDiameter] = useState([{ id: "Diameter", data: [] }]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
-  function setMetrics(timeRanges) {
-    const numberOfNodes = [];
-    const numberOfEdges = [];
-    const density = [];
-    const reciprocity = [];
-    const degreeCentrality = [{ id: "Degree Centrality", data: [] }];
-    const radius = [{ id: "Radius", data: [] }];
-    const diameter = [{ id: "Diameter", data: [] }];
-    timeRanges.forEach((timeRange) => {
-      numberOfNodes.push({
-        window: timeRange.title,
-        frequency: timeRange.network.networkMetrics.numberOfNodes,
-        key: `${timeRange._id}-numberOfNodes`,
-      });
-      numberOfEdges.push({
-        window: timeRange.title,
-        frequency: timeRange.network.networkMetrics.numberOfEdges,
-        key: `${timeRange._id}-numberOfEdges`,
-      });
-      density.push({
-        window: timeRange.title,
-        frequency: timeRange.network.networkMetrics.density,
-        key: `${timeRange._id}-density`,
-      });
-      reciprocity.push({
-        window: timeRange.title,
-        frequency: timeRange.network.networkMetrics.reciprocity,
-        key: `${timeRange._id}-reciprocity`,
-      });
-      degreeCentrality[0].data.push({
-        x: timeRange.title,
-        y: timeRange.network.networkMetrics.degreeCentrality,
-      });
-      radius[0].data.push({
-        x: timeRange.title,
-        y: timeRange.network.networkMetrics.radius,
-      });
-      diameter[0].data.push({
-        x: timeRange.title,
-        y: timeRange.network.networkMetrics.diameter,
-      });
-    });
-    setNumberOfNodes(numberOfNodes);
-    setNumberOfEdges(numberOfEdges);
-    setDensity(density);
-    setReciprocity(reciprocity);
-    setDegreeCentrality(degreeCentrality);
-    setRadius(radius);
-    setDiameter(diameter);
-  }
 
   const getProjectById = async (id) => {
     const res = await getProject(id);
@@ -124,7 +75,6 @@ export function Project() {
 
   useEffect(() => {
     if (project) {
-      setMetrics(project.timeRanges);
       setTitle(project.title);
       setDescription(project.description);
     }
@@ -210,107 +160,45 @@ export function Project() {
                   Creating time ranges. Please be patient...
                 </div>
               )}
-              {project.timeRanges.length === 0 ? (
-                project.status === ProjectStatus.READY && (
-                  <div className="small-title-project">No Time Ranges</div>
-                )
-              ) : (
-                <div className="network-evolution">
-                  <div className="title-project">Network Evolution</div>
-                  <div className="small-title-project">
-                    Evolution by all Time ranges
-                  </div>
-
-                  <div className="charts-list">
-                    <div className="chart-container">
-                      <div className="small-title-project">
-                        Number of Nodes Evolution
-                      </div>
-                      <BarChart
-                        width={100 * numberOfNodes.length}
-                        height={400}
-                        data={numberOfNodes}
-                      />
-                    </div>
-                    <div className="chart-container">
-                      <div className="small-title-project">
-                        Number of Edges Evolution
-                      </div>
-                      <BarChart
-                        width={100 * numberOfEdges.length}
-                        height={400}
-                        data={numberOfEdges}
-                      />
-                    </div>
-                    <div className="chart-container">
-                      <div className="small-title-project">
-                        Density Evolution
-                      </div>
-                      <BarChart
-                        width={100 * density.length}
-                        height={400}
-                        data={density}
-                      />
-                    </div>
-                    {/* <div className='chart-container'>
-                                      <div className='small-title-project'>Degree Centrality Evolution</div>
-                                      <BarChart width={100*degreeCentrality.length} height={400} data={degreeCentrality}/>
-                                  </div> */}
-                    {/* <div className='chart-container'>
-                                      <div className='small-title-project'>Diameter Evolution</div>
-                                      <BarChart width={100*diameter.length} height={400} data={diameter}/>
-                                  </div>
-                                  <div className='chart-container'>
-                                      <div className='small-title-project'>Radius Evolution</div>
-                                      <BarChart width={100*radius.length} height={400} data={radius}/>
-                                  </div> */}
-                    <div className="chart-container">
-                      <div className="small-title-project">
-                        Reciprocity Evolution
-                      </div>
-                      <BarChart
-                        width={100 * reciprocity.length}
-                        height={400}
-                        data={reciprocity}
-                      />
-                    </div>
-
-                    <div className="chart-container chart-container-line">
-                      <div className="small-title-project">
-                        Degree Centrality Evolution
-                      </div>
-                      <LineChart data={degreeCentrality} />
-                    </div>
-                    <div className="chart-container chart-container-line">
-                      <div className="small-title-project">
-                        Radius Evolution
-                      </div>
-                      <LineChart data={radius} />
-                    </div>
-                    <div className="chart-container chart-container-line">
-                      <div className="small-title-project">
-                        Diameter Evolution
-                      </div>
-                      <LineChart data={diameter} />
-                    </div>
-                  </div>
-                </div>
-              )}
-              <Button
-                className="btn btn-primary"
-                onClick={() => {
-                  navigate(`/project/${project._id}/nodes`);
-                }}
-              >
-                Go to Node Metrics
-              </Button>
-              <div className="source-network">
-                <div className="title-project">Source Network</div>
-                <div className="small-title-project">
-                  Metrics for the source network
-                </div>
-                <NetworkMetrics network={project.sourceNetwork} />
-              </div>
+              <Tabs
+                tabs={[
+                  {
+                    id: 1,
+                    name: "Source Network",
+                    component: (
+                      <SourceNetwork network={project.sourceNetwork} />
+                    ),
+                  },
+                  {
+                    id: 2,
+                    name: "Network Evolution",
+                    component:
+                      project.timeRanges.length === 0 ? (
+                        project.status === ProjectStatus.READY && (
+                          <div className="small-title-project">
+                            No Time Ranges
+                          </div>
+                        )
+                      ) : (
+                        <NetworkEvolution project={project} />
+                      ),
+                  },
+                  {
+                    id: 3,
+                    name: "Node Metrics",
+                    component:
+                      project.timeRanges.length === 0 ? (
+                        project.status === ProjectStatus.READY && (
+                          <div className="small-title-project">
+                            No Time Ranges
+                          </div>
+                        )
+                      ) : (
+                        <NodesPage project={project} />
+                      ),
+                  },
+                ]}
+              />
               <Delete
                 onDelete={handleDelete}
                 title={`Delete Project: ${title}`}
