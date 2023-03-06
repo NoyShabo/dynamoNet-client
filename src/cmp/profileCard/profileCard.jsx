@@ -26,6 +26,9 @@ export function ProfileCard(props) {
 				</div>
 
 			</div>
+			<div className="button-container">
+				<button>Logout </button>
+			</div>
 		</div>
 		</div>
 	);
