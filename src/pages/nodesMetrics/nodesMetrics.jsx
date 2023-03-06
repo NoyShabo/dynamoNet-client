@@ -26,10 +26,16 @@ export function NodesPage({ project }) {
             setSelectedNode={setSelectedNode}
             favoriteNodes={project.favoriteNodes}
           ></FavoriteNodes>
-          <NodeGraphs
-            timeRanges={project.timeRanges}
-            nodeName={selectedNode}
-          ></NodeGraphs>
+          {!project.favoriteNodes || project.favoriteNodes.length === 0 ? (
+            <div className="title-project">
+              No favorite nodes to display evolution
+            </div>
+          ) : (
+            <NodeGraphs
+              timeRanges={project.timeRanges}
+              nodeName={selectedNode}
+            ></NodeGraphs>
+          )}
         </div>
       )}
     </div>

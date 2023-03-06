@@ -175,7 +175,7 @@ export function Project() {
                   },
                   {
                     id: 3,
-                    name: "Node Metrics",
+                    name: "Node Evolution",
                     component:
                       project.timeRanges.length === 0 ? (
                         project.status === ProjectStatus.READY && (
@@ -186,6 +186,18 @@ export function Project() {
                       ) : (
                         <NodesPage project={project} />
                       ),
+                  },
+                  {
+                    id: 4,
+                    name: "Community Evolution",
+                    component: (
+                      <>
+                        <div className="title-project">Community Evolution</div>
+                        <div className="small-title-project">
+                          In the works...
+                        </div>
+                      </>
+                    ),
                   },
                 ]}
               />

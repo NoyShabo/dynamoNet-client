@@ -29,7 +29,7 @@ export function AddNewNode({ addNode, setError, setShowNotification }) {
       <input
         type="text"
         value={value}
-        placeholder="Enter the new username…"
+        placeholder="username"
         onChange={(e) => setValue(e.target.value)}
       />
       <button type="submit">
