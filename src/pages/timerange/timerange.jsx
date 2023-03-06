@@ -7,6 +7,7 @@ import { Edit } from "../../cmp/edit/edit";
 import { DisplayGraph } from "../../cmp/network-graph/networkGraph";
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 // import timeRange from "../../data/timeRange.json";
+import { Select } from "@mantine/core";
 import "../../globalStyle.scss";
 import { setTimeRange } from "../../redux/actions/timeRangeActions";
 import {
@@ -22,6 +23,7 @@ export function Timerange() {
   const [timeRangeTitle, setTimeRangeTitle] = useState("");
   const { timeRangeId, projectId } = useParams();
   const navigate = useNavigate();
+  const [network, setNetwork] = useState(null);
 
   const getTimeRangeById = async (id, withNetwork = false) => {
     const res = await getTimeRange(id, withNetwork);
@@ -40,6 +42,7 @@ export function Timerange() {
       setTimeRangeTitle(timeRange.title);
       if (timeRange.network && !timeRange.network.nodes)
         getTimeRangeById(timeRangeId, true);
+      else setNetwork(timeRange.network);
     }
   }, [timeRange]);
 
@@ -88,15 +91,49 @@ export function Timerange() {
               </div>
             </div>
           </div>
-          {timeRange.network.nodes && timeRange.network.nodes.length > 0 ? (
-            <div className="network-container">
-              <DisplayGraph
-                width="80vw"
-                height="70vh"
-                network={timeRange.network}
-              />
+          {timeRange.network &&
+          timeRange.network.nodes &&
+          timeRange.network.nodes.length > 0 ? (
+            <div>
+              {/* select to filter network edges */}
+              <div className="network-filter">
+                <Select
+                  label="Filter network edges"
+                  placeholder="Select edge type"
+                  data={[
+                    { label: "All", value: "all" },
+                    { label: "Retweet", value: "retweet" },
+                    { label: "Quote", value: "quote" },
+                  ]}
+                  onChange={(value) => {
+                    if (value === "all")
+                      setNetwork(network ? timeRange.network : null);
+                    else {
+                      const edges = [];
+                      const nodes = new Set();
+                      timeRange.network.edges.forEach((edge) => {
+                        if (edge.edgeType === value) {
+                          edges.push(edge);
+                          nodes.add(edge.source);
+                          nodes.add(edge.destination);
+                        }
+                      });
+
+                      const filteredNetwork = {
+                        ...timeRange.network,
+                        edges,
+                        nodes: Array.from(nodes),
+                      };
+                      setNetwork(filteredNetwork);
+                    }
+                  }}
+                />
+              </div>
+              <div className="network-container">
+                <DisplayGraph width="80vw" height="70vh" network={network} />
+              </div>
             </div>
-          ) : timeRange.network.nodes ? (
+          ) : timeRange.network && timeRange.network.nodes ? (
             <div className="small-title-project">
               There's no network to display
             </div>
