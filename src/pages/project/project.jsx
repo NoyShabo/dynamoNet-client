@@ -1,3 +1,4 @@
+import PeopleIcon from "@mui/icons-material/People";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -142,7 +143,16 @@ export function Project() {
                     dataset={project.dataset}
                   />
                 )}
-                <button onClick={toggleModal} type="button">
+                <button
+                  onClick={toggleModal}
+                  type="button"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <PeopleIcon />
                   Dataset
                 </button>
                 <Scroll
