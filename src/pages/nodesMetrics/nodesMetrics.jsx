@@ -20,6 +20,7 @@ export function NodesPage({ project }) {
 
   return (
     <div className="nodesPage">
+      <div className="title-project">Node Evolution</div>
       {project && (
         <div className="nodesPage-container">
           <FavoriteNodes

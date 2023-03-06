@@ -48,7 +48,7 @@ export default function AnimatedPie({
             }),
           )}
           fill={getColor(arc)}
-          fontFamily='cursive'
+          fontFamily='Open Sans'
           onClick={() => onClickDatum(arc)}
           onTouchStart={() => onClickDatum(arc)}
         />
@@ -62,7 +62,7 @@ export default function AnimatedPie({
               fontSize={22}
               textAnchor="middle"
               pointerEvents="none"
-              fontFamily="OpenSans-Light"
+              fontFamily="Open Sans"
               >
               {getKey(arc)}
             </text>

@@ -153,7 +153,7 @@ export const DisplayGraph = ({ width, height, network }) => {
           <ZoomControl />
           <FullScreenControl />
         </ControlsContainer>
-        <ControlsContainer position={"top-right"}>
+        <ControlsContainer position={"top-right"} className="search">
           <SearchControl />
         </ControlsContainer>
       </SigmaContainer>

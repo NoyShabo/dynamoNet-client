@@ -48,7 +48,7 @@ function SourceNetwork({ network }) {
   return (
     <div className="source-network">
       <div className="title-project">Source Network</div>
-      <div className="small-title-project">Metrics for the source network</div>
+      {/* <div className="small-title-project">Metrics for the source network</div> */}
       <NetworkMetrics network={network} />
     </div>
   );
