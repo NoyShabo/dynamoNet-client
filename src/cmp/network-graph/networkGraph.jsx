@@ -1,15 +1,14 @@
+import { Button } from "@mantine/core";
 import { SigmaContainer, useLoadGraph } from "@react-sigma/core";
 import "@react-sigma/core/lib/react-sigma.min.css";
 import { useWorkerLayoutForceAtlas2 } from "@react-sigma/layout-forceatlas2";
 import Graph from "graphology";
-import { useEffect } from "react";
-// import Sigma from "sigma";
+import { useEffect, useState } from "react";
 import "./networkGraph.scss";
 
 function genColor(seed) {
   let color = Math.floor(Math.abs(Math.sin(seed) * 16777215));
   color = color.toString(16);
-  // pad any colors shorter than 6 characters with leading 0s
   while (color.length < 6) {
     color = "0" + color;
   }
@@ -17,24 +16,14 @@ function genColor(seed) {
   return "#" + color;
 }
 
-export const LoadGraph = ({ network }) => {
-  const colors = {};
-  let i = 0;
-  for (const communityId in network.communities) {
-    colors[communityId] = genColor(i);
-    i++;
-  }
-  const nodes = network.nodes.map((node) => {
-    return { id: node, label: node };
-  });
-  const edges = network.edges.map((edge) => {
-    return { from: edge.source, to: edge.destination };
-  });
+export const LoadGraph = ({ network, renderLayout }) => {
+  const [graph, setGraph] = useState();
+  const [isLayoutRunning, setIsLayoutRunning] = useState(false);
+
   const loadGraph = useLoadGraph();
-  const { start, kill } = useWorkerLayoutForceAtlas2({
-    settings: { slowDown: 15 },
+  const { start, stop } = useWorkerLayoutForceAtlas2({
+    settings: { slowDown: 10 },
   });
-  // const container = document.getElementById("sigma-container");
 
   const getNodeCommunity = (nodeId, communities) => {
     for (const communityId in communities) {
@@ -42,87 +31,55 @@ export const LoadGraph = ({ network }) => {
     }
   };
 
+  // useEffect(() => {
+  //   if (renderLayout) {
+  //     setIsLayoutRunning(true);
+  //     start();
+  //   } else {
+  //     setIsLayoutRunning(false);
+  //     stop();
+  //   }
+  // }, [renderLayout, start, stop]);
   useEffect(() => {
+    loadGraph(graph);
+  }, [loadGraph, graph]);
+
+  useEffect(() => {
+    if (graph && isLayoutRunning) {
+      stop();
+      setIsLayoutRunning(false);
+    }
+    start();
+    setIsLayoutRunning(true);
+  }, [graph, isLayoutRunning, stop]);
+
+  useEffect(() => {
+    setIsLayoutRunning(true);
+    start();
+    return () => {
+      setIsLayoutRunning(false);
+      stop();
+    };
+  }, [start, stop]);
+
+  useEffect(() => {
+    const colors = {};
+    let i = 0;
+    for (const communityId in network.communities) {
+      colors[communityId] = genColor(i);
+      i++;
+    }
+    const nodes = network.nodes.map((node) => {
+      return { id: node, label: node };
+    });
+    const edges = network.edges.map((edge) => {
+      return { from: edge.source, to: edge.destination };
+    });
+    // setColors(colors);
+    // setNodes(nodes);
+    // setEdges(edges);
+
     const graph = new Graph();
-    // const renderer = new Sigma(graph, container);
-    // const state = {
-    //   hoveredNode: undefined,
-    //   searchQuery: "",
-    //   selectedNode: undefined,
-    //   suggestions: undefined,
-    //   hoveredNeighbors: undefined,
-    // };
-
-    // function setHoveredNode(node) {
-    //   if (node) {
-    //     state.hoveredNode = node;
-    //     state.hoveredNeighbors = new Set(graph.neighbors(node));
-    //   } else {
-    //     state.hoveredNode = undefined;
-    //     state.hoveredNeighbors = undefined;
-    //   }
-
-    //   // Refresh rendering:
-    //   renderer.refresh();
-    // }
-
-    // renderer.on("enterNoode", ({ node }) => {
-    //   setHoveredNode(node);
-    // });
-
-    // renderer.on("leaveNode", () => {
-    //   setHoveredNode(undefined);
-    // });
-
-    // // Render nodes accordingly to the internal state:
-    // // 1. If a node is selected, it is highlighted
-    // // 2. If there is query, all non-matching nodes are greyed
-    // // 3. If there is a hovered node, all non-neighbor nodes are greyed
-    // renderer.setSetting("nodeReducer", (node, data) => {
-    //   const res = { ...data };
-
-    //   if (
-    //     state.hoveredNeighbors &&
-    //     !state.hoveredNeighbors.has(node) &&
-    //     state.hoveredNode !== node
-    //   ) {
-    //     res.label = "";
-    //     res.color = "#f6f6f6";
-    //   }
-
-    //   if (state.selectedNode === node) {
-    //     res.highlighted = true;
-    //   } else if (state.suggestions && !state.suggestions.has(node)) {
-    //     res.label = "";
-    //     res.color = "#f6f6f6";
-    //   }
-
-    //   return res;
-    // });
-
-    // // Render edges accordingly to the internal state:
-    // // 1. If a node is hovered, the edge is hidden if it is not connected to the
-    // //    node
-    // // 2. If there is a query, the edge is only visible if it connects two
-    // //    suggestions
-    // renderer.setSetting("edgeReducer", (edge, data) => {
-    //   const res = { ...data };
-
-    //   if (state.hoveredNode && !graph.hasExtremity(edge, state.hoveredNode)) {
-    //     res.hidden = true;
-    //   }
-
-    //   if (
-    //     state.suggestions &&
-    //     (!state.suggestions.has(graph.source(edge)) ||
-    //       !state.suggestions.has(graph.target(edge)))
-    //   ) {
-    //     res.hidden = true;
-    //   }
-
-    //   return res;
-    // });
-
     nodes.forEach((node) => {
       const nodeCommunity = getNodeCommunity(node.id, network.communities);
       graph.addNode(node.id, {
@@ -151,28 +108,37 @@ export const LoadGraph = ({ network }) => {
         });
       }
     });
-
-    loadGraph(graph);
-    start();
-    return () => {
-      kill();
-    };
-  }, [loadGraph, start]);
+    setGraph(graph);
+  }, [network]);
 
   return null;
 };
 
 export const DisplayGraph = ({ width, height, network }) => {
+  const [isLayoutRunning, setIsLayoutRunning] = useState(false);
   return (
     <div className="display-graph">
       <SigmaContainer
         className="graph-container"
-        // id="sigma-container"
         style={{ width, height, backgroundColor: "#DEE4E7" }}
 
 
       >
-        <LoadGraph network={network} />
+        <LoadGraph network={network} renderLayout={isLayoutRunning} />
+        <Button
+          onClick={() => {
+            setIsLayoutRunning(false);
+          }}
+        >
+          Stop Layout
+        </Button>
+        <Button
+          onClick={() => {
+            setIsLayoutRunning(true);
+          }}
+        >
+          Start Layout
+        </Button>
       </SigmaContainer>
     </div>
   );
