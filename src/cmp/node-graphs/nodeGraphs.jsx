@@ -124,8 +124,9 @@ export function NodeGraphs({ timeRanges, nodeName }) {
 
   useEffect(() => {
     console.log("nodeSelected", nodeSelected);
+    console.log("nodeName", nodeName);
     setNodeSelected(getNodeSelectedDetails(nodeName));
-  }, [nodeSelected]);
+  }, [nodeName]);
 
   return (
     <div className="graphs">
