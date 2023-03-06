@@ -99,7 +99,7 @@ const contactsArray = [
   },
 ];
 
-export function ContactList() {
+export function DatasetList() {
   const [person, setPerson] = useState(contactsArray[0]);
 
   function handleClick(contact) {

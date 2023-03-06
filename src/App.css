@@ -21,6 +21,11 @@
   src: url('./fonts/SourceSansPro-Light.ttf');
 }
 
+@font-face {
+  font-family: Lato-Thin;
+  src: url('./fonts/Lato-Thin.ttf');
+}
+
 *::-webkit-scrollbar {
   background-color: transparent;
   scrollbar-width: thin;
