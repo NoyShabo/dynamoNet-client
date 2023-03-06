@@ -16,8 +16,17 @@ import {
   updateTimeRange,
 } from "../../serverApi/rest/timeRangeApi";
 import "./timerange.scss";
+import { getNetwork } from "../../serverApi/rest/networkApi";
 
 export function Timerange() {
+
+  const getNetworkById = async (id) => {
+    const res = await getNetwork(id);
+    console.log(res)
+    timeRange.network = res.network;
+    setNetwork(res.network);
+  };
+  
   const timeRange = useSelector((state) => state.timeRangeModule.timeRange);
   const dispatch = useDispatch();
   const [timeRangeTitle, setTimeRangeTitle] = useState("");
@@ -41,7 +50,8 @@ export function Timerange() {
     if (timeRange) {
       setTimeRangeTitle(timeRange.title);
       if (timeRange.network && !timeRange.network.nodes)
-        getTimeRangeById(timeRangeId, true);
+       getTimeRangeById(timeRangeId, true);
+      //getNetworkById(timeRange.network);
       else setNetwork(timeRange.network);
     }
   }, [timeRange]);
