@@ -1,10 +1,10 @@
-import { Button } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { GlobalCard } from "../../cmp/card/card";
 import { Delete } from "../../cmp/delete/delete";
 import { Edit } from "../../cmp/edit/edit";
+import { Modal } from "../../cmp/modal/modal";
 import { NetworkEvolution } from "../../cmp/network-evolution/networkEvolution";
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 import { Scroll } from "../../cmp/scroll/scroll";
@@ -20,7 +20,6 @@ import {
 import { getProject, updateProject } from "../../serverApi/rest/projectApi";
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
-import {Modal} from '../../cmp/modal/modal'
 
 function getTimeRangeCards(project) {
   const timeRanges = project.timeRanges;
@@ -54,7 +53,6 @@ function SourceNetwork({ network }) {
 }
 
 export function Project() {
-  const navigate = useNavigate();
   const project = useSelector((state) => state.projectModule.project);
   const dispatch = useDispatch();
   const { projectId } = useParams();
@@ -102,9 +100,9 @@ export function Project() {
   };
 
   const [isModalOpen, setModalIsOpen] = useState(false);
-		const toggleModal = () => {
-		setModalIsOpen(!isModalOpen);
-	};
+  const toggleModal = () => {
+    setModalIsOpen(!isModalOpen);
+  };
 
   return (
     <div className="project-page">
@@ -138,7 +136,12 @@ export function Project() {
                   {new Date(project.startDate).toLocaleDateString()} ↔{" "}
                   {new Date(project.endDate).toLocaleDateString()}
                 </div>
-                {isModalOpen && <Modal onRequestClose={toggleModal} />}
+                {isModalOpen && (
+                  <Modal
+                    onRequestClose={toggleModal}
+                    dataset={project.dataset}
+                  />
+                )}
                 <button onClick={toggleModal} type="button">
                   Dataset
                 </button>
