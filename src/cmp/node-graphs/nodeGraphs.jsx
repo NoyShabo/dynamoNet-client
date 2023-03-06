@@ -13,6 +13,7 @@ function getNodeMetrics(timeRanges, nodeName) {
     const newObj = {
       timeRangeTitle: timeRange.title,
       nodeMetrics: nodeMetrics[nodeName],
+      nodeName: nodeName,
     };
     result.push(newObj);
   }
@@ -25,6 +26,7 @@ function getNodeMetricsByMetricName(metric, nodeMetrics) {
       final.push({
         window: element.timeRangeTitle,
         frequency: element.nodeMetrics ? element.nodeMetrics[metric] : null,
+        key: `${element.timeRangeTitle}-${element.nodeName}`,
       });
     });
   } else {
@@ -82,7 +84,6 @@ export function NodeGraphs({ timeRanges, nodeName }) {
   };
 
   useEffect(() => {
-    console.log("nodeName", nodeName);
     getNodeSelectedDetails(nodeName);
   }, [nodeName]);
 

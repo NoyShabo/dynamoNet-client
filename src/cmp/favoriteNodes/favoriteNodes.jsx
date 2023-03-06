@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import {
+  addFavoriteNodeToProject,
+  removeFavoriteNodeFromProject,
+} from "../../serverApi/rest/nodeApi";
 import "./favoriteNodes.scss";
 
-export function AddNewNode({ addNode }) {
+export function AddNewNode({ addNode, setError, setShowNotification }) {
   const [value, setValue] = useState("");
+  const { projectId } = useParams();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    value && addNode(value);
+    if (!value) return;
+    try {
+      const res = await addFavoriteNodeToProject(projectId, value);
+      console.log("add node res: ", res);
+      addNode(value);
+    } catch (err) {
+      setError(`Could not add node, check if the node name is correct`);
+      setShowNotification(true);
+    }
     setValue("");
   };
 
@@ -27,13 +41,28 @@ export function AddNewNode({ addNode }) {
 
 export function FavoriteNodes({ setSelectedNode, favoriteNodes }) {
   const [nodes, setNodes] = useState([]);
+  const { projectId } = useParams();
+  const [error, setError] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
 
-  const addNode = (name) => setNodes([...nodes, { name }]);
+  const addNode = (name) => {
+    setNodes([...nodes, name]);
+    setSelectedNode(name);
+  };
 
-  const removeNode = (index) => {
-    const newNodes = [...nodes];
-    newNodes.splice(index, 1);
-    setNodes(newNodes);
+  const removeNode = async (index) => {
+    try {
+      const res = await removeFavoriteNodeFromProject(projectId, nodes[index]);
+      console.log("remove node res: ", res);
+      const newNodes = [...nodes];
+      newNodes.splice(index, 1);
+      setNodes(newNodes);
+      if (newNodes.length) setSelectedNode(newNodes[0]);
+      else setSelectedNode(null);
+    } catch (err) {
+      setError(`Could not remove node, please try again later`);
+      setShowNotification(true);
+    }
   };
 
   useEffect(() => {
@@ -58,9 +87,19 @@ export function FavoriteNodes({ setSelectedNode, favoriteNodes }) {
                 </button>
               </div>
             ))}
-          <AddNewNode addNode={addNode} />
+          <AddNewNode
+            addNode={addNode}
+            setError={setError}
+            setShowNotification={setShowNotification}
+          />
         </div>
       </div>
+      {showNotification && (
+        <div className="notification">
+          <p>{error}</p>
+          <button onClick={() => setShowNotification(false)}>Close</button>
+        </div>
+      )}
     </>
   );
 }
