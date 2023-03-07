@@ -62,7 +62,7 @@ export const LoadGraph = ({ network, exportGraph }) => {
 
     const edgeMap = {};
     edges.forEach((edge) => {
-      if (edgeMap[edge.from + edge.to]) {
+      if (edgeMap[edge.from + edge.to] || edgeMap[edge.to + edge.from]) {
         edgeMap[edge.from + edge.to].weight += 1;
         edgeMap[edge.from + edge.to].edgeType.push(edge.edgeType);
         edgeMap[edge.from + edge.to].edgeContent.push(edge.edgeContent);
@@ -78,14 +78,18 @@ export const LoadGraph = ({ network, exportGraph }) => {
     });
     const graph = new Graph();
     nodes.forEach((node) => {
-      const nodeCommunity = getNodeCommunity(node.id, network.communities);
-      graph.addNode(node.id, {
-        x: Math.random(),
-        y: Math.random(),
-        size: 3,
-        label: node.label,
-        color: nodeCommunity ? colors[nodeCommunity] : "#70d8bd",
-      });
+      try {
+        const nodeCommunity = getNodeCommunity(node.id, network.communities);
+        graph.addNode(node.id, {
+          x: Math.random(),
+          y: Math.random(),
+          size: 3,
+          label: node.label,
+          color: nodeCommunity ? colors[nodeCommunity] : "#70d8bd",
+        });
+      } catch (err) {
+        console.log(err);
+      }
     });
     Object.values(edgeMap).forEach((edge) => {
       graph.addEdgeWithKey(edge.from + edge.to, edge.from, edge.to, {
@@ -196,7 +200,7 @@ export const DisplayGraph = ({ width, height, network }) => {
                   : 1000
               }
               settings={{
-                slowDown: 10,
+                // slowDown: 10,
                 barnesHutOptimize: true,
                 barnesHutTheta: 0.5,
                 gravity: 1,

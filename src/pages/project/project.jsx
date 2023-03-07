@@ -1,3 +1,4 @@
+import { Select } from "@mantine/core";
 import PeopleIcon from "@mui/icons-material/People";
 import { fontWeight } from "@mui/system";
 import React, { useEffect, useState } from "react";
@@ -8,6 +9,7 @@ import { Delete } from "../../cmp/delete/delete";
 import { Edit } from "../../cmp/edit/edit";
 import { Modal } from "../../cmp/modal/modal";
 import { NetworkEvolution } from "../../cmp/network-evolution/networkEvolution";
+import { DisplayGraph } from "../../cmp/network-graph/networkGraph";
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 import { Scroll } from "../../cmp/scroll/scroll";
 import { Tabs } from "../../cmp/tabs/tabs";
@@ -19,6 +21,7 @@ import {
   removeSelectedProject,
   setProject,
 } from "../../redux/actions/projectActions";
+import { getNetwork } from "../../serverApi/rest/networkApi";
 import { getProject, updateProject } from "../../serverApi/rest/projectApi";
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
@@ -45,9 +48,64 @@ function getTimeRangeCards(project) {
 }
 
 function SourceNetwork({ network }) {
+  const [networkGraph, setNetworkGraph] = useState(null);
+  const getNetworkById = async (id) => {
+    const res = await getNetwork(id);
+    console.log("network: ", res.network);
+    setNetworkGraph(res.network);
+  };
+
+  useEffect(() => {
+    if (network) getNetworkById(network._id);
+  }, [network]);
+
   return (
     <div className="source-network">
       <div className="title-project">Source Network</div>
+      {networkGraph && networkGraph.nodes && networkGraph.nodes.length > 0 ? (
+        <div>
+          {/* select to filter network edges */}
+          <div className="network-filter">
+            <Select
+              placeholder="Select edge type"
+              data={[
+                { label: "All", value: "all" },
+                { label: "Retweet", value: "retweet" },
+                { label: "Quote", value: "quote" },
+              ]}
+              onChange={(value) => {
+                if (value === "all")
+                  setNetworkGraph(networkGraph ? networkGraph : null);
+                else {
+                  const edges = [];
+                  const nodes = new Set();
+                  networkGraph.edges.forEach((edge) => {
+                    if (edge.edgeType === value) {
+                      edges.push(edge);
+                      nodes.add(edge.source);
+                      nodes.add(edge.destination);
+                    }
+                  });
+
+                  const filteredNetwork = {
+                    ...networkGraph,
+                    edges,
+                    nodes: Array.from(nodes),
+                  };
+                  setNetworkGraph(filteredNetwork);
+                }
+              }}
+            />
+          </div>
+          <div className="network-container">
+            <DisplayGraph width="80vw" height="70vh" network={networkGraph} />
+          </div>
+        </div>
+      ) : networkGraph && networkGraph.nodes ? (
+        <div className="small-title-project">There's no network to display</div>
+      ) : (
+        <div className="small-title-project">Loading network...</div>
+      )}
       {/* <div className="small-title-project">Metrics for the source network</div> */}
       <NetworkMetrics network={network} />
     </div>
@@ -154,8 +212,8 @@ export function Project() {
                     fontFamily: "OpenSans-Light",
                   }}
                 >
-                  <PeopleIcon /> 
-                   <span className="text-dataset"> Dataset</span>
+                  <PeopleIcon />
+                  <span className="text-dataset"> Dataset</span>
                 </button>
                 <Scroll
                   items={[
