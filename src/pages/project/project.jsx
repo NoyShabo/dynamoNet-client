@@ -1,6 +1,5 @@
 import { Select } from "@mantine/core";
 import PeopleIcon from "@mui/icons-material/People";
-import { fontWeight } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -193,21 +192,10 @@ export function Project() {
             ) : (
               <>
                 <div className="project-header">
-                  <Edit
-                    inputs={[
-                      {
-                        type: "text",
-                        value: title || project.title,
-                        className: "title-project",
-                      },
-                      {
-                        type: "text",
-                        value: description || project.description,
-                        className: "small-title-project",
-                      },
-                    ]}
-                    onSubmit={handleEdit}
-                  />
+                  <div className="title-project">{project.title}</div>
+                  <div className="small-title-project">
+                    {project.description}
+                  </div>
                   <div className="small-title-project">
                     {new Date(project.startDate).toLocaleDateString()} ↔{" "}
                     {new Date(project.endDate).toLocaleDateString()}
