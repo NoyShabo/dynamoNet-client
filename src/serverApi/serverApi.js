@@ -47,7 +47,9 @@ export const del = async (url, data, token) => {
 export const handleError = (res) => {
   if (res.data && res.data[0].msg) return res.data[0].msg;
   if (res.message) return res.message;
-  if (res.error) return res.error;
+  if (res.error) {
+    return res.error;
+  }
   return res;
 };
 

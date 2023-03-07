@@ -8,7 +8,7 @@ export function NotificationPopup({
   return (
     showNotification && (
       <div className="notification">
-        <p>{`${message}`}</p>
+        <p>{message.message ? message.message : message}</p>
         <button onClick={() => setShowNotification(false)}>Close</button>
       </div>
     )
