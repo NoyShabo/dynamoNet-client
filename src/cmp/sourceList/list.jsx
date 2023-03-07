@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getNode } from "../../serverApi/rest/nodeApi";
+import { NotificationPopup } from "../notification-popup/notificationPopup";
 import "./list.scss";
 
 // const contactsArray = [
@@ -102,13 +103,15 @@ import "./list.scss";
 
 export function DatasetList({ dataset }) {
   const [person, setPerson] = useState();
-
+  const [error, setError] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
   const updateSelected = async (username) => {
     try {
       const response = await getNode(username);
       setPerson(response.node);
     } catch (error) {
-      console.log(error);
+      setError(error);
+      setShowNotification(true);
       setPerson(null);
     }
   };
@@ -122,46 +125,53 @@ export function DatasetList({ dataset }) {
   }, []);
 
   return (
-    <div className="list-source">
-      <div className="list-container">
-        <div className="left">
-          <h2>Source List</h2>
-          <div className="contacts-container">
-            {dataset.map((username) => {
-              const imageStyles = {
-                backgroundImage: `url(https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png)`,
-              };
-              const contactStyles = {
-                backgroundColor:
-                  person && username === person.screenName ? "#70d8bd" : "",
-              };
-              return (
-                <div
-                  className="contact"
-                  onClick={() => handleClick(username)}
-                  style={contactStyles}
-                  key={username}
-                >
-                  <span className="image" style={imageStyles}></span>
-                  <span className="name">{username}</span>
-                </div>
-              );
-            })}
+    <>
+      <div className="list-source">
+        <div className="list-container">
+          <div className="left">
+            <h2>Source List</h2>
+            <div className="contacts-container">
+              {dataset.map((username) => {
+                const imageStyles = {
+                  backgroundImage: `url(https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png)`,
+                };
+                const contactStyles = {
+                  backgroundColor:
+                    person && username === person.screenName ? "#70d8bd" : "",
+                };
+                return (
+                  <div
+                    className="contact"
+                    onClick={() => handleClick(username)}
+                    style={contactStyles}
+                    key={username}
+                  >
+                    <span className="image" style={imageStyles}></span>
+                    <span className="name">{username}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="right">
+            {person ? (
+              <ContactInfo person={person} />
+            ) : (
+              <div className="contact-info">
+                <header>
+                  <h3 className="name">User not found</h3>
+                </header>
+              </div>
+            )}
           </div>
         </div>
-        <div className="right">
-          {person ? (
-            <ContactInfo person={person} />
-          ) : (
-            <div className="contact-info">
-              <header>
-                <h3 className="name">User not found</h3>
-              </header>
-            </div>
-          )}
-        </div>
       </div>
-    </div>
+      <NotificationPopup
+        message={error}
+        showNotification={showNotification}
+        setShowNotification={setShowNotification}
+      />
+    </>
   );
 }
 

@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GlobalCard } from "../../cmp/card/card";
+import { NotificationPopup } from "../../cmp/notification-popup/notificationPopup";
 import "../../globalStyle.scss";
 import projectImg from "../../images/folder.png";
 import { setProjects } from "../../redux/actions/projectActions";
@@ -30,13 +31,17 @@ const makecards = (projects) => {
 export function ProjectsPage() {
   const projects = useSelector((state) => state.projectModule.projects);
   const dispatch = useDispatch();
+  const [error, setError] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
 
   const fetchProjects = async () => {
     try {
       const res = await getProjects();
       dispatch(setProjects(res));
     } catch (e) {
-      console.error("error fetching projects!: ", e);
+      // console.error("error fetching projects!: ", e);
+      setError(e);
+      setShowNotification(true);
     }
   };
 
@@ -45,19 +50,26 @@ export function ProjectsPage() {
   }, []);
 
   return (
-    <div className="projects">
-      <div className="projects-container">
-        <div className="title-project ">My Projects</div>
-        {projects && (
-          <div className="cards-container">{makecards(projects)}</div>
-        )}
-        {!projects && (
-          <div className="cards-container title-project">Loading...</div>
-        )}
-        {/* <div className="cards-container">
+    <>
+      <div className="projects">
+        <div className="projects-container">
+          <div className="title-project ">My Projects</div>
+          {projects && (
+            <div className="cards-container">{makecards(projects)}</div>
+          )}
+          {!projects && (
+            <div className="cards-container title-project">Loading...</div>
+          )}
+          {/* <div className="cards-container">
                 {makecards(projects)}
             </div> */}
+        </div>
       </div>
-    </div>
+      <NotificationPopup
+        message={error}
+        showNotification={showNotification}
+        setShowNotification={setShowNotification}
+      />
+    </>
   );
 }

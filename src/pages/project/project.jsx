@@ -11,6 +11,7 @@ import { Modal } from "../../cmp/modal/modal";
 import { NetworkEvolution } from "../../cmp/network-evolution/networkEvolution";
 import { DisplayGraph } from "../../cmp/network-graph/networkGraph";
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
+import { NotificationPopup } from "../../cmp/notification-popup/notificationPopup";
 import { Scroll } from "../../cmp/scroll/scroll";
 import { Tabs } from "../../cmp/tabs/tabs";
 import { ProjectStatus } from "../../constants";
@@ -118,6 +119,8 @@ export function Project() {
   const { projectId } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [error, setError] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
 
   const getProjectById = async (id) => {
     const res = await getProject(id);
@@ -154,8 +157,9 @@ export function Project() {
       setTitle(res.project.title);
       setDescription(res.project.description);
     } catch (err) {
-      console.error("Updating project error!: ", err);
-      // notify user about error
+      // console.error("Updating project error!: ", err);
+      setError(err);
+      setShowNotification(true);
     }
   };
 
@@ -165,133 +169,142 @@ export function Project() {
   };
 
   return (
-    <div className="project-page">
-      {!project ? (
-        <div className="project-container title-project">Loading...</div>
-      ) : (
-        <div className="project-container">
-          {project.status === ProjectStatus.IN_PROGRESS ? (
-            <div className="small-title-project">
-              Fetching data for project is in progress. Please be patient...
-            </div>
-          ) : (
-            <>
-              <div className="project-header">
-                <Edit
-                  inputs={[
-                    {
-                      type: "text",
-                      value: title || project.title,
-                      className: "title-project",
-                    },
-                    {
-                      type: "text",
-                      value: description || project.description,
-                      className: "small-title-project",
-                    },
-                  ]}
-                  onSubmit={handleEdit}
-                />
-                <div className="small-title-project">
-                  {new Date(project.startDate).toLocaleDateString()} ↔{" "}
-                  {new Date(project.endDate).toLocaleDateString()}
-                </div>
-                {isModalOpen && (
-                  <Modal
-                    onRequestClose={toggleModal}
-                    dataset={project.dataset}
-                  />
-                )}
-                <button
-                  onClick={toggleModal}
-                  type="button"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontFamily: "OpenSans-Light",
-                  }}
-                >
-                  <PeopleIcon />
-                  <span className="text-dataset"> Dataset</span>
-                </button>
-                <Scroll
-                  items={[
-                    ...getTimeRangeCards(project),
-                    <GlobalCard
-                      imgUrl={newTimeRangeImg}
-                      key="newTimeRangeForm"
-                      linkTo={`/project/${project._id}/network/${project.sourceNetwork._id}/addTimeRanges`}
-                      title="New Time Range"
-                      description="Create new time ranges"
-                    />,
-                  ]}
-                />
+    <>
+      <div className="project-page">
+        {!project ? (
+          <div className="project-container title-project">Loading...</div>
+        ) : (
+          <div className="project-container">
+            {project.status === ProjectStatus.IN_PROGRESS ? (
+              <div className="small-title-project">
+                Fetching data for project is in progress. Please be patient...
               </div>
-              {project.status === ProjectStatus.CREATING_TIME_RANGES && (
-                <div className="small-title-project">
-                  Creating time ranges. Please be patient...
+            ) : (
+              <>
+                <div className="project-header">
+                  <Edit
+                    inputs={[
+                      {
+                        type: "text",
+                        value: title || project.title,
+                        className: "title-project",
+                      },
+                      {
+                        type: "text",
+                        value: description || project.description,
+                        className: "small-title-project",
+                      },
+                    ]}
+                    onSubmit={handleEdit}
+                  />
+                  <div className="small-title-project">
+                    {new Date(project.startDate).toLocaleDateString()} ↔{" "}
+                    {new Date(project.endDate).toLocaleDateString()}
+                  </div>
+                  {isModalOpen && (
+                    <Modal
+                      onRequestClose={toggleModal}
+                      dataset={project.dataset}
+                    />
+                  )}
+                  <button
+                    onClick={toggleModal}
+                    type="button"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontFamily: "OpenSans-Light",
+                    }}
+                  >
+                    <PeopleIcon />
+                    <span className="text-dataset"> Dataset</span>
+                  </button>
+                  <Scroll
+                    items={[
+                      ...getTimeRangeCards(project),
+                      <GlobalCard
+                        imgUrl={newTimeRangeImg}
+                        key="newTimeRangeForm"
+                        linkTo={`/project/${project._id}/network/${project.sourceNetwork._id}/addTimeRanges`}
+                        title="New Time Range"
+                        description="Create new time ranges"
+                      />,
+                    ]}
+                  />
                 </div>
-              )}
-              <Tabs
-                tabs={[
-                  {
-                    id: 1,
-                    name: "Source Network",
-                    component: (
-                      <SourceNetwork network={project.sourceNetwork} />
-                    ),
-                  },
-                  {
-                    id: 2,
-                    name: "Network Evolution",
-                    component:
-                      project.timeRanges.length === 0 ? (
-                        project.status === ProjectStatus.READY && (
-                          <div className="small-title-project">
-                            No Time Ranges
-                          </div>
-                        )
-                      ) : (
-                        <NetworkEvolution project={project} />
+                {project.status === ProjectStatus.CREATING_TIME_RANGES && (
+                  <div className="small-title-project">
+                    Creating time ranges. Please be patient...
+                  </div>
+                )}
+                <Tabs
+                  tabs={[
+                    {
+                      id: 1,
+                      name: "Source Network",
+                      component: (
+                        <SourceNetwork network={project.sourceNetwork} />
                       ),
-                  },
-                  {
-                    id: 3,
-                    name: "Node Evolution",
-                    component:
-                      project.timeRanges.length === 0 ? (
-                        project.status === ProjectStatus.READY && (
-                          <div className="small-title-project">
-                            No Time Ranges
+                    },
+                    {
+                      id: 2,
+                      name: "Network Evolution",
+                      component:
+                        project.timeRanges.length === 0 ? (
+                          project.status === ProjectStatus.READY && (
+                            <div className="small-title-project">
+                              No Time Ranges
+                            </div>
+                          )
+                        ) : (
+                          <NetworkEvolution project={project} />
+                        ),
+                    },
+                    {
+                      id: 3,
+                      name: "Node Evolution",
+                      component:
+                        project.timeRanges.length === 0 ? (
+                          project.status === ProjectStatus.READY && (
+                            <div className="small-title-project">
+                              No Time Ranges
+                            </div>
+                          )
+                        ) : (
+                          <NodesPage project={project} />
+                        ),
+                    },
+                    {
+                      id: 4,
+                      name: "Community Evolution",
+                      component: (
+                        <>
+                          <div className="title-project">
+                            Community Evolution
                           </div>
-                        )
-                      ) : (
-                        <NodesPage project={project} />
+                          <div className="small-title-project">
+                            In the works...
+                          </div>
+                        </>
                       ),
-                  },
-                  {
-                    id: 4,
-                    name: "Community Evolution",
-                    component: (
-                      <>
-                        <div className="title-project">Community Evolution</div>
-                        <div className="small-title-project">
-                          In the works...
-                        </div>
-                      </>
-                    ),
-                  },
-                ]}
-              />
-              <Delete
-                onDelete={handleDelete}
-                title={`Delete Project: ${title}`}
-              />
-            </>
-          )}
-        </div>
-      )}
-    </div>
+                    },
+                  ]}
+                />
+                <Delete
+                  onDelete={handleDelete}
+                  title={`Delete Project: ${title}`}
+                />
+              </>
+            )}
+          </div>
+        )}
+      </div>
+      <NotificationPopup
+        message={error}
+        showNotification={showNotification}
+        setShowNotification={setShowNotification}
+      />
+    </>
   );
 }

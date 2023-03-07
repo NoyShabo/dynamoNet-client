@@ -4,6 +4,7 @@ import {
   addFavoriteNodeToProject,
   removeFavoriteNodeFromProject,
 } from "../../serverApi/rest/nodeApi";
+import { NotificationPopup } from "../notification-popup/notificationPopup";
 import "./favoriteNodes.scss";
 
 export function AddNewNode({ addNode, setError, setShowNotification }) {
@@ -18,7 +19,7 @@ export function AddNewNode({ addNode, setError, setShowNotification }) {
       console.log("add node res: ", res);
       addNode(value);
     } catch (err) {
-      setError(`Could not add node, check if the node name is correct`);
+      setError(err);
       setShowNotification(true);
     }
     setValue("");
@@ -60,7 +61,7 @@ export function FavoriteNodes({ setSelectedNode, favoriteNodes }) {
       if (newNodes.length) setSelectedNode(newNodes[0]);
       else setSelectedNode(null);
     } catch (err) {
-      setError(`Could not remove node, please try again later`);
+      setError(err);
       setShowNotification(true);
     }
   };
@@ -73,7 +74,6 @@ export function FavoriteNodes({ setSelectedNode, favoriteNodes }) {
   return (
     <>
       <div className="favoriteNodes">
-        
         <h1>Favorite Nodes</h1>
         <div className="nodes-list">
           {nodes &&
@@ -96,12 +96,11 @@ export function FavoriteNodes({ setSelectedNode, favoriteNodes }) {
           />
         </div>
       </div>
-      {showNotification && (
-        <div className="notification">
-          <p>{error}</p>
-          <button onClick={() => setShowNotification(false)}>Close</button>
-        </div>
-      )}
+      <NotificationPopup
+        message={error}
+        showNotification={showNotification}
+        setShowNotification={setShowNotification}
+      />
     </>
   );
 }

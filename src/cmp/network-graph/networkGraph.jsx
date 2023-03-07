@@ -13,6 +13,7 @@ import { LayoutForceAtlas2Control } from "@react-sigma/layout-forceatlas2";
 import Graph from "graphology";
 import { useEffect, useState } from "react";
 import { getNode } from "../../serverApi/rest/nodeApi";
+import { NotificationPopup } from "../notification-popup/notificationPopup";
 import { default as ContactInfo } from "../sourceList/list";
 import "./networkGraph.scss";
 
@@ -26,7 +27,12 @@ function genColor(seed) {
   return "#" + color;
 }
 
-export const LoadGraph = ({ network, exportGraph }) => {
+export const LoadGraph = ({
+  network,
+  exportGraph,
+  setError,
+  setShowNotification,
+}) => {
   const [graph, setGraph] = useState();
   const loadGraph = useLoadGraph();
 
@@ -88,7 +94,9 @@ export const LoadGraph = ({ network, exportGraph }) => {
           color: nodeCommunity ? colors[nodeCommunity] : "#70d8bd",
         });
       } catch (err) {
-        // console.log(err);
+        // can ignore this error most likely
+        // setError(err);
+        // setShowNotification(true);
       }
     });
     Object.values(edgeMap).forEach((edge) => {
@@ -109,6 +117,8 @@ export const DisplayGraph = ({ width, height, network }) => {
   const [selectedNode, setSelectedNode] = useState();
   const [selectedEdge, setSelectedEdge] = useState();
   const [graph, setGraph] = useState();
+  const [error, setError] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
 
   const GraphEvents = () => {
     const registerEvents = useRegisterEvents();
@@ -123,7 +133,8 @@ export const DisplayGraph = ({ width, height, network }) => {
               setSelectedNode(node.node);
             })
             .catch((err) => {
-              console.log(err);
+              setError(err);
+              setShowNotification(true);
             });
         },
         // enterNode: (event) => console.log("enterNode", event.node),
@@ -190,7 +201,12 @@ export const DisplayGraph = ({ width, height, network }) => {
             backgroundColor: "#DEE4E7",
           }}
         >
-          <LoadGraph network={network} exportGraph={setGraph} />
+          <LoadGraph
+            network={network}
+            exportGraph={setGraph}
+            setError={setError}
+            setShowNotification={setShowNotification}
+          />
           <GraphEvents />
           <ControlsContainer position={"bottom-left"}>
             <LayoutForceAtlas2Control
@@ -223,6 +239,11 @@ export const DisplayGraph = ({ width, height, network }) => {
           </ControlsContainer>
         </SigmaContainer>
       </div>
+      <NotificationPopup
+        message={error}
+        showNotification={showNotification}
+        setShowNotification={setShowNotification}
+      />
     </>
   );
 };
