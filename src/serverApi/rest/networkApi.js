@@ -2,9 +2,7 @@ import * as serverApi from "../serverApi";
 
 export const getNetwork = async (network) => {
   let response = null;
-  console.log(network);
   response = await serverApi.get(`api/networks/${network}`);
-  console.log(response);
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
   let data = "";
@@ -12,7 +10,6 @@ export const getNetwork = async (network) => {
   function processChunk({ done, value }) {
     if (done) {
       const json = JSON.parse(data);
-      console.log(json);
 
       // Do something with the JSON data
       return json;

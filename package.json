@@ -49,6 +49,7 @@
     "react-router-dom": "^6.8.2",
     "react-scripts": "^5.0.1",
     "react-sigma": "^1.2.35",
+    "react-spinners": "^0.13.8",
     "react-tsparticles": "^2.9.3",
     "react-use": "^17.4.0",
     "redux": "^4.2.1",

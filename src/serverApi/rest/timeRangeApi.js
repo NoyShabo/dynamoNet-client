@@ -11,11 +11,8 @@ export const getTimeRange = async (timeRangeId, withNetwork = true) => {
     let data = "";
 
     function processChunk({ done, value }) {
-      console.log("done: " + done);
-      console.log("value: " + value);
       if (done) {
         const json = JSON.parse(data);
-        console.log(json);
 
         // Do something with the JSON data
         return json;

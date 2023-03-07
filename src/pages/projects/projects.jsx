@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import BeatLoader from "react-spinners/BeatLoader";
 import { GlobalCard } from "../../cmp/card/card";
 import { NotificationPopup } from "../../cmp/notification-popup/notificationPopup";
 import "../../globalStyle.scss";
@@ -58,7 +59,11 @@ export function ProjectsPage() {
             <div className="cards-container">{makecards(projects)}</div>
           )}
           {!projects && (
-            <div className="cards-container title-project">Loading...</div>
+            <div className="cards-container title-project">
+              <span style={{ textAlign: "center" }}>
+                Loading Projects <BeatLoader color="#36d7b7" />
+              </span>
+            </div>
           )}
           {/* <div className="cards-container">
                 {makecards(projects)}

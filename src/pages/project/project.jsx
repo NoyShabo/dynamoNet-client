@@ -4,6 +4,7 @@ import { fontWeight } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import BeatLoader from "react-spinners/BeatLoader";
 import { GlobalCard } from "../../cmp/card/card";
 import { Delete } from "../../cmp/delete/delete";
 import { Edit } from "../../cmp/edit/edit";
@@ -105,7 +106,9 @@ function SourceNetwork({ network }) {
       ) : networkGraph && networkGraph.nodes ? (
         <div className="small-title-project">There's no network to display</div>
       ) : (
-        <div className="small-title-project">Loading network...</div>
+        <div className="small-title-project">
+          Loading network <BeatLoader color="#36d7b7" />
+        </div>
       )}
       {/* <div className="small-title-project">Metrics for the source network</div> */}
       <NetworkMetrics network={network} />
@@ -172,12 +175,19 @@ export function Project() {
     <>
       <div className="project-page">
         {!project ? (
-          <div className="project-container title-project">Loading...</div>
+          <div className="project-container title-project">
+            Loading Project <br />
+            <br /> <BeatLoader color="#36d7b7" />
+          </div>
         ) : (
           <div className="project-container">
             {project.status === ProjectStatus.IN_PROGRESS ? (
-              <div className="small-title-project">
-                Fetching data for project is in progress. Please be patient...
+              <div
+                className="small-title-project"
+                style={{ textAlign: "center" }}
+              >
+                Fetching data for project is in progress. Please be patient{" "}
+                <BeatLoader color="#36d7b7" />
               </div>
             ) : (
               <>
@@ -234,8 +244,12 @@ export function Project() {
                   />
                 </div>
                 {project.status === ProjectStatus.CREATING_TIME_RANGES && (
-                  <div className="small-title-project">
-                    Creating time ranges. Please be patient...
+                  <div
+                    className="small-title-project"
+                    style={{ textAlign: "center" }}
+                  >
+                    Creating time ranges. Please be patient{" "}
+                    <BeatLoader color="#36d7b7" />
                   </div>
                 )}
                 <Tabs

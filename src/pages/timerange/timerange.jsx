@@ -7,6 +7,7 @@ import { DisplayGraph } from "../../cmp/network-graph/networkGraph";
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 // import timeRange from "../../data/timeRange.json";
 import { Select } from "@mantine/core";
+import BeatLoader from "react-spinners/BeatLoader";
 import { NotificationPopup } from "../../cmp/notification-popup/notificationPopup";
 import "../../globalStyle.scss";
 import { setTimeRange } from "../../redux/actions/timeRangeActions";
@@ -76,7 +77,9 @@ export function Timerange() {
     <>
       <div className="timerange">
         {!timeRange && (
-          <div className="timerange-container title-project">Loading...</div>
+          <div className="timerange-container title-project">
+            Loading Time Range <BeatLoader color="#36d7b7" />
+          </div>
         )}
         {timeRange && (
           <div className="timerange-container">
@@ -145,7 +148,12 @@ export function Timerange() {
                 There's no network to display
               </div>
             ) : (
-              <div className="small-title-project">Loading network...</div>
+              <div
+                className="small-title-project"
+                style={{ textAlign: "center" }}
+              >
+                Loading network <BeatLoader color="#36d7b7" />
+              </div>
             )}
             <NetworkMetrics network={timeRange.network} />
             <Delete
