@@ -173,6 +173,7 @@ export function Project() {
 
   return (
     <>
+      <div className="title-project title-header">Project Details</div>
       <div className="project-page">
         {!project ? (
           <div className="project-container title-project">

@@ -151,6 +151,8 @@ export function FormNewProject() {
     setActive((current) => (current > 0 ? current - 1 : current));
 
   return (
+    <>
+    <div className="title-project title-header ">New Project</div>
     <div className="form-new-project">
       <div className="form-new-project-container">
         <MantineProvider
@@ -301,5 +303,6 @@ export function FormNewProject() {
         </MantineProvider>
       </div>
     </div>
+    </>
   );
 }

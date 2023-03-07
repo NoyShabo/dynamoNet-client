@@ -53,8 +53,8 @@ export function ProjectsPage() {
   return (
     <>
       <div className="projects">
+        <div className="title-project title-header">My Projects</div>
         <div className="projects-container">
-          <div className="title-project ">My Projects</div>
           {projects && (
             <div className="cards-container">{makecards(projects)}</div>
           )}

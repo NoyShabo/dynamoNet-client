@@ -19,8 +19,9 @@ export function NodesPage({ project }) {
   // }, []);
 
   return (
+    <>
+    <div className="title-project">Node Evolution</div>
     <div className="nodesPage">
-      <div className="title-project">Node Evolution</div>
       {project && (
         <div className="nodesPage-container">
           <FavoriteNodes
@@ -40,5 +41,6 @@ export function NodesPage({ project }) {
         </div>
       )}
     </div>
+       </>
   );
 }

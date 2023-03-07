@@ -11,7 +11,7 @@
     background-color: #263145;
     
     margin: 0 auto;
-    padding-top: 100px;
+    // padding-top: 100px;
     padding-bottom: 10px;
     min-height: 100vh;
 
@@ -26,6 +26,14 @@
 
         .project-header {
             width: 100%;
+            
+            .head-center{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                align-content: space-between;
+            }
         }
 
         .text-dataset{
