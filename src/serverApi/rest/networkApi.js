@@ -2,16 +2,17 @@ import * as serverApi from "../serverApi";
 
 export const getNetwork = async (network) => {
   let response = null;
-  console.log(network._id)
-  response = await serverApi.get(`api/networks/${network._id}`);
+  console.log(network);
+  response = await serverApi.get(`api/networks/${network}`);
+  console.log(response);
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
-  let data = '';
+  let data = "";
 
   function processChunk({ done, value }) {
     if (done) {
       const json = JSON.parse(data);
-      console.log(json)
+      console.log(json);
 
       // Do something with the JSON data
       return json;

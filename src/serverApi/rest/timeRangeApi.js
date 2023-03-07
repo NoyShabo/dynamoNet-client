@@ -3,7 +3,29 @@ import * as serverApi from "../serverApi";
 export const getTimeRange = async (timeRangeId, withNetwork = true) => {
   let res = null;
   if (withNetwork) {
-    res = await serverApi.get(`api/timeRanges/${timeRangeId}/network`);
+    // res = await serverApi.get(`api/timeRanges/${timeRangeId}/network`);
+    let response = null;
+    response = await serverApi.get(`api/timeRanges/${timeRangeId}/network`);
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let data = "";
+
+    function processChunk({ done, value }) {
+      console.log("done: " + done);
+      console.log("value: " + value);
+      if (done) {
+        const json = JSON.parse(data);
+        console.log(json);
+
+        // Do something with the JSON data
+        return json;
+      }
+
+      data += decoder.decode(value);
+      return reader.read().then(processChunk);
+    }
+
+    return reader.read().then(processChunk);
   } else {
     res = await serverApi.get(`api/timeRanges/${timeRangeId}`);
   }
