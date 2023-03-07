@@ -107,7 +107,10 @@ export function Project() {
   };
 
   return (
+    <>
+    <div className="title-project title-header">Project Details</div>
     <div className="project-page">
+      
       {!project ? (
         <div className="project-container title-project">Loading...</div>
       ) : (
@@ -119,6 +122,7 @@ export function Project() {
           ) : (
             <>
               <div className="project-header">
+                
                 <Edit
                   inputs={[
                     {
@@ -157,6 +161,8 @@ export function Project() {
                   <PeopleIcon /> 
                    <span className="text-dataset"> Dataset</span>
                 </button>
+
+
                 <Scroll
                   items={[
                     ...getTimeRangeCards(project),
@@ -235,5 +241,6 @@ export function Project() {
         </div>
       )}
     </div>
+    </>
   );
 }

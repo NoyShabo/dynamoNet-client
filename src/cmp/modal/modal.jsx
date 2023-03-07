@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DatasetList } from "../sourceList/list";
 import "./modal.scss";
+import CloseIcon from "@mui/icons-material/Close";
 
 export const Modal = ({ onRequestClose, dataset }) => {
   // Use useEffect to add an event listener to the document
@@ -27,9 +28,10 @@ export const Modal = ({ onRequestClose, dataset }) => {
     <div className="modal__backdrop">
       <div className="modal__container">
         <DatasetList dataset={dataset} />
-        <button type="button" className="close-modal" onClick={onRequestClose}>
+      <CloseIcon  onClick={onRequestClose} className="close-modal"/>
+        {/* <button type="button" className="close-modal" onClick={onRequestClose}>
           Close
-        </button>
+        </button> */}
       </div>
     </div>
   );

@@ -1,10 +1,13 @@
 .form-new-project{
     display: flex;
-    // align-items: center;
-    justify-content: center;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-start;
+    margin-top: 50px;
     // width: 100vw;
     background-color: #263145;
-    height: 100vh;
+    // height: 100vh;
+    // padding-top: 120px;
 }
 
 .form-new-project-container{
@@ -54,5 +57,6 @@
         }
     }
 }
+
 
 

@@ -1,9 +1,9 @@
 .profilePage{
     background-color:#263145;
-    height: 100vh;
+    // height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     //  padding: 120px;
 }
 
@@ -11,5 +11,11 @@
     width: 650px;
     margin: auto;
 
+}
+
+.profile-title{
+    padding-top: 120px;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 

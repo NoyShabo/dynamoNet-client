@@ -105,6 +105,8 @@ export function FormNewTimeRanges() {
   };
 
   return (
+    <>
+    <div className="title-project title-header">New time range</div>
     <div className="form-new-timeranges">
       <div className="form-new-project-container">
         <MantineProvider
@@ -134,8 +136,8 @@ export function FormNewTimeRanges() {
           <form onSubmit={form.onSubmit(handleSubmission)}>
             {active === 0 && (
               <div className="form__field">
-                <Button onClick={insertTimeWindow}>Add Time Window</Button>
-                <Button onClick={removeTimeWindow}>Remove Time Window</Button>
+                <Button className="btn-add-tr" onClick={insertTimeWindow}>Add Time Window</Button>
+                <Button  onClick={removeTimeWindow}>Remove Time Window</Button>
                 {fields}
               </div>
             )}
@@ -180,5 +182,6 @@ export function FormNewTimeRanges() {
         </MantineProvider>
       </div>
     </div>
+    </>
   );
 }

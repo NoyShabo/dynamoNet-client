@@ -1,8 +1,9 @@
 .form-new-timeranges {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     background-color: #263145;
-    height: 100vh;
+    margin-top: 50px;
+    //height: 100vh;
 
     .form-new-project-container {
         width: 650px;
@@ -36,5 +37,18 @@
         .red-btn:hover {
             background: #b4b4b4;
         }
+
+        .btn-add-tr{
+            margin-right: 10px;
+        }
+
+        .btn-down{
+            margin-top: 10px;
+        }
+
+        .mantine-uc7v8l{
+            margin-top: 10px;
+        }
+        
     }
 }

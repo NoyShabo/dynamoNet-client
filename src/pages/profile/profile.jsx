@@ -4,6 +4,8 @@ import "./profile.scss";
 export function Profile() {
 
     return (
+        <>
+        <div className="title-project title-header">My Profile</div>
         <div className="profilePage">
             <div className='profilePage-container'>
                 <ProfileCard
@@ -16,5 +18,6 @@ export function Profile() {
 
             </div>
         </div>
+        </>
     );
 }

@@ -83,6 +83,8 @@ export function Timerange() {
   };
 
   return (
+    <>
+    <div className="title-project title-header">Time Range Details</div>
     <div className="timerange">
       {!timeRange && (
         <div className="timerange-container title-project">Loading...</div>
@@ -164,5 +166,6 @@ export function Timerange() {
         </div>
       )}
     </div>
+    </>
   );
 }
