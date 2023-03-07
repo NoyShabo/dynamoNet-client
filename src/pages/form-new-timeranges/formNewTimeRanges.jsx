@@ -35,10 +35,8 @@ export function FormNewTimeRanges() {
       edgeType: values.edgeType.trim(),
       timeWindows: timeWindows,
     };
-    // await createTimeRanges(timeRanges);
-    console.log(timeRanges);
-    // // send the user to /project/:projectId
-    // navigate(`/project/${projectId}`);
+    await createTimeRanges(timeRanges);
+    navigate(`/project/${projectId}`);
   };
 
   const form = useForm({
