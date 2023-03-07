@@ -33,5 +33,20 @@
            }
    }
 
+   .network-filter {
+        width: fit-content;
+        margin-bottom: 10px;
+    }
+
+    .network-container{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 50px;
+    }
+
    
 }

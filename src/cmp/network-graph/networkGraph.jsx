@@ -88,7 +88,7 @@ export const LoadGraph = ({ network, exportGraph }) => {
           color: nodeCommunity ? colors[nodeCommunity] : "#70d8bd",
         });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     });
     Object.values(edgeMap).forEach((edge) => {
