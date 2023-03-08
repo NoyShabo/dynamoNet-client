@@ -87,8 +87,14 @@ export const LoadGraph = ({
       try {
         const nodeCommunity = getNodeCommunity(node.id, network.communities);
         graph.addNode(node.id, {
-          x: Math.random(),
-          y: Math.random(),
+          x:
+            network.nodePositions && network.nodePositions[node.id]
+              ? network.nodePositions[node.id][0]
+              : Math.random(),
+          y:
+            network.nodePositions && network.nodePositions[node.id]
+              ? network.nodePositions[node.id][1]
+              : Math.random(),
           size: 3,
           label: node.label,
           color: nodeCommunity ? colors[nodeCommunity] : "#70d8bd",
@@ -100,11 +106,18 @@ export const LoadGraph = ({
       }
     });
     Object.values(edgeMap).forEach((edge) => {
-      graph.addEdgeWithKey(edge.from + edge.to, edge.from, edge.to, {
-        weight: edge.weight,
-        edgeType: edge.edgeType,
-        edgeContent: edge.edgeContent,
-      });
+      try {
+        graph.addEdgeWithKey(edge.from + edge.to, edge.from, edge.to, {
+          weight: edge.weight,
+          edgeType: edge.edgeType,
+          edgeContent: edge.edgeContent,
+        });
+      } catch (err) {
+        console.log("addEdgeWithKey: ", err);
+        // can ignore this error most likely
+        // setError(err);
+        // setShowNotification(true);
+      }
     });
     setGraph(graph);
     exportGraph(graph);
@@ -210,11 +223,11 @@ export const DisplayGraph = ({ width, height, network }) => {
           <GraphEvents />
           <ControlsContainer position={"bottom-left"}>
             <LayoutForceAtlas2Control
-              autoRunFor={
-                network && network.nodes.length > 1000
-                  ? network.nodes.length
-                  : 1000
-              }
+              // autoRunFor={
+              //   network && network.nodes.length > 1000
+              //     ? network.nodes.length
+              //     : 1000
+              // }
               settings={{
                 // slowDown: 10,
                 barnesHutOptimize: true,
