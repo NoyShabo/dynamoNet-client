@@ -223,11 +223,11 @@ export const DisplayGraph = ({ width, height, network }) => {
           <GraphEvents />
           <ControlsContainer position={"bottom-left"}>
             <LayoutForceAtlas2Control
-              // autoRunFor={
-              //   network && network.nodes.length > 1000
-              //     ? network.nodes.length
-              //     : 1000
-              // }
+              autoRunFor={
+                network && network.nodes.length > 1000
+                  ? network.nodes.length
+                  : 1000
+              }
               settings={{
                 // slowDown: 10,
                 barnesHutOptimize: true,
