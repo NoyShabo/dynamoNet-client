@@ -8,12 +8,30 @@
     $description-line-height: 1.5;
     $description-color: #666;
     $description-text-align: justify;
-    background-color: #263145;
+    background-color: #141b2d;
     
     margin: 0 auto;
     // padding-top: 100px;
     padding-bottom: 10px;
     min-height: 100vh;
+
+    .button-dataset {
+      background: #000000;
+      border: 0;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 300;
+      padding: 10px 15px;
+      transition: transform 100ms ease-out;
+      
+      &:hover {
+          background: #414140;
+          transform: scale(1.1);
+      }
+    }
+    
 
    .project-container {
         max-width: 80vw;
@@ -26,6 +44,17 @@
 
         .project-header {
             width: 100%;
+
+            .title-project{
+                margin-bottom: 4px;
+            }
+
+            .small-date {
+                font-size: 14px;
+                color: #8df1d6;
+                font-weight: 400;
+                margin-bottom: 15px;
+            }
             
             .head-center{
                 display: flex;
@@ -57,4 +86,10 @@
     }
 
    
+}
+
+.container-header-project{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }

@@ -47,8 +47,10 @@
 // 		height: 45vh;
 // 	}
 // }
+// .project-modal {
 
-.modal__backdrop {
+.project-modal{
+	.modal__backdrop {
 	background: rgba(105, 105, 105, 0.65);
 	bottom: 0;
 	left: 0;
@@ -89,7 +91,7 @@ button {
 	transition: transform 100ms ease-out;
 	
 	&:hover {
-		background: #414040;
+		background: #414140;
 		transform: scale(1.1);
 	}
 }
@@ -100,3 +102,6 @@ button {
     right:20px;
 	cursor: pointer;
 }
+}
+
+// }

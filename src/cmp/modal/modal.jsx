@@ -25,15 +25,18 @@ export const Modal = ({ onRequestClose, dataset }) => {
   });
 
   return (
-    <div className="modal__backdrop">
-      <div className="modal__container">
-        <DatasetList dataset={dataset} />
-      <CloseIcon  onClick={onRequestClose} className="close-modal"/>
-        {/* <button type="button" className="close-modal" onClick={onRequestClose}>
-          Close
-        </button> */}
+    <div className="project-modal">
+          <div className="modal__backdrop">
+            <div className="modal__container">
+              <DatasetList dataset={dataset} />
+            <CloseIcon  onClick={onRequestClose} className="close-modal"/>
+              {/* <button type="button" className="close-modal" onClick={onRequestClose}>
+                Close
+              </button> */}
+            </div>
       </div>
     </div>
+
   );
 };
 

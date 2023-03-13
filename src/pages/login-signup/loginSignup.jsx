@@ -34,7 +34,7 @@ export function LoginPage(){
             options={{
                 background: {
                     color: {
-                        value: "#263145",
+                        value: "#141b2d",
                     },
                 },
                 fpsLimit: 120,

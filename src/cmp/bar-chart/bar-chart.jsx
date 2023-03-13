@@ -72,7 +72,7 @@ export function BarChart({ width, height, data, isPercent=false, events = false 
   return width < 10 ? null : (
     <svg width={width} height={height}>
       <GradientTealBlue id="teal"  />
-      <rect width={width} height={height} fill="#263145" rx={14} />
+      <rect width={width} height={height} fill="#141b2d" rx={14} />
       <Group top={verticalMargin / 2} left={margins.left}>
       {/* <Text textAnchor='middle' fill='#FFF' fontSize={16} fontWeight={200} dy={-300}fontFamily='cursive'>Title</Text> */}
         {data.map((d) => {
