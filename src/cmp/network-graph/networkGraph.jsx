@@ -132,7 +132,7 @@ export const DisplayGraph = ({ width, height, network }) => {
   const [graph, setGraph] = useState();
   const [error, setError] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
-
+  console.log(selectedEdge)
   const GraphEvents = () => {
     const registerEvents = useRegisterEvents();
 
@@ -155,7 +155,7 @@ export const DisplayGraph = ({ width, height, network }) => {
         // edge events
         clickEdge: (event) => {
           const edge = graph.getEdgeAttributes(event.edge);
-          setSelectedEdge(edge);
+            setSelectedEdge(edge);
         },
         // enterEdge: (event) => {
         //   console.log("enterEdge", event.edge);
@@ -187,18 +187,19 @@ export const DisplayGraph = ({ width, height, network }) => {
             <div className="popup_inner">
               <div className="edge-popup">
                 <div className="edge-popup__title">
-                  <h3>Edge</h3>
+                  <h3 className="title-edge-popup">Edge Information</h3>
                   <button onClick={() => setSelectedEdge(null)}>
                     <CloseIcon />
                   </button>
                 </div>
                 <div className="edge-popup__content">
                   <div className="edge-popup__content__item">
-                    <h4>Edge Type</h4>
+                    <h4> Type</h4>
                     <p>{selectedEdge.edgeType.join(", ")}</p>
                   </div>
+                
                   <div className="edge-popup__content__item">
-                    <h4>Edge Content</h4>
+                    <h4> Content</h4>
                     <p>{selectedEdge.edgeContent.join(", ")}</p>
                   </div>
                 </div>
