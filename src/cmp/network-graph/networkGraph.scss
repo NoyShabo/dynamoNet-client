@@ -18,7 +18,12 @@
     .search{
         margin-top:10px;
         margin-right: 5px;
+        z-index: 1;
 
+    }
+
+    .control-graph-nav{
+        z-index: 1;
     }
 
     .popup {

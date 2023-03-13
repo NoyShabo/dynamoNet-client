@@ -221,7 +221,7 @@ export const DisplayGraph = ({ width, height, network }) => {
             setShowNotification={setShowNotification}
           />
           <GraphEvents />
-          <ControlsContainer position={"bottom-left"}>
+          <ControlsContainer position={"bottom-left"} className="control-graph-nav"> 
             <LayoutForceAtlas2Control
               autoRunFor={
                 network && network.nodes.length > 1000
