@@ -33,6 +33,49 @@ export function Timerange() {
     dispatch(setTimeRange(res));
   };
 
+  const TRIds=["6405c91d024f895891dfe76b","6405c941024f895891dfe76d","6405c959024f895891dfe76f","6405c962024f895891dfe771"]
+
+  function clickTrLeftArrow(){
+    console.log("insside clickTrLeftArrow")
+    const index = TRIds.indexOf(timeRangeId);
+    console.log(index)
+    console.log(timeRangeId)
+
+    let navigateIndex;
+   if(index==0){
+    navigateIndex=TRIds.length-1;
+   }
+   else{
+    navigateIndex=index-1;
+   }
+   console.log(navigateIndex)
+
+   navigate(`/project/63fcc4f456cde2fae0231880/timerange/${TRIds[navigateIndex]}`);
+  }
+
+  function clickTRightArrow(){
+    console.log("insside clickTRightArrow")
+    const index = TRIds.indexOf(timeRangeId);
+    console.log(index)
+    console.log(timeRangeId)
+
+    let navigateIndex;
+   if(index==TRIds.length-1){
+    navigateIndex=0;
+   }
+   else{
+    navigateIndex=index+1;
+   }
+   console.log(navigateIndex)
+
+    //63fcc4f456cde2fae0231880
+    navigate(`/project/63fcc4f456cde2fae0231880/timerange/${TRIds[navigateIndex]}`);
+
+    //navigate(`/project/${projectId}/timerange/${TRIds[navigateIndex]}`);
+  }
+
+
+
   useEffect(() => {
     getTimeRangeById(timeRangeId);
     return () => {
@@ -84,6 +127,8 @@ export function Timerange() {
         )}
         {timeRange && (
           <div className="timerange-container">
+             <div className="arrow-left-tr" onClick={clickTrLeftArrow}>◀</div>
+            <div className="arrow-right-tr" onClick={clickTRightArrow} >▶</div>
             <div className="timerange-header">
               <div className="timerange-info">
                 <div className="title-project">{timeRange.title}</div>
@@ -93,6 +138,8 @@ export function Timerange() {
                 </div>
               </div>
             </div>
+           
+
             {timeRange.network &&
             timeRange.network.nodes &&
             timeRange.network.nodes.length > 0 ? (

@@ -132,7 +132,7 @@ export const DisplayGraph = ({ width, height, network }) => {
   const [graph, setGraph] = useState();
   const [error, setError] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
-  console.log(selectedEdge)
+  // console.log(selectedEdge)
   const GraphEvents = () => {
     const registerEvents = useRegisterEvents();
 
