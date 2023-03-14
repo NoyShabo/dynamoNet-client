@@ -8,7 +8,7 @@ export function NetworkEvolution({ project }) {
   const [density, setDensity] = useState([]);
   const [reciprocity, setReciprocity] = useState([]);
   const [degreeCentrality, setDegreeCentrality] = useState([
-    { id: "Degree Centrality", data: [] },
+    { id: "Degree Centralization", data: [] },
   ]);
   const [radius, setRadius] = useState([{ id: "Radius", data: [] }]);
   const [diameter, setDiameter] = useState([{ id: "Diameter", data: [] }]);
@@ -18,7 +18,7 @@ export function NetworkEvolution({ project }) {
     const numberOfEdges = [];
     const density = [];
     const reciprocity = [];
-    const degreeCentrality = [{ id: "Degree Centrality", data: [] }];
+    const degreeCentrality = [{ id: "Degree Centralization", data: [] }];
     const radius = [{ id: "Radius", data: [] }];
     const diameter = [{ id: "Diameter", data: [] }];
     timeRanges.forEach((timeRange) => {
@@ -96,29 +96,19 @@ export function NetworkEvolution({ project }) {
           <div className="small-title-project">Density Evolution</div>
           <BarChart width={100 * density.length} height={400} data={density} />
         </div>
-        {/* <div className='chart-container'>
-                                      <div className='small-title-project'>Degree Centrality Evolution</div>
-                                      <BarChart width={100*degreeCentrality.length} height={400} data={degreeCentrality}/>
-                                  </div> */}
-        {/* <div className='chart-container'>
-                                      <div className='small-title-project'>Diameter Evolution</div>
-                                      <BarChart width={100*diameter.length} height={400} data={diameter}/>
-                                  </div>
-                                  <div className='chart-container'>
-                                      <div className='small-title-project'>Radius Evolution</div>
-                                      <BarChart width={100*radius.length} height={400} data={radius}/>
-                                  </div> */}
-        <div className="chart-container">
+        {/* <div className="chart-container">
           <div className="small-title-project">Reciprocity Evolution</div>
           <BarChart
             width={100 * reciprocity.length}
             height={400}
             data={reciprocity}
           />
-        </div>
+        </div> */}
 
         <div className="chart-container chart-container-line">
-          <div className="small-title-project">Degree Centrality Evolution</div>
+          <div className="small-title-project">
+            Degree Centralization Evolution
+          </div>
           <LineChart data={degreeCentrality} />
         </div>
         <div className="chart-container chart-container-line">
