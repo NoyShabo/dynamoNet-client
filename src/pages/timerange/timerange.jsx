@@ -10,7 +10,7 @@ import { Select } from "@mantine/core";
 import BeatLoader from "react-spinners/BeatLoader";
 import { NotificationPopup } from "../../cmp/notification-popup/notificationPopup";
 import "../../globalStyle.scss";
-import { setTimeRange } from "../../redux/actions/timeRangeActions";
+import { setTimeRange, deleteTimeRangeStore } from "../../redux/actions/timeRangeActions";
 import {
   deleteTimeRange,
   getTimeRange,
@@ -53,7 +53,7 @@ export function Timerange({}) {
    }
    console.log(navigateIndex)
 
-   navigate(`/project/63fcc4f456cde2fae0231880/timerange/${TRIds[navigateIndex]}`);
+   navigate(`/project/${project._id}/timerange/${TRIds[navigateIndex]}`);
   }
 
   function clickTRightArrow(){
@@ -72,7 +72,7 @@ export function Timerange({}) {
    console.log(navigateIndex)
 
     //63fcc4f456cde2fae0231880
-    navigate(`/project/63fcc4f456cde2fae0231880/timerange/${TRIds[navigateIndex]}`);
+    navigate(`/project/${project._id}/timerange/${TRIds[navigateIndex]}`);
 
     //navigate(`/project/${projectId}/timerange/${TRIds[navigateIndex]}`);
   }
@@ -81,9 +81,9 @@ export function Timerange({}) {
 
   useEffect(() => {
     getTimeRangeById(timeRangeId);
-    return () => {
-      // dispatch(removeSelectedTimeRange());
-    };
+    // return () => {
+    //   dispatch(deleteTimeRangeStore());
+    // };
   }, [timeRangeId]);
 
   useEffect(() => {
@@ -130,8 +130,8 @@ export function Timerange({}) {
         )}
         {timeRange && (
           <div className="timerange-container">
-             <div className="arrow-left-tr" onClick={clickTrLeftArrow}>◀</div>
-            <div className="arrow-right-tr" onClick={clickTRightArrow} >▶</div>
+             <div className="arrow-left-tr" onClick={clickTrLeftArrow}>←</div>
+            <div className="arrow-right-tr" onClick={clickTRightArrow} >→</div>
             <div className="timerange-header">
               <div className="timerange-info">
                 <div className="title-project">{timeRange.title}</div>

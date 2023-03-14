@@ -10,7 +10,7 @@ export const updateTimeRange = (timeRange) => ({
   payload: timeRange.timeRange,
 });
 
-export const deleteTimeRange = (timeRange) => ({
+export const deleteTimeRangeStore = (timeRange) => ({
   type: TimeRangeActionTypes.DELETE_TIME_RANGE,
   payload: timeRange,
 });
