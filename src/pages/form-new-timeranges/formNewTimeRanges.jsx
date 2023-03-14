@@ -12,6 +12,7 @@ import {
 import { DateRangePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { createTimeRanges } from "../../serverApi/rest/timeRangeApi";
 import "./formNewTimeRanges.scss";
@@ -20,6 +21,7 @@ export function FormNewTimeRanges() {
   const [active, setActive] = useState(0);
   const { projectId, networkId } = useParams();
   const navigate = useNavigate();
+  const project = useSelector((state) => state.projectModule.project);
 
   const handleSubmission = async (values) => {
     const timeWindows = values.timeWindows.map((timeWindow) => {
@@ -101,10 +103,10 @@ export function FormNewTimeRanges() {
         <DateRangePicker
           label="Date range"
           required
-          // value={[
-          //   form.getInputProps(`timeWindows.${index}.startDate`).value,
-          //   form.getInputProps(`timeWindows.${index}.endDate`).value,
-          // ]}
+          placeholder="Date range"
+          initialMonth={project ? new Date(project.startDate) : null}
+          minDate={project ? new Date(project.startDate) : null}
+          maxDate={project ? new Date(project.endDate) : null}
           onChange={(values) => {
             form.setFieldValue(`timeWindows.${index}.timeRange`, values);
           }}
