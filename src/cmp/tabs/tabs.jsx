@@ -55,26 +55,37 @@ export function Tabs({ tabs }) {
 // export function Tabs({tabs}) {
 //   const [value, setValue] = useSetState("1");
 
-//   const handleChange = (event, newValue) => {
-//     setValue(newValue);
+//   const handleChange = (event, newValue="3") => {
+//     console.log(event);
+//     setValue("2");
 //   };
 
 //   return (
 //     <Box sx={{ width: '100%', typography: 'body1' }}>
-//       <TabContext value={value}>
+//       <TabContext value={value.toString()}>
 //         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 //           <TabList onChange={handleChange} aria-label="lab API tabs example">
-//             <Tab label="Item One" value="1" />
-//             <Tab label="Item Two" value="2" />
-//             <Tab label="Item Three" value="3" />
-//             <Tab label="Item Four" value="4" />
+//           { tabs.map(tab=>{
+//             return (
+//               <Tab label={tab.name} value={tab.id.toString()}  tabIndex={tab.id} key={tab.id+'aa'} className={`tabs__item`}/> )
+//           })
+//          }
 //           </TabList>
 //         </Box>
-//         <TabPanel value="1">Item One</TabPanel>
+//         {
+//           tabs.map(tab=>{
+//             return (
+//               <TabPanel value={tab.id.toString()} key={tab.id+"bb"}>{tab.component}</TabPanel>
+//               )
+//           })
+//         }
+//         {/* <TabPanel value="1">Item One</TabPanel>
 //         <TabPanel value="2">Item Two</TabPanel>
 //         <TabPanel value="3">Item Three</TabPanel>
-//         <TabPanel value="4">Item Four</TabPanel>
+//         <TabPanel value="4">Item Four</TabPanel> */}
 //       </TabContext>
 //     </Box>
 //   );
 // }
+
+

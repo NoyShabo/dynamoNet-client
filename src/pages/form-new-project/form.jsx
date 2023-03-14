@@ -49,6 +49,7 @@ export function FormNewProject() {
       dataset: [{ name: "" }],
       timerange: "",
       userEmail: "",
+      keywords: [{ keyword: "" }]
     },
 
     validate: (values) => {
@@ -115,6 +116,23 @@ export function FormNewProject() {
     }
   };
 
+  const handelInputTextKeyword = (event, index) => {
+    event.preventDefault();
+    const lines = event.clipboardData.getData("Text").split(/\s+/);
+    if (lines.length > 1) {
+      let counter = 0;
+      lines.forEach((key) => {
+        if (key) {
+          counter = counter + 1;
+          form.insertListItem("keywords", { keyword: key });
+        }
+      });
+      if (counter > 0) {
+        form.removeListItem("keywords", index);
+      }
+    }
+  };
+
   const fields = form.values.dataset.map((_, index) => (
     <Draggable key={index} index={index} draggableId={index.toString()}>
       {(provided) => (
@@ -138,6 +156,31 @@ export function FormNewProject() {
       )}
     </Draggable>
   ));
+
+  const fieldsKeywords = form.values.keywords.map((_, index) => {
+    // index = index +5000
+    return (<Draggable key={index+"k"} index={index} draggableId={(index).toString()}>
+      {(provided) => (
+        <Group ref={provided.innerRef} mt="xs" {...provided.draggableProps}>
+          <Group
+            position="left"
+            className="container-row"
+            {...provided.dragHandleProps}
+          >
+            <IconGridDots size={35} color="#55bbee" />
+            <TextInput
+              className="input-user"
+              onPaste={(e) => {
+                handelInputTextKeyword(e, index);
+              }}
+              placeholder="Keyword"
+              {...form.getInputProps(`keywords.${index}.keyword`)}
+            />
+          </Group>
+        </Group>
+      )}
+    </Draggable>)
+  });
 
   const nextStep = () =>
     setActive((current) => {
@@ -237,6 +280,49 @@ export function FormNewProject() {
                     }}
                   >
                     Remove UserName
+                  </Button>
+                </Group>
+              </Box>
+              <Box>
+                <h3>Add Keywords from twitter</h3>
+                <DragDropContext
+                  onDragEnd={({ destination, source }) =>
+                    form.reorderListItem("keywords", {
+                      from: source.index,
+                      to: destination.index,
+                    })
+                  }
+                >
+                  <Droppable droppableId="dnd-list" direction="vertical">
+                    {(provided) => (
+                      <div {...provided.droppableProps} ref={provided.innerRef}>
+                        {fieldsKeywords}
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Droppable>
+                </DragDropContext>
+
+                <Group position="left" mt="md">
+                  <Button
+                    mb="20px"
+                    className="add-btn"
+                    onClick={() => form.insertListItem("keywords", { keyword: "" })}
+                  >
+                    Add Keyword
+                  </Button>
+                  <Button
+                    mb="20px"
+                    className="red-btn"
+                    onClick={() => {
+                      if (form.values.keywords.length === 1) return;
+                      form.removeListItem(
+                        "keywords",
+                        form.values.keywords.length - 1
+                      );
+                    }}
+                  >
+                    Remove keyWord
                   </Button>
                 </Group>
               </Box>
