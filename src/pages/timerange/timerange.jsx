@@ -18,10 +18,11 @@ import {
 } from "../../serverApi/rest/timeRangeApi";
 import "./timerange.scss";
 
-export function Timerange() {
+export function Timerange({}) {
   const [error, setError] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
   const timeRange = useSelector((state) => state.timeRangeModule.timeRange);
+  const project = useSelector((state) => state.projectModule.project);
   const dispatch = useDispatch();
   const [timeRangeTitle, setTimeRangeTitle] = useState("");
   const { timeRangeId, projectId } = useParams();
@@ -33,7 +34,9 @@ export function Timerange() {
     dispatch(setTimeRange(res));
   };
 
-  const TRIds=["6405c91d024f895891dfe76b","6405c941024f895891dfe76d","6405c959024f895891dfe76f","6405c962024f895891dfe771"]
+  // const TRIds=["6405c91d024f895891dfe76b","6405c941024f895891dfe76d","6405c959024f895891dfe76f","6405c962024f895891dfe771"]
+  const TRIds=project.timeRanges.map((timeRange)=>timeRange._id)
+  console.log('project', project);
 
   function clickTrLeftArrow(){
     console.log("insside clickTrLeftArrow")

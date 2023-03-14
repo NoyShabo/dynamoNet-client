@@ -130,9 +130,9 @@ export function Project() {
 
   useEffect(() => {
     if (projectId && projectId !== "") getProjectById(projectId);
-    return () => {
-      dispatch(removeSelectedProject());
-    };
+    // return () => {
+    //   dispatch(removeSelectedProject());
+    // };
   }, []);
 
   useEffect(() => {
