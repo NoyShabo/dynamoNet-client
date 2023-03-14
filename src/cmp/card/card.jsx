@@ -1,11 +1,15 @@
 import { Card, Image, Text } from '@mantine/core';
 import { Link } from 'react-router-dom';
+// import { useNavigate } from "react-router-dom";
+
 import '../../globalStyle.scss'
 import projectImg from './project.png'
 
 import './card.scss'
 
 export function GlobalCard({id, title, description,imgUrl=projectImg, linkTo, moreDescription}) {
+  // const navigate = useNavigate();
+  console.log(linkTo);
   return (
     <div className='card-container'>
     <Card
@@ -13,6 +17,7 @@ export function GlobalCard({id, title, description,imgUrl=projectImg, linkTo, mo
       p="xl"
       component={Link}
       to={linkTo}
+      // onClick={(e)=>{e.preventDefault(); navigate(linkTo)}}
       fontFamily="OpenSans"
     > 
       <Card.Section >
