@@ -10,7 +10,10 @@ import { Select } from "@mantine/core";
 import BeatLoader from "react-spinners/BeatLoader";
 import { NotificationPopup } from "../../cmp/notification-popup/notificationPopup";
 import "../../globalStyle.scss";
-import { setTimeRange, deleteTimeRangeStore } from "../../redux/actions/timeRangeActions";
+import {
+  deleteTimeRangeStore,
+  setTimeRange,
+} from "../../redux/actions/timeRangeActions";
 import {
   deleteTimeRange,
   getTimeRange,
@@ -35,49 +38,45 @@ export function Timerange({}) {
   };
 
   // const TRIds=["6405c91d024f895891dfe76b","6405c941024f895891dfe76d","6405c959024f895891dfe76f","6405c962024f895891dfe771"]
-  const TRIds=project.timeRanges.map((timeRange)=>timeRange._id)
-  console.log('project', project);
+  const TRIds = project.timeRanges.map((timeRange) => timeRange._id);
+  console.log("project", project);
 
-  function clickTrLeftArrow(){
-    console.log("insside clickTrLeftArrow")
+  function clickTrLeftArrow() {
+    console.log("insside clickTrLeftArrow");
     const index = TRIds.indexOf(timeRangeId);
-    console.log(index)
-    console.log(timeRangeId)
+    console.log(index);
+    console.log(timeRangeId);
 
     let navigateIndex;
-   if(index==0){
-    navigateIndex=TRIds.length-1;
-   }
-   else{
-    navigateIndex=index-1;
-   }
-   console.log(navigateIndex)
+    if (index == 0) {
+      navigateIndex = TRIds.length - 1;
+    } else {
+      navigateIndex = index - 1;
+    }
+    console.log(navigateIndex);
 
-   navigate(`/project/${project._id}/timerange/${TRIds[navigateIndex]}`);
+    navigate(`/project/${project._id}/timerange/${TRIds[navigateIndex]}`);
   }
 
-  function clickTRightArrow(){
-    console.log("insside clickTRightArrow")
+  function clickTRightArrow() {
+    console.log("insside clickTRightArrow");
     const index = TRIds.indexOf(timeRangeId);
-    console.log(index)
-    console.log(timeRangeId)
+    console.log(index);
+    console.log(timeRangeId);
 
     let navigateIndex;
-   if(index==TRIds.length-1){
-    navigateIndex=0;
-   }
-   else{
-    navigateIndex=index+1;
-   }
-   console.log(navigateIndex)
+    if (index == TRIds.length - 1) {
+      navigateIndex = 0;
+    } else {
+      navigateIndex = index + 1;
+    }
+    console.log(navigateIndex);
 
     //63fcc4f456cde2fae0231880
     navigate(`/project/${project._id}/timerange/${TRIds[navigateIndex]}`);
 
     //navigate(`/project/${projectId}/timerange/${TRIds[navigateIndex]}`);
   }
-
-
 
   useEffect(() => {
     getTimeRangeById(timeRangeId);
@@ -123,15 +122,19 @@ export function Timerange({}) {
     <>
       <div className="title-project title-header">Time Range Details</div>
       <div className="timerange">
-        {!timeRange && (
+        {(!timeRange || timeRange._id !== timeRangeId) && (
           <div className="timerange-container title-project">
             Loading Time Range <BeatLoader color="#36d7b7" />
           </div>
         )}
         {timeRange && (
           <div className="timerange-container">
-             <div className="arrow-left-tr" onClick={clickTrLeftArrow}>←</div>
-            <div className="arrow-right-tr" onClick={clickTRightArrow} >→</div>
+            <div className="arrow-left-tr" onClick={clickTrLeftArrow}>
+              ←
+            </div>
+            <div className="arrow-right-tr" onClick={clickTRightArrow}>
+              →
+            </div>
             <div className="timerange-header">
               <div className="timerange-info">
                 <div className="title-project">{timeRange.title}</div>
@@ -141,7 +144,6 @@ export function Timerange({}) {
                 </div>
               </div>
             </div>
-           
 
             {timeRange.network &&
             timeRange.network.nodes &&

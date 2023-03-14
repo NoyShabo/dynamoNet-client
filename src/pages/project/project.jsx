@@ -173,7 +173,7 @@ export function Project() {
     <>
       <div className="title-project title-header">Project Details</div>
       <div className="project-page">
-        {!project ? (
+        {!project || project._id !== projectId ? (
           <div className="project-container small-title-project">
             Loading Project <br />
             <br /> <BeatLoader color="#36d7b7" />

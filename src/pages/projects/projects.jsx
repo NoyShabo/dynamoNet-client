@@ -58,7 +58,7 @@ export function ProjectsPage() {
           {projects && (
             <div className="cards-container">{makecards(projects)}</div>
           )}
-          {!projects && (
+          {(!projects || projects.length === 0) && (
             <div className="cards-container title-project">
               <span style={{ textAlign: "center" }}>
                 Loading Projects <BeatLoader color="#36d7b7" />
