@@ -56,16 +56,15 @@ function SourceNetwork({ network }) {
     setNetworkGraph(res.network);
   };
 
-  useEffect(() => {
-    if (network) getNetworkById(network._id);
-  }, [network]);
+  // useEffect(() => {
+  //   if (network) getNetworkById(network._id);
+  // }, [network]);
 
   return (
     <div className="source-network">
       <div className="title-project">Source Network</div>
-      {networkGraph && networkGraph.nodes && networkGraph.nodes.length > 0 ? (
+      {/* {networkGraph && networkGraph.nodes && networkGraph.nodes.length > 0 ? (
         <div>
-          {/* select to filter network edges */}
           <div className="network-filter">
             <Select
               placeholder="Select edge type"
@@ -108,7 +107,7 @@ function SourceNetwork({ network }) {
         <div className="small-title-project">
           Loading network <BeatLoader color="#36d7b7" />
         </div>
-      )}
+      )} */}
       {/* <div className="small-title-project">Metrics for the source network</div> */}
       <NetworkMetrics network={network} />
     </div>
@@ -194,37 +193,39 @@ export function Project() {
                 <div className="project-header">
                   <div className="title-project">{project.title}</div>
                   <div className="container-header-project">
-                    <div className="left"> 
+                    <div className="left">
                       <div className="small-date ">
                         {new Date(project.startDate).toLocaleDateString()} ↔{" "}
                         {new Date(project.endDate).toLocaleDateString()}
                       </div>
-                        <div className="small-title-project">
-                          {project.description}
-                        </div>
-                        
+                      <div className="small-title-project">
+                        {project.description}
+                      </div>
+
                       {isModalOpen && (
                         <Modal
                           onRequestClose={toggleModal}
                           dataset={project.dataset}
                         />
-                  )}</div>
+                      )}
+                    </div>
                     <div className="right">
                       <button
-                      onClick={toggleModal}
-                      type="button"
-                      className="button-dataset"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontFamily: "OpenSans-Light",
-                        marginRight:"41px"
-                      }}
-                    > <PeopleIcon />
-                    <span className="text-dataset"> Dataset</span>
-                    </button>
-
+                        onClick={toggleModal}
+                        type="button"
+                        className="button-dataset"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontFamily: "OpenSans-Light",
+                          marginRight: "41px",
+                        }}
+                      >
+                        {" "}
+                        <PeopleIcon />
+                        <span className="text-dataset"> Dataset</span>
+                      </button>
                     </div>
                   </div>
                   <Scroll
