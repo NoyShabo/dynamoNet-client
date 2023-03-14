@@ -180,6 +180,45 @@ export function Project() {
           </div>
         ) : (
           <div className="project-container">
+            <div className="project-header">
+              <div className="title-project">{project.title}</div>
+              <div className="container-header-project">
+                <div className="left">
+                  <div className="small-date ">
+                    {new Date(project.startDate).toLocaleDateString()} ↔{" "}
+                    {new Date(project.endDate).toLocaleDateString()}
+                  </div>
+                  <div className="small-title-project">
+                    {project.description}
+                  </div>
+
+                  {isModalOpen && (
+                    <Modal
+                      onRequestClose={toggleModal}
+                      dataset={project.dataset}
+                    />
+                  )}
+                </div>
+                <div className="right">
+                  <button
+                    onClick={toggleModal}
+                    type="button"
+                    className="button-dataset"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontFamily: "OpenSans-Light",
+                      marginRight: "41px",
+                    }}
+                  >
+                    {" "}
+                    <PeopleIcon />
+                    <span className="text-dataset"> Dataset</span>
+                  </button>
+                </div>
+              </div>
+            </div>
             {project.status === ProjectStatus.IN_PROGRESS ? (
               <div
                 className="small-title-project"
@@ -191,43 +230,6 @@ export function Project() {
             ) : (
               <>
                 <div className="project-header">
-                  <div className="title-project">{project.title}</div>
-                  <div className="container-header-project">
-                    <div className="left">
-                      <div className="small-date ">
-                        {new Date(project.startDate).toLocaleDateString()} ↔{" "}
-                        {new Date(project.endDate).toLocaleDateString()}
-                      </div>
-                      <div className="small-title-project">
-                        {project.description}
-                      </div>
-
-                      {isModalOpen && (
-                        <Modal
-                          onRequestClose={toggleModal}
-                          dataset={project.dataset}
-                        />
-                      )}
-                    </div>
-                    <div className="right">
-                      <button
-                        onClick={toggleModal}
-                        type="button"
-                        className="button-dataset"
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontFamily: "OpenSans-Light",
-                          marginRight: "41px",
-                        }}
-                      >
-                        {" "}
-                        <PeopleIcon />
-                        <span className="text-dataset"> Dataset</span>
-                      </button>
-                    </div>
-                  </div>
                   <Scroll
                     items={[
                       ...getTimeRangeCards(project),

@@ -155,7 +155,7 @@ export const DisplayGraph = ({ width, height, network }) => {
         // edge events
         clickEdge: (event) => {
           const edge = graph.getEdgeAttributes(event.edge);
-            setSelectedEdge(edge);
+          setSelectedEdge(edge);
         },
         // enterEdge: (event) => {
         //   console.log("enterEdge", event.edge);
@@ -197,7 +197,7 @@ export const DisplayGraph = ({ width, height, network }) => {
                     <h4> Type</h4>
                     <p>{selectedEdge.edgeType.join(", ")}</p>
                   </div>
-                
+
                   <div className="edge-popup__content__item">
                     <h4> Content</h4>
                     <p>{selectedEdge.edgeContent.join(", ")}</p>
@@ -222,7 +222,10 @@ export const DisplayGraph = ({ width, height, network }) => {
             setShowNotification={setShowNotification}
           />
           <GraphEvents />
-          <ControlsContainer position={"bottom-left"} className="control-graph-nav"> 
+          <ControlsContainer
+            position={"bottom-left"}
+            className="control-graph-nav"
+          >
             <LayoutForceAtlas2Control
               autoRunFor={
                 network && network.nodes.length > 1000

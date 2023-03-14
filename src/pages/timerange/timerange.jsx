@@ -48,7 +48,7 @@ export function Timerange({}) {
     console.log(timeRangeId);
 
     let navigateIndex;
-    if (index == 0) {
+    if (index === 0) {
       navigateIndex = TRIds.length - 1;
     } else {
       navigateIndex = index - 1;
@@ -65,7 +65,7 @@ export function Timerange({}) {
     console.log(timeRangeId);
 
     let navigateIndex;
-    if (index == TRIds.length - 1) {
+    if (index === TRIds.length - 1) {
       navigateIndex = 0;
     } else {
       navigateIndex = index + 1;
@@ -122,12 +122,11 @@ export function Timerange({}) {
     <>
       <div className="title-project title-header">Time Range Details</div>
       <div className="timerange">
-        {(!timeRange || timeRange._id !== timeRangeId) && (
+        {!timeRange || timeRange._id !== timeRangeId ? (
           <div className="timerange-container title-project">
             Loading Time Range <BeatLoader color="#36d7b7" />
           </div>
-        )}
-        {timeRange && (
+        ) : (
           <div className="timerange-container">
             <div className="arrow-left-tr" onClick={clickTrLeftArrow}>
               ←
