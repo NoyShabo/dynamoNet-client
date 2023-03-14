@@ -96,14 +96,14 @@ export function NetworkEvolution({ project }) {
           <div className="small-title-project">Density Evolution</div>
           <BarChart width={100 * density.length} height={400} data={density} />
         </div>
-        {/* <div className="chart-container">
+        <div className="chart-container">
           <div className="small-title-project">Reciprocity Evolution</div>
           <BarChart
             width={100 * reciprocity.length}
             height={400}
             data={reciprocity}
           />
-        </div> */}
+        </div>
 
         <div className="chart-container chart-container-line">
           <div className="small-title-project">
