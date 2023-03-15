@@ -20,6 +20,7 @@ import {
   updateTimeRange,
 } from "../../serverApi/rest/timeRangeApi";
 import "./timerange.scss";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export function Timerange({}) {
   const [error, setError] = useState(null);
@@ -37,6 +38,9 @@ export function Timerange({}) {
     dispatch(setTimeRange(res));
   };
 
+  function backPrevPage(){
+    navigate(`/project/${project._id}`);
+}
   // const TRIds=["6405c91d024f895891dfe76b","6405c941024f895891dfe76d","6405c959024f895891dfe76f","6405c962024f895891dfe771"]
   const TRIds = project.timeRanges.map((timeRange) => timeRange._id);
   console.log("project", project);
@@ -120,7 +124,7 @@ export function Timerange({}) {
 
   return (
     <>
-      <div className="title-project title-header">Time Range Details</div>
+          <div className="title-project title-header"><span><ArrowBackIcon onClick={backPrevPage} style={{ borderRadius: '50%', backgroundColor: '#222c45', color: '#fff', padding: '8px' ,fontSize : '50px' , position: "absolute",left: '20px',top:' 105px',cursor:"pointer"}} /></span>Time Range Details</div>
       <div className="timerange">
         {!timeRange || timeRange._id !== timeRangeId ? (
           <div className="timerange-container title-project">
