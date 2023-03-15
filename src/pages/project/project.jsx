@@ -205,9 +205,9 @@ export function Project() {
                     {project.description}
                   </div>
                   <div className="width-element-top tags">
-                    {project.keywords && project.keywords.map((keyword) => (
-                      <span className="chip">
-                        <Chip label={keyword} size="small" key={keyword} style={{ backgroundColor: '#70d8bd', color: 'black', margin: '3px' }} />
+                    {project.keywords && project.keywords.map((keyword,index) => (
+                      <span className="chip" key={keyword+index}>
+                        <Chip label={keyword} size="small"  style={{ backgroundColor: '#70d8bd', color: 'black', margin: '3px' }} />
                       </span>
                     ))}
                   </div>
