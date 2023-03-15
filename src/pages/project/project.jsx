@@ -52,7 +52,6 @@ function SourceNetwork({ network }) {
   const [networkGraph, setNetworkGraph] = useState(null);
   const getNetworkById = async (id) => {
     const res = await getNetwork(id);
-    console.log("network: ", res.network);
     setNetworkGraph(res.network);
   };
 

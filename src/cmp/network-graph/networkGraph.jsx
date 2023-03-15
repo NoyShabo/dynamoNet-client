@@ -113,7 +113,7 @@ export const LoadGraph = ({
           edgeContent: edge.edgeContent,
         });
       } catch (err) {
-        console.log("addEdgeWithKey: ", err);
+        // console.log("addEdgeWithKey: ", err);
         // can ignore this error most likely
         // setError(err);
         // setShowNotification(true);
@@ -140,7 +140,7 @@ export const DisplayGraph = ({ width, height, network }) => {
       registerEvents({
         // node events
         clickNode: (event) => {
-          console.log("clickNode", event.node, event.preventSigmaDefault);
+          // console.log("clickNode", event.node, event.preventSigmaDefault);
           getNode(event.node)
             .then((node) => {
               setSelectedNode(node.node);

@@ -16,7 +16,6 @@ export function AddNewNode({ addNode, setError, setShowNotification }) {
     if (!value) return;
     try {
       const res = await addFavoriteNodeToProject(projectId, value);
-      console.log("add node res: ", res);
       addNode(value);
     } catch (err) {
       setError(err);
@@ -54,7 +53,6 @@ export function FavoriteNodes({ setSelectedNode, favoriteNodes }) {
   const removeNode = async (index) => {
     try {
       const res = await removeFavoriteNodeFromProject(projectId, nodes[index]);
-      console.log("remove node res: ", res);
       const newNodes = [...nodes];
       newNodes.splice(index, 1);
       setNodes(newNodes);

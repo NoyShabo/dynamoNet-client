@@ -39,13 +39,9 @@ export function Timerange({}) {
 
   // const TRIds=["6405c91d024f895891dfe76b","6405c941024f895891dfe76d","6405c959024f895891dfe76f","6405c962024f895891dfe771"]
   const TRIds = project.timeRanges.map((timeRange) => timeRange._id);
-  console.log("project", project);
 
   function clickTrLeftArrow() {
-    console.log("insside clickTrLeftArrow");
     const index = TRIds.indexOf(timeRangeId);
-    console.log(index);
-    console.log(timeRangeId);
 
     let navigateIndex;
     if (index === 0) {
@@ -53,29 +49,19 @@ export function Timerange({}) {
     } else {
       navigateIndex = index - 1;
     }
-    console.log(navigateIndex);
 
     navigate(`/project/${project._id}/timerange/${TRIds[navigateIndex]}`);
   }
 
   function clickTRightArrow() {
-    console.log("insside clickTRightArrow");
     const index = TRIds.indexOf(timeRangeId);
-    console.log(index);
-    console.log(timeRangeId);
-
     let navigateIndex;
     if (index === TRIds.length - 1) {
       navigateIndex = 0;
     } else {
       navigateIndex = index + 1;
     }
-    console.log(navigateIndex);
-
-    //63fcc4f456cde2fae0231880
     navigate(`/project/${project._id}/timerange/${TRIds[navigateIndex]}`);
-
-    //navigate(`/project/${projectId}/timerange/${TRIds[navigateIndex]}`);
   }
 
   useEffect(() => {
@@ -98,7 +84,6 @@ export function Timerange({}) {
   const handleDelete = async () => {
     try {
       const res = await deleteTimeRange(timeRangeId, projectId);
-      console.log(res);
       navigate(`/project/${projectId}`);
     } catch (e) {
       // console.error("error deleting time range: ", e);

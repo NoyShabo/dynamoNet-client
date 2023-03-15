@@ -43,7 +43,6 @@ export function FormNewProject() {
       userEmail: values.userEmail,
     };
     const res = await createProject(project);
-    // console.log(project);
     // send the user to /project/:projectId
     navigate(`/project/${res.project._id}`);
   };
@@ -74,12 +73,23 @@ export function FormNewProject() {
 
       if (active === 1) {
         const errorsObj = {};
-        values.dataset.forEach((user, index) => {
-          if (user.name.trim().length < 3) {
+        if(values.dataset.length === 1 && values.keywords.length === 1){
+          if (values.dataset[0].name.trim().length === 0 && values.keywords[0].keyword.trim().length ===0){
+            errorsObj[`dataset.${0}.name`] =
+            "Must include Username or Keyword";
+          
+            errorsObj[`keywords.${0}.keyword`] =
+            "Must include Username or Keyword";
+          }
+        }
+        else {
+          values.dataset.forEach((user, index) => {
+          if (user.name.trim().length < 2) {
             errorsObj[`dataset.${index}.name`] =
-              "Username must include at least 3 characters";
+              "Username must include at least 2 characters";
           }
         });
+        }
         return errorsObj;
       }
 

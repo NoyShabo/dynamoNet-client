@@ -9,7 +9,6 @@ import './card.scss'
 
 export function GlobalCard({id, title, description,imgUrl=projectImg, linkTo, moreDescription}) {
   // const navigate = useNavigate();
-  console.log(linkTo);
   return (
     <div className='card-container'>
     <Card
