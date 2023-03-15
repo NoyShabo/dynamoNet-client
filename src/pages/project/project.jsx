@@ -63,7 +63,9 @@ function SourceNetwork({ network }) {
   return (
     <div className="source-network">
       <div className="title-project">Source Network</div>
-      {/* {networkGraph && networkGraph.nodes && networkGraph.nodes.length > 0 ? (
+      {/* {networkGraph &&
+      networkGraph.nodePositions &&
+      Object.keys(networkGraph.nodePositions).length > 0 ? (
         <div>
           <div className="network-filter">
             <Select
