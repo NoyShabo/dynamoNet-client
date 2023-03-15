@@ -377,19 +377,21 @@ export function FormNewProject() {
                 />
               </Stepper.Step>
               <Stepper.Completed>
-                Completed! Form values:
-                <Code block mt="xl">
-                  {JSON.stringify(form.values, null, 2)}
-                </Code>
+
+              <h3>Enter Email</h3>
+                {/* Completed! Form values: */}
+                {/* <Code block mt="xl"> */}
+                  {/* {JSON.stringify(form.values, null, 2)} */}
+                {/* </Code> */}
                 {/* input for user email */}
                 <TextInput
                   ta="start"
-                  mt="md"
+                  // mt="md"
                   label="Email:"
                   placeholder="Email to get notified when the project is ready"
                   {...form.getInputProps("userEmail")}
                 />
-                <Button
+                {/* <Button
                   mt="xl"
                   onClick={() => {
                     form.reset();
@@ -397,9 +399,14 @@ export function FormNewProject() {
                   }}
                 >
                   Reset form
-                </Button>
+                </Button> */}
+              <Group position="right" mt="xl">
+
                 <Button
-                  mt="xl"
+                  // mt="xl"
+                  // mb={0}
+                  // mb={"0px"}
+                  w="100%"
                   onClick={() => {
                     if (!form.validate().hasErrors) {
                       handleSubmission(form.values);
@@ -409,6 +416,10 @@ export function FormNewProject() {
                 >
                   Submit form
                 </Button>
+                <Button w="100%" variant="default" onClick={prevStep}>
+                  Back
+                </Button>
+                </Group>
               </Stepper.Completed>
             </Stepper>
 
@@ -418,7 +429,7 @@ export function FormNewProject() {
                   Next step
                 </Button>
               )}
-              {active !== 0 && (
+              {active !== 0 && active !== 3 && (
                 <Button w="100%" variant="default" onClick={prevStep}>
                   Back
                 </Button>
