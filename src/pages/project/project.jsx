@@ -27,6 +27,9 @@ import { getProject, updateProject } from "../../serverApi/rest/projectApi";
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
 
+import Chip from '@mui/material/Chip';
+
+
 function getTimeRangeCards(project) {
   const timeRanges = project.timeRanges;
   const cards = timeRanges.map((timeRange) => {
@@ -188,9 +191,16 @@ export function Project() {
                     {new Date(project.startDate).toLocaleDateString()} ↔{" "}
                     {new Date(project.endDate).toLocaleDateString()}
                   </div>
-                  <div className="small-title-project">
+                  <div className="mid-title-project width-element-top">
                     {project.description}
                   </div>
+                  <div className="width-element-top tags">
+                    {project.keywords && project.keywords.map((keyword) => (
+                      <span className="chip">
+                      <Chip label={keyword}  size="small" key={keyword} style={{ backgroundColor: '#70d8bd',color: 'black',margin: '3px' }}/>
+                      </span>
+                    ))}
+                  </div>  
 
                   {isModalOpen && (
                     <Modal
@@ -200,6 +210,7 @@ export function Project() {
                   )}
                 </div>
                 <div className="right">
+                
                   <button
                     onClick={toggleModal}
                     type="button"
@@ -215,7 +226,8 @@ export function Project() {
                     {" "}
                     <PeopleIcon />
                     <span className="text-dataset"> Dataset</span>
-                  </button>
+                  </button>                
+                  
                 </div>
               </div>
             </div>
