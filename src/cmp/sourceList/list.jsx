@@ -216,9 +216,6 @@ function ContactInfo(props) {
         <div className="followersCount">
           <span>Followers:</span> {followersCount}
         </div>
-        <div className="address">
-          <span>Followers:</span> {location}
-        </div>
         <div className="friendsCount">
           <span>Friends:</span> {friendsCount}
         </div>
