@@ -68,7 +68,6 @@ export const LoadGraph = ({
 
     const edgeMap = {};
     edges.forEach((edge) => {
-      console.log(edge);
       if (edgeMap[edge.from + edge.to]) {
         edgeMap[edge.from + edge.to].weight += 1;
         edgeMap[edge.from + edge.to].edgeType.push(edge.edgeType);
@@ -78,7 +77,6 @@ export const LoadGraph = ({
         edgeMap[edge.to + edge.from].edgeType.push(edge.edgeType);
         edgeMap[edge.to + edge.from].edgeContent.push(edge.edgeContent);
       } else {
-        console.log("inside else");
         edgeMap[edge.from + edge.to] = {
           from: edge.from,
           to: edge.to,
