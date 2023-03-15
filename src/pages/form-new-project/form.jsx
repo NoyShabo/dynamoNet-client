@@ -15,12 +15,17 @@ import { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useNavigate, useParams } from "react-router-dom";
 import { createProject } from "../../serverApi/rest/projectApi";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import "./form.scss";
 
 export function FormNewProject() {
   const [active, setActive] = useState(0);
   const navigate = useNavigate();
+
+  function backPrevPage(){
+    navigate(-1);
+}
 
   const handleSubmission = async (values) => {
     const dataset = values.dataset.map((user) => {
@@ -213,7 +218,9 @@ export function FormNewProject() {
 
   return (
     <>
-      <div className="title-project title-header ">New Project</div>
+    <div>
+        <div className="title-project title-header"><span><ArrowBackIcon onClick={backPrevPage} style={{ borderRadius: '50%', backgroundColor: '#222c45', color: '#fff', padding: '8px' ,fontSize : '50px' , position: "absolute",left: '20px',top:' 105px',cursor:"pointer"}} /></span>New Project</div>
+      </div>
       <div className="form-new-project">
         <div className="form-new-project-container">
           <MantineProvider

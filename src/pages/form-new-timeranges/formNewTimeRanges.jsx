@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import { DateRangePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -22,6 +23,10 @@ export function FormNewTimeRanges() {
   const { projectId, networkId } = useParams();
   const navigate = useNavigate();
   const project = useSelector((state) => state.projectModule.project);
+
+  function backPrevPage() {
+    navigate(-1);
+  }
 
   const handleSubmission = async (values) => {
     const timeWindows = values.timeWindows.map((timeWindow) => {
@@ -145,7 +150,25 @@ export function FormNewTimeRanges() {
 
   return (
     <>
-      <div className="title-project title-header">New time range</div>
+      <div className="title-project title-header">
+        <span>
+          <ArrowBackIcon
+            onClick={backPrevPage}
+            style={{
+              borderRadius: "50%",
+              backgroundColor: "#222c45",
+              color: "#fff",
+              padding: "8px",
+              fontSize: "50px",
+              position: "absolute",
+              left: "20px",
+              top: " 105px",
+              cursor: "pointer",
+            }}
+          />
+        </span>
+        New time range
+      </div>
       <div className="form-new-timeranges">
         <div className="form-new-project-container">
           <MantineProvider
@@ -167,12 +190,12 @@ export function FormNewTimeRanges() {
               primaryColor: "brand",
             }}
           >
-             <Stepper active={active} breakpoint="sm">
-            <Stepper.Step
-              label="First step"
-              description="New Timerange settings" 
-            >
-              <h3>Create new Timerange</h3>
+            <Stepper active={active} breakpoint="sm">
+              <Stepper.Step
+                label="First step"
+                description="New Timerange settings"
+              >
+                <h3>Create new Timerange</h3>
                 <div className="form__field">
                   {fields}
                   <Button className="btn-add-tr" onClick={insertTimeWindow}>
@@ -180,14 +203,13 @@ export function FormNewTimeRanges() {
                   </Button>
                   <Button onClick={removeTimeWindow}>Remove Time Window</Button>
                 </div>
-              
               </Stepper.Step>
 
               <Stepper.Step
                 label="Second step"
                 description="Add Timerange type"
               >
-              <h3>Timerange type</h3>
+                <h3>Timerange type</h3>
                 <div className="form__field">
                   <Select
                     label="Edge Type"
@@ -197,42 +219,54 @@ export function FormNewTimeRanges() {
                     onChange={(value) =>
                       form.setFieldValue("edgeType", value.toLowerCase())
                     }
+                    // data={[
+                    //   { label: "All", value: "all" },
+                    //   { label: "Retweet", value: "retweet" },
+                    //   { label: "Quote", value: "quote" },
+                    // ]}
                     data={[
                       { label: "All", value: "all" },
-                      { label: "Retweet", value: "retweet" },
-                      { label: "Quote", value: "quote" },
+                      ...(!project
+                        ? []
+                        : project.edgeTypes.map((edgeType) => {
+                            return { label: edgeType, value: edgeType };
+                          })),
                     ]}
                     {...form.getInputProps("edgeType")}
                   />
                 </div>
-                </Stepper.Step>
-                
-                </Stepper>
+              </Stepper.Step>
+            </Stepper>
 
-              <Group position="center" mt={"45px"} className="btns-container">
-                <Button
-                  variant="outline"
-                  onClick={() => previousStep()}
-                  disabled={active === 0}
-                >
-                  Previous
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => nextStep()}
-                  disabled={active === 1}
-                >
-                  Next
-                </Button>
-                <Button type="submit" mt="xl" className="sub-btn"
-                  onClick={() => {
-                    if (!form.validate().hasErrors) {
-                      handleSubmission(form.values);
-                    }
-                  }} disabled={active !== 1}>
-                  Submit
-                </Button>
-              </Group>
+            <Group position="center" mt={"45px"} className="btns-container">
+              <Button
+                variant="outline"
+                onClick={() => previousStep()}
+                disabled={active === 0}
+              >
+                Previous
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => nextStep()}
+                disabled={active === 1}
+              >
+                Next
+              </Button>
+              <Button
+                type="submit"
+                mt="xl"
+                className="sub-btn"
+                onClick={() => {
+                  if (!form.validate().hasErrors) {
+                    handleSubmission(form.values);
+                  }
+                }}
+                disabled={active !== 1}
+              >
+                Submit
+              </Button>
+            </Group>
             {/* </form> */}
           </MantineProvider>
         </div>

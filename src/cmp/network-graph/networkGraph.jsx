@@ -68,10 +68,14 @@ export const LoadGraph = ({
 
     const edgeMap = {};
     edges.forEach((edge) => {
-      if (edgeMap[edge.from + edge.to] || edgeMap[edge.to + edge.from]) {
+      if (edgeMap[edge.from + edge.to]) {
         edgeMap[edge.from + edge.to].weight += 1;
         edgeMap[edge.from + edge.to].edgeType.push(edge.edgeType);
         edgeMap[edge.from + edge.to].edgeContent.push(edge.edgeContent);
+      } else if (edgeMap[edge.to + edge.from]) {
+        edgeMap[edge.to + edge.from].weight += 1;
+        edgeMap[edge.to + edge.from].edgeType.push(edge.edgeType);
+        edgeMap[edge.to + edge.from].edgeContent.push(edge.edgeContent);
       } else {
         edgeMap[edge.from + edge.to] = {
           from: edge.from,
@@ -228,12 +232,14 @@ export const DisplayGraph = ({ width, height, network }) => {
           >
             <LayoutForceAtlas2Control
               autoRunFor={
-                network && network.nodes.length > 1000
-                  ? network.nodes.length
-                  : 1000
+                network &&
+                (!network.nodePositions ||
+                  Object.keys(network.nodePositions).length === 0)
+                  ? 1000
+                  : 1
               }
               settings={{
-                // slowDown: 10,
+                slowDown: 10,
                 barnesHutOptimize: true,
                 barnesHutTheta: 0.5,
                 gravity: 1,

@@ -7,6 +7,7 @@ import { DisplayGraph } from "../../cmp/network-graph/networkGraph";
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 // import timeRange from "../../data/timeRange.json";
 import { Select } from "@mantine/core";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BeatLoader from "react-spinners/BeatLoader";
 import { NotificationPopup } from "../../cmp/notification-popup/notificationPopup";
 import "../../globalStyle.scss";
@@ -37,6 +38,9 @@ export function Timerange({}) {
     dispatch(setTimeRange(res));
   };
 
+  function backPrevPage() {
+    navigate(`/project/${project._id}`);
+  }
   // const TRIds=["6405c91d024f895891dfe76b","6405c941024f895891dfe76d","6405c959024f895891dfe76f","6405c962024f895891dfe771"]
   const TRIds = project.timeRanges.map((timeRange) => timeRange._id);
 
@@ -105,7 +109,25 @@ export function Timerange({}) {
 
   return (
     <>
-      <div className="title-project title-header">Time Range Details</div>
+      <div className="title-project title-header">
+        <span>
+          <ArrowBackIcon
+            onClick={backPrevPage}
+            style={{
+              borderRadius: "50%",
+              backgroundColor: "#222c45",
+              color: "#fff",
+              padding: "8px",
+              fontSize: "50px",
+              position: "absolute",
+              left: "20px",
+              top: " 105px",
+              cursor: "pointer",
+            }}
+          />
+        </span>
+        Time Range Details
+      </div>
       <div className="timerange">
         {!timeRange || timeRange._id !== timeRangeId ? (
           <div className="timerange-container title-project">
@@ -147,10 +169,16 @@ export function Timerange({}) {
                 <div className="network-filter">
                   <Select
                     placeholder="Select edge type"
+                    // data={[
+                    //   { label: "All", value: "all" },
+                    //   { label: "Retweet", value: "retweet" },
+                    //   { label: "Quote", value: "quote" },
+                    // ]}
                     data={[
                       { label: "All", value: "all" },
-                      { label: "Retweet", value: "retweet" },
-                      { label: "Quote", value: "quote" },
+                      ...project.edgeTypes.map((edgeType) => {
+                        return { label: edgeType, value: edgeType };
+                      }),
                     ]}
                     onChange={(value) => {
                       if (value === "all")

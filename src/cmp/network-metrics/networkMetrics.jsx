@@ -33,6 +33,14 @@ export function NetworkMetrics({ network }) {
           <MetricsBox {...network.quoteNetworkMetrics} />
         </div>
       )}
+      {network.metricsPerEdgeType &&
+        Object.keys(network.metricsPerEdgeType).length > 0 &&
+        Object.keys(network.metricsPerEdgeType).map((edgeType) => (
+          <div className="chart-container">
+            <div className="title-project">{edgeType} Metrics</div>
+            <MetricsBox {...network.metricsPerEdgeType[edgeType]} />
+          </div>
+        ))}
     </div>
   );
 }
