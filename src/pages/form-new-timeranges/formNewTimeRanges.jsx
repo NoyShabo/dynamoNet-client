@@ -11,12 +11,12 @@ import {
 } from "@mantine/core";
 import { DateRangePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { createTimeRanges } from "../../serverApi/rest/timeRangeApi";
 import "./formNewTimeRanges.scss";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export function FormNewTimeRanges() {
   const [active, setActive] = useState(0);
@@ -150,7 +150,25 @@ export function FormNewTimeRanges() {
 
   return (
     <>
-      <div className="title-project title-header"><span><ArrowBackIcon onClick={backPrevPage} style={{ borderRadius: '50%', backgroundColor: '#222c45', color: '#fff', padding: '8px', fontSize: '50px', position: "absolute", left: '20px', top: ' 105px', cursor: "pointer" }} /></span>New time range</div>
+      <div className="title-project title-header">
+        <span>
+          <ArrowBackIcon
+            onClick={backPrevPage}
+            style={{
+              borderRadius: "50%",
+              backgroundColor: "#222c45",
+              color: "#fff",
+              padding: "8px",
+              fontSize: "50px",
+              position: "absolute",
+              left: "20px",
+              top: " 105px",
+              cursor: "pointer",
+            }}
+          />
+        </span>
+        New time range
+      </div>
       <div className="form-new-timeranges">
         <div className="form-new-project-container">
           <MantineProvider
@@ -185,7 +203,6 @@ export function FormNewTimeRanges() {
                   </Button>
                   <Button onClick={removeTimeWindow}>Remove Time Window</Button>
                 </div>
-
               </Stepper.Step>
 
               <Stepper.Step
@@ -202,16 +219,23 @@ export function FormNewTimeRanges() {
                     onChange={(value) =>
                       form.setFieldValue("edgeType", value.toLowerCase())
                     }
+                    // data={[
+                    //   { label: "All", value: "all" },
+                    //   { label: "Retweet", value: "retweet" },
+                    //   { label: "Quote", value: "quote" },
+                    // ]}
                     data={[
                       { label: "All", value: "all" },
-                      { label: "Retweet", value: "retweet" },
-                      { label: "Quote", value: "quote" },
+                      ...(!project
+                        ? []
+                        : project.edgeTypes.map((edgeType) => {
+                            return { label: edgeType, value: edgeType };
+                          })),
                     ]}
                     {...form.getInputProps("edgeType")}
                   />
                 </div>
               </Stepper.Step>
-
             </Stepper>
 
             <Group position="center" mt={"45px"} className="btns-container">
@@ -229,12 +253,17 @@ export function FormNewTimeRanges() {
               >
                 Next
               </Button>
-              <Button type="submit" mt="xl" className="sub-btn"
+              <Button
+                type="submit"
+                mt="xl"
+                className="sub-btn"
                 onClick={() => {
                   if (!form.validate().hasErrors) {
                     handleSubmission(form.values);
                   }
-                }} disabled={active !== 1}>
+                }}
+                disabled={active !== 1}
+              >
                 Submit
               </Button>
             </Group>
