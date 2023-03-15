@@ -12,6 +12,7 @@
     width: 100%;
     display: flex;
     border: solid 2px #000000;
+    height:500px;
   }
 
   .left {
@@ -117,7 +118,8 @@
 
     section {
       flex: 1;
-      padding: 15px;
+      padding-left: 15px;
+      padding-right: 15px;
       font-size: 14px;
 
       p>span:nth-child(1) {
