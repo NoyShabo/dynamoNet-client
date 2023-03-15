@@ -17,6 +17,9 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { createTimeRanges } from "../../serverApi/rest/timeRangeApi";
 import "./formNewTimeRanges.scss";
+import { DatePickerInput } from '@mantine/dates';
+import { IconCalendar } from "@tabler/icons-react";
+
 
 export function FormNewTimeRanges() {
   const [active, setActive] = useState(0);
@@ -110,6 +113,7 @@ export function FormNewTimeRanges() {
           label="Date range"
           required
           placeholder="Date range"
+          icon={<IconCalendar size="1.1rem" stroke={1.5} />}
           initialMonth={project ? new Date(project.startDate) : null}
           minDate={project ? new Date(project.startDate) : null}
           maxDate={project ? new Date(project.endDate) : null}

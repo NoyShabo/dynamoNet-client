@@ -109,7 +109,7 @@ export function Timerange({}) {
 
   return (
     <>
-      <div className="title-project title-header">
+      <div className="title-project title-header ">
         <span>
           <ArrowBackIcon
             onClick={backPrevPage}
@@ -148,12 +148,12 @@ export function Timerange({}) {
                     {
                       type: "text",
                       value: timeRangeTitle || timeRange.title,
-                      className: "title-project",
+                      className: "title-project title-timerange-top",
                     },
                   ]}
                   onSubmit={(values) => handleUpdate(values[0])}
                 />
-                {/* <div className="title-project">{timeRange.title}</div> */}
+                {/* <div className="title-project title-timerange-top">{timeRange.title}</div> */}
                 <div className="small-title-project">
                   {new Date(timeRange.startDate).toLocaleDateString()} ↔{" "}
                   {new Date(timeRange.endDate).toLocaleDateString()}

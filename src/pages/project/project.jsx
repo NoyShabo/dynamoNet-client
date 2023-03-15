@@ -193,7 +193,7 @@ export function Project() {
         ) : (
           <div className="project-container">
             <div className="project-header">
-              <div className="title-project">{project.title}</div>
+              <div className="title-project title-timerange-top">{project.title}</div>
               <div className="container-header-project">
                 <div className="left">
                   <div className="small-date ">

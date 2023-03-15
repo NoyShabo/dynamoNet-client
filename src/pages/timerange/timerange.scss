@@ -83,6 +83,9 @@
             margin-bottom: 50px;
         }
     }
+    .title-timerange-top{
+        margin-top: 20px;
+    }
 
     .arrow-left-tr{
         position: absolute;
@@ -106,11 +109,42 @@
 
 }
 
-// @media only screen and (max-width: 768px) {
-//     .timerange{
-//         .container-chart{
-//             width: 600px;
-//         }
-//     }
-    
-//    }
+@media only screen and (max-width: 1156px) {
+    .timerange{
+        .arrow-left-tr{
+            font-size:60px;
+
+        }
+
+        .arrow-right-tr{
+            font-size:60px;
+        }
+
+   }
+}
+@media only screen and (max-width: 1099px) {
+    .timerange{
+        .arrow-left-tr{
+            font-size:50px;
+
+        }
+
+        .arrow-right-tr{
+            font-size:50px;
+        }
+
+   }
+}
+@media only screen and (max-width: 600px) {
+    .timerange{
+        .arrow-left-tr{
+            font-size:40px;
+
+        }
+
+        .arrow-right-tr{
+            font-size:40px;
+        }
+
+   }
+}
