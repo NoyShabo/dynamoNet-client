@@ -27,6 +27,10 @@ import { getProject, updateProject } from "../../serverApi/rest/projectApi";
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
 
+import Chip from '@mui/material/Chip';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from "react-router-dom";
+
 function getTimeRangeCards(project) {
   const timeRanges = project.timeRanges;
   const cards = timeRanges.map((timeRange) => {
@@ -124,6 +128,11 @@ export function Project() {
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
+  const navigate = useNavigate();
+
+  function backPrevPage(){
+      navigate("/projects");
+  }
 
   const getProjectById = async (id) => {
     const res = await getProject(id);
@@ -173,7 +182,9 @@ export function Project() {
 
   return (
     <>
-      <div className="title-project title-header">Project Details</div>
+      <div>
+        <div className="title-project title-header"><span><ArrowBackIcon onClick={backPrevPage} style={{ borderRadius: '50%', backgroundColor: '#222c45', color: '#fff', padding: '8px' ,fontSize : '50px' , position: "absolute",left: '20px',top:' 105px',cursor:"pointer"}} /></span>Project Details</div>
+      </div>
       <div className="project-page">
         {!project || project._id !== projectId ? (
           <div className="project-container small-title-project">
@@ -190,8 +201,15 @@ export function Project() {
                     {new Date(project.startDate).toLocaleDateString()} ↔{" "}
                     {new Date(project.endDate).toLocaleDateString()}
                   </div>
-                  <div className="small-title-project">
+                  <div className="mid-title-project width-element-top">
                     {project.description}
+                  </div>
+                  <div className="width-element-top tags">
+                    {project.keywords && project.keywords.map((keyword) => (
+                      <span className="chip">
+                        <Chip label={keyword} size="small" key={keyword} style={{ backgroundColor: '#70d8bd', color: 'black', margin: '3px' }} />
+                      </span>
+                    ))}
                   </div>
 
                   {isModalOpen && (
@@ -202,6 +220,7 @@ export function Project() {
                   )}
                 </div>
                 <div className="right">
+
                   <button
                     onClick={toggleModal}
                     type="button"
@@ -218,6 +237,7 @@ export function Project() {
                     <PeopleIcon />
                     <span className="text-dataset"> Dataset</span>
                   </button>
+
                 </div>
               </div>
             </div>

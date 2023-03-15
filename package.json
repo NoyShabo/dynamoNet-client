@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@coreui/coreui": "^4.2.6",
+    "@coreui/react": "^4.6.0",
     "@emotion/cache": "^11.10.5",
     "@emotion/react": "^11.10.6",
     "@emotion/serialize": "^1.1.1",

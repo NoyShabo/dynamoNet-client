@@ -8,6 +8,7 @@ import projectImg from "../../images/folder.png";
 import { setProjects } from "../../redux/actions/projectActions";
 import { getProjects } from "../../serverApi/rest/projectApi.js";
 import "./projects.scss";
+import { useNavigate } from "react-router-dom";
 
 const makecards = (projects) => {
   return projects.map((currProject) => {
@@ -34,6 +35,7 @@ export function ProjectsPage() {
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
+  const navigate = useNavigate();
 
   const fetchProjects = async () => {
     try {
@@ -53,7 +55,7 @@ export function ProjectsPage() {
   return (
     <>
       <div className="projects">
-        <div className="title-project title-header">My Projects</div>
+      <div className="title-project title-header">My Projects</div>
         <div className="projects-container">
           {projects && (
             <div className="cards-container">{makecards(projects)}</div>
