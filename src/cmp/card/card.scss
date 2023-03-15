@@ -21,6 +21,14 @@
         align-items: center;
     }
 
+    .p-description{
+        width: 310px;
+        white-space: nowrap;
+        text-overflow: ellipsis;        
+        padding: 0 10px;
+        overflow: hidden;
+    }
+
     img{
         margin-top: 0;
     }

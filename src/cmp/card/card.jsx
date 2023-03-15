@@ -36,7 +36,7 @@ export function GlobalCard({id, title, description,imgUrl=projectImg, linkTo, mo
       <Text mt="xs" size="sm" color="#70d8bd"  >
         {description}
       </Text>
-      <Text mt="xs" color="#e0e0e0" size="sm" >
+      <Text mt="xs" color="#e0e0e0" size="sm" className="p-description" >
         {moreDescription ?? ''}
       </Text>
     </Card>
