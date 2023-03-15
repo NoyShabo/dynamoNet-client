@@ -12,10 +12,10 @@ export const Navbar = () => {
     setToggle(!toggle);
   };
 
-  function isNavLinkActive(match, location) {
-    console.log(location.pathname)
-    return match || location.pathname.startsWith('/project')
-  }
+  // function isNavLinkActive(match, location) {
+  //   console.log(location.pathname);
+  //   return match || location.pathname.startsWith("/project");
+  // }
   return (
     <nav className={toggle ? "navbar expanded" : "navbar"}>
       <NavLink to="/projects">
@@ -30,7 +30,7 @@ export const Navbar = () => {
             exact="true"
             to="/projects"
             className="nav-links"
-            isActive={isNavLinkActive}
+            // isActive={isNavLinkActive}
             onClick={handleToggle}
           >
             My Projects
