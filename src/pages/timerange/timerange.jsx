@@ -136,7 +136,17 @@ export function Timerange({}) {
             </div>
             <div className="timerange-header">
               <div className="timerange-info">
-                <div className="title-project">{timeRange.title}</div>
+                <Edit
+                  inputs={[
+                    {
+                      type: "text",
+                      value: timeRangeTitle || timeRange.title,
+                      className: "title-project",
+                    },
+                  ]}
+                  onSubmit={(values) => handleUpdate(values[0])}
+                />
+                {/* <div className="title-project">{timeRange.title}</div> */}
                 <div className="small-title-project">
                   {new Date(timeRange.startDate).toLocaleDateString()} ↔{" "}
                   {new Date(timeRange.endDate).toLocaleDateString()}
