@@ -21,6 +21,11 @@ import {
   updateTimeRange,
 } from "../../serverApi/rest/timeRangeApi";
 import "./timerange.scss";
+import {
+  setProject,
+} from "../../redux/actions/projectActions";
+import { getProject, } from "../../serverApi/rest/projectApi";
+
 
 export function Timerange({}) {
   const [error, setError] = useState(null);
@@ -39,10 +44,26 @@ export function Timerange({}) {
   };
 
   function backPrevPage() {
-    navigate(`/project/${project._id}`);
+    navigate(`/project/${projectId}`);
   }
   // const TRIds=["6405c91d024f895891dfe76b","6405c941024f895891dfe76d","6405c959024f895891dfe76f","6405c962024f895891dfe771"]
-  const TRIds = project.timeRanges.map((timeRange) => timeRange._id);
+  const TRIds = [];
+
+  const getProjectById = async (id) => {
+    const res = await getProject(id);
+    dispatch(setProject(res));
+  };
+
+  useEffect(() => {
+    if (project && project.timeRanges) {
+      project.timeRanges.forEach((tr) => {
+        TRIds.push(tr._id);
+      });
+    } else {
+      if (projectId && projectId !== "") getProjectById(projectId);
+    }
+  }, [project]);
+  
 
   function clickTrLeftArrow() {
     const index = TRIds.indexOf(timeRangeId);
@@ -54,7 +75,7 @@ export function Timerange({}) {
       navigateIndex = index - 1;
     }
 
-    navigate(`/project/${project._id}/timerange/${TRIds[navigateIndex]}`);
+    navigate(`/project/${projectId}/timerange/${TRIds[navigateIndex]}`);
   }
 
   function clickTRightArrow() {
@@ -65,7 +86,7 @@ export function Timerange({}) {
     } else {
       navigateIndex = index + 1;
     }
-    navigate(`/project/${project._id}/timerange/${TRIds[navigateIndex]}`);
+    navigate(`/project/${projectId}/timerange/${TRIds[navigateIndex]}`);
   }
 
   useEffect(() => {
@@ -176,9 +197,9 @@ export function Timerange({}) {
                     // ]}
                     data={[
                       { label: "All", value: "all" },
-                      ...project.edgeTypes.map((edgeType) => {
+                      ...(project ? project.edgeTypes.map((edgeType) => {
                         return { label: edgeType, value: edgeType };
-                      }),
+                      }) : []),
                     ]}
                     onChange={(value) => {
                       if (value === "all")

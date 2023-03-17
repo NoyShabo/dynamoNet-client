@@ -43,6 +43,20 @@ export function NetworkMetrics({ network }) {
             <MetricsBox {...network.metricsPerEdgeType[edgeType]} />
           </div>
         ))}
+      {network.centralNodes && Object.keys(network.centralNodes).length > 0 && (
+        <div className="chart-container" key={`container_centrality`}>
+          <div className="title-project" key={`title_centrality`}>Central Nodes</div>
+            {Object.keys(network.centralNodes).map((metric) => {
+              return (<>
+                <div className="small-title-project" key={`central_${metric}`}>
+                  {metric} centrality
+                </div>
+              {/* table with node names */}
+                <div style={{color:'white'}} key={`list_${metric}`}> {network.centralNodes[metric].join(", ")}</div>
+              </>)
+            })}
+          </div>
+      )}
     </div>
   );
 }
