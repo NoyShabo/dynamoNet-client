@@ -218,8 +218,8 @@ export function Project() {
                     />
                   )}
                 </div>
+                {project.dataset && project.dataset.length>0 &&
                 <div className="right">
-
                   <button
                     onClick={toggleModal}
                     type="button"
@@ -236,8 +236,10 @@ export function Project() {
                     <PeopleIcon />
                     <span className="text-dataset"> Dataset</span>
                   </button>
+                
 
                 </div>
+                }
               </div>
             </div>
             {project.status === ProjectStatus.IN_PROGRESS ? (
