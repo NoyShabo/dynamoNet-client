@@ -11,23 +11,25 @@ export function NetworkMetrics({ network }) {
 
   return (
     <div className="charts-list">
-      {network.centralNodes && Object.keys(network.centralNodes).length > 0 && (
+      { network.centralNodes && Object.keys(network.centralNodes).length > 0 && 
+        (
         <div className="chart-container" key={`container_centrality`}>
           <div className="title-project" key={`title_centrality`}>Central Nodes</div>
-            {Object.keys(network.centralNodes).map((metric) => {
-              return (<>
-                <div style={{ marginBottom:"10px" }} className="small-title-project" key={`central_${metric}`}>
+            { Object.keys(network.centralNodes).map((metric, i) => {
+              return (
+              <div key={`metrics_${metric}_${i}`}>
+                <div style={{ marginBottom:"10px" }}  className="small-title-project" key={`central_${metric}`}>
                   {metric} centrality
                 </div>
-              {/* table with node names */}
               <div style={{ color: 'white' ,marginBottom:"15px" }} key={`list_${metric}`}>
-              {network.centralNodes[metric].map((name, index) => (
-                 <span style={{ backgroundColor: "rgb(33 44 69)" ,marginRight:"8px", padding:"4px", borderRadius:"5px" }}  className="name-cnt" key={`name_${index}`}>{name}  </span>
-        ))}
-      </div>              
-      </>)
+                  {network.centralNodes[metric].map((name, index) => (
+                  <span style={{ backgroundColor: "rgb(33 44 69)" ,marginRight:"8px", padding:"4px", borderRadius:"5px" }}  className="name-cnt" key={`name_${index}`}>{name}  </span>
+                  ))}
+              </div>              
+            </div>
+            )
             })}
-          </div>
+        </div>
       )}
       {retweetsQuote.retweets > 0 && retweetsQuote.quotes > 0 && (
         <div className="chart-container">
