@@ -48,11 +48,23 @@ export function Timerange({}) {
   }
   // const TRIds=["6405c91d024f895891dfe76b","6405c941024f895891dfe76d","6405c959024f895891dfe76f","6405c962024f895891dfe771"]
   const TRIds = [];
-
+  // if(project){
+  //   project.timeRanges.forEach((tr) => {
+  //     TRIds.push(tr._id);
+  //   });
+  // }
   const getProjectById = async (id) => {
     const res = await getProject(id);
     dispatch(setProject(res));
   };
+
+  useEffect(() => {
+    if (project && project.timeRanges) {
+      project.timeRanges.forEach((tr) => {
+        TRIds.push(tr._id);
+      });
+    } 
+  }, []);
 
   useEffect(() => {
     if (project && project.timeRanges) {
@@ -67,25 +79,35 @@ export function Timerange({}) {
 
   function clickTrLeftArrow() {
     const index = TRIds.indexOf(timeRangeId);
-
+    console.log(timeRangeId)
     let navigateIndex;
     if (index === 0) {
       navigateIndex = TRIds.length - 1;
     } else {
       navigateIndex = index - 1;
     }
+    console.log(TRIds)
 
     navigate(`/project/${projectId}/timerange/${TRIds[navigateIndex]}`);
   }
 
   function clickTRightArrow() {
+    if (project && project.timeRanges) {
+      project.timeRanges.forEach((tr) => {
+        TRIds.push(tr._id);
+      });
+    } 
     const index = TRIds.indexOf(timeRangeId);
+    console.log(index)
+
     let navigateIndex;
     if (index === TRIds.length - 1) {
       navigateIndex = 0;
     } else {
       navigateIndex = index + 1;
     }
+    console.log(TRIds)
+
     navigate(`/project/${projectId}/timerange/${TRIds[navigateIndex]}`);
   }
 
