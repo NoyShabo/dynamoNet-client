@@ -18,7 +18,7 @@ const background = "transparent";
 
 export function Bars({ width, height, events = false, margin = null, data }) {
   const keys = Object.keys(data[0]).filter((d) => d !== "date");
-  const defaultMargin = { top: 40, right: 0, bottom: 40, left: 0 };
+  const defaultMargin = { top: 40, right: 0, bottom: 40, left: 50 };
   if (margin === null) margin = defaultMargin;
   const parseDate = timeParse("%Y-%m-%d");
   const format = timeFormat("%b %d");
@@ -117,23 +117,24 @@ export function Bars({ width, height, events = false, margin = null, data }) {
           </BarGroup>
         </Group>
         <AxisLeft
-          scale={tempScale}
+          scale={tempScale.nice()}
           top={margin.top}
           left={margin.left}
           stroke={"white"}
-          hideZero
-          hideTicks={false}
-          hideAxisLine={false}
-          tickFormat={(d) => `${d}°`}
-          tickLabelProps={() => ({
+          tickStroke={"white"}
+          tickLabelProps={(e) => ({
             fill: "white",
+            color: "white",
             fontSize: 11,
             textAnchor: "end",
+            x: -10,
+            y: (tempScale(e) ?? 0) + 3,
           })}
         />
         <AxisBottom
           top={yMax + margin.top}
           // tickFormat={formatDate}
+          left={margin.left}
           scale={dateScale}
           stroke={"white"}
           tickStroke={"white"}
@@ -154,6 +155,7 @@ export function Bars({ width, height, events = false, margin = null, data }) {
           fontSize: "11px",
           alignSelf: "end",
           marginLeft: "10px",
+          marginBottom: margin.bottom,
         }}
       />
     </div>
