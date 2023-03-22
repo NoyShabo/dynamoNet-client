@@ -22,7 +22,7 @@ function getNodeMetrics(timeRanges, nodeName) {
 }
 function getNodeMetricsByMetricName(metric, nodeMetrics) {
   const final = [];
-  if (metric === "degree") {
+  if (metric === "degree" || metric === "inDegree" || metric === "outDegree") {
     // nodeMetrics.forEach((element) => {
     for (const node in nodeMetrics) {
       nodeMetrics[node].forEach((element) => {
@@ -56,6 +56,9 @@ function getNodeMetricsByMetricName(metric, nodeMetrics) {
 export function NodeGraphs({ timeRanges, nodeName, nodes }) {
   const [nodeMetrics, setNodeMetrics] = useState({});
   const [degreeMetricData, setDegreeMetricData] = useState([]);
+  const [indegreeMetricData, setIndegreeMetricData] = useState([]);
+  const [outdegreeMetricData, setOutdegreeMetricData] = useState([]);
+
   const [closenessCentralityMetricData, setclosenessCentralityMetricData] =
     useState([]);
   const [betweennessCentralityMetricData, setbetweennessCentralityMetricData] =
@@ -79,7 +82,13 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
   }, [timeRanges, nodes]);
 
   useEffect(() => {
+    console.log(nodeMetrics);
     setDegreeMetricData(getNodeMetricsByMetricName("degree", nodeMetrics));
+    setIndegreeMetricData(getNodeMetricsByMetricName("inDegree", nodeMetrics));
+    setOutdegreeMetricData(
+      getNodeMetricsByMetricName("outDegree", nodeMetrics)
+    );
+
     setclosenessCentralityMetricData(
       getNodeMetricsByMetricName("closenessCentrality", nodeMetrics)
     );
@@ -110,6 +119,22 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
       {/* <div className="head-title"> Node Evolution</div> */}
       <div className="charts-list">
         <div className="chart-container">
+          <div className="small-title-project">Indegree Evolution</div>
+          <BarChart
+            width={100 * indegreeMetricData.length}
+            height={400}
+            data={indegreeMetricData}
+          />
+        </div>
+        <div className="chart-container">
+          <div className="small-title-project">Outdegree Evolution</div>
+          <BarChart
+            width={100 * outdegreeMetricData.length}
+            height={400}
+            data={outdegreeMetricData}
+          />
+        </div>
+        <div className="chart-container">
           <div className="small-title-project">Degree Evolution</div>
           <BarChart
             width={100 * degreeMetricData.length}
@@ -122,6 +147,7 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
             data={degreeMetricData}
           /> */}
         </div>
+
         <div className="chart-container chart-container-line">
           <div className="small-title-project">
             {" "}

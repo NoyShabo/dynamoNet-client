@@ -86,7 +86,8 @@ export const LoadGraph = ({
         };
       }
     });
-    const graph = new Graph();
+
+     const graph = new Graph();
     nodes.forEach((node) => {
       try {
         const nodeCommunity = getNodeCommunity(node.id, network.communities);
@@ -115,6 +116,7 @@ export const LoadGraph = ({
           weight: edge.weight,
           edgeType: edge.edgeType,
           edgeContent: edge.edgeContent,
+          type: "arrow",
         });
       } catch (err) {
         // console.log("addEdgeWithKey: ", err);
@@ -170,6 +172,8 @@ export const DisplayGraph = ({ width, height, network }) => {
 
     return null;
   };
+
+
   return (
     <>
       <div className="display-graph">
@@ -218,12 +222,14 @@ export const DisplayGraph = ({ width, height, network }) => {
             height,
             backgroundColor: "#DEE4E7",
           }}
+
         >
           <LoadGraph
             network={network}
             exportGraph={setGraph}
             setError={setError}
             setShowNotification={setShowNotification}
+
           />
           <GraphEvents />
           <ControlsContainer
