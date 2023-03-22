@@ -20,20 +20,39 @@ function getNodeMetrics(timeRanges, nodeName) {
   }
   return result;
 }
-function getNodeMetricsByMetricName(metric, nodeMetrics) {
+function getNodeMetricsByMetricName(metric, nodeMetrics, timeRanges = []) {
   const final = [];
   if (metric === "degree" || metric === "inDegree" || metric === "outDegree") {
-    // nodeMetrics.forEach((element) => {
+    // // nodeMetrics.forEach((element) => {
+    // for (const node in nodeMetrics) {
+    //   nodeMetrics[node].forEach((element) => {
+    //     final.push({
+    //       window: element.timeRangeTitle,
+    //       frequency: element.nodeMetrics ? element.nodeMetrics[metric] : null,
+    //       key: `${element.timeRangeTitle}-${element.nodeName}`,
+    //     });
+    //   });
+    // }
+    // // });
+    timeRanges.forEach((timeRange) => {
+      final.push({
+        date: timeRange.title,
+      });
+    });
     for (const node in nodeMetrics) {
       nodeMetrics[node].forEach((element) => {
-        final.push({
-          window: element.timeRangeTitle,
-          frequency: element.nodeMetrics ? element.nodeMetrics[metric] : null,
-          key: `${element.timeRangeTitle}-${element.nodeName}`,
+        final.forEach((timeRange) => {
+          if (timeRange.date === element.timeRangeTitle) {
+            timeRange[node] = element.nodeMetrics
+              ? element.nodeMetrics[metric]
+              : 0;
+          }
         });
+        // final[final.length - 1][node] = element.nodeMetrics
+        //   ? element.nodeMetrics[metric]
+        //   : null;
       });
     }
-    // });
   } else {
     // nodeMetrics.forEach((element) => {
     for (const node in nodeMetrics) {
@@ -81,10 +100,14 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
   }, [timeRanges, nodes]);
 
   useEffect(() => {
-    setDegreeMetricData(getNodeMetricsByMetricName("degree", nodeMetrics));
-    setIndegreeMetricData(getNodeMetricsByMetricName("inDegree", nodeMetrics));
+    setDegreeMetricData(
+      getNodeMetricsByMetricName("degree", nodeMetrics, timeRanges)
+    );
+    setIndegreeMetricData(
+      getNodeMetricsByMetricName("inDegree", nodeMetrics, timeRanges)
+    );
     setOutdegreeMetricData(
-      getNodeMetricsByMetricName("outDegree", nodeMetrics)
+      getNodeMetricsByMetricName("outDegree", nodeMetrics, timeRanges)
     );
 
     setclosenessCentralityMetricData(
@@ -118,13 +141,23 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
       <div className="charts-list">
         <div className="chart-container">
           <div className="small-title-project">Indegree Evolution</div>
-          <BarChart
+          {/* <BarChart
             width={100 * indegreeMetricData.length}
             height={400}
             data={indegreeMetricData}
-          />
+          /> */}
+          {indegreeMetricData.length > 0 && (
+            <Bars
+              width={Math.min(
+                100 * (Object.keys(nodeMetrics).length + timeRanges.length),
+                window.innerWidth * 0.8
+              )}
+              height={400}
+              data={indegreeMetricData}
+            />
+          )}
         </div>
-        <div className="chart-container">
+        {/* <div className="chart-container">
           <div className="small-title-project">Outdegree Evolution</div>
           <BarChart
             width={100 * outdegreeMetricData.length}
@@ -139,12 +172,7 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
             height={400}
             data={degreeMetricData}
           />
-          {/* <Bars
-            width={100 * degreeMetricData.length}
-            height={400}
-            data={degreeMetricData}
-          /> */}
-        </div>
+        </div> */}
 
         <div className="chart-container chart-container-line">
           <div className="small-title-project">
