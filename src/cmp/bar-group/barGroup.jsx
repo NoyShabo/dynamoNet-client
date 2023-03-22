@@ -1,4 +1,4 @@
-import { AxisBottom } from "@visx/axis";
+import { AxisBottom, AxisLeft } from "@visx/axis";
 import { Group } from "@visx/group";
 import { LegendOrdinal } from "@visx/legend";
 import cityTemperature, {
@@ -116,6 +116,21 @@ export function Bars({ width, height, events = false, margin = null, data }) {
             }
           </BarGroup>
         </Group>
+        <AxisLeft
+          scale={tempScale}
+          top={margin.top}
+          left={margin.left}
+          stroke={"white"}
+          hideZero
+          hideTicks={false}
+          hideAxisLine={false}
+          tickFormat={(d) => `${d}°`}
+          tickLabelProps={() => ({
+            fill: "white",
+            fontSize: 11,
+            textAnchor: "end",
+          })}
+        />
         <AxisBottom
           top={yMax + margin.top}
           // tickFormat={formatDate}
