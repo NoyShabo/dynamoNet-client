@@ -2,12 +2,6 @@ import React from "react";
 import "./nodeDetails.scss";
 
 export function NodeCard({ nodeDetails }) {
-  // console.log(nodeDetails.registrationDateTwitter)
-  // // console.log(typeof(Date(nodeDetails.registrationDateTwitter).toLocaleDateString()))
-  // console.log(nodeDetails.registrationDateTwitter)
-  // if(nodeDetails.registrationDateTwitter){
-  //   nodeDetails.registrationDateTwitter = new Date(nodeDetails.registrationDateTwitter).toLocaleDateString()
-  // }
   return (
     <div className="nodeCard">
       <div className="wrapper">
@@ -26,15 +20,15 @@ export function NodeCard({ nodeDetails }) {
         </div>
         <div className="stats">
           <div className="item followers">
-            <span className="num">{nodeDetails.followersCount}</span>
+            <span className="num">{nodeDetails.followersCount==-1? ' not found' : nodeDetails.followersCount}</span>
             <div className="text">Followers</div>
           </div>
           <div className="item friends">
-            <span className="num">{nodeDetails.friendsCount}</span>
+          <span className="num">{nodeDetails.friendsCount==-1? ' not found' : nodeDetails.friendsCount}</span>
             <div className="text">Friends</div>
           </div>
           <div className="item Statuses">
-            <span className="num">{nodeDetails.statusesCount}</span>
+          <span className="num">{nodeDetails.statusesCount==-1? ' not found' : nodeDetails.statusesCount}</span>
             <div className="text">Statuses</div>
           </div>
         </div>

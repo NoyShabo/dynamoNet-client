@@ -2,6 +2,8 @@
 import React from "react";
 import "./profileCard.scss";
 
+// המרת תאריך ושעה להמשך שיגיע מהבקנד
+// { new Date(nodeDetails.registrationDateTwitter).toLocaleDateString()== '1.1.1' ? 'Not Available' : new Date(nodeDetails.registrationDateTwitter).toLocaleDateString()}
 export function ProfileCard(props) {
 	return (
 		<div className="profile-page">
