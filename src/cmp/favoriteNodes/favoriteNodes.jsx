@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   addFavoriteNodeToProject,
+  getNode,
   removeFavoriteNodeFromProject,
 } from "../../serverApi/rest/nodeApi";
+import { NodeCard } from "../node-details/nodeDetails";
 import { NotificationPopup } from "../notification-popup/notificationPopup";
+
 import "./favoriteNodes.scss";
 
 export function AddNewNode({ addNode, setError, setShowNotification }) {
@@ -41,6 +44,7 @@ export function AddNewNode({ addNode, setError, setShowNotification }) {
 }
 
 export function FavoriteNodes({
+  selectedNode,
   setSelectedNode,
   setSelectedNodes,
   favoriteNodes,
@@ -50,6 +54,20 @@ export function FavoriteNodes({
   const [error, setError] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
   const [checkedNodes, setCheckedNodes] = useState([]);
+  const [nodeSelected, setNodeSelected] = useState({});
+
+  const getNodeSelectedDetails = async (nodeName) => {
+    try {
+      const res = await getNode(nodeName);
+      setNodeSelected(res.node);
+    } catch (err) {
+      console.log("err: ", err);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedNode) getNodeSelectedDetails(selectedNode);
+  }, [selectedNode]);
 
   const addNode = (name) => {
     setNodes([...nodes, name]);
@@ -89,28 +107,28 @@ export function FavoriteNodes({
   }, [favoriteNodes]);
 
   return (
-    <>
+    <div className="favoriteNodes-wrapper">
       <div className="favoriteNodes">
         <h1>Favorite Nodes</h1>
         <div className="nodes-list">
           {nodes &&
             nodes.map((node, index) => (
-              <div
-                key={node}
-                className="node"
-                onClick={() => setSelectedNode(node)}
-              >
-                <div>
-                  <input
-                    type="checkbox"
-                    className="node-checkbox"
-                    onChange={(e) => handleCheckboxChange(e, node)}
-                  />
+              <div style={{ display: "flex" }} key={`container-${node}`}>
+                <input
+                  type="checkbox"
+                  className="node-checkbox"
+                  onChange={(e) => handleCheckboxChange(e, node)}
+                />
+                <div
+                  key={node}
+                  className="node"
+                  onClick={() => setSelectedNode(node)}
+                >
                   <span>{node}</span>
+                  <button onClick={() => removeNode(index)}>
+                    <i className="fa fa-minus"></i>
+                  </button>
                 </div>
-                <button onClick={() => removeNode(index)}>
-                  <i className="fa fa-minus"></i>
-                </button>
               </div>
             ))}
           <AddNewNode
@@ -120,11 +138,14 @@ export function FavoriteNodes({
           />
         </div>
       </div>
+      <div className="node-card">
+        <NodeCard nodeDetails={nodeSelected}></NodeCard>
+      </div>
       <NotificationPopup
         message={error}
         showNotification={showNotification}
         setShowNotification={setShowNotification}
       />
-    </>
+    </div>
   );
 }

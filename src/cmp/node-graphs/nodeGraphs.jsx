@@ -78,11 +78,9 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
         [node]: getNodeMetrics(timeRanges, node),
       }));
     }
-    console.log("nodeMetrics: ", nodeMetrics);
   }, [timeRanges, nodes]);
 
   useEffect(() => {
-    console.log(nodeMetrics);
     setDegreeMetricData(getNodeMetricsByMetricName("degree", nodeMetrics));
     setIndegreeMetricData(getNodeMetricsByMetricName("inDegree", nodeMetrics));
     setOutdegreeMetricData(
@@ -115,7 +113,7 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
 
   return (
     <div className="graphs">
-      <NodeCard nodeDetails={nodeSelected}></NodeCard>
+      {/* <NodeCard nodeDetails={nodeSelected}></NodeCard> */}
       {/* <div className="head-title"> Node Evolution</div> */}
       <div className="charts-list">
         <div className="chart-container">

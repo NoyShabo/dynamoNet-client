@@ -1,8 +1,15 @@
-
-
+.favoriteNodes-wrapper{
+  display: flex;
+  width: 100%;
+  .node-card{
+    align-self: center;
+    margin: 0 auto;
+  }
   .favoriteNodes{
     margin-right: 30px;
     margin-top: 15px;
+    align-self: flex-start;
+    justify-self: start;
     h1 {
       color: #fff;
       text-shadow: 2px 2px 2px rgb(0, 0, 0, 0.6);
@@ -28,6 +35,7 @@
         margin-bottom: 6px;
         border-radius: 3px;
         display: flex;
+        width: 100%;
         align-items: center;
         justify-content: space-between;
         color: #000;
@@ -89,3 +97,4 @@
         height: 28px;
       }
   }
+}

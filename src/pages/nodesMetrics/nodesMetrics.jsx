@@ -26,6 +26,7 @@ export function NodesPage({ project }) {
         {project && (
           <div className="nodesPage-container">
             <FavoriteNodes
+              selectedNode={selectedNode}
               setSelectedNode={setSelectedNode}
               setSelectedNodes={setSelectedNodes}
               favoriteNodes={project.favoriteNodes}
