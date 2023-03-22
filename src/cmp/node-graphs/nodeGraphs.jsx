@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../globalStyle.scss";
 import { getNode } from "../../serverApi/rest/nodeApi";
 import { BarChart } from "../bar-chart/bar-chart";
+import { Bars } from "../bar-group/barGroup";
 import { LineChart } from "../line-chart/line-chart";
 import { NodeCard } from "../node-details/nodeDetails";
 import "./nodeGraphs.scss";
@@ -22,30 +23,38 @@ function getNodeMetrics(timeRanges, nodeName) {
 function getNodeMetricsByMetricName(metric, nodeMetrics) {
   const final = [];
   if (metric === "degree") {
-    nodeMetrics.forEach((element) => {
-      final.push({
-        window: element.timeRangeTitle,
-        frequency: element.nodeMetrics ? element.nodeMetrics[metric] : null,
-        key: `${element.timeRangeTitle}-${element.nodeName}`,
+    // nodeMetrics.forEach((element) => {
+    for (const node in nodeMetrics) {
+      nodeMetrics[node].forEach((element) => {
+        final.push({
+          window: element.timeRangeTitle,
+          frequency: element.nodeMetrics ? element.nodeMetrics[metric] : null,
+          key: `${element.timeRangeTitle}-${element.nodeName}`,
+        });
       });
-    });
+    }
+    // });
   } else {
-    final.push({
-      id: metric,
-      data: [],
-    });
-    nodeMetrics.forEach((element) => {
-      final[0].data.push({
-        x: element.timeRangeTitle,
-        y: element.nodeMetrics ? element.nodeMetrics[metric] : null,
+    // nodeMetrics.forEach((element) => {
+    for (const node in nodeMetrics) {
+      final.push({
+        id: node,
+        data: [],
       });
-    });
+      nodeMetrics[node].forEach((element) => {
+        final[final.length - 1].data.push({
+          x: element.timeRangeTitle,
+          y: element.nodeMetrics ? element.nodeMetrics[metric] : null,
+        });
+      });
+    }
+    // });
   }
   return final;
 }
 
-export function NodeGraphs({ timeRanges, nodeName }) {
-  const [nodeMetrics, setNodeMetrics] = useState([]);
+export function NodeGraphs({ timeRanges, nodeName, nodes }) {
+  const [nodeMetrics, setNodeMetrics] = useState({});
   const [degreeMetricData, setDegreeMetricData] = useState([]);
   const [closenessCentralityMetricData, setclosenessCentralityMetricData] =
     useState([]);
@@ -58,8 +67,16 @@ export function NodeGraphs({ timeRanges, nodeName }) {
   const [nodeSelected, setNodeSelected] = useState({});
 
   useEffect(() => {
-    setNodeMetrics(getNodeMetrics(timeRanges, nodeName));
-  }, [timeRanges, nodeName]);
+    // setNodeMetrics(getNodeMetrics(timeRanges, nodeName));
+    setNodeMetrics({});
+    for (const node of nodes) {
+      setNodeMetrics((prev) => ({
+        ...prev,
+        [node]: getNodeMetrics(timeRanges, node),
+      }));
+    }
+    console.log("nodeMetrics: ", nodeMetrics);
+  }, [timeRanges, nodes]);
 
   useEffect(() => {
     setDegreeMetricData(getNodeMetricsByMetricName("degree", nodeMetrics));
@@ -99,6 +116,11 @@ export function NodeGraphs({ timeRanges, nodeName }) {
             height={400}
             data={degreeMetricData}
           />
+          {/* <Bars
+            width={100 * degreeMetricData.length}
+            height={400}
+            data={degreeMetricData}
+          /> */}
         </div>
         <div className="chart-container chart-container-line">
           <div className="small-title-project">

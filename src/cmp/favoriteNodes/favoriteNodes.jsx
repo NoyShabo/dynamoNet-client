@@ -31,6 +31,7 @@ export function AddNewNode({ addNode, setError, setShowNotification }) {
         value={value}
         placeholder="username"
         onChange={(e) => setValue(e.target.value)}
+        className="node-input"
       />
       <button type="submit">
         <i className="fas fa-plus"></i>
@@ -39,15 +40,33 @@ export function AddNewNode({ addNode, setError, setShowNotification }) {
   );
 }
 
-export function FavoriteNodes({ setSelectedNode, favoriteNodes }) {
+export function FavoriteNodes({
+  setSelectedNode,
+  setSelectedNodes,
+  favoriteNodes,
+}) {
   const [nodes, setNodes] = useState([]);
   const { projectId } = useParams();
   const [error, setError] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
+  const [checkedNodes, setCheckedNodes] = useState([]);
 
   const addNode = (name) => {
     setNodes([...nodes, name]);
     setSelectedNode(name);
+  };
+
+  const handleCheckboxChange = (e, node) => {
+    const { checked } = e.target;
+    let newCheckedNodes = [...checkedNodes];
+    if (checked) {
+      newCheckedNodes.push(node);
+    } else {
+      const index = newCheckedNodes.indexOf(node);
+      newCheckedNodes.splice(index, 1);
+    }
+    setCheckedNodes(newCheckedNodes);
+    setSelectedNodes(newCheckedNodes);
   };
 
   const removeNode = async (index) => {
@@ -81,7 +100,14 @@ export function FavoriteNodes({ setSelectedNode, favoriteNodes }) {
                 className="node"
                 onClick={() => setSelectedNode(node)}
               >
-                <span>{node}</span>
+                <div>
+                  <input
+                    type="checkbox"
+                    className="node-checkbox"
+                    onChange={(e) => handleCheckboxChange(e, node)}
+                  />
+                  <span>{node}</span>
+                </div>
                 <button onClick={() => removeNode(index)}>
                   <i className="fa fa-minus"></i>
                 </button>
