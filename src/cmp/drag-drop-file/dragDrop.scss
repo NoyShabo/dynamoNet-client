@@ -1,0 +1,60 @@
+.drop-cmp{
+    width: 80vw;
+    margin: 0 auto;
+}
+
+.drop-zone.dragover, .drop-zone:active, .drop-zone:hover{
+    background:#314069c1;
+}
+.drop-zone {
+    color:#e0e0e0;
+    font-family: OpenSans-Light;
+    text-align: center;
+    border-radius: 12px;
+    background: #1e2841;
+    // padding:20px;
+    margin: 20px;
+
+    .title-upload-file{
+        margin-top: 10px;
+    }
+
+
+    .hidden {
+      display: none;
+    }
+
+    .drop-root{
+        padding: 20px;
+        border: 2px rgba(255, 255, 255, 0.403) dotted;
+        border-radius: 10px;
+        h3{
+            margin-top: 40px;
+            font-weight: 400;
+            font-size: 12px;
+        }
+        ul{
+            list-style-type:none;
+            min-height: 30px;
+        }
+        button{
+            margin-bottom: 20px;
+            background: var(--primary);
+            color:var(--neutral) ;
+            /* box-shadow: 0px 3.25937px 3.25937px rgba(0, 0, 0, 0.25); */
+            border-radius: 9px;
+            border:  none;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 5px;
+            padding: 5px 35px;
+            display: inline-block;
+            cursor: pointer;
+            box-sizing: border-box;
+            &:hover{
+                background:linear-gradient(180deg, #5690a1 0%, #407c8e 100%) ;
+                color:#dcdcdc ;
+            }
+        }
+    }
+}

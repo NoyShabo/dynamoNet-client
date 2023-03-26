@@ -18,6 +18,7 @@ import { Project } from "./pages/project/project";
 import { ProjectsPage } from "./pages/projects/projects";
 import { Timerange } from "./pages/timerange/timerange";
 import {DatasetList} from './cmp/sourceList/list'
+import { TableUploadFile } from "./cmp/table-upload-file/tableUploadFile";
 // import {PageModal} from './cmp/modal/modal'
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
             element={<FormNewTimeRanges />}
           />
           <Route path="/list" element={<DatasetList />} />
+          {/* <Route path="/upload" element={<TableUploadFile />} /> */}
 
           {/* <Route path="/modal" element={<PageModal />} /> */}
 
