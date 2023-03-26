@@ -1,8 +1,11 @@
 .nodeCard{
 $body-bg: #e5e5e5;
 $primary: #141b2d;
-min-width: 90px;
-max-width: 550px;
+// min-width: 90px;
+width: 50vw;
+height: 70%;
+max-height: 280px;
+// max-width: 550px;
 
 @mixin trans($prop:all, $time:0.4s, $time_function:ease-in-out) {
   transition: $prop $time $time_function;
@@ -20,6 +23,7 @@ max-width: 550px;
 // font-family: SourceSansProLight;
  position: relative;
  width:100%;
+ height: 100%;
  margin: 50px auto 20px;
   text-align: center;
   padding: 13px;
@@ -56,6 +60,10 @@ max-width: 550px;
 }
 
 .stats {
+  position: absolute;
+  bottom: 10px;
+  width: calc(100% - 26px);
+  margin-right: 10px;
   background: #fff;
   color: #141b2d ;
   padding: 5px;

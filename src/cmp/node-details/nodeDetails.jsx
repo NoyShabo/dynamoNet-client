@@ -16,19 +16,19 @@ export function NodeCard({ nodeDetails }) {
         <div className="about-me">{nodeDetails.description}</div>
 
         <div className="username">
-          Join Twitter At: {nodeDetails.registrationDateTwitter}
+          Join Twitter At: { new Date(nodeDetails.registrationDateTwitter).toLocaleDateString()== '1.1.1' ? 'Not Available' : new Date(nodeDetails.registrationDateTwitter).toLocaleDateString()}
         </div>
         <div className="stats">
           <div className="item followers">
-            <span className="num">{nodeDetails.followersCount}</span>
+            <span className="num">{nodeDetails.followersCount==-1? ' not found' : nodeDetails.followersCount}</span>
             <div className="text">Followers</div>
           </div>
           <div className="item friends">
-            <span className="num">{nodeDetails.friendsCount}</span>
+          <span className="num">{nodeDetails.friendsCount==-1? ' not found' : nodeDetails.friendsCount}</span>
             <div className="text">Friends</div>
           </div>
           <div className="item Statuses">
-            <span className="num">{nodeDetails.statusesCount}</span>
+          <span className="num">{nodeDetails.statusesCount==-1? ' not found' : nodeDetails.statusesCount}</span>
             <div className="text">Statuses</div>
           </div>
         </div>

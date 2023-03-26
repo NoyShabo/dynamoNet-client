@@ -16,9 +16,11 @@ import { getNode } from "../../serverApi/rest/nodeApi";
 import { NotificationPopup } from "../notification-popup/notificationPopup";
 import { default as ContactInfo } from "../sourceList/list";
 import "./networkGraph.scss";
+import seedrandom from 'seedrandom';
 
 function genColor(seed) {
-  let color = Math.floor(Math.abs(Math.sin(seed) * 16777215));
+  const random = seedrandom(seed);
+  let color = Math.floor(random() * 16777215);
   color = color.toString(16);
   while (color.length < 6) {
     color = "0" + color;
@@ -32,6 +34,7 @@ export const LoadGraph = ({
   exportGraph,
   setError,
   setShowNotification,
+  title,
 }) => {
   const [graph, setGraph] = useState();
   const loadGraph = useLoadGraph();
@@ -48,10 +51,8 @@ export const LoadGraph = ({
 
   useEffect(() => {
     const colors = {};
-    let i = 0;
     for (const communityId in network.communities) {
-      colors[communityId] = genColor(i);
-      i++;
+      colors[communityId] = genColor(`${title}-${communityId}`);
     }
     const nodes = network.nodes.map((node) => {
       return { id: node, label: node };
@@ -86,7 +87,8 @@ export const LoadGraph = ({
         };
       }
     });
-    const graph = new Graph();
+
+     const graph = new Graph();
     nodes.forEach((node) => {
       try {
         const nodeCommunity = getNodeCommunity(node.id, network.communities);
@@ -115,6 +117,7 @@ export const LoadGraph = ({
           weight: edge.weight,
           edgeType: edge.edgeType,
           edgeContent: edge.edgeContent,
+          type: "arrow",
         });
       } catch (err) {
         // console.log("addEdgeWithKey: ", err);
@@ -130,7 +133,7 @@ export const LoadGraph = ({
   return null;
 };
 
-export const DisplayGraph = ({ width, height, network }) => {
+export const DisplayGraph = ({ width, height, network, title }) => {
   const [selectedNode, setSelectedNode] = useState();
   const [selectedEdge, setSelectedEdge] = useState();
   const [graph, setGraph] = useState();
@@ -170,6 +173,8 @@ export const DisplayGraph = ({ width, height, network }) => {
 
     return null;
   };
+
+
   return (
     <>
       <div className="display-graph">
@@ -218,12 +223,14 @@ export const DisplayGraph = ({ width, height, network }) => {
             height,
             backgroundColor: "#DEE4E7",
           }}
+
         >
           <LoadGraph
             network={network}
             exportGraph={setGraph}
             setError={setError}
             setShowNotification={setShowNotification}
+            title={title}
           />
           <GraphEvents />
           <ControlsContainer

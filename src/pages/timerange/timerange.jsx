@@ -248,7 +248,7 @@ export function Timerange({}) {
                   />
                 </div>
                 <div className="network-container">
-                  <DisplayGraph width="80vw" height="70vh" network={network} />
+                  <DisplayGraph width="80vw" height="70vh" network={network} title={timeRange.title} />
                 </div>
               </div>
             ) : timeRange.network && timeRange.network.nodes ? (

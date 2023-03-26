@@ -1,8 +1,16 @@
-
-
+.favoriteNodes-wrapper{
+  display: flex;
+  width: 100%;
+  .node-card{
+    align-self: center;
+    margin: 0 auto;
+    height: 100%;
+  }
   .favoriteNodes{
     margin-right: 30px;
     margin-top: 15px;
+    align-self: flex-start;
+    justify-self: start;
     h1 {
       color: #fff;
       text-shadow: 2px 2px 2px rgb(0, 0, 0, 0.6);
@@ -28,6 +36,7 @@
         margin-bottom: 6px;
         border-radius: 3px;
         display: flex;
+        width: 100%;
         align-items: center;
         justify-content: space-between;
         color: #000;
@@ -51,7 +60,11 @@
         background: transparent;
       }
       
-      input {
+      .node-checkbox {
+        margin-right: 10px;
+      }
+
+      .node-input {
         background: #ffffff;
         box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
         padding: 7px 10px;
@@ -85,3 +98,4 @@
         height: 28px;
       }
   }
+}
