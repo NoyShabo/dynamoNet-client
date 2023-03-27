@@ -3,7 +3,7 @@ import { ProjectActionTypes } from "../constants/action-types";
 // import projects from "../../data/projects.json";
 
 const initialState = {
-  projects: [],
+  project: null,
 };
 
 // const initialState = projects
@@ -18,7 +18,7 @@ export const projectReducer = (state = initialState, { type, payload }) => {
       return { ...state, project: payload };
 
     case ProjectActionTypes.REMOVE_SET_PROJECT:
-      return {};
+      return { ...state, project: null };
 
     default:
       return state;

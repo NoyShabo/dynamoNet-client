@@ -1,7 +1,7 @@
 import { TimeRangeActionTypes } from "../constants/action-types";
 
 const initialState = {
-  timeRange: undefined,
+  timeRange: null,
 };
 
 export function timeRangeReducer(state = initialState, { type, payload }) {

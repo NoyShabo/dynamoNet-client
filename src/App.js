@@ -9,6 +9,7 @@ import { DisplayGraph } from "./cmp/network-graph/networkGraph";
 import { NodeCard } from "./cmp/node-details/nodeDetails";
 import { PieChart } from "./cmp/pie/pie";
 import { ContactList, DatasetList } from "./cmp/sourceList/list";
+import { TableUploadFile } from "./cmp/table-upload-file/tableUploadFile";
 import { MultiTableDrag } from "./cmp/table/table";
 import { FormNewProject } from "./pages/form-new-project/form";
 import { FormNewTimeRanges } from "./pages/form-new-timeranges/formNewTimeRanges";
@@ -18,7 +19,6 @@ import { Profile } from "./pages/profile/profile";
 import { Project } from "./pages/project/project";
 import { ProjectsPage } from "./pages/projects/projects";
 import { Timerange } from "./pages/timerange/timerange";
-import { TableUploadFile } from "./cmp/table-upload-file/tableUploadFile";
 // import {PageModal} from './cmp/modal/modal'
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/addProject" element={<FormNewProject />} />
           <Route
             path="/barChart"
