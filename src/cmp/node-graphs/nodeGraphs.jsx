@@ -148,9 +148,10 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
           /> */}
           {indegreeMetricData.length > 0 && (
             <Bars
+              // width={window.innerWidth * 0.8}
               width={Math.min(
                 100 * (Object.keys(nodeMetrics).length + timeRanges.length),
-                window.innerWidth * 0.8
+                window.innerWidth * 0.6
               )}
               height={400}
               data={indegreeMetricData}
@@ -174,6 +175,7 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
           <div className="small-title-project">Degree Evolution</div>
           {degreeMetricData.length > 0 && (
             <Bars
+              // width={window.innerWidth * 0.8}
               width={Math.min(
                 100 * (Object.keys(nodeMetrics).length + timeRanges.length),
                 window.innerWidth * 0.8

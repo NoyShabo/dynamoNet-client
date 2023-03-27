@@ -69,11 +69,11 @@ export function Bars({ width, height, events = false, margin = null, data }) {
         display: "flex",
       }}
     >
-      <svg width={width} height={height}>
+      <svg width={"100%"} height={height}>
         <rect
           x={0}
           y={0}
-          width={width}
+          width={"100%"}
           height={height}
           fill={background}
           rx={14}
@@ -153,9 +153,12 @@ export function Bars({ width, height, events = false, margin = null, data }) {
         style={{
           color: "white",
           fontSize: "11px",
-          alignSelf: "end",
+          alignSelf: "start",
           marginLeft: "10px",
           marginBottom: margin.bottom,
+          position: "absolute",
+          top: 0,
+          right: 0,
         }}
       />
     </div>
