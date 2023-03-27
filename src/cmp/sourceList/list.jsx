@@ -223,7 +223,7 @@ function ContactInfo(props) {
           <span>Description:</span> {description}
         </div>
         <div className="Registration">
-          <span>Twitter Registration Date :</span> {registrationDateTwitter}
+          <span>Twitter Registration Date :</span> { new Date(registrationDateTwitter).toLocaleDateString()== '1.1.1' ? 'Not Available' : new Date(registrationDateTwitter).toLocaleDateString()}
         </div>
         <div className="followersCount">
           <span>Followers:</span> {followersCount}
