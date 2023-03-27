@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import BeatLoader from "react-spinners/BeatLoader";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { GlobalCard } from "../../cmp/card/card";
-import { NotificationPopup } from "../../cmp/notification-popup/notificationPopup";
 import "../../globalStyle.scss";
 import projectImg from "../../images/folder.png";
 import { setProjects } from "../../redux/actions/projectActions";
 import { getProjects } from "../../serverApi/rest/projectApi.js";
 import "./projects.scss";
-import { useNavigate } from "react-router-dom";
 
 const makecards = (projects) => {
   return projects.map((currProject) => {
@@ -33,8 +34,6 @@ const makecards = (projects) => {
 export function ProjectsPage() {
   const projects = useSelector((state) => state.projectModule.projects);
   const dispatch = useDispatch();
-  const [error, setError] = useState(null);
-  const [showNotification, setShowNotification] = useState(false);
   const navigate = useNavigate();
 
   const fetchProjects = async () => {
@@ -43,8 +42,9 @@ export function ProjectsPage() {
       dispatch(setProjects(res));
     } catch (e) {
       // console.error("error fetching projects!: ", e);
-      setError(e);
-      setShowNotification(true);
+      toast.error(e.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
 
@@ -55,7 +55,7 @@ export function ProjectsPage() {
   return (
     <>
       <div className="projects">
-      <div className="title-project title-header">My Projects</div>
+        <div className="title-project title-header">My Projects</div>
         <div className="projects-container">
           {projects && (
             <div className="cards-container">{makecards(projects)}</div>
@@ -72,11 +72,7 @@ export function ProjectsPage() {
             </div> */}
         </div>
       </div>
-      <NotificationPopup
-        message={error}
-        showNotification={showNotification}
-        setShowNotification={setShowNotification}
-      />
+      <ToastContainer />
     </>
   );
 }

@@ -1,17 +1,23 @@
 import { Select } from "@mantine/core";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import PeopleIcon from "@mui/icons-material/People";
+import { Button } from "@mui/material";
+import Chip from "@mui/material/Chip";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BeatLoader from "react-spinners/BeatLoader";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { GlobalCard } from "../../cmp/card/card";
+import { CommunityEvolution } from "../../cmp/community-evolution/CommunityEvolution";
 import { Delete } from "../../cmp/delete/delete";
 import { Edit } from "../../cmp/edit/edit";
 import { Modal } from "../../cmp/modal/modal";
 import { NetworkEvolution } from "../../cmp/network-evolution/networkEvolution";
 import { DisplayGraph } from "../../cmp/network-graph/networkGraph";
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
-import { NotificationPopup } from "../../cmp/notification-popup/notificationPopup";
 import { Scroll } from "../../cmp/scroll/scroll";
 import { Tabs } from "../../cmp/tabs/tabs";
 import { ProjectStatus } from "../../constants";
@@ -26,12 +32,6 @@ import { getNetwork } from "../../serverApi/rest/networkApi";
 import { getProject, updateProject } from "../../serverApi/rest/projectApi";
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import Chip from '@mui/material/Chip';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useNavigate } from "react-router-dom";
-import  {CommunityEvolution}  from "../../cmp/community-evolution/CommunityEvolution";
-import { Button } from "@mui/material";
 
 function getTimeRangeCards(project) {
   const timeRanges = project.timeRanges;
@@ -122,52 +122,53 @@ function SourceNetwork({ network }) {
 }
 
 function mapCommunities(project, slice = 5) {
-    // sort communities by size
-    // communities look like: { "0": ["node1", "node5"], "1": ["node2", "node3"]}
-    // const communities = Object.entries(project.communities).sort((a, b) => b[1].length - a[1].length);
-    const communitiesPerTimeRangeSorted = project.timeRanges.map(timeRange => {
-        const communities = Object.entries(timeRange.network.communities).sort((a, b) => b[1].length - a[1].length);
+  // sort communities by size
+  // communities look like: { "0": ["node1", "node5"], "1": ["node2", "node3"]}
+  // const communities = Object.entries(project.communities).sort((a, b) => b[1].length - a[1].length);
+  const communitiesPerTimeRangeSorted = project.timeRanges.map((timeRange) => {
+    const communities = Object.entries(timeRange.network.communities).sort(
+      (a, b) => b[1].length - a[1].length
+    );
     //     const communitiesMap = {};
     //     communities.forEach(community => {
     //         communitiesMap[community[0]] = community[1];
     //     });
     //     return communitiesMap;
-        const topCommunities = communities.slice(0, slice);
-        const topCommunitiesMap = {};
-        topCommunities.forEach(community => {
-            topCommunitiesMap[community[0]] = community[1];
-        });
-        return topCommunitiesMap;
-    })
+    const topCommunities = communities.slice(0, slice);
+    const topCommunitiesMap = {};
+    topCommunities.forEach((community) => {
+      topCommunitiesMap[community[0]] = community[1];
+    });
+    return topCommunitiesMap;
+  });
 
-    return communitiesPerTimeRangeSorted.map((communities, index) => {
-        return {
-            title: project.timeRanges[index].title,
-            communities: communities
-        }
-    })
+  return communitiesPerTimeRangeSorted.map((communities, index) => {
+    return {
+      title: project.timeRanges[index].title,
+      communities: communities,
+    };
+  });
 
-    // return communitiesPerTimeRangeSorted.map((communities, index) => {
-    //     return {
-    //         title: `Time Range ${index + 1}`,
-    //         communities: communities
-    //     }
-    // })
+  // return communitiesPerTimeRangeSorted.map((communities, index) => {
+  //     return {
+  //         title: `Time Range ${index + 1}`,
+  //         communities: communities
+  //     }
+  // })
 
+  // return communities.map((community, index) => {
+  //     return {
+  //         title: `Community ${index + 1}`,
+  //         nodes: community[1]
+  //     }
+  // })
 
-    // return communities.map((community, index) => {
-    //     return {
-    //         title: `Community ${index + 1}`,
-    //         nodes: community[1]
-    //     }
-    // })
-
-    // return project.timeRanges.map(timeRange => {
-    //     return {
-    //         title: timeRange.title,
-    //         communities: timeRange.network.communities
-    //     }
-    // })
+  // return project.timeRanges.map(timeRange => {
+  //     return {
+  //         title: timeRange.title,
+  //         communities: timeRange.network.communities
+  //     }
+  // })
 }
 
 export function Project() {
@@ -176,16 +177,14 @@ export function Project() {
   const { projectId } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [error, setError] = useState(null);
-  const [showNotification, setShowNotification] = useState(false);
   const [thresholdQuery, setThresholdQuery] = useState(0.05);
   const [threshold, setThreshold] = useState(0.05);
   const [communities, setCommunities] = useState([]);
   const [slice, setSlice] = useState(5);
   const navigate = useNavigate();
 
-  function backPrevPage(){
-      navigate("/projects");
+  function backPrevPage() {
+    navigate("/projects");
   }
 
   const getProjectById = async (id) => {
@@ -225,8 +224,9 @@ export function Project() {
       setDescription(res.project.description);
     } catch (err) {
       // console.error("Updating project error!: ", err);
-      setError(err);
-      setShowNotification(true);
+      toast.error(err.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
 
@@ -234,7 +234,6 @@ export function Project() {
   const toggleModal = () => {
     setModalIsOpen(!isModalOpen);
   };
-
 
   const handleThresholdChange = (e) => {
     setThreshold(thresholdQuery);
@@ -247,7 +246,25 @@ export function Project() {
   return (
     <>
       <div>
-        <div className="title-project title-header"><span><ArrowBackIcon onClick={backPrevPage} style={{ borderRadius: '50%', backgroundColor: '#222c45', color: '#fff', padding: '8px' ,fontSize : '50px' , position: "absolute",left: '20px',top:' 105px',cursor:"pointer"}} /></span>Project Details</div>
+        <div className="title-project title-header">
+          <span>
+            <ArrowBackIcon
+              onClick={backPrevPage}
+              style={{
+                borderRadius: "50%",
+                backgroundColor: "#222c45",
+                color: "#fff",
+                padding: "8px",
+                fontSize: "50px",
+                position: "absolute",
+                left: "20px",
+                top: " 105px",
+                cursor: "pointer",
+              }}
+            />
+          </span>
+          Project Details
+        </div>
       </div>
       <div className="project-page">
         {!project || project._id !== projectId ? (
@@ -258,7 +275,9 @@ export function Project() {
         ) : (
           <div className="project-container">
             <div className="project-header">
-              <div className="title-project title-timerange-top">{project.title}</div>
+              <div className="title-project title-timerange-top">
+                {project.title}
+              </div>
               <div className="container-header-project">
                 <div className="left">
                   <div className="small-date ">
@@ -269,11 +288,20 @@ export function Project() {
                     {project.description}
                   </div>
                   <div className="width-element-top tags">
-                    {project.keywords && project.keywords.map((keyword,index) => (
-                      <span className="chip" key={keyword+index}>
-                        <Chip label={keyword} size="small"  style={{ backgroundColor: '#70d8bd', color: 'black', margin: '3px' }} />
-                      </span>
-                    ))}
+                    {project.keywords &&
+                      project.keywords.map((keyword, index) => (
+                        <span className="chip" key={keyword + index}>
+                          <Chip
+                            label={keyword}
+                            size="small"
+                            style={{
+                              backgroundColor: "#70d8bd",
+                              color: "black",
+                              margin: "3px",
+                            }}
+                          />
+                        </span>
+                      ))}
                   </div>
 
                   {isModalOpen && (
@@ -283,28 +311,26 @@ export function Project() {
                     />
                   )}
                 </div>
-                {project.dataset && project.dataset.length>0 &&
-                <div className="right">
-                  <button
-                    onClick={toggleModal}
-                    type="button"
-                    className="button-dataset"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontFamily: "OpenSans-Light",
-                      marginRight: "41px",
-                    }}
-                  >
-                    {" "}
-                    <PeopleIcon />
-                    <span className="text-dataset"> Dataset</span>
-                  </button>
-                
-
-                </div>
-                }
+                {project.dataset && project.dataset.length > 0 && (
+                  <div className="right">
+                    <button
+                      onClick={toggleModal}
+                      type="button"
+                      className="button-dataset"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontFamily: "OpenSans-Light",
+                        marginRight: "41px",
+                      }}
+                    >
+                      {" "}
+                      <PeopleIcon />
+                      <span className="text-dataset"> Dataset</span>
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
             {project.status === ProjectStatus.IN_PROGRESS ? (
@@ -386,40 +412,53 @@ export function Project() {
                             Community Evolution
                           </div>
                           <div className="small-title-project">
-                          {/* <CommunityEvolution communities={project.timeRanges.map((timeRange) => {
+                            {/* <CommunityEvolution communities={project.timeRanges.map((timeRange) => {
                             return timeRange.network.communities;
                           })}/> */}
-                          {/* input to set threshold */}
-                          <div className="small-title-project">
-                            <div style={{color:"white"}}>
-                              Threshold
+                            {/* input to set threshold */}
+                            <div className="small-title-project">
+                              <div style={{ color: "white" }}>Threshold</div>
+                              <input
+                                type="number"
+                                value={thresholdQuery}
+                                onChange={(e) =>
+                                  setThresholdQuery(e.target.value)
+                                }
+                                min={0}
+                                max={1}
+                                step={0.01}
+                              />
+                              <Button onClick={handleThresholdChange}>
+                                <ArrowForwardIcon />
+                              </Button>
                             </div>
-                            <input
-                              type="number"
-                              value={thresholdQuery}
-                              onChange={(e) => setThresholdQuery(e.target.value)}
-                              min={0}
-                              max={1}
-                              step={0.01}
-                            />
-                            <Button onClick={handleThresholdChange}><ArrowForwardIcon/></Button>
-                          </div>
-                          {/* input to set slice */}
-                          <div className="small-title-project">
-                            <div style={{color:"white"}}>
-                              Top Communities
+                            {/* input to set slice */}
+                            <div className="small-title-project">
+                              <div style={{ color: "white" }}>
+                                Top Communities
+                              </div>
+                              <input
+                                type="number"
+                                value={slice}
+                                onChange={(e) => setSlice(e.target.value)}
+                                min={1}
+                                max={Math.max(
+                                  ...project.timeRanges.map(
+                                    (timeRange) =>
+                                      Object.keys(timeRange.network.communities)
+                                        .length
+                                  )
+                                )}
+                                step={1}
+                              />
+                              <Button onClick={handleSliceChange}>
+                                <ArrowForwardIcon />
+                              </Button>
                             </div>
-                            <input
-                              type="number"
-                              value={slice}
-                              onChange={(e) => setSlice(e.target.value)}
-                              min={1}
-                              max={Math.max(...project.timeRanges.map((timeRange) => Object.keys(timeRange.network.communities).length))}
-                              step={1}
+                            <CommunityEvolution
+                              communities={communities}
+                              threshold={threshold}
                             />
-                            <Button onClick={handleSliceChange}><ArrowForwardIcon/></Button>
-                          </div>
-                          <CommunityEvolution communities={communities} threshold={threshold}/>
                           </div>
                         </>
                       ),
@@ -427,7 +466,6 @@ export function Project() {
                   ]}
                 />
                 <Delete
-                  
                   onDelete={handleDelete}
                   title={`Delete Project: ${title}`}
                 />
@@ -436,11 +474,7 @@ export function Project() {
           </div>
         )}
       </div>
-      <NotificationPopup
-        message={error}
-        showNotification={showNotification}
-        setShowNotification={setShowNotification}
-      />
+      <ToastContainer />
     </>
   );
 }

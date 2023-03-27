@@ -8,10 +8,9 @@ import {
   removeFavoriteNodeFromProject,
 } from "../../serverApi/rest/nodeApi";
 import { NodeCard } from "../node-details/nodeDetails";
-import { NotificationPopup } from "../notification-popup/notificationPopup";
 import "./favoriteNodes.scss";
 
-export function AddNewNode({ addNode, setError, setShowNotification }) {
+export function AddNewNode({ addNode }) {
   const [value, setValue] = useState("");
   const { projectId } = useParams();
 
@@ -25,8 +24,6 @@ export function AddNewNode({ addNode, setError, setShowNotification }) {
       toast.error(err.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
-      setError(err);
-      setShowNotification(true);
     }
     setValue("");
   };
@@ -56,8 +53,6 @@ export function FavoriteNodes({
 }) {
   const [nodes, setNodes] = useState([]);
   const { projectId } = useParams();
-  const [error, setError] = useState(null);
-  const [showNotification, setShowNotification] = useState(false);
   const [checkedNodes, setCheckedNodes] = useState([]);
   const [nodeSelected, setNodeSelected] = useState({});
 
@@ -67,6 +62,9 @@ export function FavoriteNodes({
       setNodeSelected(res.node);
     } catch (err) {
       console.log("err: ", err);
+      toast.error(err.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
 
@@ -101,8 +99,9 @@ export function FavoriteNodes({
       if (newNodes.length) setSelectedNode(newNodes[0]);
       else setSelectedNode(null);
     } catch (err) {
-      setError(err);
-      setShowNotification(true);
+      toast.error(err.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
 
@@ -136,21 +135,13 @@ export function FavoriteNodes({
                 </div>
               </div>
             ))}
-          <AddNewNode
-            addNode={addNode}
-            setError={setError}
-            setShowNotification={setShowNotification}
-          />
+          <AddNewNode addNode={addNode} />
         </div>
       </div>
       <div className="node-card">
         <NodeCard nodeDetails={nodeSelected}></NodeCard>
       </div>
-      {/* <NotificationPopup
-        message={error}
-        showNotification={showNotification}
-        setShowNotification={setShowNotification}
-      /> */}
+      <ToastContainer />
     </div>
   );
 }

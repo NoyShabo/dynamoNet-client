@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { getNode } from "../../serverApi/rest/nodeApi";
-import { NotificationPopup } from "../notification-popup/notificationPopup";
 import "./list.scss";
 
 // const contactsArray = [
@@ -103,15 +104,14 @@ import "./list.scss";
 
 export function DatasetList({ dataset }) {
   const [person, setPerson] = useState();
-  const [error, setError] = useState(null);
-  const [showNotification, setShowNotification] = useState(false);
   const updateSelected = async (username) => {
     try {
       const response = await getNode(username);
       setPerson(response.node);
     } catch (error) {
-      setError(error);
-      setShowNotification(true);
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       setPerson(null);
     }
   };
@@ -166,11 +166,7 @@ export function DatasetList({ dataset }) {
           </div>
         </div>
       </div>
-      <NotificationPopup
-        message={error}
-        showNotification={showNotification}
-        setShowNotification={setShowNotification}
-      />
+      <ToastContainer />
     </>
   );
 }

@@ -12,11 +12,12 @@ import "@react-sigma/core/lib/react-sigma.min.css";
 import { LayoutForceAtlas2Control } from "@react-sigma/layout-forceatlas2";
 import Graph from "graphology";
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import seedrandom from "seedrandom";
 import { getNode } from "../../serverApi/rest/nodeApi";
-import { NotificationPopup } from "../notification-popup/notificationPopup";
 import { default as ContactInfo } from "../sourceList/list";
 import "./networkGraph.scss";
-import seedrandom from 'seedrandom';
 
 function genColor(seed) {
   const random = seedrandom(seed);
@@ -29,13 +30,7 @@ function genColor(seed) {
   return "#" + color;
 }
 
-export const LoadGraph = ({
-  network,
-  exportGraph,
-  setError,
-  setShowNotification,
-  title,
-}) => {
+export const LoadGraph = ({ network, exportGraph, title }) => {
   const [graph, setGraph] = useState();
   const loadGraph = useLoadGraph();
 
@@ -88,7 +83,7 @@ export const LoadGraph = ({
       }
     });
 
-     const graph = new Graph();
+    const graph = new Graph();
     nodes.forEach((node) => {
       try {
         const nodeCommunity = getNodeCommunity(node.id, network.communities);
@@ -107,8 +102,6 @@ export const LoadGraph = ({
         });
       } catch (err) {
         // can ignore this error most likely
-        // setError(err);
-        // setShowNotification(true);
       }
     });
     Object.values(edgeMap).forEach((edge) => {
@@ -120,10 +113,7 @@ export const LoadGraph = ({
           type: "arrow",
         });
       } catch (err) {
-        // console.log("addEdgeWithKey: ", err);
         // can ignore this error most likely
-        // setError(err);
-        // setShowNotification(true);
       }
     });
     setGraph(graph);
@@ -137,8 +127,6 @@ export const DisplayGraph = ({ width, height, network, title }) => {
   const [selectedNode, setSelectedNode] = useState();
   const [selectedEdge, setSelectedEdge] = useState();
   const [graph, setGraph] = useState();
-  const [error, setError] = useState(null);
-  const [showNotification, setShowNotification] = useState(false);
   // console.log(selectedEdge)
   const GraphEvents = () => {
     const registerEvents = useRegisterEvents();
@@ -153,8 +141,9 @@ export const DisplayGraph = ({ width, height, network, title }) => {
               setSelectedNode(node.node);
             })
             .catch((err) => {
-              setError(err);
-              setShowNotification(true);
+              toast.error(err.message, {
+                position: toast.POSITION.TOP_RIGHT,
+              });
             });
         },
         // enterNode: (event) => console.log("enterNode", event.node),
@@ -173,7 +162,6 @@ export const DisplayGraph = ({ width, height, network, title }) => {
 
     return null;
   };
-
 
   return (
     <>
@@ -223,15 +211,8 @@ export const DisplayGraph = ({ width, height, network, title }) => {
             height,
             backgroundColor: "#DEE4E7",
           }}
-
         >
-          <LoadGraph
-            network={network}
-            exportGraph={setGraph}
-            setError={setError}
-            setShowNotification={setShowNotification}
-            title={title}
-          />
+          <LoadGraph network={network} exportGraph={setGraph} title={title} />
           <GraphEvents />
           <ControlsContainer
             position={"bottom-left"}
@@ -269,11 +250,7 @@ export const DisplayGraph = ({ width, height, network, title }) => {
           </ControlsContainer>
         </SigmaContainer>
       </div>
-      <NotificationPopup
-        message={error}
-        showNotification={showNotification}
-        setShowNotification={setShowNotification}
-      />
+      <ToastContainer />
     </>
   );
 };

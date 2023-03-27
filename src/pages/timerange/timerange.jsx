@@ -9,27 +9,23 @@ import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 import { Select } from "@mantine/core";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BeatLoader from "react-spinners/BeatLoader";
-import { NotificationPopup } from "../../cmp/notification-popup/notificationPopup";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../../globalStyle.scss";
+import { setProject } from "../../redux/actions/projectActions";
 import {
   deleteTimeRangeStore,
   setTimeRange,
 } from "../../redux/actions/timeRangeActions";
+import { getProject } from "../../serverApi/rest/projectApi";
 import {
   deleteTimeRange,
   getTimeRange,
   updateTimeRange,
 } from "../../serverApi/rest/timeRangeApi";
 import "./timerange.scss";
-import {
-  setProject,
-} from "../../redux/actions/projectActions";
-import { getProject, } from "../../serverApi/rest/projectApi";
-
 
 export function Timerange({}) {
-  const [error, setError] = useState(null);
-  const [showNotification, setShowNotification] = useState(false);
   const timeRange = useSelector((state) => state.timeRangeModule.timeRange);
   const project = useSelector((state) => state.projectModule.project);
   const dispatch = useDispatch();
@@ -63,7 +59,7 @@ export function Timerange({}) {
       project.timeRanges.forEach((tr) => {
         TRIds.push(tr._id);
       });
-    } 
+    }
   }, []);
 
   useEffect(() => {
@@ -75,18 +71,17 @@ export function Timerange({}) {
       if (projectId && projectId !== "") getProjectById(projectId);
     }
   }, [project]);
-  
 
   function clickTrLeftArrow() {
     const index = TRIds.indexOf(timeRangeId);
-    console.log(timeRangeId)
+    console.log(timeRangeId);
     let navigateIndex;
     if (index === 0) {
       navigateIndex = TRIds.length - 1;
     } else {
       navigateIndex = index - 1;
     }
-    console.log(TRIds)
+    console.log(TRIds);
 
     navigate(`/project/${projectId}/timerange/${TRIds[navigateIndex]}`);
   }
@@ -96,9 +91,9 @@ export function Timerange({}) {
       project.timeRanges.forEach((tr) => {
         TRIds.push(tr._id);
       });
-    } 
+    }
     const index = TRIds.indexOf(timeRangeId);
-    console.log(index)
+    console.log(index);
 
     let navigateIndex;
     if (index === TRIds.length - 1) {
@@ -106,7 +101,7 @@ export function Timerange({}) {
     } else {
       navigateIndex = index + 1;
     }
-    console.log(TRIds)
+    console.log(TRIds);
 
     navigate(`/project/${projectId}/timerange/${TRIds[navigateIndex]}`);
   }
@@ -134,8 +129,9 @@ export function Timerange({}) {
       navigate(`/project/${projectId}`);
     } catch (e) {
       // console.error("error deleting time range: ", e);
-      setError(e);
-      setShowNotification(true);
+      toast.error(e.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
 
@@ -145,8 +141,9 @@ export function Timerange({}) {
       setTimeRangeTitle(title);
     } catch (e) {
       // console.error("error updating time range: ", e);
-      setError(e);
-      setShowNotification(true);
+      toast.error(e.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
 
@@ -219,9 +216,11 @@ export function Timerange({}) {
                     // ]}
                     data={[
                       { label: "All", value: "all" },
-                      ...(project ? project.edgeTypes.map((edgeType) => {
-                        return { label: edgeType, value: edgeType };
-                      }) : []),
+                      ...(project
+                        ? project.edgeTypes.map((edgeType) => {
+                            return { label: edgeType, value: edgeType };
+                          })
+                        : []),
                     ]}
                     onChange={(value) => {
                       if (value === "all")
@@ -248,7 +247,12 @@ export function Timerange({}) {
                   />
                 </div>
                 <div className="network-container">
-                  <DisplayGraph width="80vw" height="70vh" network={network} title={timeRange.title} />
+                  <DisplayGraph
+                    width="80vw"
+                    height="70vh"
+                    network={network}
+                    title={timeRange.title}
+                  />
                 </div>
               </div>
             ) : timeRange.network && timeRange.network.nodes ? (
@@ -271,11 +275,7 @@ export function Timerange({}) {
           </div>
         )}
       </div>
-      <NotificationPopup
-        message={error}
-        showNotification={showNotification}
-        setShowNotification={setShowNotification}
-      />
+      <ToastContainer />
     </>
   );
 }
