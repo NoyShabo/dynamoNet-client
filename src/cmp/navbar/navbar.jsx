@@ -4,9 +4,11 @@ import { menu } from "react-icons-kit/feather/menu";
 import { x } from "react-icons-kit/feather/x";
 import { NavLink } from "react-router-dom";
 import "./navbar.scss";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Navbar = () => {
   const [toggle, setToggle] = useState(false);
+  const user = useSelector((state) => state.userModule.user);
 
   const handleToggle = () => {
     setToggle(!toggle);
@@ -25,8 +27,8 @@ export const Navbar = () => {
         {toggle ? <Icon icon={x} size={28} /> : <Icon icon={menu} size={28} />}
       </div>
       <ul className="links">
-        <li className="nav-item">
-          <NavLink
+        {user&&<li className="nav-item">
+           <NavLink
             exact="true"
             to="/projects"
             className="nav-links"
@@ -35,9 +37,9 @@ export const Navbar = () => {
           >
             My Projects
           </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink
+        </li>}
+        {user&&<li className="nav-item">
+         <NavLink
             exact="true"
             to="/addProject"
             className="nav-links"
@@ -45,8 +47,8 @@ export const Navbar = () => {
           >
             New Project
           </NavLink>
-        </li>
-        <li className="nav-item">
+        </li>}
+        {user&&<li className="nav-item">
           <NavLink
             exact="true"
             to="/profile"
@@ -55,7 +57,7 @@ export const Navbar = () => {
           >
             Profile
           </NavLink>
-        </li>
+        </li>}
       </ul>
     </nav>
   );
