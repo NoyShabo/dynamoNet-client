@@ -10,12 +10,12 @@ import {
 } from "@mantine/core";
 import { DateRangePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { IconGridDots } from "@tabler/icons-react";
 import { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useNavigate, useParams } from "react-router-dom";
 import { createProject } from "../../serverApi/rest/projectApi";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import "./form.scss";
 
@@ -23,9 +23,9 @@ export function FormNewProject() {
   const [active, setActive] = useState(0);
   const navigate = useNavigate();
 
-  function backPrevPage(){
+  function backPrevPage() {
     navigate(-1);
-}
+  }
 
   const handleSubmission = async (values) => {
     const dataset = values.dataset.map((user) => {
@@ -33,16 +33,18 @@ export function FormNewProject() {
         name: user.name,
       };
     });
+    const filteredDataset = dataset.filter((user) => user.name !== "");
     const keywords = values.keywords.map((key) => {
       return {
         keyword: key.keyword,
       };
     });
+    const filteredKeywords = keywords.filter((key) => key.keyword !== "");
     const project = {
       title: values.title,
       description: values.description,
-      dataset: dataset.map((user) => user.name),
-      keywords: keywords.map((key) => key.keyword),
+      dataset: filteredDataset.map((user) => user.name),
+      keywords: filteredKeywords.map((key) => key.keyword),
       startDate: values.timerange[0],
       endDate: values.timerange[1],
       userEmail: values.userEmail,
@@ -78,22 +80,23 @@ export function FormNewProject() {
 
       if (active === 1) {
         const errorsObj = {};
-        if(values.dataset.length === 1 && values.keywords.length === 1){
-          if (values.dataset[0].name.trim().length === 0 && values.keywords[0].keyword.trim().length ===0){
-            errorsObj[`dataset.${0}.name`] =
-            "Must include Username or Keyword";
-          
+        if (values.dataset.length === 1 && values.keywords.length === 1) {
+          if (
+            values.dataset[0].name.trim().length === 0 &&
+            values.keywords[0].keyword.trim().length === 0
+          ) {
+            errorsObj[`dataset.${0}.name`] = "Must include Username or Keyword";
+
             errorsObj[`keywords.${0}.keyword`] =
-            "Must include Username or Keyword";
+              "Must include Username or Keyword";
           }
-        }
-        else {
+        } else {
           values.dataset.forEach((user, index) => {
-          if (user.name.trim().length < 2) {
-            errorsObj[`dataset.${index}.name`] =
-              "Username must include at least 2 characters";
-          }
-        });
+            if (user.name.trim().length < 2) {
+              errorsObj[`dataset.${index}.name`] =
+                "Username must include at least 2 characters";
+            }
+          });
         }
         return errorsObj;
       }
@@ -218,8 +221,26 @@ export function FormNewProject() {
 
   return (
     <>
-    <div>
-        <div className="title-project title-header"><span><ArrowBackIcon onClick={backPrevPage} style={{ borderRadius: '50%', backgroundColor: '#222c45', color: '#fff', padding: '8px' ,fontSize : '50px' , position: "absolute",left: '20px',top:' 105px',cursor:"pointer"}} /></span>New Project</div>
+      <div>
+        <div className="title-project title-header">
+          <span>
+            <ArrowBackIcon
+              onClick={backPrevPage}
+              style={{
+                borderRadius: "50%",
+                backgroundColor: "#222c45",
+                color: "#fff",
+                padding: "8px",
+                fontSize: "50px",
+                position: "absolute",
+                left: "20px",
+                top: " 105px",
+                cursor: "pointer",
+              }}
+            />
+          </span>
+          New Project
+        </div>
       </div>
       <div className="form-new-project">
         <div className="form-new-project-container">
@@ -377,11 +398,10 @@ export function FormNewProject() {
                 />
               </Stepper.Step>
               <Stepper.Completed>
-
-              <h3>Enter Email</h3>
+                <h3>Enter Email</h3>
                 {/* Completed! Form values: */}
                 {/* <Code block mt="xl"> */}
-                  {/* {JSON.stringify(form.values, null, 2)} */}
+                {/* {JSON.stringify(form.values, null, 2)} */}
                 {/* </Code> */}
                 {/* input for user email */}
                 <TextInput
@@ -400,25 +420,24 @@ export function FormNewProject() {
                 >
                   Reset form
                 </Button> */}
-              <Group position="right" mt="xl">
-
-                <Button
-                  // mt="xl"
-                  // mb={0}
-                  // mb={"0px"}
-                  w="100%"
-                  onClick={() => {
-                    if (!form.validate().hasErrors) {
-                      handleSubmission(form.values);
-                    }
-                  }}
-                  // type="submit"
-                >
-                  Submit form
-                </Button>
-                <Button w="100%" variant="default" onClick={prevStep}>
-                  Back
-                </Button>
+                <Group position="right" mt="xl">
+                  <Button
+                    // mt="xl"
+                    // mb={0}
+                    // mb={"0px"}
+                    w="100%"
+                    onClick={() => {
+                      if (!form.validate().hasErrors) {
+                        handleSubmission(form.values);
+                      }
+                    }}
+                    // type="submit"
+                  >
+                    Submit form
+                  </Button>
+                  <Button w="100%" variant="default" onClick={prevStep}>
+                    Back
+                  </Button>
                 </Group>
               </Stepper.Completed>
             </Stepper>
