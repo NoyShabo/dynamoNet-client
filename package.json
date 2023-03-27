@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@carbon/charts-react": "^1.6.4",
     "@coreui/coreui": "^4.2.6",
     "@coreui/react": "^4.6.0",
     "@emotion/cache": "^11.10.5",
@@ -42,9 +43,11 @@
     "fontawesome": "^5.6.3",
     "graphology": "^0.25.1",
     "graphology-layout-forceatlas2": "^0.10.1",
+    "paths-js": "^0.4.11",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-graph-vis": "^1.0.7",
     "react-horizontal-scrolling-menu": "^3.2.5",
     "react-icons-kit": "^2.0.0",
@@ -60,6 +63,7 @@
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "sass": "^1.58.3",
+    "seedrandom": "^3.0.5",
     "sigma": "^2.4.0",
     "tsparticles": "^2.9.3",
     "web-vitals": "^2.1.4"

@@ -1,0 +1,79 @@
+.whitelist-analyser{
+margin:auto;
+padding:20px;
+min-height:100vh;
+// max-width: 730px;
+}
+
+.table-container{
+margin-top: 20px;
+background:var(--widget);
+overflow:hidden;
+border-radius: 12px;
+table{
+  width:100%;
+  color:var(--text-color);
+  font-family: Sunflower;
+  
+
+}
+.table-header{
+  overflow-x: scroll;
+  text-transform: capitalize;
+  &::-webkit-scrollbar {
+    height: 0;
+  }
+
+}
+.table-values{
+  height:265px;
+  overflow: overlay;
+  tr:nth-of-type(odd){
+    background:var(--table-row-odd);
+  }
+  tr:nth-of-type(even){
+    background:var(--table-row-even);
+  }
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  &::-webkit-scrollbar:horizontal{
+    padding:20px;
+  }
+  &::-webkit-scrollbar-thumb {
+    position: absolute;
+    background: #888;
+  }
+  &::-webkit-scrollbar-corner{
+    display: none;
+    width:0px;
+  }
+}
+
+tbody td{
+  font-size: 12px;
+  text-align: center;
+  text-overflow: clip;
+  overflow-x: hidden;
+}
+
+td{
+  max-width: 120px;
+  min-width: 120px;
+  font-size: 12px;
+  text-align: center;
+  padding: 2.5px;
+  overflow-y: hidden;
+  .td-content{
+    height:30px;
+  }
+}
+
+.table-title{
+  color:rgba(255, 255, 255, 0.829);
+  margin-bottom: 10px;
+  margin-top: 10px;
+  text-align: center;
+}
+}

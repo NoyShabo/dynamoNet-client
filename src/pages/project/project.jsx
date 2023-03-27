@@ -26,10 +26,12 @@ import { getNetwork } from "../../serverApi/rest/networkApi";
 import { getProject, updateProject } from "../../serverApi/rest/projectApi";
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
-
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Chip from '@mui/material/Chip';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from "react-router-dom";
+import  {CommunityEvolution}  from "../../cmp/community-evolution/CommunityEvolution";
+import { Button } from "@mui/material";
 
 function getTimeRangeCards(project) {
   const timeRanges = project.timeRanges;
@@ -119,6 +121,55 @@ function SourceNetwork({ network }) {
   );
 }
 
+function mapCommunities(project, slice = 5) {
+    // sort communities by size
+    // communities look like: { "0": ["node1", "node5"], "1": ["node2", "node3"]}
+    // const communities = Object.entries(project.communities).sort((a, b) => b[1].length - a[1].length);
+    const communitiesPerTimeRangeSorted = project.timeRanges.map(timeRange => {
+        const communities = Object.entries(timeRange.network.communities).sort((a, b) => b[1].length - a[1].length);
+    //     const communitiesMap = {};
+    //     communities.forEach(community => {
+    //         communitiesMap[community[0]] = community[1];
+    //     });
+    //     return communitiesMap;
+        const topCommunities = communities.slice(0, slice);
+        const topCommunitiesMap = {};
+        topCommunities.forEach(community => {
+            topCommunitiesMap[community[0]] = community[1];
+        });
+        return topCommunitiesMap;
+    })
+
+    return communitiesPerTimeRangeSorted.map((communities, index) => {
+        return {
+            title: project.timeRanges[index].title,
+            communities: communities
+        }
+    })
+
+    // return communitiesPerTimeRangeSorted.map((communities, index) => {
+    //     return {
+    //         title: `Time Range ${index + 1}`,
+    //         communities: communities
+    //     }
+    // })
+
+
+    // return communities.map((community, index) => {
+    //     return {
+    //         title: `Community ${index + 1}`,
+    //         nodes: community[1]
+    //     }
+    // })
+
+    // return project.timeRanges.map(timeRange => {
+    //     return {
+    //         title: timeRange.title,
+    //         communities: timeRange.network.communities
+    //     }
+    // })
+}
+
 export function Project() {
   const project = useSelector((state) => state.projectModule.project);
   const dispatch = useDispatch();
@@ -127,6 +178,10 @@ export function Project() {
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
+  const [thresholdQuery, setThresholdQuery] = useState(0.05);
+  const [threshold, setThreshold] = useState(0.05);
+  const [communities, setCommunities] = useState([]);
+  const [slice, setSlice] = useState(5);
   const navigate = useNavigate();
 
   function backPrevPage(){
@@ -149,6 +204,7 @@ export function Project() {
     if (project) {
       setTitle(project.title);
       setDescription(project.description);
+      setCommunities(mapCommunities(project));
     }
   }, [project]);
 
@@ -177,6 +233,15 @@ export function Project() {
   const [isModalOpen, setModalIsOpen] = useState(false);
   const toggleModal = () => {
     setModalIsOpen(!isModalOpen);
+  };
+
+
+  const handleThresholdChange = (e) => {
+    setThreshold(thresholdQuery);
+  };
+
+  const handleSliceChange = (e) => {
+    setCommunities(mapCommunities(project, slice));
   };
 
   return (
@@ -321,7 +386,40 @@ export function Project() {
                             Community Evolution
                           </div>
                           <div className="small-title-project">
-                            In the works...
+                          {/* <CommunityEvolution communities={project.timeRanges.map((timeRange) => {
+                            return timeRange.network.communities;
+                          })}/> */}
+                          {/* input to set threshold */}
+                          <div className="small-title-project">
+                            <div style={{color:"white"}}>
+                              Threshold
+                            </div>
+                            <input
+                              type="number"
+                              value={thresholdQuery}
+                              onChange={(e) => setThresholdQuery(e.target.value)}
+                              min={0}
+                              max={1}
+                              step={0.01}
+                            />
+                            <Button onClick={handleThresholdChange}><ArrowForwardIcon/></Button>
+                          </div>
+                          {/* input to set slice */}
+                          <div className="small-title-project">
+                            <div style={{color:"white"}}>
+                              Top Communities
+                            </div>
+                            <input
+                              type="number"
+                              value={slice}
+                              onChange={(e) => setSlice(e.target.value)}
+                              min={1}
+                              max={Math.max(...project.timeRanges.map((timeRange) => Object.keys(timeRange.network.communities).length))}
+                              step={1}
+                            />
+                            <Button onClick={handleSliceChange}><ArrowForwardIcon/></Button>
+                          </div>
+                          <CommunityEvolution communities={communities} threshold={threshold}/>
                           </div>
                         </>
                       ),
@@ -329,6 +427,7 @@ export function Project() {
                   ]}
                 />
                 <Delete
+                  
                   onDelete={handleDelete}
                   title={`Delete Project: ${title}`}
                 />
