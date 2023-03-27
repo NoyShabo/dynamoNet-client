@@ -10,7 +10,6 @@ import projectImg from "../../images/folder.png";
 import { setProjects } from "../../redux/actions/projectActions";
 import { getProjects } from "../../serverApi/rest/projectApi.js";
 import "./projects.scss";
-
 const makecards = (projects) => {
   return projects.map((currProject) => {
     return (
@@ -51,8 +50,19 @@ export function ProjectsPage() {
     }
   };
 
+  // useEffect(() => {
+  //   fetchProjects();
+  // }, []);
+
+
   useEffect(() => {
-    fetchProjects();
+    if (!user) {
+      navigate("/pageNotFound");
+    }
+    else{
+      fetchProjects();
+
+    }
   }, []);
 
   return (

@@ -264,7 +264,7 @@ export function Project() {
   };
 
   return (
-    <>
+   <>
       <div>
         <div className="title-project title-header">
           <span>

@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
 import { ProfileCard } from "../../cmp/profileCard/profileCard";
 import { removeSelectedUser } from "../../redux/actions/userActions";
 import { logout } from "../../serverApi/rest/authApi";
@@ -14,10 +12,11 @@ import "./profile.scss";
 export function Profile() {
   const user = useSelector((state) => state.userModule.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      navigate("/pageNotFound");
     }
   }, []);
 
@@ -29,7 +28,7 @@ export function Profile() {
     try {
       const res = await logout(user);
       console.log(res);
-      removeSelectedUser();
+      dispatch(removeSelectedUser());
       navigate("/login");
     } catch (e) {
       console.log(e);
@@ -74,5 +73,6 @@ export function Profile() {
         </div>
       </>
     )
-  );
-}
+    );
+  }
+  

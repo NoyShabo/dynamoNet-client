@@ -19,8 +19,6 @@ import {
 } from "../../serverApi/rest/timeRangeApi";
 
 export function GlobalCard({id, title, description,imgUrl=projectImg, linkTo, moreDescription,isTimeRangeCard=false,projectId="0",OnDeleteTimeRange}) {
-  // const navigate = useNavigate();
-  // console.log(isTimeRangeCard)
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
   const deleteTRShowConfirm = (e)=>{
@@ -33,19 +31,7 @@ export function GlobalCard({id, title, description,imgUrl=projectImg, linkTo, mo
       if (confirm) {
         console.log(id)
         OnDeleteTimeRange(id)
-        // try {
-        //   // console.log("projectId",projectId)
-        //   // console.log("TRId",id)
-        //   console.log("done delete")
-        //   const res = await deleteTimeRange(id, projectId);
-        //   if(res,status===200){
-        //     console.log("done delete")
-        //   }
-        // } catch (e) {
-        //   // console.error("error deleting time range: ", e);
-        //   setError(e);
-        //   // setShowNotification(true);
-        // }
+  
       }
       setShowConfirmDelete(false);
     }
@@ -57,7 +43,6 @@ export function GlobalCard({id, title, description,imgUrl=projectImg, linkTo, mo
       p="xl"
       component={Link}
       to={linkTo}
-      // onClick={(e)=>{e.preventDefault(); navigate(linkTo)}}
       fontFamily="OpenSans"
     > 
       <Card.Section >
