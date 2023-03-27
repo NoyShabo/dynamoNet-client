@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   addFavoriteNodeToProject,
   getNode,
@@ -7,7 +9,6 @@ import {
 } from "../../serverApi/rest/nodeApi";
 import { NodeCard } from "../node-details/nodeDetails";
 import { NotificationPopup } from "../notification-popup/notificationPopup";
-
 import "./favoriteNodes.scss";
 
 export function AddNewNode({ addNode, setError, setShowNotification }) {
@@ -21,6 +22,9 @@ export function AddNewNode({ addNode, setError, setShowNotification }) {
       const res = await addFavoriteNodeToProject(projectId, value);
       addNode(value);
     } catch (err) {
+      toast.error(err.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       setError(err);
       setShowNotification(true);
     }
@@ -39,6 +43,7 @@ export function AddNewNode({ addNode, setError, setShowNotification }) {
       <button type="submit">
         <i className="fas fa-plus"></i>
       </button>
+      <ToastContainer />
     </form>
   );
 }
@@ -141,11 +146,11 @@ export function FavoriteNodes({
       <div className="node-card">
         <NodeCard nodeDetails={nodeSelected}></NodeCard>
       </div>
-      <NotificationPopup
+      {/* <NotificationPopup
         message={error}
         showNotification={showNotification}
         setShowNotification={setShowNotification}
-      />
+      /> */}
     </div>
   );
 }
