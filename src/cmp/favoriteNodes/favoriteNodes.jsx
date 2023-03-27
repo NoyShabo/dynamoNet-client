@@ -96,7 +96,7 @@ export function FavoriteNodes({
       const newNodes = [...nodes];
       newNodes.splice(index, 1);
       setNodes(newNodes);
-      if (newNodes.length) setSelectedNode(newNodes[0]);
+      if (newNodes.length > 0) setSelectedNode(newNodes[0]);
       else setSelectedNode(null);
     } catch (err) {
       toast.error(err.message, {
