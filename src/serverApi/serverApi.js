@@ -1,7 +1,13 @@
 const baseUrl = "http://localhost:3500/";
 
+const getToken = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  return user && user.token ? user.token : "";
+};
+
 // get post patch delete with auth
 export const get = async (url, token) => {
+  if (!token) token = getToken();
   return await fetch(`${baseUrl}${url}`, {
     method: "GET",
     headers: {
@@ -12,6 +18,7 @@ export const get = async (url, token) => {
 };
 
 export const post = async (url, data, token) => {
+  if (!token) token = getToken();
   return await fetch(`${baseUrl}${url}`, {
     method: "POST",
     headers: {
@@ -23,6 +30,7 @@ export const post = async (url, data, token) => {
 };
 
 export const update = async (url, data, token) => {
+  if (!token) token = getToken();
   return await fetch(`${baseUrl}${url}`, {
     method: "PATCH",
     headers: {
@@ -34,6 +42,7 @@ export const update = async (url, data, token) => {
 };
 
 export const del = async (url, data, token) => {
+  if (!token) token = getToken();
   return await fetch(`${baseUrl}${url}`, {
     method: "DELETE",
     headers: {

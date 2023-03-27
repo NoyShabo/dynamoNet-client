@@ -32,7 +32,8 @@ const makecards = (projects) => {
 
 export function ProjectsPage() {
   // const projects = useSelector((state) => state.projectModule.projects);
-  const user = useSelector((state) => state.userModule.user);
+  // const user = useSelector((state) => state.userModule.user);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [projects, setProjectsList] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -54,14 +55,11 @@ export function ProjectsPage() {
   //   fetchProjects();
   // }, []);
 
-
   useEffect(() => {
     if (!user) {
       navigate("/pageNotFound");
-    }
-    else{
+    } else {
       fetchProjects();
-
     }
   }, []);
 
@@ -73,13 +71,13 @@ export function ProjectsPage() {
           {projects && (
             <div className="cards-container">{makecards(projects)}</div>
           )}
-          {(!projects || projects.length === 0) && (
+          {/* {(!projects || projects.length === 0) && (
             <div className="cards-container title-project">
               <span style={{ textAlign: "center" }}>
                 Loading Projects <BeatLoader color="#36d7b7" />
               </span>
             </div>
-          )}
+          )} */}
           {/* <div className="cards-container">
                 {makecards(projects)}
             </div> */}

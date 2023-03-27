@@ -33,10 +33,8 @@ import { getProject, updateProject } from "../../serverApi/rest/projectApi";
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
 
-import {
-  deleteTimeRange,
-} from "../../serverApi/rest/timeRangeApi";
-function getTimeRangeCards(project,handleDeleteTimeRange) {
+import { deleteTimeRange } from "../../serverApi/rest/timeRangeApi";
+function getTimeRangeCards(project, handleDeleteTimeRange) {
   const timeRanges = project.timeRanges;
   const cards = timeRanges.map((timeRange) => {
     return (
@@ -70,7 +68,6 @@ function SourceNetwork({ network }) {
   // useEffect(() => {
   //   if (network) getNetworkById(network._id);
   // }, [network]);
-
 
   return (
     <div className="source-network">
@@ -188,6 +185,7 @@ export function Project() {
   const [threshold, setThreshold] = useState(0.05);
   const [communities, setCommunities] = useState([]);
   const [slice, setSlice] = useState(5);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const navigate = useNavigate();
   function backPrevPage() {
     navigate("/projects");
@@ -236,19 +234,25 @@ export function Project() {
     }
   };
 
-  const handleDeleteTimeRange= async(timeRangeId)  =>{
+  const handleDeleteTimeRange = async (timeRangeId) => {
     try {
       const res = await deleteTimeRange(timeRangeId, projectId);
-      const newTimeRanges = project.timeRanges.filter(timeRange => timeRange._id !== timeRangeId);
-      dispatch(setProject({project: {...project,timeRanges:newTimeRanges}}));
-      toast.success("Timerange delete successfully! ", { position: toast.POSITION.TOP_RIGHT });
+      const newTimeRanges = project.timeRanges.filter(
+        (timeRange) => timeRange._id !== timeRangeId
+      );
+      dispatch(
+        setProject({ project: { ...project, timeRanges: newTimeRanges } })
+      );
+      toast.success("Timerange delete successfully! ", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } catch (e) {
       // console.error("error deleting time range: ", e);
       toast.error(e.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
     }
-  }
+  };
 
   const [isModalOpen, setModalIsOpen] = useState(false);
   const toggleModal = () => {
@@ -264,7 +268,7 @@ export function Project() {
   };
 
   return (
-   <>
+    <>
       <div>
         <div className="title-project title-header">
           <span>
@@ -366,7 +370,7 @@ export function Project() {
                 <div className="project-header">
                   <Scroll
                     items={[
-                      ...getTimeRangeCards(project,handleDeleteTimeRange),
+                      ...getTimeRangeCards(project, handleDeleteTimeRange),
                       <GlobalCard
                         imgUrl={newTimeRangeImg}
                         key="newTimeRangeForm"

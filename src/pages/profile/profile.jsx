@@ -10,7 +10,9 @@ import { logout } from "../../serverApi/rest/authApi";
 import "./profile.scss";
 
 export function Profile() {
-  const user = useSelector((state) => state.userModule.user);
+  // const user = useSelector((state) => state.userModule.user);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,7 +30,8 @@ export function Profile() {
     try {
       const res = await logout(user);
       console.log(res);
-      dispatch(removeSelectedUser());
+      localStorage.removeItem("user");
+      // dispatch(removeSelectedUser());
       navigate("/login");
     } catch (e) {
       console.log(e);
@@ -73,6 +76,5 @@ export function Profile() {
         </div>
       </>
     )
-    );
-  }
-  
+  );
+}

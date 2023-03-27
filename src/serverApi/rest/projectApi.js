@@ -1,11 +1,11 @@
 import * as serverApi from "../serverApi";
 
-export const getProject = async (projectId, extended = true) => {
+export const getProject = async (projectId, extended = true, token = "") => {
   let res = null;
   if (extended) {
-    res = await serverApi.get(`api/projects/${projectId}/timeRanges`);
+    res = await serverApi.get(`api/projects/${projectId}/timeRanges`, token);
   } else {
-    res = await serverApi.get(`api/projects/${projectId}`);
+    res = await serverApi.get(`api/projects/${projectId}`, token);
   }
   return serverApi.handleResult(res, "Get project error");
 };
