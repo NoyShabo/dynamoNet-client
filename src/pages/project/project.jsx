@@ -33,14 +33,20 @@ import { getProject, updateProject } from "../../serverApi/rest/projectApi";
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
 
-function getTimeRangeCards(project) {
+import {
+  deleteTimeRange,
+} from "../../serverApi/rest/timeRangeApi";
+function getTimeRangeCards(project,handleDeleteTimeRange) {
   const timeRanges = project.timeRanges;
   const cards = timeRanges.map((timeRange) => {
     return (
       <GlobalCard
         imgUrl={calendarImg}
         key={timeRange._id}
+        isTimeRangeCard={true}
         id={timeRange._id}
+        OnDeleteTimeRange={handleDeleteTimeRange}
+        projectId={project._id}
         linkTo={`/project/${project._id}/timeRange/${timeRange._id}`}
         title={timeRange.title}
         description={`${new Date(
@@ -64,6 +70,7 @@ function SourceNetwork({ network }) {
   // useEffect(() => {
   //   if (network) getNetworkById(network._id);
   // }, [network]);
+
 
   return (
     <div className="source-network">
@@ -230,6 +237,20 @@ export function Project() {
     }
   };
 
+  const handleDeleteTimeRange= async(timeRangeId)  =>{
+    try {
+      const res = await deleteTimeRange(timeRangeId, projectId);
+      const newTimeRanges = project.timeRanges.filter(timeRange => timeRange._id !== timeRangeId);
+      dispatch(setProject({project: {...project,timeRanges:newTimeRanges}}));
+      toast.success("Timerange delete successfully! ", { position: toast.POSITION.TOP_RIGHT });
+    } catch (e) {
+      // console.error("error deleting time range: ", e);
+      toast.error(e.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  }
+
   const [isModalOpen, setModalIsOpen] = useState(false);
   const toggleModal = () => {
     setModalIsOpen(!isModalOpen);
@@ -346,7 +367,7 @@ export function Project() {
                 <div className="project-header">
                   <Scroll
                     items={[
-                      ...getTimeRangeCards(project),
+                      ...getTimeRangeCards(project,handleDeleteTimeRange),
                       <GlobalCard
                         imgUrl={newTimeRangeImg}
                         key="newTimeRangeForm"
