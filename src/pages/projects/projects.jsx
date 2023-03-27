@@ -32,14 +32,17 @@ const makecards = (projects) => {
 };
 
 export function ProjectsPage() {
-  const projects = useSelector((state) => state.projectModule.projects);
+  // const projects = useSelector((state) => state.projectModule.projects);
+  const user = useSelector((state) => state.userModule.user);
+  const [projects, setProjectsList] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const fetchProjects = async () => {
     try {
-      const res = await getProjects();
-      dispatch(setProjects(res));
+      // const res = await getProjects();
+      setProjectsList(user.projectsRefs);
+      dispatch(setProjects(projects));
     } catch (e) {
       // console.error("error fetching projects!: ", e);
       toast.error(e.message, {
