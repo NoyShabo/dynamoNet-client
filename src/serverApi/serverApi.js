@@ -6,7 +6,7 @@ export const get = async (url, token) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
     },
   });
 };
@@ -16,7 +16,7 @@ export const post = async (url, data, token) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
     },
     body: JSON.stringify(data),
   });
@@ -27,7 +27,7 @@ export const update = async (url, data, token) => {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
     },
     body: JSON.stringify(data),
   });
@@ -38,7 +38,7 @@ export const del = async (url, data, token) => {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
     },
     body: JSON.stringify(data),
   });
