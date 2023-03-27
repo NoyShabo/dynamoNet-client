@@ -189,7 +189,6 @@ export function Project() {
   const [communities, setCommunities] = useState([]);
   const [slice, setSlice] = useState(5);
   const navigate = useNavigate();
-
   function backPrevPage() {
     navigate("/projects");
   }
