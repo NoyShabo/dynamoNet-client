@@ -1,8 +1,9 @@
-.whitelist-analyser{
+.table-analyser{
 margin:auto;
 padding:20px;
 min-height:100vh;
-// max-width: 730px;
+max-width: 80vw;
+// font-size: 16px;
 }
 
 .table-container{
@@ -10,10 +11,12 @@ margin-top: 20px;
 background:var(--widget);
 overflow:hidden;
 border-radius: 12px;
+max-width: 70vw;
+margin: 20px auto;
 table{
   width:100%;
-  color:var(--text-color);
-  font-family: Sunflower;
+  color:#e0e0e0;
+  font-family: Open Sans;
   
 
 }
@@ -29,10 +32,10 @@ table{
   height:265px;
   overflow: overlay;
   tr:nth-of-type(odd){
-    background:var(--table-row-odd);
+    background:rgba(212, 212, 245, 0.139);
   }
   tr:nth-of-type(even){
-    background:var(--table-row-even);
+    background:rgba(212, 212, 245, 0.071);
   }
   &::-webkit-scrollbar {
     width: 10px;
@@ -65,8 +68,12 @@ td{
   text-align: center;
   padding: 2.5px;
   overflow-y: hidden;
+  overflow-x: ellipsis;
+
   .td-content{
     height:30px;
+    overflow-x: ellipsis;
+
   }
 }
 

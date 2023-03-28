@@ -67,7 +67,7 @@ function App() {
           <Route path="/list" element={<DatasetList />} />
           <Route path="/pageNotFound" element={<PageNotFound />} />
 
-          {/* <Route path="/upload" element={<TableUploadFile />} /> */}
+          <Route path="/upload" element={<TableUploadFile />} />
 
           {/* <Route path="/modal" element={<PageModal />} /> */}
         </Routes>
