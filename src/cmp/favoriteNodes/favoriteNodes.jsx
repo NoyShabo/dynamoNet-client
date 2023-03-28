@@ -128,7 +128,7 @@ export function FavoriteNodes({
                   className="node"
                   onClick={() => setSelectedNode(node)}
                 >
-                  <span>{node}</span>
+                  <span className="node-text">{node}</span>
                   <button onClick={() => removeNode(index)}>
                     <i className="fa fa-minus"></i>
                   </button>

@@ -10,7 +10,7 @@ import { NodeCard } from "./cmp/node-details/nodeDetails";
 import { PieChart } from "./cmp/pie/pie";
 import { ContactList, DatasetList } from "./cmp/sourceList/list";
 import { TableUploadFile } from "./cmp/table-upload-file/tableUploadFile";
-import { MultiTableDrag } from "./cmp/table/table";
+// import { MultiTableDrag } from "./cmp/table/table";
 import { FormNewProject } from "./pages/form-new-project/form";
 import { FormNewTimeRanges } from "./pages/form-new-timeranges/formNewTimeRanges";
 import { LoginPage } from "./pages/login-signup/loginSignup";
@@ -55,7 +55,7 @@ function App() {
             element={<Timerange />}
           />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/table" element={<MultiTableDrag />} />
+          {/* <Route path="/table" element={<MultiTableDrag />} /> */}
           <Route path="/project/:projectId" element={<Project />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="project/:projectId/nodes" element={<NodesPage />} />

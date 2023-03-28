@@ -54,7 +54,7 @@ export function GlobalCard({id, title, description,imgUrl=projectImg, linkTo, mo
         />
       </Card.Section>
 
-      <Text weight={500} size="lg" mt="md" color='#e0e0e0'   >
+      <Text weight={500} size="lg" mt="md" color='#e0e0e0' className='c-title' >
         {title}
       </Text>
 
@@ -64,7 +64,7 @@ export function GlobalCard({id, title, description,imgUrl=projectImg, linkTo, mo
       <Text mt="xs" color="#e0e0e0" size="sm" className="p-description" >
         {moreDescription ?? ''}
       </Text>
-    {isTimeRangeCard&&<button onClick={deleteTRShowConfirm}><RemoveCircleIcon className="remove-icon" /></button>}
+    {isTimeRangeCard&&<button className='btn-remove' onClick={deleteTRShowConfirm}><RemoveCircleIcon className="remove-icon" /></button>}
     </Card>
     <Dialog
         open={showConfirmDelete}

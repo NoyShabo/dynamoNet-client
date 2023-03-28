@@ -13,7 +13,6 @@ export function TableUploadFile() {
         const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
 
         const newArray = csvRows.map(i => {
-            console.log("i", i);
             const values = i.split(",");
             const obj = csvHeader.reduce((object, header, index) => {
                 object[header] = values[index];

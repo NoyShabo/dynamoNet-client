@@ -21,6 +21,14 @@
         align-items: center;
     }
 
+    .c-title{
+        width: 310px;
+        white-space: nowrap;
+        text-overflow: ellipsis;        
+        // padding: 0 10px;
+        overflow: hidden;
+        text-align: center;
+    }
     .p-description{
         width: 310px;
         white-space: nowrap;
@@ -41,6 +49,12 @@
         margin: 10px;
         cursor: pointer;
         color: rgb(151, 54, 54);
+    }
+
+    .btn-remove{
+        position: absolute;
+        bottom: 0;
+        right: 0;
     }
 
     .remove-icon:hover{

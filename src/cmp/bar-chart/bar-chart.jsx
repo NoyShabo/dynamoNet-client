@@ -118,11 +118,20 @@ export function BarChart({ width, height, data, isPercent=false, events = false 
           top={yMax}
           scale={xScale}
           
+          
           tickLabelProps={() => ({
             fill: '#EBF0F3',
             fontSize: 12,
             textAnchor: 'middle',
-            fontFamily:'cursive'
+            fontFamily:'cursive',
+            overflow:"hidden",
+            // width: "85px"
+            // maxWidth:"55px",
+            // margin:"50px"
+            
+            // top:0,
+            // angle:90
+      
           })}
         />
         <AxisLeft

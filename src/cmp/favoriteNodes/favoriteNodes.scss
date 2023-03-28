@@ -41,7 +41,14 @@
         align-items: center;
         justify-content: space-between;
         color: #000;
-        cursor: pointer
+        cursor: pointer;
+        overflow-x: clip;
+        text-overflow: ellipsis;
+      }
+      .node-text{
+        width:85%;
+        overflow-x:clip;
+        text-overflow: ellipsis;
       }
 
       .node:hover {

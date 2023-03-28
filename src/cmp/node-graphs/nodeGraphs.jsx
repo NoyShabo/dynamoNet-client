@@ -139,7 +139,7 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
       {/* <NodeCard nodeDetails={nodeSelected}></NodeCard> */}
       {/* <div className="head-title"> Node Evolution</div> */}
       <div className="charts-list">
-        <div className="chart-container">
+        <div className="chart-container chart-container-node">
           <div className="small-title-project">Indegree Evolution</div>
           {/* <BarChart
             width={100 * indegreeMetricData.length}
@@ -158,7 +158,7 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
             />
           )}
         </div>
-        <div className="chart-container">
+        <div className="chart-container chart-container-node">
           <div className="small-title-project">Outdegree Evolution</div>
           {outdegreeMetricData.length > 0 && (
             <Bars
@@ -171,7 +171,7 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
             />
           )}
         </div>
-        <div className="chart-container">
+        <div className="chart-container chart-container-node">
           <div className="small-title-project">Degree Evolution</div>
           {degreeMetricData.length > 0 && (
             <Bars

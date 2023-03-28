@@ -1,3 +1,4 @@
+import { Hidden } from "@mui/material";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { Group } from "@visx/group";
 import { LegendOrdinal } from "@visx/legend";
@@ -141,8 +142,9 @@ export function Bars({ width, height, events = false, margin = null, data }) {
           tickLabelProps={() => ({
             fill: "white",
             fontSize: 11,
-            textAnchor: "middle",
+            textAnchor: "middle"
           })}
+          
         />
       </svg>
 
@@ -157,8 +159,10 @@ export function Bars({ width, height, events = false, margin = null, data }) {
           marginLeft: "10px",
           marginBottom: margin.bottom,
           position: "absolute",
-          top: 0,
+          bottom: 0,
           right: 0,
+          // anchor: "bottom-right",
+
         }}
       />
     </div>
