@@ -180,6 +180,7 @@ export function LoginPage() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autocomplete="email"
               />
               <input
                 type="password"
