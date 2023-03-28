@@ -41,6 +41,7 @@ export function ProjectsPage() {
   const fetchProjects = async () => {
     try {
       // const res = await getProjects();
+      // console.log("res: ", res);
       setProjectsList(user.projectsRefs);
       dispatch(setProjects(projects));
     } catch (e) {

@@ -20,7 +20,7 @@ import { Project } from "./pages/project/project";
 import { ProjectsPage } from "./pages/projects/projects";
 import { Timerange } from "./pages/timerange/timerange";
 // import {PageModal} from './cmp/modal/modal'
-import {PageNotFound} from './pages/page-not-found/page-not-found'
+import { PageNotFound } from "./pages/page-not-found/page-not-found";
 
 function App() {
   return (
@@ -28,6 +28,7 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
+          <Route path="/" element={<ProjectsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/addProject" element={<FormNewProject />} />
           <Route
