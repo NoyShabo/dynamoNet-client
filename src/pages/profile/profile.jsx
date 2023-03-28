@@ -9,9 +9,12 @@ import { removeSelectedUser } from "../../redux/actions/userActions";
 import { logout } from "../../serverApi/rest/authApi";
 import "./profile.scss";
 
+
 export function Profile() {
   // const user = useSelector((state) => state.userModule.user);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [inProgressProjectsNumber, setInProgressProjectsNumber] = useState(0);
+  const [openProjectsNumber, setOpenProjectsNumber] = useState(0);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,6 +23,19 @@ export function Profile() {
     if (!user) {
       navigate("/pageNotFound");
     }
+
+    let inProgressCount = 0;
+    let openCount = 0;
+    user.projectsRefs.forEach(project => {
+      if (project.status === "in progress") {
+        inProgressCount += 1;
+      } else {
+        openCount += 1;
+      }
+    });
+    
+    setInProgressProjectsNumber(inProgressCount);
+    setOpenProjectsNumber(openCount);
   }, []);
 
   function backPrevPage() {
@@ -67,8 +83,8 @@ export function Profile() {
             <ProfileCard
               name={user.name}
               email={user.email}
-              openProjects={user.projectsRefs.length}
-              processingProjects="4..."
+              openProjects={openProjectsNumber}
+              processingProjects={inProgressProjectsNumber}
               joinDate={user.registrationDate}
               onLogout={handleLogout}
             ></ProfileCard>
