@@ -51,7 +51,8 @@ import { Tabs } from '@mantine/core';
 export function MyTabs({tabs}) {
 
   return (
-    <Tabs defaultValue="source_network" variant="outline" color="teal"  className="tabs__navigate" >
+    // <Tabs defaultValue="source_network" variant="outline" color="teal"  className="tabs__navigate" >
+    <Tabs defaultValue="source_network"  color="teal"  className="tabs__navigate" >
       <Tabs.List >
         <Tabs.Tab className="tab_h" value="source_network" ><div className="tab_hover"><h3>Source Network</h3></div></Tabs.Tab>
         <Tabs.Tab className="tab_h" value="network_evolution" ><h3>Network Evolution</h3></Tabs.Tab>
