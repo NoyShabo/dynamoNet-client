@@ -21,6 +21,7 @@ import { ProjectsPage } from "./pages/projects/projects";
 import { Timerange } from "./pages/timerange/timerange";
 // import {PageModal} from './cmp/modal/modal'
 import { PageNotFound } from "./pages/page-not-found/page-not-found";
+import { FormNewProjectCSV } from "./pages/form-new-project-csv/formNewProjectCsv";
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
           />
           <Route path="/list" element={<DatasetList />} />
           <Route path="/pageNotFound" element={<PageNotFound />} />
+          <Route path="/newProjectCSV" element={<FormNewProjectCSV />} />
 
           <Route path="/upload" element={<TableUploadFile />} />
 

@@ -1,49 +1,82 @@
 import React from "react";
 import "./tabs.scss";
 
-function Tab(props) {
-  return <>{props.tab.component}</>;
-}
+// function Tab(props) {
+//   return <>{props.tab.component}</>;
+// }
 
-function Navigation(props) {
+// function Navigation(props) {
+//   return (
+//     <ul className={`tabs__nav`}>
+//       {props.tabs.map((item) => (
+//         <li key={item.id} className={`tabs__item`}>
+//           <button
+//             className={`tabs__button ${
+//               props.activeTabId === item.id ? "active" : ""
+//             }`}
+//             onClick={() => props.onNavClick(item.id)}
+//           >
+//             {item.name}
+//           </button>
+//         </li>
+//       ))}
+//     </ul>
+//   );
+// }
+
+// export function Tabs({ tabs }) {
+//   const [activeTabId, setActiveTab] = React.useState(tabs[0].id);
+
+//   const activeTab = React.useMemo(
+//     () => tabs.find((tab) => tab.id === activeTabId),
+//     [activeTabId, tabs]
+//   );
+
+//   return (
+//     <div className={`tabs`}>
+//       <Navigation
+//         tabs={tabs}
+//         onNavClick={setActiveTab}
+//         activeTabId={activeTabId}
+//       />
+//       <Tab tab={activeTab} />
+//     </div>
+//   );
+// }
+
+
+import { Tabs } from '@mantine/core';
+
+
+export function MyTabs({tabs}) {
+
   return (
-    <ul className={`tabs__nav`}>
-      {props.tabs.map((item) => (
-        <li key={item.id} className={`tabs__item`}>
-          <button
-            className={`tabs__button ${
-              props.activeTabId === item.id ? "active" : ""
-            }`}
-            onClick={() => props.onNavClick(item.id)}
-          >
-            {item.name}
-          </button>
-        </li>
-      ))}
-    </ul>
+    <Tabs defaultValue="source_network" variant="outline" color="teal"  className="tabs__navigate" >
+      <Tabs.List >
+        <Tabs.Tab className="tab_h" value="source_network" ><div className="tab_hover"><h3>Source Network</h3></div></Tabs.Tab>
+        <Tabs.Tab className="tab_h" value="network_evolution" ><h3>Network Evolution</h3></Tabs.Tab>
+        <Tabs.Tab className="tab_h" value="node_evolution" ><h3>Node Evolution</h3></Tabs.Tab>
+        <Tabs.Tab className="tab_h" value="community_evolution" ><h3>Community Evolution</h3></Tabs.Tab>
+      </Tabs.List>
+
+      <Tabs.Panel value="source_network" pt="xs">
+        {tabs[0].component}
+      </Tabs.Panel>
+
+      <Tabs.Panel value="network_evolution" pt="xs">
+       { tabs[1].component}
+      </Tabs.Panel>
+
+      <Tabs.Panel value="node_evolution" pt="xs">
+        {tabs[2].component}
+      </Tabs.Panel>
+
+      <Tabs.Panel value="community_evolution" pt="xs">
+        {tabs[3].component}
+      </Tabs.Panel>
+    </Tabs>
   );
 }
-
-export function Tabs({ tabs }) {
-  const [activeTabId, setActiveTab] = React.useState(tabs[0].id);
-
-  const activeTab = React.useMemo(
-    () => tabs.find((tab) => tab.id === activeTabId),
-    [activeTabId, tabs]
-  );
-
-  return (
-    <div className={`tabs`}>
-      <Navigation
-        tabs={tabs}
-        onNavClick={setActiveTab}
-        activeTabId={activeTabId}
-      />
-      <Tab tab={activeTab} />
-    </div>
-  );
-}
-
 
 // import Box from '@mui/material/Box';
 // import Tab from '@mui/material/Tab';

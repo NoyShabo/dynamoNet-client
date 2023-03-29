@@ -20,7 +20,6 @@ export function DropZone({ fileReadCallback }) {
             reader.onload = function (event) {
                 const text = event.target.result;
                 fileReadCallback(text);
-                console.log(text);
             };
             reader.readAsText(e.target.files[0]);
         }
@@ -49,7 +48,7 @@ export function DropZone({ fileReadCallback }) {
 
     return (
         <div className="drop-cmp">
-            <h2 className="title-header">Upload File</h2>
+            {/* <h2 className="title-header">Upload File</h2> */}
             <section
                 className="drop-zone"
                 onDragOver={(e) => setDraggingOver('dragging')}

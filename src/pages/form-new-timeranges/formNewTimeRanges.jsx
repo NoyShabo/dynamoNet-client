@@ -1,8 +1,5 @@
 import {
-  Box,
   Button,
-  Center,
-  Code,
   Group,
   MantineProvider,
   Select,
@@ -17,7 +14,6 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { createTimeRanges } from "../../serverApi/rest/timeRangeApi";
 import "./formNewTimeRanges.scss";
-import { DatePickerInput } from '@mantine/dates';
 import { IconCalendar } from "@tabler/icons-react";
 
 
@@ -108,6 +104,9 @@ export function FormNewTimeRanges() {
             )
           }
           {...form.getInputProps(`timeWindows.${index}.title`)}
+          styles={{
+            label: {color: '#e0e0e0'}
+          }}
         />
         <DateRangePicker
           label="Date range"
@@ -117,6 +116,9 @@ export function FormNewTimeRanges() {
           initialMonth={project ? new Date(project.startDate) : null}
           minDate={project ? new Date(project.startDate) : null}
           maxDate={project ? new Date(project.endDate) : null}
+          styles={{
+            label: {color: '#e0e0e0', marginTop:"20px"}
+          }}
           onChange={(values) => {
             form.setFieldValue(`timeWindows.${index}.timeRange`, values);
           }}
@@ -179,45 +181,51 @@ export function FormNewTimeRanges() {
             theme={{
               colors: {
                 brand: [
-                  "#63BBEC",
-                  "#4384a5",
-                  "#63BBEC",
-                  "#06AAFF",
-                  "#38aae4",
-                  "#78b8d8",
-                  "	#38aae4",
-                  "	#4384a5",
-                  "#4384a5",
-                  "#38aae4",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
                 ],
               },
               primaryColor: "brand",
             }}
           >
-            <Stepper active={active} breakpoint="sm">
+            <Stepper active={active} breakpoint="sm" color={"#70d8bd"}>
               <Stepper.Step
                 label="First step"
                 description="New Timerange settings"
+                className="step"
               >
                 <h3>Create new Timerange</h3>
                 <div className="form__field">
                   {fields}
-                  <Button className="btn-add-tr" onClick={insertTimeWindow}>
+                  <Button className="btn-add-tr btn-form" onClick={insertTimeWindow}>
                     Add Time Window
                   </Button>
-                  <Button onClick={removeTimeWindow}>Remove Time Window</Button>
+                  <Button className="btn-form" onClick={removeTimeWindow}>Remove Time Window</Button>
                 </div>
               </Stepper.Step>
 
               <Stepper.Step
                 label="Second step"
                 description="Add Timerange type"
+                labelProps={{ style: { color: "#70d8bd" } }}
+                className="step"
               >
                 <h3>Timerange type</h3>
                 <div className="form__field">
                   <Select
                     label="Edge Type"
                     placeholder="Edge Type"
+                    styles={{
+                      label: {color: '#e0e0e0'}
+                    }}
                     required
                     // value={form.values.edgeType}
                     onChange={(value) =>
@@ -254,6 +262,7 @@ export function FormNewTimeRanges() {
                 variant="outline"
                 onClick={() => nextStep()}
                 disabled={active === 1}
+
               >
                 Next
               </Button>

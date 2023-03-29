@@ -1,8 +1,6 @@
 import {
   Box,
   Button,
-  Center,
-  Code,
   Group,
   MantineProvider,
   Stepper,
@@ -14,7 +12,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { IconGridDots } from "@tabler/icons-react";
 import { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createProject } from "../../serverApi/rest/projectApi";
 
 import "./form.scss";
@@ -166,7 +164,7 @@ export function FormNewProject() {
             className="container-row"
             {...provided.dragHandleProps}
           >
-            <IconGridDots size={35} color="#55bbee" />
+            <IconGridDots size={35} color="#70d8bd" />
             <TextInput
               className="input-user"
               onPaste={(e) => {
@@ -192,7 +190,7 @@ export function FormNewProject() {
               className="container-row"
               {...provided.dragHandleProps}
             >
-              <IconGridDots size={35} color="#55bbee" />
+              <IconGridDots size={35} color="#70d8bd" />
               <TextInput
                 className="input-user"
                 onPaste={(e) => {
@@ -248,25 +246,27 @@ export function FormNewProject() {
             theme={{
               colors: {
                 brand: [
-                  "#63BBEC",
-                  "#4384a5",
-                  "#63BBEC",
-                  "#06AAFF",
-                  "#38aae4",
-                  "#78b8d8",
-                  "	#38aae4",
-                  "	#4384a5",
-                  "#4384a5",
-                  "#38aae4",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
+                  "#70d8bd",
                 ],
               },
               primaryColor: "brand",
             }}
           >
-            <Stepper active={active} breakpoint="sm">
+            <Stepper active={active} breakpoint="sm"  color={"#70d8bd"}>
               <Stepper.Step
                 label="First step"
                 description="New project settings"
+                labelProps={{ style: { color: "#70d8bd" } }}
+                className="step"
               >
                 <h3>Create new project</h3>
                 <TextInput
@@ -275,6 +275,9 @@ export function FormNewProject() {
                   {...form.getInputProps("title")}
                   pt="5px"
                   ta="start"
+                  styles={{
+                    label: {color: '#e0e0e0'}
+                  }}
                 />
                 <TextInput
                   ta="start"
@@ -282,12 +285,17 @@ export function FormNewProject() {
                   label="Description"
                   placeholder="Description"
                   {...form.getInputProps("description")}
+                  styles={{
+                    label: {color: '#e0e0e0'}
+                  }}
                 />
               </Stepper.Step>
 
               <Stepper.Step
                 label="Second step"
                 description="Add Twitter usernames"
+                className="step"
+
               >
                 <Box>
                   <h3>Add Usernames from twitter</h3>
@@ -387,51 +395,41 @@ export function FormNewProject() {
                 </Box>
               </Stepper.Step>
 
-              <Stepper.Step label="Final step" description="Pick dates range">
+              <Stepper.Step label="Final step" description="Pick dates range"  className="step"
+>
                 <h3>Pick start and end date</h3>
+                
                 <DateRangePicker
                   mt="5px"
                   label="Pick dates range"
                   ta="start"
                   placeholder="Pick dates range"
                   {...form.getInputProps("timerange")}
+                  styles={{
+                    label: {color: '#e0e0e0'}
+                  }}
                 />
+               
               </Stepper.Step>
               <Stepper.Completed>
                 <h3>Enter Email</h3>
-                {/* Completed! Form values: */}
-                {/* <Code block mt="xl"> */}
-                {/* {JSON.stringify(form.values, null, 2)} */}
-                {/* </Code> */}
-                {/* input for user email */}
-                <TextInput
-                  ta="start"
-                  // mt="md"
-                  label="Email:"
-                  placeholder="Email to get notified when the project is ready"
-                  {...form.getInputProps("userEmail")}
-                />
-                {/* <Button
-                  mt="xl"
-                  onClick={() => {
-                    form.reset();
-                    setActive(0);
-                  }}
-                >
-                  Reset form
-                </Button> */}
+                  <TextInput
+                    ta="start"
+                    label="Email:"
+                    placeholder="Email to get notified when the project is ready"
+                    {...form.getInputProps("userEmail")}
+                    styles={{
+                      label: {color: '#e0e0e0', marginTop:"20px"}
+                    }}
+                  />
                 <Group position="right" mt="xl">
                   <Button
-                    // mt="xl"
-                    // mb={0}
-                    // mb={"0px"}
                     w="100%"
                     onClick={() => {
                       if (!form.validate().hasErrors) {
                         handleSubmission(form.values);
                       }
                     }}
-                    // type="submit"
                   >
                     Submit form
                   </Button>
@@ -444,7 +442,7 @@ export function FormNewProject() {
 
             <Group position="right" mt="xl">
               {active !== 3 && (
-                <Button w="100%" onClick={nextStep}>
+                <Button w="100%" onClick={nextStep} className="btn-next">
                   Next step
                 </Button>
               )}

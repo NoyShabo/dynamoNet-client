@@ -25,7 +25,7 @@
         padding: 45px 66px 40px;        
         box-shadow: 0px 3px 12px 3px;
         border-radius: 15px;
-        background-color: rgb(226, 225, 225);
+        background-color: rgba(226, 225, 225, 0.078);
 
         h3 {
             font-weight: 500;
@@ -40,6 +40,14 @@
             width: 127px;
             font-size: 13px;
         }
+        .step{
+            color: #70d8bd
+        }    
+        
+        .btn-form{
+            color:#000000cb
+        }
+
 
         .red-btn {
             background: #a9a9a9;

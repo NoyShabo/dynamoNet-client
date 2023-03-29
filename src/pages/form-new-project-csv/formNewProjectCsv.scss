@@ -10,7 +10,7 @@
     // padding-top: 120px;
 }
 
-.form-new-project-container{
+.form-new-project-container-csv{
     width: 650px;
     height: fit-content;
     // height: 400px;
@@ -30,6 +30,21 @@
 
     .step{
         color: #70d8bd
+    }
+    .error-text{
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+        -webkit-tap-highlight-color: transparent;
+        color: inherit;
+        font-size: inherit;
+        line-height: 1.55;
+        -webkit-text-decoration: none;
+        text-decoration: none;
+        word-break: break-word;
+        color: #fa5252;
+        font-size: 12px;
+        line-height: 1.2;
+        display: block;
+        
     }
     
     .container-row{
@@ -56,7 +71,7 @@
 }
 
 @media only screen and (max-width: 390px){
-    .form-new-project-container{
+    .form-new-project-container-csv{
         .add-btn{
             width: 110px;
             font-size: 10px;

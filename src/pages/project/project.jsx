@@ -19,7 +19,7 @@ import { NetworkEvolution } from "../../cmp/network-evolution/networkEvolution";
 import { DisplayGraph } from "../../cmp/network-graph/networkGraph";
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 import { Scroll } from "../../cmp/scroll/scroll";
-import { Tabs } from "../../cmp/tabs/tabs";
+import { MyTabs } from "../../cmp/tabs/tabs";
 import { ProjectStatus } from "../../constants";
 import "../../globalStyle.scss";
 import newTimeRangeImg from "../../images/add_timerange.png";
@@ -396,7 +396,7 @@ export function Project() {
                     <BeatLoader color="#36d7b7" />
                   </div>
                 )}
-                <Tabs
+                <MyTabs
                   tabs={[
                     {
                       id: 1,

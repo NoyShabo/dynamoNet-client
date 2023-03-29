@@ -3,8 +3,7 @@ import { DropZone } from "../drag-drop-file/dragDrop";
 
 import './tableUploadFile.scss'
 
-export function TableUploadFile() {
-    const [array, setArray] = useState([]);
+export function TableUploadFile({array, setArray}) {
     const [headerKeys, setHeaderKeys] = useState([]);
     const refTableHeader = useRef(null);
   
@@ -21,7 +20,6 @@ export function TableUploadFile() {
             return obj;
         });
 
-        // console.log(newArray);
         setArray(newArray);
         setHeaderKeys(csvHeader);
     };
