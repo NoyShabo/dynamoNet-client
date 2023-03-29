@@ -191,13 +191,17 @@ export const DisplayGraph = ({ width, height, network, title }) => {
                 </div>
                 <div className="edge-popup__content">
                   <div className="edge-popup__content__item">
+                    <h4>Weight</h4>
+                    <p>{selectedEdge.edgeType.length}</p>
+                  </div>
+                  <div className="edge-popup__content__item">
                     <h4> Type</h4>
                     <p>{selectedEdge.edgeType.join(", ")}</p>
                   </div>
 
                   <div className="edge-popup__content__item">
                     <h4> Content</h4>
-                    <p>{selectedEdge.edgeContent.join(", ")}</p>
+                    <p>"{selectedEdge.edgeContent.join('", "')}"</p>
                   </div>
                 </div>
               </div>

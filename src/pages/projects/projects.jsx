@@ -40,9 +40,11 @@ export function ProjectsPage() {
 
   const fetchProjects = async () => {
     try {
-      // const res = await getProjects();
-      // console.log("res: ", res);
       setProjectsList(user.projectsRefs);
+      const res = await getProjects();
+      setProjectsList(res.projects);
+      user.projectsRefs = res.projects;
+      localStorage.setItem("user", JSON.stringify(user));
       dispatch(setProjects(projects));
     } catch (e) {
       // console.error("error fetching projects!: ", e);

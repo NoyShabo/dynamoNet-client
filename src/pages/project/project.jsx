@@ -192,8 +192,14 @@ export function Project() {
   }
 
   const getProjectById = async (id) => {
-    const res = await getProject(id);
-    dispatch(setProject(res));
+    try {
+      const res = await getProject(id);
+      dispatch(setProject(res));
+    } catch (err) {
+      toast.error(err.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
   };
 
   useEffect(() => {
