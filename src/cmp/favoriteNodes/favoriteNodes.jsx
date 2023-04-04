@@ -54,7 +54,7 @@ export function FavoriteNodes({
   const [nodes, setNodes] = useState([]);
   const { projectId } = useParams();
   const [checkedNodes, setCheckedNodes] = useState([]);
-  const [nodeSelected, setNodeSelected] = useState({});
+  const [nodeSelected, setNodeSelected] = useState(null);
 
   const getNodeSelectedDetails = async (nodeName) => {
     try {
@@ -139,7 +139,10 @@ export function FavoriteNodes({
         </div>
       </div>
       <div className="node-card">
-        <NodeCard nodeDetails={nodeSelected}></NodeCard>
+        {nodeSelected ? <NodeCard nodeDetails={nodeSelected}></NodeCard> : (
+        <div className="title-project">
+          No favorite nodes selected
+        </div>)}
       </div>
       <ToastContainer />
     </div>

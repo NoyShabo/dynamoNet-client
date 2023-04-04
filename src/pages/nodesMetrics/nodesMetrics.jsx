@@ -33,7 +33,7 @@ export function NodesPage({ project }) {
             ></FavoriteNodes>
             {!project.favoriteNodes || project.favoriteNodes.length === 0 ? (
               <div className="title-project">
-                No favorite nodes to display evolution
+                {/* No favorite nodes to display evolution */}
               </div>
             ) : (
               selectedNodes.length > 0 && (

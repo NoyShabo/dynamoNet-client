@@ -102,11 +102,25 @@ body {
         // margin-bottom: 10px;
     }
 
+    .tab_list{
+        justify-content: space-around;
+    }
+
     
-    .tab_h:hover{
+    .tab_h:hover, .active{
         background-color:#005e47;
     }
 
     
 }
 
+
+@media screen and (max-width: 968px) {
+    .tabs__navigate {
+
+        h3{
+            font-size: 14px;
+        }   
+}
+    
+}

@@ -31,7 +31,8 @@ function App() {
         <Routes>
           <Route path="/" element={<ProjectsPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/addProject" element={<FormNewProject />} />
+          <Route path="/addProject/csv" element={<FormNewProjectCSV />} />
+          <Route path="/addProject/twitter" element={<FormNewProject />} />
           <Route
             path="/barChart"
             element={<BarChart width={700} height={500} />}
@@ -67,7 +68,6 @@ function App() {
           />
           <Route path="/list" element={<DatasetList />} />
           <Route path="/pageNotFound" element={<PageNotFound />} />
-          <Route path="/newProjectCSV" element={<FormNewProjectCSV />} />
 
           {/* <Route path="/upload" element={<TableUploadFile />} /> */}
 

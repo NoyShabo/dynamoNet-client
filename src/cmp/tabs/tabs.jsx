@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./tabs.scss";
 
 // function Tab(props) {
@@ -49,15 +49,16 @@ import { Tabs } from '@mantine/core';
 
 
 export function MyTabs({tabs}) {
+  const [active, setActive] = useState(0);
 
   return (
-    // <Tabs defaultValue="source_network" variant="outline" color="teal"  className="tabs__navigate" >
-    <Tabs defaultValue="source_network"  color="teal"  className="tabs__navigate" >
-      <Tabs.List >
-        <Tabs.Tab className="tab_h" value="source_network" ><div className="tab_hover"><h3>Source Network</h3></div></Tabs.Tab>
-        <Tabs.Tab className="tab_h" value="network_evolution" ><h3>Network Evolution</h3></Tabs.Tab>
-        <Tabs.Tab className="tab_h" value="node_evolution" ><h3>Node Evolution</h3></Tabs.Tab>
-        <Tabs.Tab className="tab_h" value="community_evolution" ><h3>Community Evolution</h3></Tabs.Tab>
+    <Tabs defaultValue="source_network" variant="outline" color="teal"  className="tabs__navigate" >
+    {/* // <Tabs defaultValue="source_network"  color="teal"  className="tabs__navigate" > */}
+      <Tabs.List className="tab_list">
+        <Tabs.Tab className={`tab_h ${active===0 ? ' active' : ""}`} value="source_network" onClick={()=>{setActive(0)}}><h3>Source Network</h3></Tabs.Tab>
+        <Tabs.Tab className={`tab_h ${active===1 ? ' active' : ""}`} value="network_evolution" onClick={()=>{setActive(1)}}><h3>Network Evolution</h3></Tabs.Tab>
+        <Tabs.Tab className={`tab_h ${active===2 ? ' active' : ""}`} value="node_evolution" onClick={()=>{setActive(2)}}><h3>Node Evolution</h3></Tabs.Tab>
+        <Tabs.Tab className={`tab_h ${active===3 ? ' active' : ""}`} value="community_evolution" onClick={()=>{setActive(3)}}><h3>Community Evolution</h3></Tabs.Tab>
       </Tabs.List>
 
       <Tabs.Panel value="source_network" pt="xs">

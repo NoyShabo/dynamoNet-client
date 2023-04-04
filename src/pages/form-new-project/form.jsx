@@ -237,7 +237,7 @@ export function FormNewProject() {
               }}
             />
           </span>
-          New Project
+          New Twitter Project
         </div>
       </div>
       <div className="form-new-project">
@@ -265,7 +265,7 @@ export function FormNewProject() {
               <Stepper.Step
                 label="First step"
                 description="New project settings"
-                labelProps={{ style: { color: "#70d8bd" } }}
+                labelprops={{ style: { color: "#70d8bd" } }}
                 className="step"
               >
                 <h3>Create new project</h3>

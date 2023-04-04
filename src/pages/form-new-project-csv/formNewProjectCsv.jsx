@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { TableUploadFile } from '../../cmp/table-upload-file/tableUploadFile';
 import { createProjectFromFile } from '../../serverApi/rest/projectApi';
 // import  ReactTooltip  from 'react-tooltip';
-import ReactTooltip from 'react-tooltip';
+import {Tooltip} from 'react-tooltip';
 
 import InfoIcon from '@mui/icons-material/Info';
 
@@ -39,8 +39,6 @@ export function FormNewProjectCSV() {
             file: fileToSend,
         };
 
-        console.log('project', project);
-        console.log('texttttttt', fileToSend);
         const res = await createProjectFromFile(project);
 
         // send the user to /project/:projectId
@@ -128,7 +126,7 @@ export function FormNewProjectCSV() {
                             }}
                         />
                     </span>
-                    New Project From File
+                    New Project From CSV
                 </div>
             </div>
             <div className="form-new-project">
@@ -193,13 +191,17 @@ export function FormNewProjectCSV() {
                                 <Box>
                                     {/* <h3 className="info-icon-tool">Upload File  */}
                                     <h3 >Upload File 
-                                        <InfoIcon  className='info-icon info-icon-tool'/>
+                                        <InfoIcon data-tooltip-id="my-tooltip" data-tooltip-variant="error" 
+                                                effect="float" className='info-icon' 
+                                        data-tooltip-content="Format: 
+                                        source, destination, edgeContent, timestamp, edgeType"/>
+                                        <Tooltip 
+                                                id="my-tooltip"
+                                                place="top"
+                                                data-tooltip-variant="error" 
+                                                effect="float"
+                                        />
                                     </h3>
-                                    <ReactTooltip 
-                                            anchorSelect=".info-icon-tool"
-                                            content="Hello world!"
-                                            place="top"
-                                    />
                                     <TableUploadFile
                                         array={array}
                                         setArray={setArray}

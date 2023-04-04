@@ -11,6 +11,18 @@
   position: fixed;
   z-index: 30;
   // font-family: OpenSans-Regular;
+  .popper-position{
+    transform: translate(852px, 67px)
+  }
+
+  .drop-item{
+    text-decoration: none;
+    color: rgb(48, 47, 47);
+  }
+
+  .drop-down{
+    margin-top: 5px;
+  }
 }
 
 .logo{
@@ -67,7 +79,7 @@
     background: #70d8bd;
   }
 
-  .nav-item .active {
+  .nav-item .Myactive {
     color: #70d8bd;
     border: 1px solid #70d8bd;
   }
@@ -140,6 +152,15 @@
 
   .navbar .links li{
     margin: 15px 0;
+    font-size: 20px ;
+  }
+
+  .navbar button{
+    margin: 15px 0;
+    font-size: 20px;
+  }
+
+  .navbar .nav-intrnal{
     font-size: 20px;
   }
 }
