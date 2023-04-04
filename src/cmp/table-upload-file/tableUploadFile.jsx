@@ -3,7 +3,7 @@ import { DropZone } from "../drag-drop-file/dragDrop";
 
 import './tableUploadFile.scss'
 
-export function TableUploadFile({array, setArray}) {
+export function TableUploadFile({array, setArray, setFileToSend}) {
     const [headerKeys, setHeaderKeys] = useState([]);
     const refTableHeader = useRef(null);
   
@@ -31,7 +31,7 @@ export function TableUploadFile({array, setArray}) {
   
     return (
         <div className='table-analyser'>
-            <DropZone fileReadCallback={csvFileToArray} />
+            <DropZone fileReadCallback={csvFileToArray} setFileToSend={setFileToSend}/>
             <div className={` table-container ${array.length?'':'hidden'}`}>
                 <div className='table-header' ref={refTableHeader}>
                     <table>

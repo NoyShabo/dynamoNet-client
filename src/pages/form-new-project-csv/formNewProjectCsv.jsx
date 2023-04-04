@@ -18,6 +18,7 @@ import './formNewProjectCsv.scss';
 export function FormNewProjectCSV() {
     const [active, setActive] = useState(0);
     const [array, setArray] = useState([]);
+    const [fileToSend, setFileToSend] = useState(null);
 
     const navigate = useNavigate();
 
@@ -29,14 +30,14 @@ export function FormNewProjectCSV() {
         const project = {
             title: values.title,
             description: values.description,
-            file: array,
+            file: fileToSend,
             userEmail: values.userEmail,
         };
 
         console.log("project", project);
-        const res = await createProject(project);
+        // const res = await createProject(project);
         // send the user to /project/:projectId
-        navigate(`/project/${res.project._id}`);
+        // navigate(`/project/${res.project._id}`);
     };
 
     const form = useForm({
@@ -182,6 +183,7 @@ export function FormNewProjectCSV() {
                                     <TableUploadFile
                                         array={array}
                                         setArray={setArray}
+                                        setFileToSend={setFileToSend}
                                     />
                                     {array.length===0 && (
                                         <div className="mantine-Input-wrapper mantine-TextInput-wrapper error-text">

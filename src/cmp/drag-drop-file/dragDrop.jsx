@@ -1,5 +1,5 @@
 import { Image } from '@mantine/core';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 import './dragDrop.scss'
@@ -7,7 +7,7 @@ import '../../globalStyle.scss'
 
 import uploadImg from "./import.svg"
 
-export function DropZone({ fileReadCallback }) {
+export function DropZone({ fileReadCallback ,setFileToSend}) {
     const [draggingOver, setDraggingOver] = useState('');
     const [acceptedFiles, setAcceptedFiles] = useState([]);
 
@@ -16,6 +16,7 @@ export function DropZone({ fileReadCallback }) {
     const readFile = (e) => {
         if (e.target.files) {
             setAcceptedFiles(Array.from(e.target.files));
+
             const reader = new FileReader();
             reader.onload = function (event) {
                 const text = event.target.result;
@@ -24,6 +25,16 @@ export function DropZone({ fileReadCallback }) {
             reader.readAsText(e.target.files[0]);
         }
     };
+
+
+    useEffect(()=>{
+        if(acceptedFiles){
+            const formData = new FormData();
+            formData.append('name', "FILENAME");
+            formData.append('acceptedFile', acceptedFiles);
+            setFileToSend(formData);
+        }
+    },[acceptedFiles])
 
     const onDrop = useCallback((acceptedFiles) => {
         setAcceptedFiles(acceptedFiles);
