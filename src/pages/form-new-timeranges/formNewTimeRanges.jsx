@@ -9,20 +9,19 @@ import {
 import { DateRangePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { IconCalendar } from "@tabler/icons-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { createTimeRanges } from "../../serverApi/rest/timeRangeApi";
 import "./formNewTimeRanges.scss";
-import { IconCalendar } from "@tabler/icons-react";
-
 
 export function FormNewTimeRanges() {
   const [active, setActive] = useState(0);
   const { projectId, networkId } = useParams();
   const navigate = useNavigate();
   const project = useSelector((state) => state.projectModule.project);
-
+  const maxDate = project ? new Date(project.endDate) : null;
   function backPrevPage() {
     navigate(-1);
   }
@@ -105,7 +104,7 @@ export function FormNewTimeRanges() {
           }
           {...form.getInputProps(`timeWindows.${index}.title`)}
           styles={{
-            label: {color: '#e0e0e0'}
+            label: { color: "#e0e0e0" },
           }}
         />
         <DateRangePicker
@@ -115,9 +114,11 @@ export function FormNewTimeRanges() {
           icon={<IconCalendar size="1.1rem" stroke={1.5} />}
           initialMonth={project ? new Date(project.startDate) : null}
           minDate={project ? new Date(project.startDate) : null}
-          maxDate={project ? new Date(project.endDate) : null}
+          maxDate={
+            maxDate ? new Date(maxDate.getTime() + 60 * 60 * 24 * 1000) : null
+          }
           styles={{
-            label: {color: '#e0e0e0', marginTop:"20px"}
+            label: { color: "#e0e0e0", marginTop: "20px" },
           }}
           onChange={(values) => {
             form.setFieldValue(`timeWindows.${index}.timeRange`, values);
@@ -205,10 +206,15 @@ export function FormNewTimeRanges() {
                 <h3>Create new Timerange</h3>
                 <div className="form__field">
                   {fields}
-                  <Button className="btn-add-tr btn-form" onClick={insertTimeWindow}>
+                  <Button
+                    className="btn-add-tr btn-form"
+                    onClick={insertTimeWindow}
+                  >
                     Add Time Window
                   </Button>
-                  <Button className="btn-form" onClick={removeTimeWindow}>Remove Time Window</Button>
+                  <Button className="btn-form" onClick={removeTimeWindow}>
+                    Remove Time Window
+                  </Button>
                 </div>
               </Stepper.Step>
 
@@ -224,7 +230,7 @@ export function FormNewTimeRanges() {
                     label="Edge Type"
                     placeholder="Edge Type"
                     styles={{
-                      label: {color: '#e0e0e0'}
+                      label: { color: "#e0e0e0" },
                     }}
                     required
                     // value={form.values.edgeType}
@@ -262,7 +268,6 @@ export function FormNewTimeRanges() {
                 variant="outline"
                 onClick={() => nextStep()}
                 disabled={active === 1}
-
               >
                 Next
               </Button>
