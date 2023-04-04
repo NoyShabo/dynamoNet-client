@@ -20,7 +20,8 @@ export function FormNewTimeRanges() {
   const [active, setActive] = useState(0);
   const { projectId, networkId } = useParams();
   const navigate = useNavigate();
-  const project = useSelector((state) => state.projectModule.project);
+  // const project = useSelector((state) => state.projectModule.project);
+  const project = JSON.parse(localStorage.getItem("project"));
   const maxDate = project ? new Date(project.endDate) : null;
   function backPrevPage() {
     navigate(-1);

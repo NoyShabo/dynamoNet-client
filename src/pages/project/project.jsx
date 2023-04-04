@@ -218,6 +218,7 @@ export function Project() {
       setTitle(project.title);
       setDescription(project.description);
       setCommunities(mapCommunities(project));
+      localStorage.setItem("project", JSON.stringify(project));
     }
   }, [project]);
 
