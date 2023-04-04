@@ -3,4 +3,5 @@ export const ProjectStatus = {
   READY: "ready",
   CREATING_TIME_RANGES: "creating time ranges",
   CALCULATING_NODE_METRICS: "calculating node metrics",
+  FAILED: "failed",
 };
