@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import BeatLoader from "react-spinners/BeatLoader";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GlobalCard } from "../../cmp/card/card";
 import { CommunityEvolution } from "../../cmp/community-evolution/CommunityEvolution";
@@ -29,7 +29,11 @@ import {
   setProject,
 } from "../../redux/actions/projectActions";
 import { getNetwork } from "../../serverApi/rest/networkApi";
-import { getProject, updateProject } from "../../serverApi/rest/projectApi";
+import {
+  deleteProject,
+  getProject,
+  updateProject,
+} from "../../serverApi/rest/projectApi";
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
 
@@ -217,8 +221,20 @@ export function Project() {
     }
   }, [project]);
 
-  const handleDelete = (id) => {
+  const handleDelete = async () => {
     console.log("Delete");
+    const res = await deleteProject(projectId);
+    console.log("res: ", res);
+    if (res) {
+      toast.success("Project deleted successfully", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      navigate("/projects");
+    } else {
+      toast.error("Error deleting project", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
   };
 
   const handleEdit = async (values) => {
@@ -500,6 +516,12 @@ export function Project() {
                   title={`Delete Project: ${title}`}
                 />
               </>
+            )}
+            {project.status === ProjectStatus.FAILED && (
+              <Delete
+                onDelete={handleDelete}
+                title={`Delete Project: ${title}`}
+              />
             )}
           </div>
         )}
