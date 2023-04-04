@@ -12,11 +12,16 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TableUploadFile } from '../../cmp/table-upload-file/tableUploadFile';
 import { createProjectFromFile } from '../../serverApi/rest/projectApi';
+// import  ReactTooltip  from 'react-tooltip';
+import ReactTooltip from 'react-tooltip';
+
+import InfoIcon from '@mui/icons-material/Info';
 
 import './formNewProjectCsv.scss';
 
 export function FormNewProjectCSV() {
     const [active, setActive] = useState(0);
+    const [isValidCSV, setIsValidCSV] = useState(false);
     const [array, setArray] = useState([]);
     const [fileToSend, setFileToSend] = useState(null);
 
@@ -31,11 +36,11 @@ export function FormNewProjectCSV() {
             title: values.title,
             description: values.description,
             userEmail: values.userEmail,
-            file:fileToSend
+            file: fileToSend,
         };
 
-        console.log("project", project);
-        console.log("texttttttt",fileToSend);
+        console.log('project', project);
+        console.log('texttttttt', fileToSend);
         const res = await createProjectFromFile(project);
 
         // send the user to /project/:projectId
@@ -69,6 +74,11 @@ export function FormNewProjectCSV() {
                     return {
                         file: 'Please upload a file',
                     };
+                }
+                if (isValidCSV) {
+                    return {
+                        file: 'Please upload a file',
+                    }
                 }
             }
 
@@ -181,15 +191,29 @@ export function FormNewProjectCSV() {
                                 className="step"
                             >
                                 <Box>
-                                    <h3>Upload File</h3>
+                                    {/* <h3 className="info-icon-tool">Upload File  */}
+                                    <h3 >Upload File 
+                                        <InfoIcon  className='info-icon info-icon-tool'/>
+                                    </h3>
+                                    <ReactTooltip 
+                                            anchorSelect=".info-icon-tool"
+                                            content="Hello world!"
+                                            place="top"
+                                    />
                                     <TableUploadFile
                                         array={array}
                                         setArray={setArray}
                                         setFileToSend={setFileToSend}
+                                        setIsValidCSV={setIsValidCSV}
                                     />
-                                    {array.length===0 && (
+                                    {array.length === 0 && (
                                         <div className="mantine-Input-wrapper mantine-TextInput-wrapper error-text">
                                             Please upload a file
+                                        </div>
+                                    )}
+                                    {isValidCSV && (
+                                        <div className="mantine-Input-wrapper mantine-TextInput-wrapper error-text">
+                                            Invalid CSV format
                                         </div>
                                     )}
                                 </Box>
@@ -214,10 +238,12 @@ export function FormNewProjectCSV() {
                                         },
                                     }}
                                 />
-
                             </Stepper.Step>
                             <Stepper.Completed>
-                            <h3>Completed, click back button to get to previous step</h3>
+                                <h3>
+                                    Completed, click back button to get to
+                                    previous step
+                                </h3>
 
                                 <Group position="right" mt="xl">
                                     <Button
