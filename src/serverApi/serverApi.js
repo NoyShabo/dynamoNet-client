@@ -37,6 +37,18 @@ export const update = async (url, data, token) => {
       "Content-Type": "application/json",
       Authorization: token,
     },
+    body: data,
+  });
+}
+;
+export const updateCSV = async (url, data, token) => {
+  if (!token) token = getToken();
+  return await fetch(`${baseUrl}${url}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: token,
+    },
     body: JSON.stringify(data),
   });
 };

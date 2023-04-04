@@ -21,12 +21,17 @@ export const createProject = async (body) => {
 };
 
 export const createProjectFromFile = async (body) => {
-  const res = await serverApi.post(`api/projects-csv`, body);
+  const res = await serverApi.post(`api/projects/csv`, body);
   return serverApi.handleResult(res, "Add project csv error");
 };
 
 export const updateProject = async (projectId, body) => {
   const res = await serverApi.update(`api/projects/${projectId}`, body);
+  return serverApi.handleResult(res, "Update a project error");
+};
+
+export const updateProjectCSV = async (projectId, body) => {
+  const res = await serverApi.update(`api/projects/csv/${projectId}`, body);
   return serverApi.handleResult(res, "Update a project error");
 };
 

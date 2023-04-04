@@ -9,13 +9,13 @@ import uploadImg from "./import.svg"
 
 export function DropZone({ fileReadCallback ,setFileToSend}) {
     const [draggingOver, setDraggingOver] = useState('');
-    const [acceptedFiles, setAcceptedFiles] = useState([]);
+    const [acceptedFile, setAcceptedFile] = useState(null);
 
     const input = useRef(null);
 
     const readFile = (e) => {
         if (e.target.files) {
-            setAcceptedFiles(Array.from(e.target.files));
+            setAcceptedFile(e.target.files[0]);
 
             const reader = new FileReader();
             reader.onload = function (event) {
@@ -28,16 +28,16 @@ export function DropZone({ fileReadCallback ,setFileToSend}) {
 
 
     useEffect(()=>{
-        if(acceptedFiles){
+        if(acceptedFile){
             const formData = new FormData();
             formData.append('name', "FILENAME");
-            formData.append('acceptedFile', acceptedFiles);
+            formData.append('acceptedFile', acceptedFile);
             setFileToSend(formData);
         }
-    },[acceptedFiles])
+    },[acceptedFile])
 
-    const onDrop = useCallback((acceptedFiles) => {
-        setAcceptedFiles(acceptedFiles);
+    const onDrop = useCallback((acceptedFile) => {
+        setAcceptedFile(acceptedFile);
         const reader = new FileReader();
 
         reader.onabort = () => console.log('file reading was aborted');
@@ -46,7 +46,7 @@ export function DropZone({ fileReadCallback ,setFileToSend}) {
             const text = event.target.result;
             fileReadCallback(text);
         };
-        reader.readAsText(acceptedFiles[0]);
+        reader.readAsText(acceptedFile);
         setDraggingOver('');
     }, []);
 
@@ -86,12 +86,10 @@ export function DropZone({ fileReadCallback ,setFileToSend}) {
                             accept=".csv"
                             onChange={readFile}
                         />
-                        <h4>Files:</h4>
+                        <h4>File:</h4>
                         <br />
                         <ul>
-                            {acceptedFiles.map((file) => (
-                                <li key={file.name}>{file.name}</li>
-                            ))}
+                            {acceptedFile && <li >{acceptedFile.name}</li>}
                         </ul>
                     </form>
                 </div>
