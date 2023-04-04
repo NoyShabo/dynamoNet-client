@@ -37,9 +37,9 @@ export const update = async (url, data, token) => {
       "Content-Type": "application/json",
       Authorization: token,
     },
-    body:  JSON.stringify(data),
+    body: JSON.stringify(data),
   });
-}
+};
 
 export const del = async (url, data, token) => {
   if (!token) token = getToken();
@@ -71,6 +71,10 @@ export const handleResult = async (
   // console.log("serverApi", resData);
   if (res && resData && res.status < 400) {
     return resData;
+  }
+  if (res.status === 401) {
+    localStorage.removeItem("user");
+    window.location.reload();
   }
   if (customMessage) throw new Error(customMessage);
   else if (!res) throw new Error(`${errSrc}: Server not responding`);
