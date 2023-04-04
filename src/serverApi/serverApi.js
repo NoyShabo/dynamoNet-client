@@ -37,7 +37,7 @@ export const update = async (url, data, token) => {
       "Content-Type": "application/json",
       Authorization: token,
     },
-    body: data,
+    body:  JSON.stringify(data),
   });
 }
 ;
@@ -49,7 +49,7 @@ export const updateCSV = async (url, data, token) => {
       "Content-Type": "multipart/form-data",
       Authorization: token,
     },
-    body: JSON.stringify(data),
+    body: data,
   });
 };
 

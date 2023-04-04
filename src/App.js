@@ -69,7 +69,7 @@ function App() {
           <Route path="/pageNotFound" element={<PageNotFound />} />
           <Route path="/newProjectCSV" element={<FormNewProjectCSV />} />
 
-          <Route path="/upload" element={<TableUploadFile />} />
+          {/* <Route path="/upload" element={<TableUploadFile />} /> */}
 
           {/* <Route path="/modal" element={<PageModal />} /> */}
         </Routes>

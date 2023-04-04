@@ -30,18 +30,20 @@ export function FormNewProjectCSV() {
         const project = {
             title: values.title,
             description: values.description,
-            file: {},
             userEmail: values.userEmail,
         };
 
         console.log("project", project);
         const res = await createProjectFromFile(project);
         console.log("res", res);
-        const resUpdate = await updateProjectCSV(res.projectId,fileToSend);
+        console.log("fileToSend", fileToSend);
+        const formData = new FormData();
+        formData.append('files', fileToSend);
+        const resUpdate = await updateProjectCSV(res.projectId,formData);
         console.log("resUpdate", resUpdate);
 
         // send the user to /project/:projectId
-        navigate(`/project/${res.projectId}`);
+        // navigate(`/project/${res.projectId}`);
     };
 
     const form = useForm({

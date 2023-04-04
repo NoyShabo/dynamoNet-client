@@ -29,10 +29,11 @@ export function DropZone({ fileReadCallback ,setFileToSend}) {
 
     useEffect(()=>{
         if(acceptedFile){
-            const formData = new FormData();
-            formData.append('name', "FILENAME");
-            formData.append('acceptedFile', acceptedFile);
-            setFileToSend(formData);
+            // const formData = new FormData();
+            // formData.append('name', "FILENAME");
+            // formData.append('file', acceptedFile);
+            // console.log("acceptedFile noyyyyyy",acceptedFile);
+            setFileToSend(acceptedFile);
         }
     },[acceptedFile])
 
