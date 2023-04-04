@@ -29,7 +29,8 @@ table{
 
 }
 .table-values{
-  height:265px;
+  max-height:265px;
+  min-height: 100px;
   overflow: overlay;
   tr:nth-of-type(odd){
     background:rgba(212, 212, 245, 0.139);
