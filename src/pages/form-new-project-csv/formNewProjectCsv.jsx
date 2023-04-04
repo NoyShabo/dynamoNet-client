@@ -17,6 +17,7 @@ import './formNewProjectCsv.scss';
 
 export function FormNewProjectCSV() {
     const [active, setActive] = useState(0);
+    const [isValidCSV, setIsValidCSV] = useState(false);
     const [array, setArray] = useState([]);
     const [fileToSend, setFileToSend] = useState(null);
 
@@ -190,6 +191,11 @@ export function FormNewProjectCSV() {
                                     {array.length===0 && (
                                         <div className="mantine-Input-wrapper mantine-TextInput-wrapper error-text">
                                             Please upload a file
+                                        </div>
+                                    )}
+                                    {isValidCSV && (
+                                        <div className="mantine-Input-wrapper mantine-TextInput-wrapper error-text">
+                                            CSV invalid format
                                         </div>
                                     )}
                                 </Box>
