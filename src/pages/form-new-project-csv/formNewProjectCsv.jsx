@@ -11,7 +11,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TableUploadFile } from '../../cmp/table-upload-file/tableUploadFile';
-import { createProjectFromFile,updateProjectCSV } from '../../serverApi/rest/projectApi';
+import { createProjectFromFile } from '../../serverApi/rest/projectApi';
 
 import './formNewProjectCsv.scss';
 
@@ -31,16 +31,12 @@ export function FormNewProjectCSV() {
             title: values.title,
             description: values.description,
             userEmail: values.userEmail,
+            file:fileToSend
         };
 
         console.log("project", project);
+        console.log("texttttttt",fileToSend);
         const res = await createProjectFromFile(project);
-        console.log("res", res);
-        console.log("fileToSend", fileToSend);
-        const formData = new FormData();
-        formData.append('files', fileToSend);
-        const resUpdate = await updateProjectCSV(res.projectId,formData);
-        console.log("resUpdate", resUpdate);
 
         // send the user to /project/:projectId
         // navigate(`/project/${res.projectId}`);

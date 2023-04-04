@@ -30,11 +30,6 @@ export const updateProject = async (projectId, body) => {
   return serverApi.handleResult(res, "Update a project error");
 };
 
-export const updateProjectCSV = async (projectId, body) => {
-  const res = await serverApi.updateCSV(`api/projects/csv/${projectId}`, body);
-  return serverApi.handleResult(res, "Update a project error");
-};
-
 export const deleteProject = async (projectId) => {
   const res = await serverApi.del(`api/projects/${projectId}`);
   return serverApi.handleResult(res, "Delete project error");

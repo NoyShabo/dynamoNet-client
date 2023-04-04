@@ -20,22 +20,12 @@ export function DropZone({ fileReadCallback ,setFileToSend}) {
             const reader = new FileReader();
             reader.onload = function (event) {
                 const text = event.target.result;
+                setFileToSend(text)
                 fileReadCallback(text);
             };
             reader.readAsText(e.target.files[0]);
         }
     };
-
-
-    useEffect(()=>{
-        if(acceptedFile){
-            // const formData = new FormData();
-            // formData.append('name', "FILENAME");
-            // formData.append('file', acceptedFile);
-            // console.log("acceptedFile noyyyyyy",acceptedFile);
-            setFileToSend(acceptedFile);
-        }
-    },[acceptedFile])
 
     const onDrop = useCallback((acceptedFile) => {
         setAcceptedFile(acceptedFile);
