@@ -192,6 +192,7 @@ export function Project() {
   const [slice, setSlice] = useState(5);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [isExporting, setIsExporting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const navigate = useNavigate();
   function backPrevPage() {
     navigate("/projects");
@@ -225,7 +226,7 @@ export function Project() {
   }, [project]);
 
   const handleDelete = async () => {
-    console.log("Delete");
+    setIsDeleting(true);
     const res = await deleteProject(projectId);
     console.log("res: ", res);
     if (res) {
@@ -238,6 +239,7 @@ export function Project() {
         position: toast.POSITION.TOP_RIGHT,
       });
     }
+    setIsDeleting(false);
   };
 
   const handleExport = async (e) => {
@@ -562,6 +564,15 @@ export function Project() {
                       style={{ marginBottom: "10px", textAlign: "center" }}
                     >
                       Exporting project. Please be patient{" "}
+                      <BeatLoader color="#36d7b7" />
+                    </div>
+                  )}
+                  {isDeleting && (
+                    <div
+                      className="small-title-project"
+                      style={{ marginBottom: "10px", textAlign: "center" }}
+                    >
+                      Deleting project. Please be patient{" "}
                       <BeatLoader color="#36d7b7" />
                     </div>
                   )}
