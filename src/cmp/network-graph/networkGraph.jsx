@@ -59,6 +59,7 @@ export const LoadGraph = ({ network, exportGraph, title }) => {
         _id: edge._id,
         edgeType: edge.edgeType,
         edgeContent: edge.edgeContent,
+        timestamp: edge.timestamp,
       };
     });
 
@@ -68,10 +69,12 @@ export const LoadGraph = ({ network, exportGraph, title }) => {
         edgeMap[edge.from + edge.to].weight += 1;
         edgeMap[edge.from + edge.to].edgeType.push(edge.edgeType);
         edgeMap[edge.from + edge.to].edgeContent.push(edge.edgeContent);
+        edgeMap[edge.from + edge.to].timestamp.push(edge.timestamp);
       } else if (edgeMap[edge.to + edge.from]) {
         edgeMap[edge.to + edge.from].weight += 1;
         edgeMap[edge.to + edge.from].edgeType.push(edge.edgeType);
         edgeMap[edge.to + edge.from].edgeContent.push(edge.edgeContent);
+        edgeMap[edge.to + edge.from].timestamp.push(edge.timestamp);
       } else {
         edgeMap[edge.from + edge.to] = {
           from: edge.from,
@@ -79,6 +82,7 @@ export const LoadGraph = ({ network, exportGraph, title }) => {
           weight: 1,
           edgeType: [edge.edgeType],
           edgeContent: [edge.edgeContent],
+          timestamp: [edge.timestamp],
         };
       }
     });
@@ -110,6 +114,7 @@ export const LoadGraph = ({ network, exportGraph, title }) => {
           weight: edge.weight,
           edgeType: edge.edgeType,
           edgeContent: edge.edgeContent,
+          timestamp: edge.timestamp,
           type: "arrow",
         });
       } catch (err) {
@@ -151,6 +156,7 @@ export const DisplayGraph = ({ width, height, network, title }) => {
         // edge events
         clickEdge: (event) => {
           const edge = graph.getEdgeAttributes(event.edge);
+          console.log(edge);
           setSelectedEdge(edge);
         },
         // enterEdge: (event) => {
@@ -208,6 +214,10 @@ export const DisplayGraph = ({ width, height, network, title }) => {
                         <br key={`br_${index}`} />
                       </>
                     ))}
+                  </div>
+                  <div className="edge-popup__content__item">
+                    <h4> Timestamp</h4>
+                    <p>{selectedEdge.timestamp.join(", ")}</p>
                   </div>
                 </div>
               </div>

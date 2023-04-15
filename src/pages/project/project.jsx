@@ -255,6 +255,8 @@ export function Project() {
         "edgeType",
       ]);
       network.network.edges.forEach((edge) => {
+        // replace all double quotes with two double quotes
+        edge.edgeContent = String(edge.edgeContent).replace(/"/g, `""`);
         csvData.push([
           edge.source,
           edge.destination,
