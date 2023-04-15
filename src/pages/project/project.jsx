@@ -380,7 +380,7 @@ export function Project() {
                 )}
               </div>
             </div>
-            {project.status == !ProjectStatus.FAILED ? (
+            {project.status !== ProjectStatus.FAILED ? (
               project.status === ProjectStatus.IN_PROGRESS ? (
                 <div
                   className="small-title-project"
