@@ -201,7 +201,13 @@ export const DisplayGraph = ({ width, height, network, title }) => {
 
                   <div className="edge-popup__content__item">
                     <h4> Content</h4>
-                    <p>"{selectedEdge.edgeContent.join('", "')}"</p>
+                    {/* <p>"{selectedEdge.edgeContent.join('", "')}"</p> */}
+                    {selectedEdge.edgeContent.map((content, index) => (
+                      <>
+                        <p key={`p_${index}`}>"{content}"</p>
+                        <br key={`br_${index}`} />
+                      </>
+                    ))}
                   </div>
                 </div>
               </div>
