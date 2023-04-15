@@ -380,149 +380,158 @@ export function Project() {
                 )}
               </div>
             </div>
-            {project.status === ProjectStatus.IN_PROGRESS ? (
-              <div
-                className="small-title-project"
-                style={{ textAlign: "center" }}
-              >
-                Fetching data for project is in progress. Please be patient{" "}
-                <BeatLoader color="#36d7b7" />
-              </div>
-            ) : (
-              <>
-                <div className="project-header">
-                  <Scroll
-                    items={[
-                      ...getTimeRangeCards(project, handleDeleteTimeRange),
-                      <GlobalCard
-                        imgUrl={newTimeRangeImg}
-                        key="newTimeRangeForm"
-                        linkTo={`/project/${project._id}/network/${project.sourceNetwork._id}/addTimeRanges`}
-                        title="New Time Range"
-                        description="Create new time ranges"
-                      />,
-                    ]}
-                  />
+            {project.status == !ProjectStatus.FAILED ? (
+              project.status === ProjectStatus.IN_PROGRESS ? (
+                <div
+                  className="small-title-project"
+                  style={{ textAlign: "center" }}
+                >
+                  Fetching data for project is in progress. Please be patient{" "}
+                  <BeatLoader color="#36d7b7" />
                 </div>
-                {project.status === ProjectStatus.CREATING_TIME_RANGES && (
-                  <div
-                    className="small-title-project"
-                    style={{ textAlign: "center" }}
-                  >
-                    Creating time ranges. Please be patient{" "}
-                    <BeatLoader color="#36d7b7" />
+              ) : (
+                <>
+                  <div className="project-header">
+                    <Scroll
+                      items={[
+                        ...getTimeRangeCards(project, handleDeleteTimeRange),
+                        <GlobalCard
+                          imgUrl={newTimeRangeImg}
+                          key="newTimeRangeForm"
+                          linkTo={`/project/${project._id}/network/${project.sourceNetwork._id}/addTimeRanges`}
+                          title="New Time Range"
+                          description="Create new time ranges"
+                        />,
+                      ]}
+                    />
                   </div>
-                )}
-                <MyTabs
-                  tabs={[
-                    {
-                      id: 1,
-                      name: "Source Network",
-                      component: (
-                        <SourceNetwork network={project.sourceNetwork} />
-                      ),
-                    },
-                    {
-                      id: 2,
-                      name: "Network Evolution",
-                      component:
-                        project.timeRanges.length === 0 ? (
-                          project.status === ProjectStatus.READY && (
-                            <div className="small-title-project">
-                              No Time Ranges
-                            </div>
-                          )
-                        ) : (
-                          <NetworkEvolution project={project} />
+                  {project.status === ProjectStatus.CREATING_TIME_RANGES && (
+                    <div
+                      className="small-title-project"
+                      style={{ textAlign: "center" }}
+                    >
+                      Creating time ranges. Please be patient{" "}
+                      <BeatLoader color="#36d7b7" />
+                    </div>
+                  )}
+                  <MyTabs
+                    tabs={[
+                      {
+                        id: 1,
+                        name: "Source Network",
+                        component: (
+                          <SourceNetwork network={project.sourceNetwork} />
                         ),
-                    },
-                    {
-                      id: 3,
-                      name: "Node Evolution",
-                      component:
-                        project.timeRanges.length === 0 ? (
-                          project.status === ProjectStatus.READY && (
-                            <div className="small-title-project">
-                              No Time Ranges
+                      },
+                      {
+                        id: 2,
+                        name: "Network Evolution",
+                        component:
+                          project.timeRanges.length === 0 ? (
+                            project.status === ProjectStatus.READY && (
+                              <div className="small-title-project">
+                                No Time Ranges
+                              </div>
+                            )
+                          ) : (
+                            <NetworkEvolution project={project} />
+                          ),
+                      },
+                      {
+                        id: 3,
+                        name: "Node Evolution",
+                        component:
+                          project.timeRanges.length === 0 ? (
+                            project.status === ProjectStatus.READY && (
+                              <div className="small-title-project">
+                                No Time Ranges
+                              </div>
+                            )
+                          ) : (
+                            <NodesPage project={project} />
+                          ),
+                      },
+                      {
+                        id: 4,
+                        name: "Community Evolution",
+                        component: (
+                          <>
+                            <div className="title-project">
+                              Community Evolution
                             </div>
-                          )
-                        ) : (
-                          <NodesPage project={project} />
-                        ),
-                    },
-                    {
-                      id: 4,
-                      name: "Community Evolution",
-                      component: (
-                        <>
-                          <div className="title-project">
-                            Community Evolution
-                          </div>
-                          <div className="small-title-project">
-                            {/* <CommunityEvolution communities={project.timeRanges.map((timeRange) => {
+                            <div className="small-title-project">
+                              {/* <CommunityEvolution communities={project.timeRanges.map((timeRange) => {
                             return timeRange.network.communities;
                           })}/> */}
-                            {/* input to set threshold */}
-                            <div className="small-title-project">
-                              <div style={{ color: "white" }}>Threshold</div>
-                              <input
-                                type="number"
-                                value={thresholdQuery}
-                                onChange={(e) =>
-                                  setThresholdQuery(e.target.value)
-                                }
-                                min={0}
-                                max={1}
-                                step={0.01}
-                              />
-                              <Button onClick={handleThresholdChange}>
-                                <ArrowForwardIcon />
-                              </Button>
-                            </div>
-                            {/* input to set slice */}
-                            <div className="small-title-project">
-                              <div style={{ color: "white" }}>
-                                Top Communities
+                              {/* input to set threshold */}
+                              <div className="small-title-project">
+                                <div style={{ color: "white" }}>Threshold</div>
+                                <input
+                                  type="number"
+                                  value={thresholdQuery}
+                                  onChange={(e) =>
+                                    setThresholdQuery(e.target.value)
+                                  }
+                                  min={0}
+                                  max={1}
+                                  step={0.01}
+                                />
+                                <Button onClick={handleThresholdChange}>
+                                  <ArrowForwardIcon />
+                                </Button>
                               </div>
-                              <input
-                                type="number"
-                                value={slice}
-                                onChange={(e) => setSlice(e.target.value)}
-                                min={1}
-                                max={Math.max(
-                                  ...project.timeRanges.map(
-                                    (timeRange) =>
-                                      Object.keys(timeRange.network.communities)
-                                        .length
-                                  )
-                                )}
-                                step={1}
+                              {/* input to set slice */}
+                              <div className="small-title-project">
+                                <div style={{ color: "white" }}>
+                                  Top Communities
+                                </div>
+                                <input
+                                  type="number"
+                                  value={slice}
+                                  onChange={(e) => setSlice(e.target.value)}
+                                  min={1}
+                                  max={Math.max(
+                                    ...project.timeRanges.map(
+                                      (timeRange) =>
+                                        Object.keys(
+                                          timeRange.network.communities
+                                        ).length
+                                    )
+                                  )}
+                                  step={1}
+                                />
+                                <Button onClick={handleSliceChange}>
+                                  <ArrowForwardIcon />
+                                </Button>
+                              </div>
+                              <CommunityEvolution
+                                communities={communities}
+                                threshold={threshold}
                               />
-                              <Button onClick={handleSliceChange}>
-                                <ArrowForwardIcon />
-                              </Button>
                             </div>
-                            <CommunityEvolution
-                              communities={communities}
-                              threshold={threshold}
-                            />
-                          </div>
-                        </>
-                      ),
-                    },
-                  ]}
-                />
-                <Delete
-                  onDelete={handleDelete}
-                  title={`Delete Project: ${title}`}
-                />
-              </>
-            )}
-            {project.status === ProjectStatus.FAILED && (
-              <Delete
-                onDelete={handleDelete}
-                title={`Delete Project: ${title}`}
-              />
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                  <Delete
+                    onDelete={handleDelete}
+                    title={`Delete Project: ${title}`}
+                  />
+                </>
+              )
+            ) : (
+              project.status === ProjectStatus.FAILED && (
+                <>
+                  <div className="small-title-project">
+                    Project failed to create. Please try again.
+                  </div>
+                  <Delete
+                    onDelete={handleDelete}
+                    title={`Delete Project: ${title}`}
+                  />
+                </>
+              )
             )}
           </div>
         )}
