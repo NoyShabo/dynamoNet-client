@@ -1,6 +1,7 @@
 import { Select } from "@mantine/core";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import PeopleIcon from "@mui/icons-material/People";
 import { Button } from "@mui/material";
 import Chip from "@mui/material/Chip";
@@ -190,6 +191,7 @@ export function Project() {
   const [communities, setCommunities] = useState([]);
   const [slice, setSlice] = useState(5);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [isExporting, setIsExporting] = useState(false);
   const navigate = useNavigate();
   function backPrevPage() {
     navigate("/projects");
@@ -236,6 +238,44 @@ export function Project() {
         position: toast.POSITION.TOP_RIGHT,
       });
     }
+  };
+
+  const handleExport = async (e) => {
+    e.preventDefault();
+    setIsExporting(true);
+    try {
+      const network = await getNetwork(project.sourceNetwork._id);
+      console.log("network: ", network);
+      const csvData = [];
+      csvData.push([
+        "source",
+        "destination",
+        "edgeContent",
+        "timestamp",
+        "edgeType",
+      ]);
+      network.network.edges.forEach((edge) => {
+        csvData.push([
+          edge.source,
+          edge.destination,
+          `"${edge.edgeContent}"`,
+          edge.timestamp,
+          edge.edgeType,
+        ]);
+      });
+      const csvContent =
+        "data:text/csv;charset=utf-8," +
+        csvData.map((e) => e.join(",")).join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `${project.title}.csv`);
+      document.body.appendChild(link);
+      link.click();
+    } catch (err) {
+      console.error("Error exporting network: ", err);
+    }
+    setIsExporting(false);
   };
 
   const handleEdit = async (values) => {
@@ -514,10 +554,43 @@ export function Project() {
                       },
                     ]}
                   />
-                  <Delete
-                    onDelete={handleDelete}
-                    title={`Delete Project: ${title}`}
-                  />
+                  {isExporting && (
+                    <div
+                      className="small-title-project"
+                      style={{ marginBottom: "10px", textAlign: "center" }}
+                    >
+                      Exporting project. Please be patient{" "}
+                      <BeatLoader color="#36d7b7" />
+                    </div>
+                  )}
+                  <div
+                    className="button-container"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: "10px",
+                      width: "100%",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      size="small"
+                      onClick={handleExport}
+                      style={{
+                        "& > *": {
+                          margin: "auto",
+                        },
+                      }}
+                    >
+                      <FileDownloadIcon />
+                      Export
+                    </Button>
+                    <Delete
+                      onDelete={handleDelete}
+                      title={`Delete Project: ${title}`}
+                    />
+                  </div>
                 </>
               )
             ) : (
