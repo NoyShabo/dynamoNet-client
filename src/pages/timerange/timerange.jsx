@@ -33,7 +33,7 @@ export function Timerange({}) {
   const { timeRangeId, projectId } = useParams();
   const navigate = useNavigate();
   const [network, setNetwork] = useState(null);
-
+  const [TRIds, setTRIds] = useState([]);
   const getTimeRangeById = async (id, withNetwork = false) => {
     const res = await getTimeRange(id, withNetwork);
     dispatch(setTimeRange(res));
@@ -43,7 +43,7 @@ export function Timerange({}) {
     navigate(`/project/${projectId}`);
   }
   // const TRIds=["6405c91d024f895891dfe76b","6405c941024f895891dfe76d","6405c959024f895891dfe76f","6405c962024f895891dfe771"]
-  const TRIds = [];
+
   // if(project){
   //   project.timeRanges.forEach((tr) => {
   //     TRIds.push(tr._id);
@@ -57,22 +57,32 @@ export function Timerange({}) {
   useEffect(() => {
     if (project && project.timeRanges) {
       project.timeRanges.forEach((tr) => {
-        TRIds.push(tr._id);
+        // TRIds.push(tr._id);
+        setTRIds((prev) => [...prev, tr._id]);
       });
     }
   }, []);
 
   useEffect(() => {
     if (project && project.timeRanges) {
+      TRIds.length = 0;
       project.timeRanges.forEach((tr) => {
-        TRIds.push(tr._id);
+        // TRIds.push(tr._id);
+        setTRIds((prev) => [...prev, tr._id]);
       });
     } else {
       if (projectId && projectId !== "") getProjectById(projectId);
     }
   }, [project]);
 
-  function clickTrLeftArrow() {
+  function clickTrLeftArrow(e) {
+    e.preventDefault();
+    // if (project && project.timeRanges) {
+    //   project.timeRanges.forEach((tr) => {
+    //     // TRIds.push(tr._id);
+    //     setTRIds((prev) => [...prev, tr._id]);
+    //   });
+    // }
     const index = TRIds.indexOf(timeRangeId);
     console.log(timeRangeId);
     let navigateIndex;
@@ -86,12 +96,13 @@ export function Timerange({}) {
     navigate(`/project/${projectId}/timerange/${TRIds[navigateIndex]}`);
   }
 
-  function clickTRightArrow() {
-    if (project && project.timeRanges) {
-      project.timeRanges.forEach((tr) => {
-        TRIds.push(tr._id);
-      });
-    }
+  function clickTRightArrow(e) {
+    e.preventDefault();
+    // if (project && project.timeRanges) {
+    //   project.timeRanges.forEach((tr) => {
+    //     TRIds.push(tr._id);
+    //   });
+    // }
     const index = TRIds.indexOf(timeRangeId);
     console.log(index);
 
