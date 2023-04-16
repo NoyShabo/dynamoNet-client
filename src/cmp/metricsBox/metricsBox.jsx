@@ -101,7 +101,7 @@ export function MetricsBox({
             />
           </Box>
         </Grid>
-        <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
+        {/* <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
           <Box
             width="100%"
             height="160px"
@@ -120,8 +120,8 @@ export function MetricsBox({
               icon={<ShareIcon sx={{ color: "#70d8bd", fontSize: "26px" }} />}
             />
           </Box>
-        </Grid>
-        <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
+        </Grid> */}
+        {/* <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
           <Box
             width="100%"
             height="160px"
@@ -142,7 +142,7 @@ export function MetricsBox({
               }
             />
           </Box>
-        </Grid>
+        </Grid> */}
         <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
           <Box
             width="100%"
