@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   addFavoriteNodeToProject,
@@ -55,9 +55,11 @@ export function FavoriteNodes({
   const { projectId } = useParams();
   const [checkedNodes, setCheckedNodes] = useState([]);
   const [nodeSelected, setNodeSelected] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const getNodeSelectedDetails = async (nodeName) => {
     try {
+      setLoading(true);
       const res = await getNode(nodeName);
       setNodeSelected(res.node);
     } catch (err) {
@@ -66,6 +68,7 @@ export function FavoriteNodes({
         position: toast.POSITION.TOP_RIGHT,
       });
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -139,10 +142,11 @@ export function FavoriteNodes({
         </div>
       </div>
       <div className="node-card">
-        {nodeSelected ? <NodeCard nodeDetails={nodeSelected}></NodeCard> : (
-        <div className="title-project">
-          No favorite nodes selected
-        </div>)}
+        {nodeSelected ? (
+          <NodeCard nodeDetails={nodeSelected} loading={loading}></NodeCard>
+        ) : (
+          <div className="title-project">No favorite nodes selected</div>
+        )}
       </div>
       <ToastContainer />
     </div>
