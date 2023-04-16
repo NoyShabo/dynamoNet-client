@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BeatLoader from "react-spinners/BeatLoader";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getNode } from "../../serverApi/rest/nodeApi";
 import "./list.scss";
@@ -107,18 +107,18 @@ export function DatasetList({ dataset }) {
   const [person, setPerson] = useState();
   const [loading, setLoading] = useState(true);
   const updateSelected = async (username) => {
-    // setLoading(true); // restore this if internet is slow
+    setLoading(true); // restore this if internet is slow
     try {
       const response = await getNode(username);
       setPerson(response.node);
-      setLoading(false);
+      // setLoading(false);
     } catch (error) {
       toast.error(error.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
       setPerson(null);
     }
-    // setLoading(false);
+    setLoading(false);
   };
 
   function handleClick(username) {
@@ -223,7 +223,10 @@ function ContactInfo(props) {
           <span>Description:</span> {description}
         </div>
         <div className="Registration">
-          <span>Twitter Registration Date :</span> { new Date(registrationDateTwitter).toLocaleDateString()== '1.1.1' ? 'Not Available' : new Date(registrationDateTwitter).toLocaleDateString()}
+          <span>Twitter Registration Date :</span>{" "}
+          {new Date(registrationDateTwitter).toLocaleDateString() == "1.1.1"
+            ? "Not Available"
+            : new Date(registrationDateTwitter).toLocaleDateString()}
         </div>
         <div className="followersCount">
           <span>Followers:</span> {followersCount}
