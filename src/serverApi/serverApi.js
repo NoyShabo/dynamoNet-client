@@ -1,4 +1,4 @@
-const baseUrl = "https://3.124.209.69:3500/"; //"http://localhost:3500/";
+const baseUrl = "http://localhost:3500/";
 
 const getToken = () => {
   const user = JSON.parse(localStorage.getItem("user"));
