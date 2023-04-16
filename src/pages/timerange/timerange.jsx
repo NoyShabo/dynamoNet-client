@@ -194,17 +194,8 @@ export function Timerange({}) {
             </div>
             <div className="timerange-header">
               <div className="timerange-info">
-                <Edit
-                  inputs={[
-                    {
-                      type: "text",
-                      value: timeRangeTitle || timeRange.title,
-                      className: "title-project title-timerange-top",
-                    },
-                  ]}
-                  onSubmit={(values) => handleUpdate(values[0])}
-                />
-                {/* <div className="title-project title-timerange-top">{timeRange.title}</div> */}
+                
+                <div className="title-project title-timerange-top">{timeRange.title}</div>
                 <div className="small-title-project">
                   {new Date(timeRange.startDate).toLocaleDateString()} ↔{" "}
                   {new Date(timeRange.endDate).toLocaleDateString()}
@@ -279,10 +270,23 @@ export function Timerange({}) {
               </div>
             )}
             <NetworkMetrics network={timeRange.network} />
-            <Delete
-              onDelete={handleDelete}
-              title={`Delete Time Range: ${timeRangeTitle}`}
-            />
+            <div className="btns-container">
+              <Delete
+                onDelete={handleDelete}
+                title={`Delete Time Range: ${timeRangeTitle}`}
+              />
+            
+            <Edit
+                  inputs={[
+                    {
+                      type: "text",
+                      value: timeRangeTitle || timeRange.title,
+                      className: "title-project title-timerange-top",
+                    },
+                  ]}
+                  onSubmit={(values) => handleUpdate(values[0])}
+                />
+            </div>
           </div>
         )}
       </div>

@@ -1,4 +1,12 @@
 .edit-container {
+    background-color: #293651;
+    position: absolute;
+    top:50%;
+    position: fixed;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 2px 1px 6px 0px;
+    
     .form-container {
         display: flex;
         justify-content: flex-start;
@@ -11,9 +19,14 @@
         }
     }
 
-    .edit-button-container {
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-    }
+
+}    
+.edit-button-container {
+    // display: flex;
+    // justify-content: flex-start;
+    // align-items: flex-start;
+    // background-color: rgb(157, 160, 240);
+    // color: white;
+
+        
 }

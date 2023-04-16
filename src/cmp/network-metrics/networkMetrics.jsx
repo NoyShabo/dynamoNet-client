@@ -2,6 +2,7 @@ import { MetricsBox } from "../../cmp/metricsBox/metricsBox";
 import { PieChart } from "../../cmp/pie/pie";
 
 import "../../globalStyle.scss";
+import "./networkMetrics.scss";
 
 export function NetworkMetrics({ network }) {
   const retweetsQuote = {
@@ -21,9 +22,9 @@ export function NetworkMetrics({ network }) {
                 <div style={{ marginBottom:"10px" }}  className="small-title-project" key={`central_${metric}`}>
                   {metric} centrality
                 </div>
-              <div style={{ color: 'white' ,marginBottom:"15px" }} key={`list_${metric}`}>
+              <div className="name-cnt-conainer" style={{ color: 'white' ,marginBottom:"15px" }} key={`list_${metric}`}>
                   {network.centralNodes[metric].map((name, index) => (
-                  <span style={{ backgroundColor: "rgb(33 44 69)" ,marginRight:"8px", padding:"4px", borderRadius:"5px" }}  className="name-cnt" key={`name_${index}`}>{name}  </span>
+                  <span style={{ backgroundColor: "rgb(33 44 69)" }}  className="name-cnt" key={`name_${index}`}>{name}  </span>
                   ))}
               </div>              
             </div>

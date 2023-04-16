@@ -603,6 +603,22 @@ export function Project() {
                       onDelete={handleDelete}
                       title={`Delete Project: ${title}`}
                     />
+                    <Edit
+                      inputs={[
+                        {
+                          type: "text",
+                          value: title || project.title,
+                          className: "title-project title-timerange-top",
+                        },
+                        {
+                          type: "text",
+                          value: description || project.description,
+                          className: "mid-title-project width-element-top"
+                        },
+                      ]}
+                      onSubmit={handleEdit}
+                    />
+                    
                   </div>
                 </>
               )

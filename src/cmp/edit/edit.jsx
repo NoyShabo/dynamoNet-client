@@ -32,8 +32,10 @@ export function Edit(props) {
   };
 
   return (
-    <div className="edit-container">
-      {editMode ? (
+    <>
+   
+      {editMode ? ( 
+      <div className="edit-container">
         <form onSubmit={handleSubmit} className="form-container">
           <div>
             {props.inputs.map((input, index) => (
@@ -73,22 +75,22 @@ export function Edit(props) {
             ></Button>
           </div>
         </form>
-      ) : (
-        <div className="edit-button-container">
-          <div>
-            {props.inputs.map((input, index) => (
-              <div key={index} className={input.className}>
-                {input.value}
-              </div>
-            ))}
-          </div>
-          <Button
-            onClick={() => setEditMode(true)}
-            startIcon={<EditIcon style={{ fontSize: 26 }} />}
-            sx={buttonStyle}
-          ></Button>
         </div>
+      ) : (
+        ""
       )}
+      
+    <div className="edit-button-container">
+          <Button
+            className="btn-edit"
+            variant="contained"
+            size="small"
+            color="info"
+            onClick={() => setEditMode(true)}
+            startIcon={<EditIcon style={{ fontSize: 26}} />}
+            // sx={buttonStyle}
+          >Edit</Button>
     </div>
+    </>
   );
 }
