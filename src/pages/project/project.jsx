@@ -79,55 +79,7 @@ function SourceNetwork({ network }) {
   return (
     <div className="source-network">
       <div className="title-project">Source Network</div>
-      {/* {networkGraph &&
-      networkGraph.nodePositions &&
-      Object.keys(networkGraph.nodePositions).length > 0 ? (
-        <div>
-          <div className="network-filter">
-            <Select
-              placeholder="Select edge type"
-              data={[
-                { label: "All", value: "all" },
-                { label: "Retweet", value: "retweet" },
-                { label: "Quote", value: "quote" },
-              ]}
-              onChange={(value) => {
-                if (value === "all")
-                  setNetworkGraph(networkGraph ? networkGraph : null);
-                else {
-                  const edges = [];
-                  const nodes = new Set();
-                  networkGraph.edges.forEach((edge) => {
-                    if (edge.edgeType === value) {
-                      edges.push(edge);
-                      nodes.add(edge.source);
-                      nodes.add(edge.destination);
-                    }
-                  });
-
-                  const filteredNetwork = {
-                    ...networkGraph,
-                    edges,
-                    nodes: Array.from(nodes),
-                  };
-                  setNetworkGraph(filteredNetwork);
-                }
-              }}
-            />
-          </div>
-          <div className="network-container">
-            <DisplayGraph width="80vw" height="70vh" network={networkGraph} />
-          </div>
-        </div>
-      ) : networkGraph && networkGraph.nodes ? (
-        <div className="small-title-project">There's no network to display</div>
-      ) : (
-        <div className="small-title-project">
-          Loading network <BeatLoader color="#36d7b7" />
-        </div>
-      )} */}
-      {/* <div className="small-title-project">Metrics for the source network</div> */}
-      <NetworkMetrics network={network} />
+      {network && <NetworkMetrics network={network} />}
     </div>
   );
 }
@@ -195,15 +147,24 @@ export function Project() {
   const [slice, setSlice] = useState(5);
   const [isExporting, setIsExporting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [network, setNetwork] = useState(null);
   const navigate = useNavigate();
   function backPrevPage() {
     navigate("/projects");
   }
 
+  const setProjectStates = (project) => {
+    setTitle(project.title);
+    setDescription(project.description);
+    setCommunities(mapCommunities(project));
+    setNetwork(project.sourceNetwork);
+  };
+
   const getProjectById = async (id) => {
     try {
       const res = await getProject(id);
       dispatch(setProject(res));
+      setProjectStates(res.project);
     } catch (err) {
       toast.error(err.message, {
         position: toast.POSITION.TOP_RIGHT,
@@ -219,11 +180,8 @@ export function Project() {
   }, []);
 
   useEffect(() => {
-    setCommunities([]);
     if (project) {
-      setTitle(project.title);
-      setDescription(project.description);
-      setCommunities(mapCommunities(project));
+      setProjectStates(project);
       localStorage.setItem("project", JSON.stringify(project));
     }
   }, [project]);
@@ -519,9 +477,7 @@ export function Project() {
                       {
                         id: 1,
                         name: "Source Network",
-                        component: (
-                          <SourceNetwork network={project.sourceNetwork} />
-                        ),
+                        component: <SourceNetwork network={network} />,
                       },
                       {
                         id: 2,
