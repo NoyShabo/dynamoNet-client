@@ -40,7 +40,7 @@ export function NetworkMetrics({ network }) {
       )}
       <div className="chart-container">
         <div className="title-project">Overall Metrics</div>
-        <MetricsBox {...network.networkMetrics} />
+        <MetricsBox {...network.networkMetrics} communities={network.communities? Object.keys(network.communities).length : 0 }  />
       </div>
       {retweetsQuote.retweets > 0 && (
         <div className="chart-container">
