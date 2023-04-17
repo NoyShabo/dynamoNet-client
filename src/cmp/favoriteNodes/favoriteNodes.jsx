@@ -19,7 +19,11 @@ export function AddNewNode({ addNode }) {
     if (!value) return;
     try {
       const res = await addFavoriteNodeToProject(projectId, value);
-      addNode(value);
+      // addNode(value);
+      toast.success(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
+        hideProgressBar: true,
+      });
     } catch (err) {
       toast.error(err.message, {
         position: toast.POSITION.TOP_RIGHT,

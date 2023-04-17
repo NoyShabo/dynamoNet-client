@@ -5,3 +5,5 @@ export const ProjectStatus = {
   CALCULATING_NODE_METRICS: "calculating node metrics",
   FAILED: "failed",
 };
+
+export const API_BASE_URL = "http://localhost:3500/";
