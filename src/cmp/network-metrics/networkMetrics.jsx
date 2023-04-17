@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { MetricsBox } from "../../cmp/metricsBox/metricsBox";
 import { PieChart } from "../../cmp/pie/pie";
 
@@ -5,50 +6,78 @@ import "../../globalStyle.scss";
 import "./networkMetrics.scss";
 
 export function NetworkMetrics({ network }) {
-  const retweetsQuote = {
-    retweets: network.retweetNetworkMetrics.numberOfEdges,
-    quotes: network.quoteNetworkMetrics.numberOfEdges,
-  };
+  const [numberOfEdgesPerType, setNumberOfEdgesPerType] = useState({});
+
+  useEffect(() => {
+    if (network && network.metricsPerEdgeType) {
+      const result = {};
+      Object.keys(network.metricsPerEdgeType).forEach((metric) => {
+        result[metric] = network.metricsPerEdgeType[metric].numberOfEdges;
+      });
+      setNumberOfEdgesPerType(result);
+      console.log(numberOfEdgesPerType);
+    }
+  }, [network]);
 
   return (
     <div className="charts-list">
-      { network.centralNodes && Object.keys(network.centralNodes).length > 0 && 
-        (
+      {network.centralNodes && Object.keys(network.centralNodes).length > 0 && (
         <div className="chart-container" key={`container_centrality`}>
-          <div className="title-project" key={`title_centrality`}>Central Nodes</div>
-            { Object.keys(network.centralNodes).map((metric, i) => {
-              return (
+          <div className="title-project" key={`title_centrality`}>
+            Central Nodes
+          </div>
+          {Object.keys(network.centralNodes).map((metric, i) => {
+            return (
               <div key={`metrics_${metric}_${i}`}>
-                <div style={{ marginBottom:"10px" }}  className="small-title-project" key={`central_${metric}`}>
+                <div
+                  style={{ marginBottom: "10px" }}
+                  className="small-title-project"
+                  key={`central_${metric}`}
+                >
                   {metric} centrality
                 </div>
-              <div className="name-cnt-conainer" style={{ color: 'white' ,marginBottom:"15px" }} key={`list_${metric}`}>
+                <div
+                  className="name-cnt-conainer"
+                  style={{ color: "white", marginBottom: "15px" }}
+                  key={`list_${metric}`}
+                >
                   {network.centralNodes[metric].map((name, index) => (
-                  <span style={{ backgroundColor: "rgb(33 44 69)" }}  className="name-cnt" key={`name_${index}`}>{name}  </span>
+                    <span
+                      style={{ backgroundColor: "rgb(33 44 69)" }}
+                      className="name-cnt"
+                      key={`name_${index}`}
+                    >
+                      {name}{" "}
+                    </span>
                   ))}
-              </div>              
-            </div>
-            )
-            })}
+                </div>
+              </div>
+            );
+          })}
         </div>
       )}
-      {retweetsQuote.retweets > 0 && retweetsQuote.quotes > 0 && (
-        <div className="chart-container">
-          <div className="small-title-project">Retweet & Quote Edges</div>
-          <PieChart dataObject={retweetsQuote} width={300} height={300} />
-        </div>
-      )}
+      {/* {numberOfEdgesPerType.retweets > 0 && numberOfEdgesPerType.quotes > 0 && ( */}
+      <div className="chart-container">
+        <div className="small-title-project">Retweet & Quote Edges</div>
+        <PieChart dataObject={numberOfEdgesPerType} width={300} height={300} />
+      </div>
+      {/* )} */}
       <div className="chart-container">
         <div className="title-project">Overall Metrics</div>
-        <MetricsBox {...network.networkMetrics} communities={network.communities? Object.keys(network.communities).length : 0 }  />
+        <MetricsBox
+          {...network.networkMetrics}
+          communities={
+            network.communities ? Object.keys(network.communities).length : 0
+          }
+        />
       </div>
-      {retweetsQuote.retweets > 0 && (
+      {numberOfEdgesPerType.retweets > 0 && (
         <div className="chart-container">
           <div className="title-project">Retweets Only Metrics</div>
           <MetricsBox {...network.retweetNetworkMetrics} />
         </div>
       )}
-      {retweetsQuote.quotes > 0 && (
+      {numberOfEdgesPerType.quotes > 0 && (
         <div className="chart-container">
           <div className="title-project">Quotes Only Metrics</div>
           <MetricsBox {...network.quoteNetworkMetrics} />
@@ -64,7 +93,6 @@ export function NetworkMetrics({ network }) {
             <MetricsBox {...network.metricsPerEdgeType[edgeType]} />
           </div>
         ))}
-      
     </div>
   );
 }

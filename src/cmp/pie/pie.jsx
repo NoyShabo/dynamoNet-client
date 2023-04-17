@@ -2,7 +2,7 @@ import { Group } from "@visx/group";
 import { scaleOrdinal } from "@visx/scale";
 import Pie from "@visx/shape/lib/shapes/Pie";
 import { Text } from "@visx/text";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSetState } from "react-use";
 import AnimatedPie from "./animatedPie/animatedPie";
 import LegendPie from "./legendPie/legendPie";
@@ -17,25 +17,34 @@ export function PieChart({
   animate = true,
   dataObject,
 }) {
-  const [{ active, selectedLabel, sum }, setState] = useSetState({
+  const [{ active, selectedLabel }, setState] = useSetState({
     active: null,
     selectedLabel: null,
-    sum: Object.values(dataObject).reduce(
-      (acc, val) => acc + parseFloat(val),
-      0
-    ),
   });
 
-  const labelsNames = Object.keys(dataObject);
+  const [sum, setSum] = React.useState(0);
 
-  const labelsArray = labelsNames.map((name) => {
-    return {
-      label: name,
-      usage: Number(dataObject[name]),
-      // percent: 100 * (Number(dataObject[name]) / sum)
-      percent: (100 * (Number(dataObject[name]) / sum)).toFixed(2),
-    };
-  });
+  const [labelsNames, setLabelsNames] = React.useState([]);
+  const [labelsArray, setLabelsArray] = React.useState([]);
+
+  useEffect(() => {
+    if (dataObject) {
+      setSum(
+        Object.values(dataObject).reduce((acc, val) => acc + parseFloat(val), 0)
+      );
+      setLabelsNames(Object.keys(dataObject));
+      setLabelsArray(
+        labelsNames.map((name) => {
+          return {
+            label: name,
+            usage: Number(dataObject[name]),
+            // percent: 100 * (Number(dataObject[name]) / sum)
+            percent: (100 * (Number(dataObject[name]) / sum)).toFixed(2),
+          };
+        })
+      );
+    }
+  }, [dataObject]);
 
   const usage = (d) => d.usage;
   const colorsRange = [
@@ -92,7 +101,7 @@ export function PieChart({
               <AnimatedPie
                 {...pie}
                 animate={animate}
-                getKey={(arc) => arc.data.percent + "%"}
+                getKey={(arc) => arc.data.label + " " + arc.data.percent + "%"}
                 onClickDatum={({ data: { label } }) =>
                   animate &&
                   setState({
@@ -136,7 +145,7 @@ export function PieChart({
             fontWeight={300}
             pointerEvents="none"
             fontFamily="Open Sans"
-            ></text>
+          ></text>
         )}
       </svg>
       <LegendPie
