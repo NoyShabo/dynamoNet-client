@@ -37,6 +37,8 @@ import {
 } from "../../serverApi/rest/projectApi";
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
+import * as FileSaver from 'file-saver';
+import XLSX from 'sheetjs-style';
 
 import { deleteTimeRange } from "../../serverApi/rest/timeRangeApi";
 function getTimeRangeCards(project, handleDeleteTimeRange) {
@@ -81,6 +83,7 @@ function SourceNetwork({ network }) {
     </div>
   );
 }
+
 
 function mapCommunities(project, slice = 5) {
   // sort communities by size
@@ -199,6 +202,45 @@ export function Project() {
     }
     setIsDeleting(false);
   };
+
+
+  const exportExcel=( )=>{
+    const data=[];
+    const timeRanges=project.timeRanges;
+    console.log(timeRanges)
+    timeRanges.forEach(timeRange=>{
+      const timeRangeName=timeRange.title;
+      const dates=new Date(timeRange.startDate).toLocaleDateString()+" - "+new Date(timeRange.endDate).toLocaleDateString();
+      const nodes=timeRange.network.networkMetrics.numberOfNodes;
+      const edges=timeRange.network.networkMetrics.numberOfEdges;
+      const communities=Object.keys(timeRange.network.communities).length;
+      const density=timeRange.network.networkMetrics.density;
+      const diameter=timeRange.network.networkMetrics.diameter;
+      const degreeCentralization=timeRange.network.networkMetrics.degreeCentrality;
+      data.push({
+        "Timerange Name" : timeRangeName,
+        "Dates" : dates,
+        "Nodes" : nodes,
+        "Edges" : edges,
+        "Communities" : communities,
+        "Density" : density,
+        "Diameter" : diameter,
+        "Degree Centralization" : degreeCentralization
+      })
+    })
+      const fileName=`${project.title}- TimeRanges metrics`;
+    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const fileExtension = '.xlsx';
+  
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const dataExport = new Blob([excelBuffer], {type: fileType});
+    FileSaver.saveAs(dataExport, fileName + fileExtension);
+  
+  }
+
+
 
   const handleExport = async (e) => {
     e.preventDefault();
@@ -336,6 +378,20 @@ export function Project() {
                   <div className="mid-title-project width-element-top">
                     {project.description}
                   </div>
+                  <Button
+                      variant="contained"
+                      size="small"
+                      onClick={exportExcel}
+                      style={{
+                        "& > *": {
+                          margin: "auto",
+                        },
+                      }}
+                    >
+                      <FileDownloadIcon />
+                      Export TR Mertrics
+                    </Button>
+                  
                   <div className="width-element-top tags">
                     {project.keywords &&
                       project.keywords.map((keyword, index) => (
