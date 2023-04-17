@@ -420,7 +420,19 @@ export function Project() {
                   <div className="mid-title-project width-element-top">
                     {project.description}
                   </div>
-                  <button onClick={exportExcel}>Export TR mertrics</button>
+                  <Button
+                      variant="contained"
+                      size="small"
+                      onClick={exportExcel}
+                      style={{
+                        "& > *": {
+                          margin: "auto",
+                        },
+                      }}
+                    >
+                      <FileDownloadIcon />
+                      Export TR Mertrics
+                    </Button>
                   
                   <div className="width-element-top tags">
                     {project.keywords &&
