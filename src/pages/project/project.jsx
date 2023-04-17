@@ -389,7 +389,7 @@ export function Project() {
                       }}
                     >
                       <FileDownloadIcon />
-                      Export TR Mertrics
+                      Export TR Metrics
                     </Button>
                   
                   <div className="width-element-top tags">
