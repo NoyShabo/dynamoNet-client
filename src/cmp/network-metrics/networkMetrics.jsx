@@ -7,8 +7,9 @@ import "./networkMetrics.scss";
 
 export function NetworkMetrics({ network }) {
   const [numberOfEdgesPerType, setNumberOfEdgesPerType] = useState({});
-
+  const [isPieReady, setIsPieReady] = useState(false);
   useEffect(() => {
+    setIsPieReady(false);
     const result = {};
     Object.keys(network.metricsPerEdgeType).forEach((metric) => {
       result[metric] = network.metricsPerEdgeType[metric].numberOfEdges;
@@ -20,6 +21,7 @@ export function NetworkMetrics({ network }) {
       // });
     });
     setNumberOfEdgesPerType(result);
+    setIsPieReady(true);
   }, [network]);
 
   return (
@@ -60,10 +62,16 @@ export function NetworkMetrics({ network }) {
         </div>
       )}
       {/* {numberOfEdgesPerType.retweets > 0 && numberOfEdgesPerType.quotes > 0 && ( */}
-      <div className="chart-container">
-        <div className="small-title-project">Retweet & Quote Edges</div>
-        <PieChart dataObject={numberOfEdgesPerType} width={300} height={300} />
-      </div>
+      {isPieReady && (
+        <div className="chart-container">
+          <div className="small-title-project">Retweet & Quote Edges</div>
+          <PieChart
+            dataObject={numberOfEdgesPerType}
+            width={300}
+            height={300}
+          />
+        </div>
+      )}
       {/* )} */}
       <div className="chart-container">
         <div className="title-project">Overall Metrics</div>
