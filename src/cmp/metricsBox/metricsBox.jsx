@@ -12,9 +12,8 @@ export function MetricsBox({
   numberOfEdges,
   density,
   diameter,
-  radius,
-  reciprocity,
   degreeCentrality,
+  communities
 }) {
   return (
     <Box m="20px">
@@ -61,6 +60,27 @@ export function MetricsBox({
             />
           </Box>
         </Grid>
+        {communities&& <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
+          <Box
+            width="100%"
+            height="160px"
+            backgroundColor="#1F2A40"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            boxShadow="0px 1px 4px 0px #9f9797"
+            borderRadius="10px"
+          >
+            <StatBox
+              title={communities || "NaN"}
+              subtitle="Communities"
+              progress="0.80"
+              increase="+43%"
+              icon={<CommitIcon sx={{ color: "#70d8bd", fontSize: "26px" }} />}
+            />
+          </Box>
+        </Grid>
+      }
         <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
           <Box
             width="100%"
@@ -98,48 +118,6 @@ export function MetricsBox({
               progress="0.80"
               increase="+43%"
               icon={<ShareIcon sx={{ color: "#70d8bd", fontSize: "26px" }} />}
-            />
-          </Box>
-        </Grid>
-        <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
-          <Box
-            width="100%"
-            height="160px"
-            backgroundColor="#1F2A40"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            boxShadow="0px 1px 4px 0px #9f9797"
-            borderRadius="10px"
-          >
-            <StatBox
-              title={radius || "NaN"}
-              subtitle="Radius"
-              progress="0.80"
-              increase="+43%"
-              icon={<ShareIcon sx={{ color: "#70d8bd", fontSize: "26px" }} />}
-            />
-          </Box>
-        </Grid>
-        <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
-          <Box
-            width="100%"
-            height="160px"
-            backgroundColor="#1F2A40"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            boxShadow="0px 1px 4px 0px #9f9797"
-            borderRadius="10px"
-          >
-            <StatBox
-              title={reciprocity || "NaN"}
-              subtitle="Reciprocity"
-              progress="0.80"
-              increase="+43%"
-              icon={
-                <HandshakeIcon sx={{ color: "#70d8bd", fontSize: "26px" }} />
-              }
             />
           </Box>
         </Grid>

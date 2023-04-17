@@ -38,7 +38,6 @@ export function Timerange({}) {
     const res = await getTimeRange(id, withNetwork);
     dispatch(setTimeRange(res));
   };
-
   function backPrevPage() {
     navigate(`/project/${projectId}`);
   }
