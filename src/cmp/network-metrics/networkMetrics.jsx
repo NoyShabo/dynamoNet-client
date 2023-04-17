@@ -7,7 +7,7 @@ import "./networkMetrics.scss";
 
 export function NetworkMetrics({ network }) {
   const [numberOfEdgesPerType, setNumberOfEdgesPerType] = useState({});
-
+  const [isPieReady, setIsPieReady] = useState(false);
   useEffect(() => {
     const keys = Object.keys(network.metricsPerEdgeType);
     setNumberOfEdgesPerType(
@@ -17,8 +17,6 @@ export function NetworkMetrics({ network }) {
         return accumulator;
       }, {})
     );
-
-    // setNumberOfEdgesPerType(result);
   }, [network]);
 
   return (

@@ -6,6 +6,8 @@ export function NetworkEvolution({ project }) {
   const [numberOfNodes, setNumberOfNodes] = useState([]);
   const [numberOfEdges, setNumberOfEdges] = useState([]);
   const [density, setDensity] = useState([]);
+  const [communities, setCommunities] = useState([]);
+
   const [reciprocity, setReciprocity] = useState([]);
   const [degreeCentrality, setDegreeCentrality] = useState([
     { id: "Degree Centralization", data: [] },
@@ -17,6 +19,8 @@ export function NetworkEvolution({ project }) {
     const numberOfNodes = [];
     const numberOfEdges = [];
     const density = [];
+    const communities = [];
+
     const reciprocity = [];
     const degreeCentrality = [{ id: "Degree Centralization", data: [] }];
     const radius = [{ id: "Radius", data: [] }];
@@ -35,6 +39,11 @@ export function NetworkEvolution({ project }) {
       density.push({
         window: timeRange.title,
         frequency: timeRange.network.networkMetrics.density,
+        key: `${timeRange._id}-density`,
+      });
+      communities.push({
+        window: timeRange.title,
+        frequency: Object.keys(timeRange.network.communities).length,
         key: `${timeRange._id}-density`,
       });
       reciprocity.push({
@@ -58,6 +67,7 @@ export function NetworkEvolution({ project }) {
     setNumberOfNodes(numberOfNodes);
     setNumberOfEdges(numberOfEdges);
     setDensity(density);
+    setCommunities(communities);
     setReciprocity(reciprocity);
     setDegreeCentrality(degreeCentrality);
     setRadius(radius);
@@ -95,6 +105,10 @@ export function NetworkEvolution({ project }) {
         <div className="chart-container">
           <div className="small-title-project">Density Evolution</div>
           <BarChart width={100 * density.length} height={400} data={density} />
+        </div>
+        <div className="chart-container">
+          <div className="small-title-project">Communities Number Evolution</div>
+          <BarChart width={100 * communities.length} height={400} data={communities} />
         </div>
         {/* <div className="chart-container">
           <div className="small-title-project">Reciprocity Evolution</div>
