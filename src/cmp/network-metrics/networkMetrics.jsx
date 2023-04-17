@@ -9,14 +9,17 @@ export function NetworkMetrics({ network }) {
   const [numberOfEdgesPerType, setNumberOfEdgesPerType] = useState({});
 
   useEffect(() => {
-    if (network && network.metricsPerEdgeType) {
-      const result = {};
-      Object.keys(network.metricsPerEdgeType).forEach((metric) => {
-        result[metric] = network.metricsPerEdgeType[metric].numberOfEdges;
-      });
-      setNumberOfEdgesPerType(result);
-      console.log(numberOfEdgesPerType);
-    }
+    const result = {};
+    Object.keys(network.metricsPerEdgeType).forEach((metric) => {
+      result[metric] = network.metricsPerEdgeType[metric].numberOfEdges;
+      // setNumberOfEdgesPerType((prev) => {
+      //   return {
+      //     ...prev,
+      //     [metric]: network.metricsPerEdgeType[metric].numberOfEdges,
+      //   };
+      // });
+    });
+    setNumberOfEdgesPerType(result);
   }, [network]);
 
   return (
