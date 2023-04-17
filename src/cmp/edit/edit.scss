@@ -6,16 +6,23 @@
     padding: 30px;
     border-radius: 10px;
     box-shadow: 2px 1px 6px 0px;
-    
+    width: 400px;
     .form-container {
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
 
         input {
-            border: none;
-            outline: none;
-            background: none,
+            // border: none;
+            // outline: none;
+            background: none;
+            width: 300px;
+        }
+
+        .btns{
+            position: absolute;
+            top:0;
+            right:0;
         }
     }
 

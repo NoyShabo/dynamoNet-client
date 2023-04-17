@@ -51,7 +51,7 @@ export function Edit(props) {
                   className={input.className}
                   style={{
                     ...input.style,
-                    width: `${values[index].length}ch`,
+                    // width: `${values[index].length}ch`,
                     maxWidth: "50vw",
                   }}
                   {...input.props}
@@ -59,8 +59,8 @@ export function Edit(props) {
               </label>
             ))}
           </div>
-          <div className="title-project">
-            <Button
+          <div className="btns">
+             <Button
               color="success"
               type="submit"
               size="medium"
@@ -73,6 +73,8 @@ export function Edit(props) {
               startIcon={<CloseIcon style={{ fontSize: 26 }} />}
               sx={buttonStyle}
             ></Button>
+          </div>
+          <div className="title-project">
           </div>
         </form>
         </div>
