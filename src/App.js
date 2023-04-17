@@ -20,10 +20,86 @@ import { Project } from "./pages/project/project";
 import { ProjectsPage } from "./pages/projects/projects";
 import { Timerange } from "./pages/timerange/timerange";
 // import {PageModal} from './cmp/modal/modal'
-import { PageNotFound } from "./pages/page-not-found/page-not-found";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import socketIOClient from "socket.io-client";
+import { API_BASE_URL } from "./constants";
 import { FormNewProjectCSV } from "./pages/form-new-project-csv/formNewProjectCsv";
+import { PageNotFound } from "./pages/page-not-found/page-not-found";
+import { setProject } from "./redux/actions/projectActions";
+import { getProject } from "./serverApi/rest/projectApi";
 
 function App() {
+  const [socket, setSocket] = useState(null);
+  const dispatch = useDispatch();
+
+  const getProjectById = async (id) => {
+    try {
+      const res = await getProject(id);
+      dispatch(setProject(res));
+    } catch (err) {
+      toast.error(err.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  };
+
+  useEffect(() => {
+    const newSocket = socketIOClient(API_BASE_URL);
+    newSocket.on("timeRangesReady", (data) => {
+      console.log("data", data);
+    });
+    setSocket(newSocket);
+    return () => newSocket.close();
+  }, []);
+
+  const updateProject = (message, id) => {
+    const project = JSON.parse(localStorage.getItem("project"));
+    if (project && id === project._id) {
+      getProjectById(id).then(() => {
+        if (window.location.pathname.includes("/project/"))
+          toast.success(message);
+      });
+    }
+
+    // check if route is project page
+    if (
+      !window.location.pathname.includes("/project/") ||
+      (project && id !== project._id)
+    ) {
+      toast.success(`${message}\nClick here to go to project.`, {
+        position: "top-right",
+        autoClose: 10000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        onClick: () => {
+          window.location.href = `/project/${id}`;
+        },
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("projectReady", (data) => {
+        updateProject("Project ready.", data.projectId);
+      });
+
+      socket.on("newFavoriteNode", (data) => {
+        updateProject("New favorite node added.", data.projectId);
+      });
+
+      socket.on("timeRangesReady", (data) => {
+        updateProject("Time ranges are ready.", data.projectId);
+      });
+    }
+  }, [socket]);
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -73,6 +149,7 @@ function App() {
 
           {/* <Route path="/modal" element={<PageModal />} /> */}
         </Routes>
+        <ToastContainer />
       </div>
     </BrowserRouter>
   );

@@ -1,4 +1,5 @@
-const baseUrl = "http://localhost:3500/";
+import { API_BASE_URL } from "../constants";
+const baseUrl = API_BASE_URL;
 
 const getToken = () => {
   const user = JSON.parse(localStorage.getItem("user"));

@@ -190,7 +190,6 @@ export function Project() {
   const [threshold, setThreshold] = useState(0.05);
   const [communities, setCommunities] = useState([]);
   const [slice, setSlice] = useState(5);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [isExporting, setIsExporting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const navigate = useNavigate();
@@ -217,6 +216,7 @@ export function Project() {
   }, []);
 
   useEffect(() => {
+    setCommunities([]);
     if (project) {
       setTitle(project.title);
       setDescription(project.description);
@@ -613,12 +613,11 @@ export function Project() {
                         {
                           type: "text",
                           value: description || project.description,
-                          className: "mid-title-project width-element-top"
+                          className: "mid-title-project width-element-top",
                         },
                       ]}
                       onSubmit={handleEdit}
                     />
-                    
                   </div>
                 </>
               )
