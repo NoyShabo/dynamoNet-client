@@ -9,17 +9,16 @@ export function NetworkMetrics({ network }) {
   const [numberOfEdgesPerType, setNumberOfEdgesPerType] = useState({});
 
   useEffect(() => {
-    const result = {};
-    Object.keys(network.metricsPerEdgeType).forEach((metric) => {
-      result[metric] = network.metricsPerEdgeType[metric].numberOfEdges;
-      // setNumberOfEdgesPerType((prev) => {
-      //   return {
-      //     ...prev,
-      //     [metric]: network.metricsPerEdgeType[metric].numberOfEdges,
-      //   };
-      // });
-    });
-    setNumberOfEdgesPerType(result);
+    const keys = Object.keys(network.metricsPerEdgeType);
+    setNumberOfEdgesPerType(
+      keys.reduce((accumulator, metric) => {
+        accumulator[metric] = network.metricsPerEdgeType[metric].numberOfEdges;
+        console.log(accumulator);
+        return accumulator;
+      }, {})
+    );
+
+    // setNumberOfEdgesPerType(result);
   }, [network]);
 
   return (
@@ -62,7 +61,11 @@ export function NetworkMetrics({ network }) {
       {/* {numberOfEdgesPerType.retweets > 0 && numberOfEdgesPerType.quotes > 0 && ( */}
       <div className="chart-container">
         <div className="small-title-project">Retweet & Quote Edges</div>
+        {/* {numerRender == 2 ? ( */}
         <PieChart dataObject={numberOfEdgesPerType} width={300} height={300} />
+        {/* ) : ( */}
+        {/* setNumberRender(2) */}
+        {/* )} */}
       </div>
       {/* )} */}
       <div className="chart-container">

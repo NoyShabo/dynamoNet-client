@@ -73,87 +73,91 @@ export function PieChart({
   return (
     // <div className='pie-chart'>
     <>
-      <svg
-        width={width}
-        height={height}
-        viewBox={`0 ${-padding / 2} ${+width} ${+height + padding}`}
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <Group top={centerY + margin.top} left={centerX + margin.left}>
-          <Pie
-            data={
-              selectedLabel
-                ? labelsArray.filter(({ label }) => label === selectedLabel)
-                : labelsArray
-            }
-            pieValue={usage}
-            fontFamily="Open Sans"
-            outerRadius={donutThickness}
-            innerRadius={({ data }) => {
-              const size = active && active.label === data.label;
-              return centerY + margin.top + size * 5;
-            }}
-            cornerRadius={4}
-            padAngle={0.05}
-            // padRadius={0.005}
-          >
-            {(pie) => (
-              <AnimatedPie
-                {...pie}
-                animate={animate}
-                getKey={(arc) => arc.data.label + " " + arc.data.percent + "%"}
-                onClickDatum={({ data: { label } }) =>
-                  animate &&
-                  setState({
-                    selectedLabel:
-                      selectedLabel && selectedLabel === label ? null : label,
-                  })
-                }
-                getColor={(arc) => getBrowserColor(arc.data.label)}
-                setState={setState}
-              />
-            )}
-          </Pie>
-          <Text
-            textAnchor="middle"
-            fill="#FFF"
-            fontSize={16}
-            fontWeight={200}
-            fontFamily="Open Sans"
-            dy={-10}
-          >
-            {active ? active.label : ""}
-          </Text>
-          <Text
-            textAnchor="middle"
-            fill="#FFF"
-            fontSize={16}
-            fontWeight={200}
-            fontFamily="Open Sans"
-            dy={10}
-          >
-            {active ? active.usage : ""}
-          </Text>
-        </Group>
-        {animate && (
-          <text
-            textAnchor="end"
-            x={width - 16}
-            y={height - 16}
-            fill="white"
-            fontSize={18}
-            fontWeight={300}
-            pointerEvents="none"
-            fontFamily="Open Sans"
-          ></text>
-        )}
-      </svg>
-      <LegendPie
-        arr={labelsArray}
-        setStateActive={setState}
-        domain={labelsNames}
-        range={colorsRange}
-      />
+      <div>
+        <svg
+          width={width}
+          height={height}
+          viewBox={`0 ${-padding / 2} ${+width} ${+height + padding}`}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <Group top={centerY + margin.top} left={centerX + margin.left}>
+            <Pie
+              data={
+                selectedLabel
+                  ? labelsArray.filter(({ label }) => label === selectedLabel)
+                  : labelsArray
+              }
+              pieValue={usage}
+              fontFamily="Open Sans"
+              outerRadius={donutThickness}
+              innerRadius={({ data }) => {
+                const size = active && active.label === data.label;
+                return centerY + margin.top + size * 5;
+              }}
+              cornerRadius={4}
+              padAngle={0.05}
+              // padRadius={0.005}
+            >
+              {(pie) => (
+                <AnimatedPie
+                  {...pie}
+                  animate={animate}
+                  getKey={(arc) =>
+                    arc.data.label + " " + arc.data.percent + "%"
+                  }
+                  onClickDatum={({ data: { label } }) =>
+                    animate &&
+                    setState({
+                      selectedLabel:
+                        selectedLabel && selectedLabel === label ? null : label,
+                    })
+                  }
+                  getColor={(arc) => getBrowserColor(arc.data.label)}
+                  setState={setState}
+                />
+              )}
+            </Pie>
+            <Text
+              textAnchor="middle"
+              fill="#FFF"
+              fontSize={16}
+              fontWeight={200}
+              fontFamily="Open Sans"
+              dy={-10}
+            >
+              {active ? active.label : ""}
+            </Text>
+            <Text
+              textAnchor="middle"
+              fill="#FFF"
+              fontSize={16}
+              fontWeight={200}
+              fontFamily="Open Sans"
+              dy={10}
+            >
+              {active ? active.usage : ""}
+            </Text>
+          </Group>
+          {animate && (
+            <text
+              textAnchor="end"
+              x={width - 16}
+              y={height - 16}
+              fill="white"
+              fontSize={18}
+              fontWeight={300}
+              pointerEvents="none"
+              fontFamily="Open Sans"
+            ></text>
+          )}
+        </svg>
+        <LegendPie
+          arr={labelsArray}
+          setStateActive={setState}
+          domain={labelsNames}
+          range={colorsRange}
+        />
+      </div>
     </>
     // </div>
   );
