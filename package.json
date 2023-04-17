@@ -73,8 +73,7 @@
     "sigma": "^2.4.0",
     "socket.io-client": "^4.6.1",
     "tsparticles": "^2.9.3",
-    "web-vitals": "^2.1.4",
-    "xlsx": "^0.18.5"
+    "web-vitals": "^2.1.4"
   },
   "overrides": {
     "react-vis": {
