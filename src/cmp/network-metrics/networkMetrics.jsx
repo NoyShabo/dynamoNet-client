@@ -8,16 +8,31 @@ import "./networkMetrics.scss";
 export function NetworkMetrics({ network }) {
   const [numberOfEdgesPerType, setNumberOfEdgesPerType] = useState({});
   const [isPieReady, setIsPieReady] = useState(false);
+
   useEffect(() => {
     const keys = Object.keys(network.metricsPerEdgeType);
     setNumberOfEdgesPerType(
       keys.reduce((accumulator, metric) => {
         accumulator[metric] = network.metricsPerEdgeType[metric].numberOfEdges;
-        console.log(accumulator);
         return accumulator;
       }, {})
     );
+    setIsPieReady(true);
   }, [network]);
+
+  useEffect(() => {
+    if (isPieReady) {
+      setIsPieReady(false);
+      const keys = Object.keys(network.metricsPerEdgeType);
+      setNumberOfEdgesPerType(
+        keys.reduce((accumulator, metric) => {
+          accumulator[metric] =
+            network.metricsPerEdgeType[metric].numberOfEdges;
+          return accumulator;
+        }, {})
+      );
+    }
+  }, [isPieReady]);
 
   return (
     <div className="charts-list">
