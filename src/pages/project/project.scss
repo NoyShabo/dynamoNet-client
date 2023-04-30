@@ -107,6 +107,14 @@
         margin-bottom:30px;
 
     }
+
+    .right-side{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+    }
 }
 
 .container-header-project{
