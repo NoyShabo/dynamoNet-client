@@ -1,3 +1,5 @@
+
+
 @mixin display-line-in-svg($stroke-width: 0) {
     @if $stroke-width == 1 {
         stroke-width: 0;
@@ -12,12 +14,12 @@
 
 }
 
-.cds--cc--alluvial{
-    .link{
-        // @include display-line-in-svg($stroke-width:0);
-        // stroke-width: inherit;
-    }
-}    
+// .cds--cc--alluvial{
+//     .link{
+//         // @include display-line-in-svg($stroke-width:0);
+//         // stroke-width: inherit;
+//     }
+// }    
 
 
 .community-evolution {
