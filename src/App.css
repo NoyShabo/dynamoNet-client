@@ -92,3 +92,7 @@
     transform: rotate(360deg);
   }
 }
+
+.cds--cc--layout-alignitems-center {
+  display: none !important;
+}
