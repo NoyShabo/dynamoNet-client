@@ -382,19 +382,6 @@ export function Project() {
                   <div className="mid-title-project width-element-top">
                     {project.description}
                   </div>
-                  <Button
-                    variant="contained"
-                    size="small"
-                    onClick={exportExcel}
-                    style={{
-                      "& > *": {
-                        margin: "auto",
-                      },
-                    }}
-                  >
-                    <FileDownloadIcon />
-                    Export TR Metrics
-                  </Button>
 
                   <div className="width-element-top tags">
                     {project.keywords &&
@@ -420,8 +407,9 @@ export function Project() {
                     />
                   )}
                 </div>
-                {project.dataset && project.dataset.length > 0 && (
-                  <div className="right">
+
+                <div className="right">
+                  {project.dataset && project.dataset.length > 0 && (
                     <button
                       onClick={toggleModal}
                       type="button"
@@ -432,14 +420,28 @@ export function Project() {
                         justifyContent: "center",
                         fontFamily: "OpenSans-Light",
                         marginRight: "41px",
+                        marginBottom: "13px",
                       }}
                     >
                       {" "}
                       <PeopleIcon />
                       <span className="text-dataset"> Dataset</span>
                     </button>
-                  </div>
-                )}
+                  )}
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={exportExcel}
+                    style={{
+                      "& > *": {
+                        margin: "auto",
+                      },
+                    }}
+                  >
+                    <FileDownloadIcon />
+                    Export Metrics
+                  </Button>
+                </div>
               </div>
             </div>
             {project.status !== ProjectStatus.FAILED ? (
