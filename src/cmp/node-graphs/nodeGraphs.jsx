@@ -34,6 +34,7 @@ function getNodeMetricsByMetricName(metric, nodeMetrics, timeRanges = []) {
     //   });
     // }
     // // });
+    let sum = 0;
     timeRanges.forEach((timeRange) => {
       final.push({
         date: timeRange.title,
@@ -47,11 +48,15 @@ function getNodeMetricsByMetricName(metric, nodeMetrics, timeRanges = []) {
               ? element.nodeMetrics[metric]
               : 0;
           }
+          sum += timeRange[node] ? timeRange[node] : 0;
         });
         // final[final.length - 1][node] = element.nodeMetrics
         //   ? element.nodeMetrics[metric]
         //   : null;
       });
+      if (sum === 0) {
+        final.length = 0;
+      }
     }
   } else {
     // nodeMetrics.forEach((element) => {
@@ -139,14 +144,9 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
       {/* <NodeCard nodeDetails={nodeSelected}></NodeCard> */}
       {/* <div className="head-title"> Node Evolution</div> */}
       <div className="charts-list">
-        <div className="chart-container chart-container-node">
-          <div className="small-title-project">Indegree Evolution</div>
-          {/* <BarChart
-            width={100 * indegreeMetricData.length}
-            height={400}
-            data={indegreeMetricData}
-          /> */}
-          {indegreeMetricData.length > 0 && (
+        {indegreeMetricData.length > 0 && (
+          <div className="chart-container chart-container-node">
+            <div className="small-title-project">Indegree Evolution</div>
             <Bars
               // width={window.innerWidth * 0.8}
               width={Math.min(
@@ -156,11 +156,11 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
               height={400}
               data={indegreeMetricData}
             />
-          )}
-        </div>
-        <div className="chart-container chart-container-node">
-          <div className="small-title-project">Outdegree Evolution</div>
-          {outdegreeMetricData.length > 0 && (
+          </div>
+        )}
+        {outdegreeMetricData.length > 0 && (
+          <div className="chart-container chart-container-node">
+            <div className="small-title-project">Outdegree Evolution</div>
             <Bars
               width={Math.min(
                 100 * (Object.keys(nodeMetrics).length + timeRanges.length),
@@ -169,11 +169,11 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
               height={400}
               data={outdegreeMetricData}
             />
-          )}
-        </div>
-        <div className="chart-container chart-container-node">
-          <div className="small-title-project">Degree Evolution</div>
-          {degreeMetricData.length > 0 && (
+          </div>
+        )}
+        {degreeMetricData.length > 0 && (
+          <div className="chart-container chart-container-node">
+            <div className="small-title-project">Degree Evolution</div>
             <Bars
               // width={window.innerWidth * 0.8}
               width={Math.min(
@@ -183,8 +183,8 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
               height={400}
               data={degreeMetricData}
             />
-          )}
-        </div>
+          </div>
+        )}
 
         <div className="chart-container chart-container-line">
           <div className="small-title-project">
