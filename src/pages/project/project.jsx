@@ -5,12 +5,14 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import PeopleIcon from "@mui/icons-material/People";
 import { Button } from "@mui/material";
 import Chip from "@mui/material/Chip";
+import * as FileSaver from "file-saver";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import BeatLoader from "react-spinners/BeatLoader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import XLSX from "sheetjs-style";
 import { GlobalCard } from "../../cmp/card/card";
 import { CommunityEvolution } from "../../cmp/community-evolution/CommunityEvolution";
 import { Delete } from "../../cmp/delete/delete";
@@ -37,8 +39,6 @@ import {
 } from "../../serverApi/rest/projectApi";
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
-import * as FileSaver from 'file-saver';
-import XLSX from 'sheetjs-style';
 
 import { deleteTimeRange } from "../../serverApi/rest/timeRangeApi";
 function getTimeRangeCards(project, handleDeleteTimeRange) {
@@ -83,7 +83,6 @@ function SourceNetwork({ network }) {
     </div>
   );
 }
-
 
 function mapCommunities(project, slice = 5) {
   // sort communities by size
@@ -203,44 +202,45 @@ export function Project() {
     setIsDeleting(false);
   };
 
-
-  const exportExcel=( )=>{
-    const data=[];
-    const timeRanges=project.timeRanges;
-    console.log(timeRanges)
-    timeRanges.forEach(timeRange=>{
-      const timeRangeName=timeRange.title;
-      const dates=new Date(timeRange.startDate).toLocaleDateString()+" - "+new Date(timeRange.endDate).toLocaleDateString();
-      const nodes=timeRange.network.networkMetrics.numberOfNodes;
-      const edges=timeRange.network.networkMetrics.numberOfEdges;
-      const communities=Object.keys(timeRange.network.communities).length;
-      const density=timeRange.network.networkMetrics.density;
-      const diameter=timeRange.network.networkMetrics.diameter;
-      const degreeCentralization=timeRange.network.networkMetrics.degreeCentrality;
+  const exportExcel = () => {
+    const data = [];
+    const timeRanges = project.timeRanges;
+    console.log(timeRanges);
+    timeRanges.forEach((timeRange) => {
+      const timeRangeName = timeRange.title;
+      const dates =
+        new Date(timeRange.startDate).toLocaleDateString() +
+        " - " +
+        new Date(timeRange.endDate).toLocaleDateString();
+      const nodes = timeRange.network.networkMetrics.numberOfNodes;
+      const edges = timeRange.network.networkMetrics.numberOfEdges;
+      const communities = Object.keys(timeRange.network.communities).length;
+      const density = timeRange.network.networkMetrics.density;
+      const diameter = timeRange.network.networkMetrics.diameter;
+      const degreeCentralization =
+        timeRange.network.networkMetrics.degreeCentrality;
       data.push({
-        "Timerange Name" : timeRangeName,
-        "Dates" : dates,
-        "Nodes" : nodes,
-        "Edges" : edges,
-        "Communities" : communities,
-        "Density" : density,
-        "Diameter" : diameter,
-        "Degree Centralization" : degreeCentralization
-      })
-    })
-      const fileName=`${project.title}- TimeRanges metrics`;
-    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    const fileExtension = '.xlsx';
-  
+        "Timerange Name": timeRangeName,
+        Dates: dates,
+        Nodes: nodes,
+        Edges: edges,
+        Communities: communities,
+        Density: density,
+        Diameter: diameter,
+        "Degree Centralization": degreeCentralization,
+      });
+    });
+    const fileName = `${project.title}- TimeRanges metrics`;
+    const fileType =
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    const fileExtension = ".xlsx";
+
     const ws = XLSX.utils.json_to_sheet(data);
-    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const dataExport = new Blob([excelBuffer], {type: fileType});
+    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const dataExport = new Blob([excelBuffer], { type: fileType });
     FileSaver.saveAs(dataExport, fileName + fileExtension);
-  
-  }
-
-
+  };
 
   const handleExport = async (e) => {
     e.preventDefault();
@@ -289,8 +289,12 @@ export function Project() {
 
     try {
       const res = await updateProject(projectId, newVales);
-      project.title = res.project.title;
-      project.description = res.project.description;
+      // project.title = res.project.title;
+      // project.description = res.project.description;
+      const tempProject = { ...project };
+      tempProject.title = res.project.title;
+      tempProject.description = res.project.description;
+      dispatch(setProject(tempProject));
       setTitle(res.project.title);
       setDescription(res.project.description);
     } catch (err) {
@@ -378,8 +382,7 @@ export function Project() {
                   <div className="mid-title-project width-element-top">
                     {project.description}
                   </div>
-            
-                  
+
                   <div className="width-element-top tags">
                     {project.keywords &&
                       project.keywords.map((keyword, index) => (
@@ -404,9 +407,10 @@ export function Project() {
                     />
                   )}
                 </div>
-                
-                  <div className="right">
-                  {project.dataset && project.dataset.length > 0 && (<button
+
+                <div className="right">
+                  {project.dataset && project.dataset.length > 0 && (
+                    <button
                       onClick={toggleModal}
                       type="button"
                       className="button-dataset"
@@ -423,24 +427,21 @@ export function Project() {
                       <PeopleIcon />
                       <span className="text-dataset"> Dataset</span>
                     </button>
-                       )}
-                    <Button
-                      variant="contained"
-                      size="small"
-                      onClick={exportExcel}
-                      style={{
-                        "& > *": {
-                          margin: "auto",
-                        },
-                      }}
-                    >
-                      <FileDownloadIcon />
-                      Export Metrics
-                    </Button>
-                  </div>
-             
-                 
-                 
+                  )}
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={exportExcel}
+                    style={{
+                      "& > *": {
+                        margin: "auto",
+                      },
+                    }}
+                  >
+                    <FileDownloadIcon />
+                    Export Metrics
+                  </Button>
+                </div>
               </div>
             </div>
             {project.status !== ProjectStatus.FAILED ? (

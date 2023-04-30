@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import BeatLoader from "react-spinners/BeatLoader";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GlobalCard } from "../../cmp/card/card";
 import "../../globalStyle.scss";
@@ -60,7 +60,7 @@ export function ProjectsPage() {
 
   useEffect(() => {
     if (!user) {
-      navigate("/pageNotFound");
+      navigate("/login");
     } else {
       fetchProjects();
     }
