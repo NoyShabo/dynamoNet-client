@@ -73,9 +73,12 @@ export const handleResult = async (
   if (res && resData && res.status < 400) {
     return resData;
   }
-  if (res.status === 401) {
+  if (res.status === 401 || res.status === 403) {
     localStorage.removeItem("user");
-    window.location.reload();
+    window.location.href = "/login";
+  }
+  if (res.status === 404) {
+    window.location.href = "/pageNotFound";
   }
   if (customMessage) throw new Error(customMessage);
   else if (!res) throw new Error(`${errSrc}: Server not responding`);
