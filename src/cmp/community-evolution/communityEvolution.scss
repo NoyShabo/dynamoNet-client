@@ -1,3 +1,20 @@
+@mixin display-line-in-svg($stroke-width: 0) {
+    @if $stroke-width == 1 {
+        stroke-width: 0;
+    } @else {
+        stroke-width: $stroke-width;
+    }
+}
+  
+
 .alluvial{
     padding: 20px;
+
 }
+
+.cds--cc--alluvial{
+    .link{
+        // @include display-line-in-svg($stroke-width:0);
+        // stroke-width: inherit;
+    }
+}    

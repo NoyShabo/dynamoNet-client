@@ -39,13 +39,13 @@ function getData(communities, threshold = 0.3) {
         const community2 = timeRange2Communities[communityIndex2];
         const commonStrings = commonBetweenCommunities(community1, community2);
         if (
-          commonStrings > 0 &&
+          commonStrings === 0 ||
           commonStrings >= threshold * community1.length
         ) {
           communityLinks.push({
             source: `${timeRange1.title}-${communityIndex1}`,
             target: `${timeRange2.title}-${communityIndex2}`,
-            value: commonStrings,
+            value: commonStrings > 0 ? commonStrings : 0,
           });
           if (!initializedGroups[`${timeRange1.title}-${communityIndex1}`]) {
             communityGroups.push({
