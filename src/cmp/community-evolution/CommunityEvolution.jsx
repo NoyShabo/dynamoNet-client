@@ -1,6 +1,6 @@
 import { AlluvialChart } from "@carbon/charts-react";
 import "@carbon/charts/styles.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import seedrandom from "seedrandom";
 import "./communityEvolution.scss";
 
@@ -75,9 +75,9 @@ function getData(communities, threshold = 0.3) {
   const communityGroups2 = communityGroups.sort((a, b) =>
     a.category.localeCompare(b.category)
   );
-  console.log("c3", communityGroups2);
+  // console.log("c3", communityGroups2);
 
-  console.log("communityGroups2", communityGroups2);
+  // console.log("communityGroups2", communityGroups2);
   return {
     communityGroups2,
     communityLinks,
@@ -87,6 +87,7 @@ function getData(communities, threshold = 0.3) {
 
 export function CommunityEvolution({ communities, threshold }) {
   const [myState, setMyState] = useState(null);
+  const alluvialRef = useRef(null);
 
   useEffect(() => {
     const { communityGroups2, communityLinks, colorScale } = getData(
@@ -96,7 +97,6 @@ export function CommunityEvolution({ communities, threshold }) {
     setMyState({
       data: communityLinks,
       options: {
-        //   "title": "Alluvial (gradient)",
         alluvial: {
           nodes: communityGroups2,
           nodeAlignment: "left",
@@ -113,376 +113,31 @@ export function CommunityEvolution({ communities, threshold }) {
     });
   }, [communities, threshold]);
 
+  useEffect(() => {
+    if (alluvialRef && alluvialRef.current && alluvialRef.current.chartRef) {
+      console.log("current", alluvialRef.current);
+      const ref = alluvialRef.current.chartRef;
+      const paths = ref.querySelectorAll(".link");
+      console.log("paths", paths);
+      // change stroke-width to 1 less
+      paths.forEach((path) => {
+        path.setAttribute("stroke-width", 0);
+      });
+    }
+  }, [alluvialRef]);
+
   if (communities.length > 0 && myState) {
     return (
-      <AlluvialChart
-        className="alluvial"
-        data={myState.data}
-        options={myState.options}
-      ></AlluvialChart>
+      <div className="community-evolution">
+        <AlluvialChart
+          className="alluvial"
+          data={myState.data}
+          options={myState.options}
+          ref={alluvialRef}
+        ></AlluvialChart>
+      </div>
     );
   } else {
     return <div>No data</div>;
   }
 }
-
-// import React, { useState } from "react";
-// import { Sankey } from "paths-js";
-// var data = [
-//   {
-//     nodes: [
-//       [
-//         {
-//           id: "Energy",
-//         },
-//         {
-//           id: "Agriculture",
-//         },
-//         {
-//           id: "Minerals",
-//         },
-//       ],
-//       [
-//         {
-//           id: "Transportation",
-//         },
-//         {
-//           id: "Harvest",
-//         },
-//         {
-//           id: "Fuel",
-//         },
-//       ],
-//       [
-//         {
-//           id: "Road",
-//         },
-//         {
-//           id: "Chemicals",
-//         },
-//       ],
-//     ],
-//     links: [
-//       {
-//         start: "Energy",
-//         end: "Transportation",
-//         weight: 0,
-//       },
-//       {
-//         start: "Energy",
-//         end: "Harvest",
-//         weight: 10,
-//       },
-//       {
-//         start: "Energy",
-//         end: "Fuel",
-//         weight: 30,
-//       },
-//       {
-//         start: "Agriculture",
-//         end: "Road",
-//         weight: 10,
-//       },
-//       {
-//         start: "Agriculture",
-//         end: "Transportation",
-//         weight: 10,
-//       },
-//       {
-//         start: "Agriculture",
-//         end: "Harvest",
-//         weight: 10,
-//       },
-//       {
-//         start: "Minerals",
-//         end: "Fuel",
-//         weight: 30,
-//       },
-//       {
-//         start: "Transportation",
-//         end: "Chemicals",
-//         weight: 20,
-//       },
-//       {
-//         start: "Harvest",
-//         end: "Chemicals",
-//         weight: 10,
-//       },
-//       {
-//         start: "Fuel",
-//         end: "Road",
-//         weight: 30,
-//       },
-//       {
-//         start: "Minerals",
-//         end: "Chemicals",
-//         weight: 25,
-//       },
-//     ],
-//   },
-//   {
-//     nodes: [
-//       [
-//         {
-//           id: "Energy",
-//         },
-//         {
-//           id: "Agriculture",
-//         },
-//         {
-//           id: "Minerals",
-//         },
-//       ],
-//       [
-//         {
-//           id: "Transportation",
-//         },
-//         {
-//           id: "Harvest",
-//         },
-//         {
-//           id: "Fuel",
-//         },
-//       ],
-//       [
-//         {
-//           id: "Road",
-//         },
-//         {
-//           id: "Chemicals",
-//         },
-//       ],
-//     ],
-//     links: [
-//       {
-//         start: "Energy",
-//         end: "Transportation",
-//         weight: 0,
-//       },
-//       {
-//         start: "Energy",
-//         end: "Harvest",
-//         weight: 30,
-//       },
-//       {
-//         start: "Energy",
-//         end: "Fuel",
-//         weight: 10,
-//       },
-//       {
-//         start: "Agriculture",
-//         end: "Road",
-//         weight: 60,
-//       },
-//       {
-//         start: "Agriculture",
-//         end: "Transportation",
-//         weight: 5,
-//       },
-//       {
-//         start: "Agriculture",
-//         end: "Harvest",
-//         weight: 70,
-//       },
-//       {
-//         start: "Minerals",
-//         end: "Fuel",
-//         weight: 15,
-//       },
-//       {
-//         start: "Transportation",
-//         end: "Chemicals",
-//         weight: 10,
-//       },
-//       {
-//         start: "Harvest",
-//         end: "Chemicals",
-//         weight: 40,
-//       },
-//       {
-//         start: "Fuel",
-//         end: "Road",
-//         weight: 12,
-//       },
-//       {
-//         start: "Minerals",
-//         end: "Chemicals",
-//         weight: 0,
-//       },
-//     ],
-//   },
-//   {
-//     nodes: [
-//       [
-//         {
-//           id: "Energy",
-//         },
-//         {
-//           id: "Agriculture",
-//         },
-//         {
-//           id: "Minerals",
-//         },
-//       ],
-//       [
-//         {
-//           id: "Transportation",
-//         },
-//         {
-//           id: "Harvest",
-//         },
-//         {
-//           id: "Fuel",
-//         },
-//       ],
-//       [
-//         {
-//           id: "Road",
-//         },
-//         {
-//           id: "Chemicals",
-//         },
-//       ],
-//     ],
-//     links: [
-//       {
-//         start: "Energy",
-//         end: "Transportation",
-//         weight: 10,
-//       },
-//       {
-//         start: "Energy",
-//         end: "Harvest",
-//         weight: 10,
-//       },
-//       {
-//         start: "Energy",
-//         end: "Fuel",
-//         weight: 20,
-//       },
-//       {
-//         start: "Agriculture",
-//         end: "Road",
-//         weight: 30,
-//       },
-//       {
-//         start: "Agriculture",
-//         end: "Transportation",
-//         weight: 0,
-//       },
-//       {
-//         start: "Agriculture",
-//         end: "Harvest",
-//         weight: 10,
-//       },
-//       {
-//         start: "Minerals",
-//         end: "Fuel",
-//         weight: 45,
-//       },
-//       {
-//         start: "Transportation",
-//         end: "Chemicals",
-//         weight: 40,
-//       },
-//       {
-//         start: "Harvest",
-//         end: "Chemicals",
-//         weight: 50,
-//       },
-//       {
-//         start: "Fuel",
-//         end: "Road",
-//         weight: 10,
-//       },
-//       {
-//         start: "Minerals",
-//         end: "Chemicals",
-//         weight: 10,
-//       },
-//     ],
-//   },
-// ];
-
-// var palette = ["#707b82", "#7881c2", "#3e90f0"];
-
-// function opacity(i, j) {
-//   if (j == null) return 0.7;
-//   if (j === i) return 1;
-//   return 0.3;
-// }
-
-// function opacityRect(item, start, end) {
-//   if (start == null) return 0.7;
-//   if (item.id === start || item.id === end) return 1;
-//   return 0.3;
-// }
-
-// export function SankeyChart({communities})   {
-//   const [state, setState] = useState({ index: null, start: null, end: null });
-
-//   function enter(r) {
-//     setState({ index: r.index, start: r.item.start, end: r.item.end });
-//   }
-
-//   function exit() {
-//     setState({ index: null, start: null, end: null });
-//   }
-
-//   const sankey = Sankey({
-//     data: data[0],
-//     width: 500,
-//     height: 400,
-//     gutter: 15,
-//     rectWidth: 10,
-//     nodeaccessor: function (x) {
-//       return x.id;
-//     },
-//   });
-
-//   const curvedRectangles = sankey.curvedRectangles.map((r, i) => {
-//     return (
-//       <g key={i}>
-//         <path
-//           d={r.curve.path.print()}
-//           fill="#acd1e9"
-//           style={{ opacity: opacity(i, state.index) }}
-//           onMouseEnter={() => enter(r)}
-//           onMouseLeave={exit}
-//         />
-//       </g>
-//     );
-//   });
-
-//   const rectangles = sankey.rectangles.map((r, i) => {
-//     const op = opacityRect(r.item, state.start, state.end);
-//     const x = r.curve.centroid[0];
-//     const y = r.curve.centroid[1];
-//     const transform =
-//       r.group < data[0].nodes.length / 2
-//         ? `translate(${x + 7},${y})`
-//         : `translate(${x - 7},${y})`;
-
-//     return (
-//       <g key={i}>
-//         <path d={r.curve.path.print()} fill={palette[r.group]} />
-//         <text
-//           transform={transform}
-//           style={{ opacity: op }}
-//           textAnchor={r.group < data[0].nodes.length / 2 ? "start" : "end"}
-//         >
-//           {r.item.id}
-//         </text>
-//       </g>
-//     );
-//   });
-
-//   return (
-//     <div>
-//       <svg width={500} height={400}>
-//         {curvedRectangles}
-//         {rectangles}
-//       </svg>
-//     </div>
-//   );
-// }
