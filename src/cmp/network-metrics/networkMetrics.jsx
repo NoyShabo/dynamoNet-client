@@ -73,7 +73,7 @@ export function NetworkMetrics({ network }) {
       )}
       {/* {numberOfEdgesPerType.retweets > 0 && numberOfEdgesPerType.quotes > 0 && ( */}
       <div className="chart-container">
-        <div className="small-title-project">Retweet & Quote Edges</div>
+        <div className="small-title-project">Edges Types</div>
         {/* {numerRender == 2 ? ( */}
         <PieChart dataObject={numberOfEdgesPerType} width={300} height={300} />
         {/* ) : ( */}
