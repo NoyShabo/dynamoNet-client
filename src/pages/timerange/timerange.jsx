@@ -34,6 +34,8 @@ export function Timerange({}) {
   const navigate = useNavigate();
   const [network, setNetwork] = useState(null);
   const [TRIds, setTRIds] = useState([]);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [isOwner, setIsOwner] = useState(false);
   const getTimeRangeById = async (id, withNetwork = false) => {
     const res = await getTimeRange(id, withNetwork);
     dispatch(setTimeRange(res));
@@ -73,6 +75,17 @@ export function Timerange({}) {
       if (projectId && projectId !== "") getProjectById(projectId);
     }
   }, [project]);
+
+  useEffect(() => {
+    if (user && project) {
+      user.projectsRefs.forEach((projectRef) => {
+        if (projectRef._id === project._id) {
+          setIsOwner(true);
+          return;
+        }
+      });
+    }
+  }, [user, project]);
 
   function clickTrLeftArrow(e) {
     e.preventDefault();
@@ -202,7 +215,6 @@ export function Timerange({}) {
                 </div>
               </div>
             </div>
-
             {timeRange.network &&
             timeRange.network.nodes &&
             timeRange.network.nodes.length > 0 ? (
@@ -270,23 +282,25 @@ export function Timerange({}) {
               </div>
             )}
             <NetworkMetrics network={timeRange.network} />
-            <div className="btns-container">
-              <Delete
-                onDelete={handleDelete}
-                title={`Delete Time Range: ${timeRangeTitle}`}
-              />
+            {isOwner && (
+              <div className="btns-container">
+                <Delete
+                  onDelete={handleDelete}
+                  title={`Delete Time Range: ${timeRangeTitle}`}
+                />
 
-              <Edit
-                inputs={[
-                  {
-                    type: "text",
-                    value: timeRangeTitle || timeRange.title,
-                    className: "title-project title-timerange-top",
-                  },
-                ]}
-                onSubmit={(values) => handleUpdate(values[0])}
-              />
-            </div>
+                <Edit
+                  inputs={[
+                    {
+                      type: "text",
+                      value: timeRangeTitle || timeRange.title,
+                      className: "title-project title-timerange-top",
+                    },
+                  ]}
+                  onSubmit={(values) => handleUpdate(values[0])}
+                />
+              </div>
+            )}
           </div>
         )}
       </div>
