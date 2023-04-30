@@ -40,15 +40,16 @@ import {
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
 
+import { randomNormal } from "d3";
 import { deleteTimeRange } from "../../serverApi/rest/timeRangeApi";
-function getTimeRangeCards(project, handleDeleteTimeRange) {
+function getTimeRangeCards(project, handleDeleteTimeRange, isOwner) {
   const timeRanges = project.timeRanges;
   const cards = timeRanges.map((timeRange) => {
     return (
       <GlobalCard
         imgUrl={calendarImg}
         key={timeRange._id}
-        isTimeRangeCard={true}
+        isTimeRangeCard={isOwner}
         id={timeRange._id}
         OnDeleteTimeRange={handleDeleteTimeRange}
         projectId={project._id}
@@ -147,6 +148,8 @@ export function Project() {
   const [isExporting, setIsExporting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [network, setNetwork] = useState(null);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [isOwner, setIsOwner] = useState(false);
   const navigate = useNavigate();
   function backPrevPage() {
     navigate("/projects");
@@ -184,6 +187,17 @@ export function Project() {
       localStorage.setItem("project", JSON.stringify(project));
     }
   }, [project]);
+
+  useEffect(() => {
+    if (user && project) {
+      user.projectsRefs.forEach((projectRef) => {
+        if (projectRef._id === project._id) {
+          setIsOwner(true);
+          return;
+        }
+      });
+    }
+  }, [user, project]);
 
   const handleDelete = async () => {
     setIsDeleting(true);
@@ -458,14 +472,20 @@ export function Project() {
                   <div className="project-header">
                     <Scroll
                       items={[
-                        ...getTimeRangeCards(project, handleDeleteTimeRange),
-                        <GlobalCard
-                          imgUrl={newTimeRangeImg}
-                          key="newTimeRangeForm"
-                          linkTo={`/project/${project._id}/network/${project.sourceNetwork._id}/addTimeRanges`}
-                          title="New Time Range"
-                          description="Create new time ranges"
-                        />,
+                        ...getTimeRangeCards(
+                          project,
+                          handleDeleteTimeRange,
+                          isOwner
+                        ),
+                        isOwner ? (
+                          <GlobalCard
+                            imgUrl={newTimeRangeImg}
+                            key="newTimeRangeForm"
+                            linkTo={`/project/${project._id}/network/${project.sourceNetwork._id}/addTimeRanges`}
+                            title="New Time Range"
+                            description="Create new time ranges"
+                          />
+                        ) : null,
                       ]}
                     />
                   </div>
@@ -617,25 +637,29 @@ export function Project() {
                       <FileDownloadIcon />
                       Export
                     </Button>
-                    <Delete
-                      onDelete={handleDelete}
-                      title={`Delete Project: ${title}`}
-                    />
-                    <Edit
-                      inputs={[
-                        {
-                          type: "text",
-                          value: title || project.title,
-                          className: "title-project title-timerange-top",
-                        },
-                        {
-                          type: "text",
-                          value: description || project.description,
-                          className: "mid-title-project width-element-top",
-                        },
-                      ]}
-                      onSubmit={handleEdit}
-                    />
+                    {isOwner && (
+                      <>
+                        <Delete
+                          onDelete={handleDelete}
+                          title={`Delete Project: ${title}`}
+                        />
+                        <Edit
+                          inputs={[
+                            {
+                              type: "text",
+                              value: title || project.title,
+                              className: "title-project title-timerange-top",
+                            },
+                            {
+                              type: "text",
+                              value: description || project.description,
+                              className: "mid-title-project width-element-top",
+                            },
+                          ]}
+                          onSubmit={handleEdit}
+                        />
+                      </>
+                    )}
                   </div>
                 </>
               )
@@ -645,10 +669,12 @@ export function Project() {
                   <div className="small-title-project">
                     Project failed to create. Please try again.
                   </div>
-                  <Delete
-                    onDelete={handleDelete}
-                    title={`Delete Project: ${title}`}
-                  />
+                  {isOwner && (
+                    <Delete
+                      onDelete={handleDelete}
+                      title={`Delete Project: ${title}`}
+                    />
+                  )}
                 </>
               )
             )}
