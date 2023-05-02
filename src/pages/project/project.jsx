@@ -40,7 +40,7 @@ import {
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
 
-import { randomNormal } from "d3";
+// import { active, randomNormal } from "d3";
 import { deleteTimeRange } from "../../serverApi/rest/timeRangeApi";
 function getTimeRangeCards(project, handleDeleteTimeRange, isOwner) {
   const timeRanges = project.timeRanges;
@@ -150,6 +150,7 @@ export function Project() {
   const [network, setNetwork] = useState(null);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [isOwner, setIsOwner] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
   const navigate = useNavigate();
   function backPrevPage() {
     navigate("/projects");
@@ -499,14 +500,16 @@ export function Project() {
                     </div>
                   )}
                   <MyTabs
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
                     tabs={[
                       {
-                        id: 1,
+                        id: 0,
                         name: "Source Network",
                         component: <SourceNetwork network={network} />,
                       },
                       {
-                        id: 2,
+                        id: 1,
                         name: "Network Evolution",
                         component:
                           project.timeRanges.length === 0 ? (
@@ -520,7 +523,7 @@ export function Project() {
                           ),
                       },
                       {
-                        id: 3,
+                        id: 2,
                         name: "Node Evolution",
                         component:
                           project.timeRanges.length === 0 ? (
@@ -534,7 +537,7 @@ export function Project() {
                           ),
                       },
                       {
-                        id: 4,
+                        id: 3,
                         name: "Community Evolution",
                         component: (
                           <>
@@ -589,6 +592,7 @@ export function Project() {
                               <CommunityEvolution
                                 communities={communities}
                                 threshold={threshold}
+                                active={activeTab === 3}
                               />
                             </div>
                           </>

@@ -46,8 +46,8 @@ import "./tabs.scss";
 
 import { Tabs } from "@mantine/core";
 
-export function MyTabs({ tabs }) {
-  const [active, setActive] = useState(0);
+export function MyTabs({ tabs, activeTab, setActiveTab }) {
+  // const [active, setActive] = useState(0);
 
   return (
     <Tabs
@@ -59,37 +59,37 @@ export function MyTabs({ tabs }) {
       {/* // <Tabs defaultValue="source_network"  color="teal"  className="tabs__navigate" > */}
       <Tabs.List className="tab_list">
         <Tabs.Tab
-          className={`tab_h ${active === 0 ? " active" : ""}`}
+          className={`tab_h ${activeTab === 0 ? " active" : ""}`}
           value="source_network"
           onClick={() => {
-            setActive(0);
+            setActiveTab(0);
           }}
         >
           <h3>Source Network</h3>
         </Tabs.Tab>
         <Tabs.Tab
-          className={`tab_h ${active === 1 ? " active" : ""}`}
+          className={`tab_h ${activeTab === 1 ? " active" : ""}`}
           value="network_evolution"
           onClick={() => {
-            setActive(1);
+            setActiveTab(1);
           }}
         >
           <h3>Network Evolution</h3>
         </Tabs.Tab>
         <Tabs.Tab
-          className={`tab_h ${active === 2 ? " active" : ""}`}
+          className={`tab_h ${activeTab === 2 ? " active" : ""}`}
           value="node_evolution"
           onClick={() => {
-            setActive(2);
+            setActiveTab(2);
           }}
         >
           <h3>Node Evolution</h3>
         </Tabs.Tab>
         <Tabs.Tab
-          className={`tab_h ${active === 3 ? " active" : ""}`}
+          className={`tab_h ${activeTab === 3 ? " active" : ""}`}
           value="community_evolution"
           onClick={() => {
-            setActive(3);
+            setActiveTab(3);
           }}
         >
           <h3>Community Evolution</h3>
@@ -101,7 +101,7 @@ export function MyTabs({ tabs }) {
       </Tabs.Panel>
 
       <Tabs.Panel value="network_evolution" pt="xs">
-        {active === 1 && tabs[1].component}
+        {activeTab === 1 && tabs[1].component}
       </Tabs.Panel>
 
       <Tabs.Panel value="node_evolution" pt="xs">

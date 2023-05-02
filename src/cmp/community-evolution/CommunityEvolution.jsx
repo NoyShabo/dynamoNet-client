@@ -85,7 +85,7 @@ function getData(communities, threshold = 0.3) {
   };
 }
 
-export function CommunityEvolution({ communities, threshold }) {
+export function CommunityEvolution({ communities, threshold, active }) {
   const [myState, setMyState] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const alluvialRef = useRef(null);
@@ -115,29 +115,30 @@ export function CommunityEvolution({ communities, threshold }) {
   }, [communities, threshold]);
 
   useEffect(() => {
-    console.log("allllllll");
-    // alluvialRef.current.chartRef.addEventListener("load", (e) => {
-    const intervalHack = setInterval(() => {
-      if (alluvialRef && alluvialRef.current && alluvialRef.current.chartRef) {
-        console.log("current", alluvialRef.current);
-
-        const ref = alluvialRef.current.chartRef;
-        const paths = ref.querySelectorAll(".link");
-        console.log("paths", paths);
-        // change stroke-width to 1 less
-        if (paths) {
-          paths.forEach((path) => {
-            if (path.getAttribute("stroke-width") == 1) {
-              path.setAttribute("stroke-width", 0);
+    if (active) {
+      const intervalHack = setInterval(() => {
+        try {
+          if (
+            alluvialRef &&
+            alluvialRef.current &&
+            alluvialRef.current.chartRef
+          ) {
+            const ref = alluvialRef.current.chartRef;
+            const paths = ref.querySelectorAll(".link");
+            console.log("paths", paths);
+            if (paths && paths.length > 0) {
+              clearInterval(intervalHack);
+              paths.forEach((path) => {
+                if (path.getAttribute("stroke-width") == 1) {
+                  path.setAttribute("stroke-width", 0);
+                }
+              });
             }
-          });
-        }
-        clearInterval(intervalHack);
-      }
-    }, 50);
-
-    // }
-  });
+          }
+        } catch (e) {}
+      }, 50);
+    }
+  }, [active]);
 
   if (communities.length > 0 && myState) {
     return (
