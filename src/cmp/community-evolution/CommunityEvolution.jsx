@@ -136,9 +136,6 @@ export function CommunityEvolution({ communities, threshold, active }) {
   useEffect(() => {
     if (active) {
       clearStrokeWidth();
-      const intervalHack = setInterval(() => {
-        if (clearStrokeWidth()) clearInterval(intervalHack);
-      }, 50);
     }
   }, [active, alluvialRef, myState]);
 
