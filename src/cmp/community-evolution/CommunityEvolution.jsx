@@ -28,6 +28,18 @@ function getData(communities, threshold = 0.3) {
   const communityLinks = [];
   const timeRangesLength = communities.length;
   const colorScale = {};
+  for (let i = 0; i < timeRangesLength; i++) {
+    const timeRange = communities[i];
+    Object.keys(timeRange.communities).forEach((communityIndex) => {
+      communityGroups.push({
+        name: `${timeRange.title}-${communityIndex}`,
+        category: `${timeRange.title}`,
+      });
+      colorScale[`${timeRange.title}-${communityIndex}`] = genColor(
+        `${timeRange.title}-${communityIndex}`
+      );
+    });
+  }
   for (let i = 0; i < timeRangesLength - 1; i++) {
     const timeRange1 = communities[i];
     const timeRange2 = communities[i + 1];
@@ -45,41 +57,15 @@ function getData(communities, threshold = 0.3) {
           communityLinks.push({
             source: `${timeRange1.title}-${communityIndex1}`,
             target: `${timeRange2.title}-${communityIndex2}`,
-            value: commonStrings > 0 ? commonStrings : 0,
+            value: commonStrings,
           });
-          if (!initializedGroups[`${timeRange1.title}-${communityIndex1}`]) {
-            communityGroups.push({
-              name: `${timeRange1.title}-${communityIndex1}`,
-              category: `${timeRange1.title}`,
-            });
-            colorScale[`${timeRange1.title}-${communityIndex1}`] = genColor(
-              `${timeRange1.title}-${communityIndex1}`
-            );
-            initializedGroups[`${timeRange1.title}-${communityIndex1}`] = true;
-          }
-          if (!initializedGroups[`${timeRange2.title}-${communityIndex2}`]) {
-            communityGroups.push({
-              name: `${timeRange2.title}-${communityIndex2}`,
-              category: `${timeRange2.title}`,
-            });
-            colorScale[`${timeRange2.title}-${communityIndex2}`] = genColor(
-              `${timeRange2.title}-${communityIndex2}`
-            );
-            initializedGroups[`${timeRange2.title}-${communityIndex2}`] = true;
-          }
         }
       });
     });
   }
 
-  const communityGroups2 = communityGroups.sort((a, b) =>
-    a.category.localeCompare(b.category)
-  );
-  // console.log("c3", communityGroups2);
-
-  // console.log("communityGroups2", communityGroups2);
   return {
-    communityGroups2,
+    communityGroups,
     communityLinks,
     colorScale,
   };
@@ -87,11 +73,10 @@ function getData(communities, threshold = 0.3) {
 
 export function CommunityEvolution({ communities, threshold, active }) {
   const [myState, setMyState] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const alluvialRef = useRef(null);
 
   useEffect(() => {
-    const { communityGroups2, communityLinks, colorScale } = getData(
+    const { communityGroups, communityLinks, colorScale } = getData(
       communities,
       threshold
     );
@@ -99,7 +84,7 @@ export function CommunityEvolution({ communities, threshold, active }) {
       data: communityLinks,
       options: {
         alluvial: {
-          nodes: communityGroups2,
+          nodes: communityGroups,
           nodeAlignment: "left",
           nodePadding: 0,
         },
@@ -122,7 +107,7 @@ export function CommunityEvolution({ communities, threshold, active }) {
         console.log("paths", paths);
         if (paths && paths.length > 0) {
           paths.forEach((path) => {
-            if (path.getAttribute("stroke-width") == 1) {
+            if (path.getAttribute("stroke-width") === "1") {
               path.setAttribute("stroke-width", 0);
             }
           });
@@ -135,7 +120,11 @@ export function CommunityEvolution({ communities, threshold, active }) {
 
   useEffect(() => {
     if (active) {
-      clearStrokeWidth();
+      const strokeInterval = setInterval(() => {
+        if (clearStrokeWidth()) {
+          clearInterval(strokeInterval);
+        }
+      }, 50);
     }
   }, [active, alluvialRef, myState]);
 
