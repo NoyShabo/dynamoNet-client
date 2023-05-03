@@ -114,31 +114,33 @@ export function CommunityEvolution({ communities, threshold, active }) {
     });
   }, [communities, threshold]);
 
+  function clearStrokeWidth() {
+    try {
+      if (alluvialRef && alluvialRef.current && alluvialRef.current.chartRef) {
+        const ref = alluvialRef.current.chartRef;
+        const paths = ref.querySelectorAll(".link");
+        console.log("paths", paths);
+        if (paths && paths.length > 0) {
+          paths.forEach((path) => {
+            if (path.getAttribute("stroke-width") == 1) {
+              path.setAttribute("stroke-width", 0);
+            }
+          });
+          return true;
+        }
+      }
+    } catch (e) {}
+    return false;
+  }
+
   useEffect(() => {
     if (active) {
+      clearStrokeWidth();
       const intervalHack = setInterval(() => {
-        try {
-          if (
-            alluvialRef &&
-            alluvialRef.current &&
-            alluvialRef.current.chartRef
-          ) {
-            const ref = alluvialRef.current.chartRef;
-            const paths = ref.querySelectorAll(".link");
-            console.log("paths", paths);
-            if (paths && paths.length > 0) {
-              clearInterval(intervalHack);
-              paths.forEach((path) => {
-                if (path.getAttribute("stroke-width") == 1) {
-                  path.setAttribute("stroke-width", 0);
-                }
-              });
-            }
-          }
-        } catch (e) {}
+        if (clearStrokeWidth()) clearInterval(intervalHack);
       }, 50);
     }
-  }, [active]);
+  }, [active, alluvialRef, myState]);
 
   if (communities.length > 0 && myState) {
     return (
