@@ -161,7 +161,9 @@ export function MetricsBox({
               subtitle="Modularity"
               progress="0.80"
               increase="+43%"
-              icon={<CommitIcon sx={{ color: "#70d8bd", fontSize: "26px" }} />}
+              icon={
+                <Diversity3Icon sx={{ color: "#70d8bd", fontSize: "26px" }} />
+              }
             />
           </Box>
         </Grid>
