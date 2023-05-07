@@ -133,13 +133,13 @@ export function NetworkEvolution({ project }) {
 
         <div className="chart-container chart-container-line">
           <div className="small-title-project">Modularity Evolution</div>
-          <LineChart data={modularity} />
+          <LineChart data={modularity} max={1} />
         </div>
         <div className="chart-container chart-container-line">
           <div className="small-title-project">
             Degree Centralization Evolution
           </div>
-          <LineChart data={degreeCentrality} />
+          <LineChart data={degreeCentrality} max={1} />
         </div>
         {/* <div className="chart-container chart-container-line">
           <div className="small-title-project">Radius Evolution</div>

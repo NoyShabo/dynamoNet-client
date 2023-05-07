@@ -1,7 +1,7 @@
 import { ResponsiveLine } from "@nivo/line";
 import React from "react";
 
-export function LineChart({ isDashboard = false, data }) {
+export function LineChart({ isDashboard = false, data, max, min }) {
   return (
     <ResponsiveLine
       theme={{
@@ -45,8 +45,8 @@ export function LineChart({ isDashboard = false, data }) {
       xScale={{ type: "point" }}
       yScale={{
         type: "linear",
-        min: "0",
-        max: "auto",
+        min: min ? min : "0",
+        max: max ? max : "auto",
         stacked: false,
         reverse: false,
       }}
