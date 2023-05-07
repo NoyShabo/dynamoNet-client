@@ -7,7 +7,7 @@ export function NetworkEvolution({ project }) {
   const [numberOfEdges, setNumberOfEdges] = useState([]);
   const [density, setDensity] = useState([]);
   const [communities, setCommunities] = useState([]);
-
+  const [modularity, setModularity] = useState([]);
   const [reciprocity, setReciprocity] = useState([]);
   const [degreeCentrality, setDegreeCentrality] = useState([
     { id: "Degree Centralization", data: [] },
@@ -23,6 +23,7 @@ export function NetworkEvolution({ project }) {
 
     const reciprocity = [];
     const degreeCentrality = [{ id: "Degree Centralization", data: [] }];
+    const modularity = [{ id: "Modularity", data: [] }];
     const radius = [{ id: "Radius", data: [] }];
     const diameter = [{ id: "Diameter", data: [] }];
     timeRanges.forEach((timeRange) => {
@@ -55,6 +56,10 @@ export function NetworkEvolution({ project }) {
         x: timeRange.title,
         y: timeRange.network.networkMetrics.degreeCentrality,
       });
+      modularity[0].data.push({
+        x: timeRange.title,
+        y: timeRange.network.networkMetrics.modularity,
+      });
       radius[0].data.push({
         x: timeRange.title,
         y: timeRange.network.networkMetrics.radius,
@@ -70,6 +75,7 @@ export function NetworkEvolution({ project }) {
     setCommunities(communities);
     setReciprocity(reciprocity);
     setDegreeCentrality(degreeCentrality);
+    setModularity(modularity);
     setRadius(radius);
     setDiameter(diameter);
   }
@@ -107,8 +113,14 @@ export function NetworkEvolution({ project }) {
           <BarChart width={100 * density.length} height={400} data={density} />
         </div>
         <div className="chart-container">
-          <div className="small-title-project">Communities Number Evolution</div>
-          <BarChart width={100 * communities.length} height={400} data={communities} />
+          <div className="small-title-project">
+            Communities Number Evolution
+          </div>
+          <BarChart
+            width={100 * communities.length}
+            height={400}
+            data={communities}
+          />
         </div>
         {/* <div className="chart-container">
           <div className="small-title-project">Reciprocity Evolution</div>
@@ -119,6 +131,10 @@ export function NetworkEvolution({ project }) {
           />
         </div> */}
 
+        <div className="chart-container chart-container-line">
+          <div className="small-title-project">Modularity Evolution</div>
+          <LineChart data={modularity} />
+        </div>
         <div className="chart-container chart-container-line">
           <div className="small-title-project">
             Degree Centralization Evolution
