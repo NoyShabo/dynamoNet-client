@@ -10,8 +10,8 @@
   
 
 .alluvial{
-    padding: 20px;
-
+    // padding: 20px;
+    // width: 100%;
 }
 
 // .cds--cc--alluvial{
@@ -23,7 +23,13 @@
 
 
 .community-evolution {
+    width: 80vw;
+    
     text {
+        fill: white;
+    }
+
+    .node{
         fill: white;
     }
 }

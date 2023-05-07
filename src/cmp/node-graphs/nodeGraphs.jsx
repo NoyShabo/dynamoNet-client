@@ -171,20 +171,22 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
             />
           </div>
         )}
-        {degreeMetricData.length > 0 && (
-          <div className="chart-container chart-container-node">
-            <div className="small-title-project">Degree Evolution</div>
-            <Bars
-              // width={window.innerWidth * 0.8}
-              width={Math.min(
-                100 * (Object.keys(nodeMetrics).length + timeRanges.length),
-                window.innerWidth * 0.8
-              )}
-              height={400}
-              data={degreeMetricData}
-            />
-          </div>
-        )}
+        {degreeMetricData.length > 0 &&
+          outdegreeMetricData.length > 0 &&
+          indegreeMetricData.length > 0 && (
+            <div className="chart-container chart-container-node">
+              <div className="small-title-project">Degree Evolution</div>
+              <Bars
+                // width={window.innerWidth * 0.8}
+                width={Math.min(
+                  100 * (Object.keys(nodeMetrics).length + timeRanges.length),
+                  window.innerWidth * 0.8
+                )}
+                height={400}
+                data={degreeMetricData}
+              />
+            </div>
+          )}
 
         <div className="chart-container chart-container-line">
           <div className="small-title-project">

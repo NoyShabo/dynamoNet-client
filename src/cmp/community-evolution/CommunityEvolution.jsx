@@ -30,6 +30,8 @@ function getData(communities, threshold = 0.3) {
   const colorScale = {};
   for (let i = 0; i < timeRangesLength; i++) {
     const timeRange = communities[i];
+    console.log("~~~~~~~~", i, timeRange);
+
     Object.keys(timeRange.communities).forEach((communityIndex) => {
       communityGroups.push({
         name: `${timeRange.title}-${communityIndex}`,
@@ -63,6 +65,7 @@ function getData(communities, threshold = 0.3) {
       });
     });
   }
+  console.log(communityLinks);
 
   return {
     communityGroups,
@@ -88,7 +91,7 @@ export function CommunityEvolution({ communities, threshold, active }) {
           nodeAlignment: "left",
           nodePadding: 0,
         },
-        height: "1000px",
+        height: "900px",
         color: {
           scale: colorScale,
           gradient: {
@@ -104,7 +107,6 @@ export function CommunityEvolution({ communities, threshold, active }) {
       if (alluvialRef && alluvialRef.current && alluvialRef.current.chartRef) {
         const ref = alluvialRef.current.chartRef;
         const paths = ref.querySelectorAll(".link");
-        console.log("paths", paths);
         if (paths && paths.length > 0) {
           paths.forEach((path) => {
             if (path.getAttribute("stroke-width") === "1") {
@@ -132,7 +134,7 @@ export function CommunityEvolution({ communities, threshold, active }) {
     return (
       <div className="community-evolution">
         <AlluvialChart
-          className="alluvial"
+          // className="alluvial"
           data={myState.data}
           options={myState.options}
           ref={alluvialRef}
