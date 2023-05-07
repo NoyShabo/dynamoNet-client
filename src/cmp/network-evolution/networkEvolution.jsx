@@ -1,7 +1,12 @@
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import { Button } from "@mui/material";
+import * as FileSaver from "file-saver";
 import React, { useEffect, useState } from "react";
+import XLSX from "sheetjs-style";
 import { BarChart } from "../../cmp/bar-chart/bar-chart";
 import { LineChart } from "../../cmp/line-chart/line-chart";
 
+import "./networkEvolution.scss";
 export function NetworkEvolution({ project }) {
   const [numberOfNodes, setNumberOfNodes] = useState([]);
   const [numberOfEdges, setNumberOfEdges] = useState([]);
@@ -86,10 +91,67 @@ export function NetworkEvolution({ project }) {
     }
   }, [project]);
 
+  const exportExcel = () => {
+    const data = [];
+    const timeRanges = project.timeRanges;
+    console.log(timeRanges);
+    timeRanges.forEach((timeRange) => {
+      const timeRangeName = timeRange.title;
+      const dates =
+        new Date(timeRange.startDate).toLocaleDateString() +
+        " - " +
+        new Date(timeRange.endDate).toLocaleDateString();
+      const nodes = timeRange.network.networkMetrics.numberOfNodes;
+      const edges = timeRange.network.networkMetrics.numberOfEdges;
+      const communities = Object.keys(timeRange.network.communities).length;
+      const density = timeRange.network.networkMetrics.density;
+      const diameter = timeRange.network.networkMetrics.diameter;
+      const degreeCentralization =
+        timeRange.network.networkMetrics.degreeCentrality;
+      const modularity = timeRange.network.networkMetrics.modularity;
+      data.push({
+        "Timerange Name": timeRangeName,
+        Dates: dates,
+        Nodes: nodes,
+        Edges: edges,
+        Communities: communities,
+        Density: density,
+        Diameter: diameter,
+        "Degree Centralization": degreeCentralization,
+        Modularity: modularity,
+      });
+    });
+    const fileName = `${project.title}- TimeRanges metrics`;
+    const fileType =
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    const fileExtension = ".xlsx";
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const dataExport = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(dataExport, fileName + fileExtension);
+  };
+
   return (
     <div className="network-evolution">
       <div className="title-project">Network Evolution</div>
-      <div className="small-title-project">Evolution by all Time ranges</div>
+      <div className="container-title-button">
+        <div className="small-title-project">Evolution by all Time ranges</div>
+        <Button
+          variant="contained"
+          size="small"
+          onClick={exportExcel}
+          style={{
+            "& > *": {
+              margin: "auto",
+            },
+          }}
+        >
+          <FileDownloadIcon />
+          Export Metrics
+        </Button>
+      </div>
 
       <div className="charts-list">
         <div className="chart-container">
