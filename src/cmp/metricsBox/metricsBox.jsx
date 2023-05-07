@@ -116,11 +116,11 @@ export function MetricsBox({
             borderRadius="10px"
           >
             <StatBox
-              title={diameter || "NaN"}
-              subtitle="Diameter"
+              title={degreeCentrality || "NaN"}
+              subtitle="Degree Centralization"
               progress="0.80"
               increase="+43%"
-              icon={<ShareIcon sx={{ color: "#70d8bd", fontSize: "26px" }} />}
+              icon={<CommitIcon sx={{ color: "#70d8bd", fontSize: "26px" }} />}
             />
           </Box>
         </Grid>
@@ -136,11 +136,11 @@ export function MetricsBox({
             borderRadius="10px"
           >
             <StatBox
-              title={degreeCentrality || "NaN"}
-              subtitle="Degree Centralization"
+              title={diameter || "NaN"}
+              subtitle="Diameter"
               progress="0.80"
               increase="+43%"
-              icon={<CommitIcon sx={{ color: "#70d8bd", fontSize: "26px" }} />}
+              icon={<ShareIcon sx={{ color: "#70d8bd", fontSize: "26px" }} />}
             />
           </Box>
         </Grid>
