@@ -18,11 +18,19 @@ export function MetricsBox({
   modularity,
 }) {
   const height = "120px";
+  const width = "100%";
+  const xs = 12;
+  const sm = 12;
+  const md = 6;
+  const lg = 3;
+  const xl = 3;
+
+  const columnSpacing = { xs: 1, sm: 2, md: 3 };
 
   return (
     <Box m="20px" className="metrics-box">
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
+      <Grid container rowSpacing={1} columnSpacing={columnSpacing}>
+        <Grid xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
           <Box
             width="100%"
             height={height}
@@ -44,7 +52,7 @@ export function MetricsBox({
             />
           </Box>
         </Grid>
-        <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
+        <Grid xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
           <Box
             width="100%"
             height={height}
@@ -65,7 +73,7 @@ export function MetricsBox({
           </Box>
         </Grid>
         {communities && (
-          <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
+          <Grid xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
             <Box
               width="100%"
               height={height}
@@ -88,7 +96,7 @@ export function MetricsBox({
             </Box>
           </Grid>
         )}
-        <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
+        <Grid xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
           <Box
             width="100%"
             height={height}
@@ -108,7 +116,7 @@ export function MetricsBox({
             />
           </Box>
         </Grid>
-        <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
+        <Grid xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
           <Box
             width="100%"
             height={height}
@@ -128,7 +136,7 @@ export function MetricsBox({
             />
           </Box>
         </Grid>
-        <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
+        <Grid xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
           <Box
             width="100%"
             height={height}
@@ -148,7 +156,7 @@ export function MetricsBox({
             />
           </Box>
         </Grid>
-        <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
+        <Grid xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
           <Box
             width="100%"
             height={height}
