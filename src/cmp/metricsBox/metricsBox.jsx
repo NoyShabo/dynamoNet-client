@@ -6,6 +6,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import { Box } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { StatBox } from "../startBox/startBox";
+import "./metricsBox.scss";
 
 export function MetricsBox({
   numberOfNodes,
@@ -16,13 +17,15 @@ export function MetricsBox({
   communities,
   modularity,
 }) {
+  const height = "120px";
+
   return (
-    <Box m="20px">
+    <Box m="20px" className="metrics-box">
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
           <Box
             width="100%"
-            height="160px"
+            height={height}
             backgroundColor={"#1F2A40"}
             display="flex"
             alignItems="center"
@@ -44,7 +47,7 @@ export function MetricsBox({
         <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
           <Box
             width="100%"
-            height="160px"
+            height={height}
             backgroundColor={"#1F2A40"}
             display="flex"
             alignItems="center"
@@ -65,7 +68,7 @@ export function MetricsBox({
           <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
             <Box
               width="100%"
-              height="160px"
+              height={height}
               backgroundColor="#1F2A40"
               display="flex"
               alignItems="center"
@@ -88,7 +91,7 @@ export function MetricsBox({
         <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
           <Box
             width="100%"
-            height="160px"
+            height={height}
             backgroundColor="#1F2A40"
             display="flex"
             alignItems="center"
@@ -108,7 +111,7 @@ export function MetricsBox({
         <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
           <Box
             width="100%"
-            height="160px"
+            height={height}
             backgroundColor="#1F2A40"
             display="flex"
             alignItems="center"
@@ -128,7 +131,7 @@ export function MetricsBox({
         <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
           <Box
             width="100%"
-            height="160px"
+            height={height}
             backgroundColor="#1F2A40"
             display="flex"
             alignItems="center"
@@ -148,7 +151,7 @@ export function MetricsBox({
         <Grid xs={12} sm={12} md={6} lg={3} xl={3}>
           <Box
             width="100%"
-            height="160px"
+            height={height}
             backgroundColor="#1F2A40"
             display="flex"
             alignItems="center"
