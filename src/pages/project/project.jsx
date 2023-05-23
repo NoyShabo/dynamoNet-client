@@ -420,11 +420,6 @@ export function Project() {
                   <div className="project-header">
                     <Scroll
                       items={[
-                        ...getTimeRangeCards(
-                          project,
-                          handleDeleteTimeRange,
-                          isOwner
-                        ),
                         isOwner ? (
                           <GlobalCard
                             imgUrl={newTimeRangeImg}
@@ -434,6 +429,11 @@ export function Project() {
                             description="Create new time ranges"
                           />
                         ) : null,
+                        ...getTimeRangeCards(
+                          project,
+                          handleDeleteTimeRange,
+                          isOwner
+                        ),
                       ]}
                     />
                   </div>
