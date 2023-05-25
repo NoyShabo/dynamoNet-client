@@ -7,6 +7,10 @@ import { PieChart } from "../../cmp/pie/pie";
 import "../../globalStyle.scss";
 import "./networkMetrics.scss";
 
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
 function createTooltip(content) {
   return (
     <>
@@ -61,7 +65,11 @@ export function NetworkMetrics({ network }) {
   return (
     <div className="charts-list">
       {network.centralNodes && Object.keys(network.centralNodes).length > 0 && (
-        <div className="chart-container" key={`container_centrality`}>
+        <div
+          className="chart-container"
+          style={{ width: "auto" }}
+          key={`container_centrality`}
+        >
           <div className="title-project" key={`title_centrality`}>
             Central Nodes
           </div>
@@ -96,7 +104,7 @@ export function NetworkMetrics({ network }) {
         </div>
       )}
       {/* {numberOfEdgesPerType.retweets > 0 && numberOfEdgesPerType.quotes > 0 && ( */}
-      <div className="chart-container">
+      <div className="chart-container" style={{ width: "auto" }}>
         <div className="small-title-project">Edges Types</div>
         {/* {numerRender == 2 ? ( */}
         <PieChart dataObject={numberOfEdgesPerType} width={300} height={300} />
@@ -117,14 +125,14 @@ export function NetworkMetrics({ network }) {
       </div>
       {numberOfEdgesPerType.retweets > 0 && (
         <div className="chart-container">
-          <div className="title-project">Retweets Only Metrics</div>
+          <div className="title-project">Retweets Metrics</div>
           {createTooltip(tooltipContent)}
           <MetricsBox {...network.retweetNetworkMetrics} />
         </div>
       )}
       {numberOfEdgesPerType.quotes > 0 && (
         <div className="chart-container">
-          <div className="title-project">Quotes Only Metrics</div>
+          <div className="title-project">Quotes Metrics</div>
           {createTooltip(tooltipContent)}
           <MetricsBox {...network.quoteNetworkMetrics} />
         </div>
@@ -134,7 +142,7 @@ export function NetworkMetrics({ network }) {
         Object.keys(network.metricsPerEdgeType).map((edgeType) => (
           <div className="chart-container" key={`container_${edgeType}`}>
             <div className="title-project" key={`title_${edgeType}`}>
-              {edgeType} Metrics
+              {capitalize(edgeType)} Metrics
             </div>
             {createTooltip(tooltipContent)}
             <MetricsBox {...network.metricsPerEdgeType[edgeType]} />
