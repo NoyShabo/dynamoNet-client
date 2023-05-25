@@ -126,6 +126,17 @@ export function FormNewTimeRanges() {
           }}
           {...form.getInputProps(`timeWindows.${index}.timeRange`)}
         />
+        {index < form.values.timeWindows.length - 1 && (
+          <hr
+            style={{
+              color: "white",
+              margin: "20px auto 10px",
+              width: "50%",
+              opacity: "0.5",
+              border: "0.5px dashed",
+            }}
+          ></hr>
+        )}
       </div>
     );
   });
