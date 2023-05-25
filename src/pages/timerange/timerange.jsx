@@ -186,6 +186,7 @@ export function Timerange({}) {
               left: "20px",
               top: " 105px",
               cursor: "pointer",
+              zIndex: "1",
             }}
           />
         </span>
