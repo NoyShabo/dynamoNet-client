@@ -63,7 +63,7 @@ export function NetworkMetrics({ network }) {
   }, [isPieReady]);
 
   return (
-    <div className="charts-list">
+    <div className="charts-list network-metrics">
       {network.centralNodes && Object.keys(network.centralNodes).length > 0 && (
         <div
           className="chart-container"
