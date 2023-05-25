@@ -203,7 +203,10 @@ export function NetworkEvolution({ project }) {
           <div className="small-title-project">
             Degree Centralization Evolution
           </div>
-          <LineChart data={degreeCentrality} max={1} />
+          <LineChart
+            data={degreeCentrality}
+            max={Math.ceil(Math.max(...degreeCentrality))}
+          />
         </div>
         {/* <div className="chart-container chart-container-line">
           <div className="small-title-project">Radius Evolution</div>
