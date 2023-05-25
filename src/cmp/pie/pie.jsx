@@ -73,7 +73,11 @@ export function PieChart({
   return (
     // <div className='pie-chart'>
     <>
-      <div>
+      <div
+        style={{
+          textAlign: "center",
+        }}
+      >
         <svg
           width={width}
           height={height}

@@ -8,6 +8,10 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { StatBox } from "../startBox/startBox";
 import "./metricsBox.scss";
 
+function roundNumber(number) {
+  return Math.round(number * 100000) / 100000;
+}
+
 export function MetricsBox({
   numberOfNodes,
   numberOfEdges,
@@ -25,7 +29,7 @@ export function MetricsBox({
   const lg = 3;
   const xl = 3;
 
-  const columnSpacing = { xs: 1, sm: 2, md: 3 };
+  const columnSpacing = { xs: 1, sm: 1, md: 1 };
 
   return (
     <Box m="20px" className="metrics-box">
@@ -108,7 +112,7 @@ export function MetricsBox({
             borderRadius="10px"
           >
             <StatBox
-              title={density || "NaN"}
+              title={density ? roundNumber(density) : "NaN"}
               subtitle="Density"
               progress="0.30"
               increase="+5%"
@@ -128,7 +132,7 @@ export function MetricsBox({
             borderRadius="10px"
           >
             <StatBox
-              title={degreeCentrality || "NaN"}
+              title={degreeCentrality ? roundNumber(degreeCentrality) : "NaN"}
               subtitle="Degree Centralization"
               progress="0.80"
               increase="+43%"
@@ -168,7 +172,7 @@ export function MetricsBox({
             borderRadius="10px"
           >
             <StatBox
-              title={modularity || "NaN"}
+              title={modularity ? roundNumber(modularity) : "NaN"}
               subtitle="Modularity"
               progress="0.80"
               increase="+43%"

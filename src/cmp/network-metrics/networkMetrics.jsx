@@ -67,7 +67,7 @@ export function NetworkMetrics({ network }) {
       {network.centralNodes && Object.keys(network.centralNodes).length > 0 && (
         <div
           className="chart-container"
-          style={{ width: "auto" }}
+          style={{ width: "45%" }}
           key={`container_centrality`}
         >
           <div className="title-project" key={`title_centrality`}>
@@ -104,7 +104,7 @@ export function NetworkMetrics({ network }) {
         </div>
       )}
       {/* {numberOfEdgesPerType.retweets > 0 && numberOfEdgesPerType.quotes > 0 && ( */}
-      <div className="chart-container" style={{ width: "auto" }}>
+      <div className="chart-container" style={{ width: "45%" }}>
         <div className="small-title-project">Edges Types</div>
         {/* {numerRender == 2 ? ( */}
         <PieChart dataObject={numberOfEdgesPerType} width={300} height={300} />
