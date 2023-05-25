@@ -135,9 +135,8 @@ export function NetworkEvolution({ project }) {
 
   return (
     <div className="network-evolution">
-      <div className="title-project">Network Evolution</div>
-      <div className="container-title-button">
-        <div className="small-title-project">Evolution by all Time ranges</div>
+      <div className="title-project container-title-button">
+        Network Evolution
         <Button
           variant="contained"
           size="small"
@@ -151,6 +150,9 @@ export function NetworkEvolution({ project }) {
           <FileDownloadIcon />
           Export Metrics
         </Button>
+      </div>
+      <div className="container-title-button">
+        <div className="small-title-project">Evolution by all Time ranges</div>
       </div>
 
       <div className="charts-list">
