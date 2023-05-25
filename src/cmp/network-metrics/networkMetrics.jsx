@@ -29,13 +29,13 @@ export function NetworkMetrics({ network }) {
   const [numberOfEdgesPerType, setNumberOfEdgesPerType] = useState({});
   const [isPieReady, setIsPieReady] = useState(false);
 
-  const tooltipContent = `<strong>Nodes</strong>: represent the entities of the network.<br>
-  <strong>Edges</strong>: represent the relationships between the entities.<br>
-  <strong>Community</strong>: a group of nodes that are more connected to each other than to the rest of the network.<br>
-  <strong>Density</strong>: the ratio of the number of edges in the network to the total number of possible edges.<br>
-  <strong>Degree Centrality</strong>: the number of edges connected to a node.<br>
-  <strong>Diameter</strong>: the longest shortest path between any two nodes in the network.<br>
-  <strong>Modularity</strong>: the degree to which the network may be subdivided into such clearly delineated groups.`;
+  const tooltipContent = `<strong>Nodes</strong>:<br> &emsp; Represent the entities of the network.<br>
+  <br><strong>Edges</strong>:<br> &emsp; Represent the relationships between the entities.<br>
+  <br><strong>Community</strong>:<br> &emsp; A group of nodes that are more connected to each other than to the rest of the network.<br>
+  <br><strong>Density</strong>:<br> &emsp; The ratio of the number of edges in the network to the total number of possible edges.<br>
+  <br><strong>Degree Centrality</strong>:<br> &emsp; Higher values indicates that the network is predominantly directed towards specific nodes,<br> &emsp; while lower values signifies a more equal distribution.<br>
+  <br><strong>Diameter</strong>:<br> &emsp; The longest shortest path between any two nodes in the network.<br>
+  <br><strong>Modularity</strong>:<br> &emsp; The degree to which the network may be subdivided into such clearly delineated groups.`;
 
   useEffect(() => {
     const keys = Object.keys(network.metricsPerEdgeType);
