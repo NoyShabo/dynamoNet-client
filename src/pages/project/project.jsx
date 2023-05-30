@@ -208,6 +208,13 @@ export function Project() {
       toast.success("Project deleted successfully", {
         position: toast.POSITION.TOP_RIGHT,
       });
+      // remove project from user then save to local storage
+      const user = JSON.parse(localStorage.getItem("user"));
+      const newProjectsRefs = user.projectsRefs.filter(
+        (projectRef) => projectRef._id !== projectId
+      );
+      user.projectsRefs = newProjectsRefs;
+      localStorage.setItem("user", JSON.stringify(user));
       navigate("/projects");
     } else {
       toast.error("Error deleting project", {
