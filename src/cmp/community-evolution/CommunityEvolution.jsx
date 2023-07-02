@@ -95,7 +95,7 @@ export function CommunityEvolution({ communities, threshold, active }) {
         color: {
           scale: colorScale,
           gradient: {
-            enabled: true,
+            enabled: false,
           },
         },
       },
