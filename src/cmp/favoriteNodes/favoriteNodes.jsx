@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,7 +19,6 @@ export function AddNewNode({ addNode }) {
     if (!value) return;
     try {
       const res = await addFavoriteNodeToProject(projectId, value);
-      // addNode(value);
       toast.success(res.message, {
         position: toast.POSITION.TOP_RIGHT,
         hideProgressBar: true,

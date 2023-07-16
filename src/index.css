@@ -1,28 +1,21 @@
 @font-face {
   font-family: OpenSans-Light;
-  src: url('../src/fonts/OpenSans-Light.ttf');
+  src: url("../src/fonts/OpenSans-Light.ttf");
 }
 
 @font-face {
   font-family: OpenSans-Regular;
-  src: url('../src/fonts/OpenSans-Regular.ttf');
+  src: url("../src/fonts/OpenSans-Regular.ttf");
 }
 
 body {
   margin: 0;
-  /* font-family: OpenSans-Regular; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  /* font-family: OpenSans-Regular; */
-}
-
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-

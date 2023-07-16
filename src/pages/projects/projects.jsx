@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import BeatLoader from "react-spinners/BeatLoader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GlobalCard } from "../../cmp/card/card";
@@ -31,8 +30,6 @@ const makecards = (projects) => {
 };
 
 export function ProjectsPage() {
-  // const projects = useSelector((state) => state.projectModule.projects);
-  // const user = useSelector((state) => state.userModule.user);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [projects, setProjectsList] = useState([]);
   const dispatch = useDispatch();
@@ -47,16 +44,11 @@ export function ProjectsPage() {
       localStorage.setItem("user", JSON.stringify(user));
       dispatch(setProjects(projects));
     } catch (e) {
-      // console.error("error fetching projects!: ", e);
       toast.error(e.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
     }
   };
-
-  // useEffect(() => {
-  //   fetchProjects();
-  // }, []);
 
   useEffect(() => {
     if (!user) {
@@ -74,16 +66,6 @@ export function ProjectsPage() {
           {projects && (
             <div className="cards-container">{makecards(projects)}</div>
           )}
-          {/* {(!projects || projects.length === 0) && (
-            <div className="cards-container title-project">
-              <span style={{ textAlign: "center" }}>
-                Loading Projects <BeatLoader color="#36d7b7" />
-              </span>
-            </div>
-          )} */}
-          {/* <div className="cards-container">
-                {makecards(projects)}
-            </div> */}
         </div>
       </div>
       <ToastContainer />

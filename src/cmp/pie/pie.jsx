@@ -38,7 +38,6 @@ export function PieChart({
           return {
             label: name,
             usage: Number(dataObject[name]),
-            // percent: 100 * (Number(dataObject[name]) / sum)
             percent: (100 * (Number(dataObject[name]) / sum)).toFixed(2),
           };
         })
@@ -64,14 +63,12 @@ export function PieChart({
 
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
-  // const radius = Math.min(innerWidth, innerHeight) / 2;
   const centerY = innerHeight / 2;
   const centerX = innerWidth / 2;
   const donutThickness = 50;
   const padding = 30;
 
   return (
-    // <div className='pie-chart'>
     <>
       <div
         style={{
@@ -100,7 +97,6 @@ export function PieChart({
               }}
               cornerRadius={4}
               padAngle={0.05}
-              // padRadius={0.005}
             >
               {(pie) => (
                 <AnimatedPie
@@ -163,6 +159,5 @@ export function PieChart({
         />
       </div>
     </>
-    // </div>
   );
 }

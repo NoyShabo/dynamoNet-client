@@ -1,10 +1,6 @@
-import { Hidden } from "@mui/material";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { Group } from "@visx/group";
 import { LegendOrdinal } from "@visx/legend";
-import cityTemperature, {
-  CityTemperature,
-} from "@visx/mock-data/lib/mocks/cityTemperature";
 import { scaleBand, scaleLinear, scaleOrdinal } from "@visx/scale";
 import { BarGroup } from "@visx/shape";
 import { timeFormat, timeParse } from "d3-time-format";
@@ -21,9 +17,6 @@ export function Bars({ width, height, events = false, margin = null, data }) {
   const keys = Object.keys(data[0]).filter((d) => d !== "date");
   const defaultMargin = { top: 40, right: 0, bottom: 40, left: 50 };
   if (margin === null) margin = defaultMargin;
-  const parseDate = timeParse("%Y-%m-%d");
-  const format = timeFormat("%b %d");
-  const formatDate = (date) => format(parseDate(date));
 
   // accessors
   const getDate = (d) => d.date;
@@ -134,7 +127,6 @@ export function Bars({ width, height, events = false, margin = null, data }) {
         />
         <AxisBottom
           top={yMax + margin.top}
-          // tickFormat={formatDate}
           left={margin.left}
           scale={dateScale}
           stroke={"white"}
@@ -142,9 +134,8 @@ export function Bars({ width, height, events = false, margin = null, data }) {
           tickLabelProps={() => ({
             fill: "white",
             fontSize: 11,
-            textAnchor: "middle"
+            textAnchor: "middle",
           })}
-          
         />
       </svg>
 
@@ -161,8 +152,6 @@ export function Bars({ width, height, events = false, margin = null, data }) {
           position: "absolute",
           bottom: 0,
           right: 0,
-          // anchor: "bottom-right",
-
         }}
       />
     </div>

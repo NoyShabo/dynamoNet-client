@@ -103,16 +103,10 @@ export function NetworkMetrics({ network }) {
           })}
         </div>
       )}
-      {/* {numberOfEdgesPerType.retweets > 0 && numberOfEdgesPerType.quotes > 0 && ( */}
       <div className="chart-container" style={{ width: "45%" }}>
         <div className="small-title-project">Edges Types</div>
-        {/* {numerRender == 2 ? ( */}
         <PieChart dataObject={numberOfEdgesPerType} width={300} height={300} />
-        {/* ) : ( */}
-        {/* setNumberRender(2) */}
-        {/* )} */}
       </div>
-      {/* )} */}
       <div className="chart-container">
         <div className="title-project">Overall Metrics</div>
         {createTooltip(tooltipContent)}

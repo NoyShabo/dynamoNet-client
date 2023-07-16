@@ -134,7 +134,6 @@ export function CommunityEvolution({ communities, threshold, active }) {
     return (
       <div className="community-evolution">
         <AlluvialChart
-          // className="alluvial"
           data={myState.data}
           options={myState.options}
           ref={alluvialRef}

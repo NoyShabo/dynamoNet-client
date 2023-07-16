@@ -1,22 +1,18 @@
+import { Select } from "@mantine/core";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import BeatLoader from "react-spinners/BeatLoader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Delete } from "../../cmp/delete/delete";
 import { Edit } from "../../cmp/edit/edit";
 import { DisplayGraph } from "../../cmp/network-graph/networkGraph";
 import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
-// import timeRange from "../../data/timeRange.json";
-import { Select } from "@mantine/core";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import BeatLoader from "react-spinners/BeatLoader";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import "../../globalStyle.scss";
 import { setProject } from "../../redux/actions/projectActions";
-import {
-  deleteTimeRangeStore,
-  setTimeRange,
-} from "../../redux/actions/timeRangeActions";
+import { setTimeRange } from "../../redux/actions/timeRangeActions";
 import { getProject } from "../../serverApi/rest/projectApi";
 import {
   deleteTimeRange,
@@ -43,13 +39,6 @@ export function Timerange({}) {
   function backPrevPage() {
     navigate(`/project/${projectId}`);
   }
-  // const TRIds=["6405c91d024f895891dfe76b","6405c941024f895891dfe76d","6405c959024f895891dfe76f","6405c962024f895891dfe771"]
-
-  // if(project){
-  //   project.timeRanges.forEach((tr) => {
-  //     TRIds.push(tr._id);
-  //   });
-  // }
   const getProjectById = async (id) => {
     const res = await getProject(id);
     dispatch(setProject(res));
@@ -58,7 +47,6 @@ export function Timerange({}) {
   useEffect(() => {
     if (project && project.timeRanges) {
       project.timeRanges.forEach((tr) => {
-        // TRIds.push(tr._id);
         setTRIds((prev) => [...prev, tr._id]);
       });
     }
@@ -68,7 +56,6 @@ export function Timerange({}) {
     if (project && project.timeRanges) {
       TRIds.length = 0;
       project.timeRanges.forEach((tr) => {
-        // TRIds.push(tr._id);
         setTRIds((prev) => [...prev, tr._id]);
       });
     } else {
@@ -89,12 +76,6 @@ export function Timerange({}) {
 
   function clickTrLeftArrow(e) {
     e.preventDefault();
-    // if (project && project.timeRanges) {
-    //   project.timeRanges.forEach((tr) => {
-    //     // TRIds.push(tr._id);
-    //     setTRIds((prev) => [...prev, tr._id]);
-    //   });
-    // }
     const index = TRIds.indexOf(timeRangeId);
     console.log(timeRangeId);
     let navigateIndex;
@@ -110,11 +91,6 @@ export function Timerange({}) {
 
   function clickTRightArrow(e) {
     e.preventDefault();
-    // if (project && project.timeRanges) {
-    //   project.timeRanges.forEach((tr) => {
-    //     TRIds.push(tr._id);
-    //   });
-    // }
     const index = TRIds.indexOf(timeRangeId);
     console.log(index);
 
@@ -131,9 +107,6 @@ export function Timerange({}) {
 
   useEffect(() => {
     getTimeRangeById(timeRangeId);
-    // return () => {
-    //   dispatch(deleteTimeRangeStore());
-    // };
   }, [timeRangeId]);
 
   useEffect(() => {
@@ -141,7 +114,6 @@ export function Timerange({}) {
       setTimeRangeTitle(timeRange.title);
       if (timeRange.network && !timeRange.network.nodes)
         getTimeRangeById(timeRangeId, true);
-      // getNetworkById(timeRange.network);
       else setNetwork(timeRange.network);
     }
   }, [timeRange]);
@@ -151,7 +123,6 @@ export function Timerange({}) {
       const res = await deleteTimeRange(timeRangeId, projectId);
       navigate(`/project/${projectId}`);
     } catch (e) {
-      // console.error("error deleting time range: ", e);
       toast.error(e.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -163,7 +134,6 @@ export function Timerange({}) {
       const res = await updateTimeRange(timeRangeId, projectId, { title });
       setTimeRangeTitle(title);
     } catch (e) {
-      // console.error("error updating time range: ", e);
       toast.error(e.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -220,15 +190,9 @@ export function Timerange({}) {
             timeRange.network.nodes &&
             timeRange.network.nodes.length > 0 ? (
               <div>
-                {/* select to filter network edges */}
                 <div className="network-filter">
                   <Select
                     placeholder="Select edge type"
-                    // data={[
-                    //   { label: "All", value: "all" },
-                    //   { label: "Retweet", value: "retweet" },
-                    //   { label: "Quote", value: "quote" },
-                    // ]}
                     data={[
                       { label: "All", value: "all" },
                       ...(project

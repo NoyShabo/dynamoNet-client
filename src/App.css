@@ -7,34 +7,31 @@
 
 @font-face {
   font-family: Source Sans Pro;
-  src: url('./fonts/SourceSansPro-Black.ttf');
-
+  src: url("./fonts/SourceSansPro-Black.ttf");
 }
 
 @font-face {
   font-family: SourceSansProR;
-  src: url('./fonts/SourceSansPro-Regular.ttf');
-
+  src: url("./fonts/SourceSansPro-Regular.ttf");
 }
 
 @font-face {
   font-family: SourceSansProLight;
-  src: url('./fonts/SourceSansPro-Light.ttf');
+  src: url("./fonts/SourceSansPro-Light.ttf");
 }
 @font-face {
   font-family: OpenSans-Light;
-  src: url('./fonts/OpenSans-Light.ttf');
+  src: url("./fonts/OpenSans-Light.ttf");
 }
 
 @font-face {
   font-family: OpenSans-Regular;
-  src: url('./fonts/OpenSans-Regular.ttf');
+  src: url("./fonts/OpenSans-Regular.ttf");
 }
-
 
 @font-face {
   font-family: Lato-Thin;
-  src: url('./fonts/Lato-Thin.ttf');
+  src: url("./fonts/Lato-Thin.ttf");
 }
 
 *::-webkit-scrollbar {
@@ -51,10 +48,7 @@
   border-radius: 10px;
 }
 
-
-
 .App {
-  /* text-align: center; */
   height: 100vh;
 }
 

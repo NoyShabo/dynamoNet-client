@@ -105,7 +105,7 @@ export const LoadGraph = ({ network, exportGraph, title }) => {
           color: nodeCommunity ? colors[nodeCommunity] : "#70d8bd",
         });
       } catch (err) {
-        // can ignore this error most likely
+        // can ignore this error
       }
     });
     Object.values(edgeMap).forEach((edge) => {
@@ -118,7 +118,7 @@ export const LoadGraph = ({ network, exportGraph, title }) => {
           type: "arrow",
         });
       } catch (err) {
-        // can ignore this error most likely
+        // can ignore this error
       }
     });
     setGraph(graph);
@@ -132,7 +132,6 @@ export const DisplayGraph = ({ width, height, network, title }) => {
   const [selectedNode, setSelectedNode] = useState();
   const [selectedEdge, setSelectedEdge] = useState();
   const [graph, setGraph] = useState();
-  // console.log(selectedEdge)
   const GraphEvents = () => {
     const registerEvents = useRegisterEvents();
 
@@ -140,7 +139,6 @@ export const DisplayGraph = ({ width, height, network, title }) => {
       registerEvents({
         // node events
         clickNode: (event) => {
-          // console.log("clickNode", event.node, event.preventSigmaDefault);
           getNode(event.node)
             .then((node) => {
               setSelectedNode(node.node);
@@ -151,18 +149,12 @@ export const DisplayGraph = ({ width, height, network, title }) => {
               });
             });
         },
-        // enterNode: (event) => console.log("enterNode", event.node),
-        // leaveNode: (event) => console.log("leaveNode", event.node),
         // edge events
         clickEdge: (event) => {
           const edge = graph.getEdgeAttributes(event.edge);
           console.log(edge);
           setSelectedEdge(edge);
         },
-        // enterEdge: (event) => {
-        //   console.log("enterEdge", event.edge);
-        // },
-        // leaveEdge: (event) => console.log("leaveEdge", event.edge),
       });
     }, [registerEvents]);
 
@@ -207,7 +199,6 @@ export const DisplayGraph = ({ width, height, network, title }) => {
 
                   <div className="edge-popup__content__item">
                     <h4> Content</h4>
-                    {/* <p>"{selectedEdge.edgeContent.join('", "')}"</p> */}
                     {selectedEdge.edgeContent.map((content, index) => (
                       <>
                         <p key={`p_${index}`}>"{content}"</p>

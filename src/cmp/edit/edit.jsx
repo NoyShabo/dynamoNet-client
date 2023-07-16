@@ -33,66 +33,65 @@ export function Edit(props) {
 
   return (
     <>
-   
-      {editMode ? ( 
-      <div className="edit-container">
-        <form onSubmit={handleSubmit} className="form-container">
-          <div>
-            {props.inputs.map((input, index) => (
-              <label key={index} style={{ display: "block" }}>
-                <input
-                  type={input.type}
-                  value={values[index]}
-                  onChange={(event) => {
-                    const newValues = [...values];
-                    newValues[index] = event.target.value;
-                    setValues(newValues);
-                  }}
-                  className={input.className}
-                  style={{
-                    ...input.style,
-                    // width: `${values[index].length}ch`,
-                    maxWidth: "50vw",
-                  }}
-                  {...input.props}
-                />
-              </label>
-            ))}
-          </div>
-          <div className="btns">
-             <Button
-              color="success"
-              type="submit"
-              size="medium"
-              startIcon={<CheckIcon style={{ fontSize: 26 }} />}
-              sx={buttonStyle}
-            ></Button>
-            <Button
-              color="error"
-              onClick={handleCancel}
-              startIcon={<CloseIcon style={{ fontSize: 26 }} />}
-              sx={buttonStyle}
-            ></Button>
-          </div>
-          <div className="title-project">
-          </div>
-        </form>
+      {editMode ? (
+        <div className="edit-container">
+          <form onSubmit={handleSubmit} className="form-container">
+            <div>
+              {props.inputs.map((input, index) => (
+                <label key={index} style={{ display: "block" }}>
+                  <input
+                    type={input.type}
+                    value={values[index]}
+                    onChange={(event) => {
+                      const newValues = [...values];
+                      newValues[index] = event.target.value;
+                      setValues(newValues);
+                    }}
+                    className={input.className}
+                    style={{
+                      ...input.style,
+                      // width: `${values[index].length}ch`,
+                      maxWidth: "50vw",
+                    }}
+                    {...input.props}
+                  />
+                </label>
+              ))}
+            </div>
+            <div className="btns">
+              <Button
+                color="success"
+                type="submit"
+                size="medium"
+                startIcon={<CheckIcon style={{ fontSize: 26 }} />}
+                sx={buttonStyle}
+              ></Button>
+              <Button
+                color="error"
+                onClick={handleCancel}
+                startIcon={<CloseIcon style={{ fontSize: 26 }} />}
+                sx={buttonStyle}
+              ></Button>
+            </div>
+            <div className="title-project"></div>
+          </form>
         </div>
       ) : (
         ""
       )}
-      
-    <div className="edit-button-container">
-          <Button
-            className="btn-edit"
-            variant="contained"
-            size="small"
-            color="info"
-            onClick={() => setEditMode(true)}
-            startIcon={<EditIcon style={{ fontSize: 26}} />}
-            // sx={buttonStyle}
-          >Edit</Button>
-    </div>
+
+      <div className="edit-button-container">
+        <Button
+          className="btn-edit"
+          variant="contained"
+          size="small"
+          color="info"
+          onClick={() => setEditMode(true)}
+          startIcon={<EditIcon style={{ fontSize: 26 }} />}
+        >
+          Edit
+        </Button>
+      </div>
     </>
   );
 }

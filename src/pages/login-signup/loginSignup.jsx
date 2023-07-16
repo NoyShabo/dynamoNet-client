@@ -1,11 +1,9 @@
 import { useCallback, useState } from "react";
-// import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
-// import { setUser } from "../../redux/actions/userActions";
 import { login, register } from "../../serverApi/rest/authApi";
 import "./login-signup.scss";
 
@@ -14,7 +12,6 @@ export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
 
   const handleSignUp = async () => {
     try {
@@ -31,7 +28,6 @@ export function LoginPage() {
   const handleLogIn = async () => {
     try {
       const res = await login(email, password);
-      // dispatch(setUser(res));
       localStorage.setItem("user", JSON.stringify(res.user));
       navigate("/projects");
     } catch (e) {
@@ -52,7 +48,6 @@ export function LoginPage() {
   }, []);
 
   const particlesLoaded = useCallback(async (container) => {
-    // await console.log(container);
     await container;
   }, []);
 

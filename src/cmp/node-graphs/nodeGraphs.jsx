@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../../globalStyle.scss";
 import { getNode } from "../../serverApi/rest/nodeApi";
-import { BarChart } from "../bar-chart/bar-chart";
 import { Bars } from "../bar-group/barGroup";
 import { LineChart } from "../line-chart/line-chart";
-import { NodeCard } from "../node-details/nodeDetails";
 import "./nodeGraphs.scss";
 
 function getNodeMetrics(timeRanges, nodeName) {
@@ -23,17 +21,6 @@ function getNodeMetrics(timeRanges, nodeName) {
 function getNodeMetricsByMetricName(metric, nodeMetrics, timeRanges = []) {
   const final = [];
   if (metric === "degree" || metric === "inDegree" || metric === "outDegree") {
-    // // nodeMetrics.forEach((element) => {
-    // for (const node in nodeMetrics) {
-    //   nodeMetrics[node].forEach((element) => {
-    //     final.push({
-    //       window: element.timeRangeTitle,
-    //       frequency: element.nodeMetrics ? element.nodeMetrics[metric] : null,
-    //       key: `${element.timeRangeTitle}-${element.nodeName}`,
-    //     });
-    //   });
-    // }
-    // // });
     let sum = 0;
     timeRanges.forEach((timeRange) => {
       final.push({
@@ -50,16 +37,12 @@ function getNodeMetricsByMetricName(metric, nodeMetrics, timeRanges = []) {
           }
           sum += timeRange[node] ? timeRange[node] : 0;
         });
-        // final[final.length - 1][node] = element.nodeMetrics
-        //   ? element.nodeMetrics[metric]
-        //   : null;
       });
       if (sum === 0) {
         final.length = 0;
       }
     }
   } else {
-    // nodeMetrics.forEach((element) => {
     for (const node in nodeMetrics) {
       final.push({
         id: node,
@@ -72,7 +55,6 @@ function getNodeMetricsByMetricName(metric, nodeMetrics, timeRanges = []) {
         });
       });
     }
-    // });
   }
   return final;
 }
@@ -94,7 +76,6 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
   const [nodeSelected, setNodeSelected] = useState({});
 
   useEffect(() => {
-    // setNodeMetrics(getNodeMetrics(timeRanges, nodeName));
     setNodeMetrics({});
     for (const node of nodes) {
       setNodeMetrics((prev) => ({
@@ -141,14 +122,11 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
 
   return (
     <div className="graphs">
-      {/* <NodeCard nodeDetails={nodeSelected}></NodeCard> */}
-      {/* <div className="head-title"> Node Evolution</div> */}
       <div className="charts-list">
         {indegreeMetricData.length > 0 && (
           <div className="chart-container chart-container-node">
             <div className="small-title-project">Indegree Evolution</div>
             <Bars
-              // width={window.innerWidth * 0.8}
               width={Math.min(
                 100 * (Object.keys(nodeMetrics).length + timeRanges.length),
                 window.innerWidth * 0.6
@@ -177,7 +155,6 @@ export function NodeGraphs({ timeRanges, nodeName, nodes }) {
             <div className="chart-container chart-container-node">
               <div className="small-title-project">Degree Evolution</div>
               <Bars
-                // width={window.innerWidth * 0.8}
                 width={Math.min(
                   100 * (Object.keys(nodeMetrics).length + timeRanges.length),
                   window.innerWidth * 0.8

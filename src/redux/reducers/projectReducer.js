@@ -1,12 +1,8 @@
 import { ProjectActionTypes } from "../constants/action-types";
 
-// import projects from "../../data/projects.json";
-
 const initialState = {
   project: null,
 };
-
-// const initialState = projects
 
 //The reducer get type and payload from the Action
 export const projectReducer = (state = initialState, { type, payload }) => {
