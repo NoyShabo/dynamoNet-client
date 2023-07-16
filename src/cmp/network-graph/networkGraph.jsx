@@ -15,19 +15,8 @@ import "react-toastify/dist/ReactToastify.css";
 import seedrandom from "seedrandom";
 import { getNode } from "../../serverApi/rest/nodeApi";
 import { default as ContactInfo } from "../sourceList/list";
-import { LoadGraph } from "./LoadGraph";
+import { LoadGraph } from "./load-graph/LoadGraph";
 import "./networkGraph.scss";
-
-export function genColor(seed) {
-  const random = seedrandom(seed);
-  let color = Math.floor(random() * 16777215);
-  color = color.toString(16);
-  while (color.length < 6) {
-    color = "0" + color;
-  }
-
-  return "#" + color;
-}
 
 export const DisplayGraph = ({ width, height, network, title }) => {
   const [selectedNode, setSelectedNode] = useState();

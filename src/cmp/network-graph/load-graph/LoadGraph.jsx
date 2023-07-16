@@ -1,7 +1,7 @@
 import { useLoadGraph } from "@react-sigma/core";
 import Graph from "graphology";
 import { useEffect, useState } from "react";
-import { genColor } from "./networkGraph";
+import { genColor } from "../../../utils";
 
 export const LoadGraph = ({ network, exportGraph, title }) => {
   const [graph, setGraph] = useState();

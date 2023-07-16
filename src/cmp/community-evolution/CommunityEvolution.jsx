@@ -1,19 +1,8 @@
 import { AlluvialChart } from "@carbon/charts-react";
 import "@carbon/styles/index.scss";
 import { useEffect, useRef, useState } from "react";
-import seedrandom from "seedrandom";
+import { genColor } from "../../utils";
 import "./communityEvolution.scss";
-
-function genColor(seed) {
-  const random = seedrandom(seed);
-  let color = Math.floor(random() * 16777215);
-  color = color.toString(16);
-  while (color.length < 6) {
-    color = "0" + color;
-  }
-
-  return "#" + color;
-}
 
 function commonBetweenCommunities(community1, community2) {
   const set1 = new Set(community1);
@@ -22,6 +11,7 @@ function commonBetweenCommunities(community1, community2) {
   return commonStrings.size;
 }
 
+// calculate the values for the alluvial chart to display the community evolution
 function calculateEvolutionValues(communities, threshold = 0.3) {
   const communityGroups = [];
   const communityLinks = [];
