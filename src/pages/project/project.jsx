@@ -16,7 +16,6 @@ import { Delete } from "../../cmp/delete/delete";
 import { Edit } from "../../cmp/edit/edit";
 import { Modal } from "../../cmp/modal/modal";
 import { NetworkEvolution } from "../../cmp/network-evolution/networkEvolution";
-import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 import { Scroll } from "../../cmp/scroll/scroll";
 import { MyTabs } from "../../cmp/tabs/tabs";
 import { ProjectStatus } from "../../constants";
@@ -30,10 +29,11 @@ import {
   getProject,
   updateProject,
 } from "../../serverApi/rest/projectApi";
+import { deleteTimeRange } from "../../serverApi/rest/timeRangeApi";
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
+import { SourceNetwork } from "./source-network/SourceNetwork";
 
-import { deleteTimeRange } from "../../serverApi/rest/timeRangeApi";
 function getTimeRangeCards(project, handleDeleteTimeRange, isOwner) {
   const timeRanges = project.timeRanges;
   const cards = timeRanges.map((timeRange) => {
@@ -56,21 +56,6 @@ function getTimeRangeCards(project, handleDeleteTimeRange, isOwner) {
     );
   });
   return cards;
-}
-
-function SourceNetwork({ network }) {
-  const [networkGraph, setNetworkGraph] = useState(null);
-  const getNetworkById = async (id) => {
-    const res = await getNetwork(id);
-    setNetworkGraph(res.network);
-  };
-
-  return (
-    <div className="source-network">
-      <div className="title-project">Source Network</div>
-      {network && <NetworkMetrics network={network} />}
-    </div>
-  );
 }
 
 function mapCommunities(project, slice = 5) {
@@ -541,13 +526,14 @@ export function Project() {
                       }}
                     >
                       <FileDownloadIcon />
-                      Export
+                      Export Project's Data
                     </Button>
                     {isOwner && (
                       <>
                         <Delete
                           onDelete={handleDelete}
                           title={`Delete Project: ${title}`}
+                          label={"Delete Project"}
                         />
                         <Edit
                           inputs={[
@@ -563,6 +549,7 @@ export function Project() {
                             },
                           ]}
                           onSubmit={handleEdit}
+                          label={"Edit Project"}
                         />
                       </>
                     )}
@@ -579,6 +566,7 @@ export function Project() {
                     <Delete
                       onDelete={handleDelete}
                       title={`Delete Project: ${title}`}
+                      label={"Delete Project"}
                     />
                   )}
                 </>

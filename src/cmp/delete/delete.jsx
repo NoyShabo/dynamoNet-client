@@ -14,7 +14,7 @@ const buttonStyle = {
   },
 };
 
-export function Delete({ onDelete, title, message }) {
+export function Delete({ onDelete, title, message, label = "Delete" }) {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
   const handleDelete = (event) => {
@@ -39,7 +39,7 @@ export function Delete({ onDelete, title, message }) {
         style={buttonStyle}
       >
         <DeleteForeverIcon />
-        Delete
+        {label}
       </Button>
       <Dialog
         open={showConfirmDelete}

@@ -7,8 +7,8 @@ import {
   getNode,
   removeFavoriteNodeFromProject,
 } from "../../serverApi/rest/nodeApi";
-import { NodeCard } from "../node-details/nodeDetails";
 import "./favoriteNodes.scss";
+import { NodeCard } from "./node-details/nodeDetails";
 
 export function AddNewNode({ addNode }) {
   const [value, setValue] = useState("");

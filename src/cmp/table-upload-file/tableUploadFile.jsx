@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DropZone } from "../drag-drop-file/dragDrop";
+import { DropZone } from "./drag-drop-file/dragDrop";
 
 import "./tableUploadFile.scss";
 

@@ -22,17 +22,17 @@ function commonBetweenCommunities(community1, community2) {
   return commonStrings.size;
 }
 
-function getData(communities, threshold = 0.3) {
+function calculateEvolutionValues(communities, threshold = 0.3) {
   const communityGroups = [];
-  const initializedGroups = {};
   const communityLinks = [];
   const timeRangesLength = communities.length;
   const colorScale = {};
+  // iterate through all time ranges
   for (let i = 0; i < timeRangesLength; i++) {
     const timeRange = communities[i];
-    console.log("~~~~~~~~", i, timeRange);
-
+    // iterate through all communities in time range
     Object.keys(timeRange.communities).forEach((communityIndex) => {
+      // add community to communityGroups
       communityGroups.push({
         name: `${timeRange.title}-${communityIndex}`,
         category: `${timeRange.title}`,
@@ -42,15 +42,20 @@ function getData(communities, threshold = 0.3) {
       );
     });
   }
+
+  // iterate through all time ranges
   for (let i = 0; i < timeRangesLength - 1; i++) {
     const timeRange1 = communities[i];
     const timeRange2 = communities[i + 1];
     const timeRange1Communities = timeRange1.communities;
     const timeRange2Communities = timeRange2.communities;
+    // iterate through all communities in time range 1
     Object.keys(timeRange1Communities).forEach((communityIndex1) => {
       const community1 = timeRange1Communities[communityIndex1];
+      // iterate through all communities in time range 2
       Object.keys(timeRange2Communities).forEach((communityIndex2) => {
         const community2 = timeRange2Communities[communityIndex2];
+        // evaluate if there is a link between the two communities
         const commonStrings = commonBetweenCommunities(community1, community2);
         if (
           commonStrings === 0 ||
@@ -65,7 +70,6 @@ function getData(communities, threshold = 0.3) {
       });
     });
   }
-  console.log(communityLinks);
 
   return {
     communityGroups,
@@ -79,10 +83,8 @@ export function CommunityEvolution({ communities, threshold, active }) {
   const alluvialRef = useRef(null);
 
   useEffect(() => {
-    const { communityGroups, communityLinks, colorScale } = getData(
-      communities,
-      threshold
-    );
+    const { communityGroups, communityLinks, colorScale } =
+      calculateEvolutionValues(communities, threshold);
     setMyState({
       data: communityLinks,
       options: {

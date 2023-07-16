@@ -1,7 +1,7 @@
 import React from "react";
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 
-import { LeftArrow, RightArrow } from "../arrows/arrows";
+import { LeftArrow, RightArrow } from "./arrows/arrows";
 import usePreventBodyScroll from "./useBodyScroll.js";
 import useDrag from "./useDrag";
 

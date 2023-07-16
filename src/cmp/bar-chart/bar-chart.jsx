@@ -4,7 +4,6 @@ import { GridRows } from "@visx/grid";
 import { Group } from "@visx/group";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import { Bar } from "@visx/shape";
-import { Text } from "@visx/text";
 import React, { useMemo } from "react";
 
 const verticalMargin = 120;

@@ -3,14 +3,15 @@ import { Group } from "@visx/group";
 import { LegendOrdinal } from "@visx/legend";
 import { scaleBand, scaleLinear, scaleOrdinal } from "@visx/scale";
 import { BarGroup } from "@visx/shape";
-import { timeFormat, timeParse } from "d3-time-format";
 import React from "react";
 
-const blue = "#aeeef8";
-const green = "#e5fd3d";
-const purple = "#9caff6";
-const yellow = "#f6e58d";
-const red = "#ff7979";
+const colors = {
+  blue: "#aeeef8",
+  green: "#e5fd3d",
+  purple: "#9caff6",
+  yellow: "#f6e58d",
+  red: "#ff7979",
+};
 const background = "transparent";
 
 export function Bars({ width, height, events = false, margin = null, data }) {
@@ -40,7 +41,13 @@ export function Bars({ width, height, events = false, margin = null, data }) {
   });
   const colorScale = scaleOrdinal({
     domain: keys,
-    range: [blue, green, purple, yellow, red],
+    range: [
+      colors.blue,
+      colors.green,
+      colors.purple,
+      colors.yellow,
+      colors.red,
+    ],
   });
 
   // bounds

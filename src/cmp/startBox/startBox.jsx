@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import "../../globalStyle.scss";
-export function StatBox({ title, subtitle, progress, increase, icon }) {
+export function StatBox({ title, subtitle, icon }) {
   return (
     <Box width="100%" m="0 30px" p="12px 0" overflow="hidden">
       <Box display="flex" justifyContent="space-between">

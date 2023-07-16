@@ -50,7 +50,6 @@ export function Edit(props) {
                     className={input.className}
                     style={{
                       ...input.style,
-                      // width: `${values[index].length}ch`,
                       maxWidth: "50vw",
                     }}
                     {...input.props}
@@ -89,7 +88,7 @@ export function Edit(props) {
           onClick={() => setEditMode(true)}
           startIcon={<EditIcon style={{ fontSize: 26 }} />}
         >
-          Edit
+          {props.label || "Edit"}
         </Button>
       </div>
     </>

@@ -2,7 +2,7 @@ import { Image } from "@mantine/core";
 import React, { useCallback, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
-import "../../globalStyle.scss";
+import "../../../globalStyle.scss";
 import "./dragDrop.scss";
 
 import uploadImg from "./import.svg";
