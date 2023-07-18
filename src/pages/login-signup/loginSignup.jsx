@@ -164,7 +164,7 @@ export function LoginPage() {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  handleSignUp();
+                  // handleSignUp();
                 }}
               >
                 Sign Up
