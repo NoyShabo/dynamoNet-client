@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import React, { useEffect } from "react";
 import { DatasetList } from "../sourceList/list";
 import "./modal.scss";
-import CloseIcon from "@mui/icons-material/Close";
 
 export const Modal = ({ onRequestClose, dataset }) => {
   // Use useEffect to add an event listener to the document
@@ -26,38 +26,12 @@ export const Modal = ({ onRequestClose, dataset }) => {
 
   return (
     <div className="project-modal">
-          <div className="modal__backdrop">
-            <div className="modal__container">
-              <DatasetList dataset={dataset} />
-            <CloseIcon  onClick={onRequestClose} className="close-modal"/>
-              {/* <button type="button" className="close-modal" onClick={onRequestClose}>
-                Close
-              </button> */}
-            </div>
+      <div className="modal__backdrop">
+        <div className="modal__container">
+          <DatasetList dataset={dataset} />
+          <CloseIcon onClick={onRequestClose} className="close-modal" />
+        </div>
       </div>
     </div>
-
   );
 };
-
-// export const PageModal = () => {
-// 	const [isModalOpen, setModalIsOpen] = useState(false);
-// 		const toggleModal = () => {
-// 		setModalIsOpen(!isModalOpen);
-// 	};
-
-// 	return (
-// 		<main>
-// 			{isModalOpen && <Modal onRequestClose={toggleModal} />}
-// 			<h1>React modal</h1>
-// 			<p>
-// 				This Pen shows an example of a controlled modal component built using React hooks, specifically <code>useState()</code> and <code>useEffect()</code>.
-// 			</p>
-// 			<p>Hit the button below to show the modal.</p>
-// 			<button onClick={toggleModal} type="button">
-// 				Show the modal
-// 			</button>
-
-// 		</main>
-// 	);
-// };

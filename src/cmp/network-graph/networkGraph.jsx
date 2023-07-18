@@ -4,135 +4,24 @@ import {
   FullScreenControl,
   SearchControl,
   SigmaContainer,
-  useLoadGraph,
   useRegisterEvents,
   ZoomControl,
 } from "@react-sigma/core";
 import "@react-sigma/core/lib/react-sigma.min.css";
 import { LayoutForceAtlas2Control } from "@react-sigma/layout-forceatlas2";
-import Graph from "graphology";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import seedrandom from "seedrandom";
 import { getNode } from "../../serverApi/rest/nodeApi";
 import { default as ContactInfo } from "../sourceList/list";
+import { LoadGraph } from "./load-graph/LoadGraph";
 import "./networkGraph.scss";
-
-function genColor(seed) {
-  const random = seedrandom(seed);
-  let color = Math.floor(random() * 16777215);
-  color = color.toString(16);
-  while (color.length < 6) {
-    color = "0" + color;
-  }
-
-  return "#" + color;
-}
-
-export const LoadGraph = ({ network, exportGraph, title }) => {
-  const [graph, setGraph] = useState();
-  const loadGraph = useLoadGraph();
-
-  const getNodeCommunity = (nodeId, communities) => {
-    for (const communityId in communities) {
-      if (communities[communityId].includes(nodeId)) return communityId;
-    }
-  };
-
-  useEffect(() => {
-    loadGraph(graph);
-  }, [loadGraph, graph]);
-
-  useEffect(() => {
-    const colors = {};
-    for (const communityId in network.communities) {
-      colors[communityId] = genColor(`${title}-${communityId}`);
-    }
-    const nodes = network.nodes.map((node) => {
-      return { id: node, label: node };
-    });
-    const edges = network.edges.map((edge) => {
-      return {
-        from: edge.source,
-        to: edge.destination,
-        _id: edge._id,
-        edgeType: edge.edgeType,
-        edgeContent: edge.edgeContent,
-        timestamp: edge.timestamp,
-      };
-    });
-
-    const edgeMap = {};
-    edges.forEach((edge) => {
-      if (edgeMap[edge.from + edge.to]) {
-        edgeMap[edge.from + edge.to].weight += 1;
-        edgeMap[edge.from + edge.to].edgeType.push(edge.edgeType);
-        edgeMap[edge.from + edge.to].edgeContent.push(edge.edgeContent);
-        edgeMap[edge.from + edge.to].timestamp.push(edge.timestamp);
-      } else if (edgeMap[edge.to + edge.from]) {
-        edgeMap[edge.to + edge.from].weight += 1;
-        edgeMap[edge.to + edge.from].edgeType.push(edge.edgeType);
-        edgeMap[edge.to + edge.from].edgeContent.push(edge.edgeContent);
-        edgeMap[edge.to + edge.from].timestamp.push(edge.timestamp);
-      } else {
-        edgeMap[edge.from + edge.to] = {
-          from: edge.from,
-          to: edge.to,
-          weight: 1,
-          edgeType: [edge.edgeType],
-          edgeContent: [edge.edgeContent],
-          timestamp: [edge.timestamp],
-        };
-      }
-    });
-
-    const graph = new Graph();
-    nodes.forEach((node) => {
-      try {
-        const nodeCommunity = getNodeCommunity(node.id, network.communities);
-        graph.addNode(node.id, {
-          x:
-            network.nodePositions && network.nodePositions[node.id]
-              ? network.nodePositions[node.id][0]
-              : Math.random(),
-          y:
-            network.nodePositions && network.nodePositions[node.id]
-              ? network.nodePositions[node.id][1]
-              : Math.random(),
-          size: 3,
-          label: node.label,
-          color: nodeCommunity ? colors[nodeCommunity] : "#70d8bd",
-        });
-      } catch (err) {
-        // can ignore this error most likely
-      }
-    });
-    Object.values(edgeMap).forEach((edge) => {
-      try {
-        graph.addEdgeWithKey(edge.from + edge.to, edge.from, edge.to, {
-          weight: edge.weight,
-          edgeType: edge.edgeType,
-          edgeContent: edge.edgeContent,
-          timestamp: edge.timestamp,
-          type: "arrow",
-        });
-      } catch (err) {
-        // can ignore this error most likely
-      }
-    });
-    setGraph(graph);
-    exportGraph(graph);
-  }, [network]);
-
-  return null;
-};
 
 export const DisplayGraph = ({ width, height, network, title }) => {
   const [selectedNode, setSelectedNode] = useState();
   const [selectedEdge, setSelectedEdge] = useState();
   const [graph, setGraph] = useState();
-  // console.log(selectedEdge)
   const GraphEvents = () => {
     const registerEvents = useRegisterEvents();
 
@@ -140,7 +29,6 @@ export const DisplayGraph = ({ width, height, network, title }) => {
       registerEvents({
         // node events
         clickNode: (event) => {
-          // console.log("clickNode", event.node, event.preventSigmaDefault);
           getNode(event.node)
             .then((node) => {
               setSelectedNode(node.node);
@@ -151,18 +39,12 @@ export const DisplayGraph = ({ width, height, network, title }) => {
               });
             });
         },
-        // enterNode: (event) => console.log("enterNode", event.node),
-        // leaveNode: (event) => console.log("leaveNode", event.node),
         // edge events
         clickEdge: (event) => {
           const edge = graph.getEdgeAttributes(event.edge);
           console.log(edge);
           setSelectedEdge(edge);
         },
-        // enterEdge: (event) => {
-        //   console.log("enterEdge", event.edge);
-        // },
-        // leaveEdge: (event) => console.log("leaveEdge", event.edge),
       });
     }, [registerEvents]);
 
@@ -207,7 +89,6 @@ export const DisplayGraph = ({ width, height, network, title }) => {
 
                   <div className="edge-popup__content__item">
                     <h4> Content</h4>
-                    {/* <p>"{selectedEdge.edgeContent.join('", "')}"</p> */}
                     {selectedEdge.edgeContent.map((content, index) => (
                       <>
                         <p key={`p_${index}`}>"{content}"</p>

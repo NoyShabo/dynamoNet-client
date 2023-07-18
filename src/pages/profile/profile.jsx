@@ -1,23 +1,18 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ProfileCard } from "../../cmp/profileCard/profileCard";
-import { removeSelectedUser } from "../../redux/actions/userActions";
 import { logout } from "../../serverApi/rest/authApi";
 import "./profile.scss";
 
-
 export function Profile() {
-  // const user = useSelector((state) => state.userModule.user);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [inProgressProjectsNumber, setInProgressProjectsNumber] = useState(0);
   const [openProjectsNumber, setOpenProjectsNumber] = useState(0);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!user) {
@@ -26,14 +21,14 @@ export function Profile() {
 
     let inProgressCount = 0;
     let openCount = 0;
-    user.projectsRefs.forEach(project => {
+    user.projectsRefs.forEach((project) => {
       if (project.status === "in progress") {
         inProgressCount += 1;
       } else {
         openCount += 1;
       }
     });
-    
+
     setInProgressProjectsNumber(inProgressCount);
     setOpenProjectsNumber(openCount);
   }, []);
@@ -47,7 +42,6 @@ export function Profile() {
       const res = await logout(user);
       console.log(res);
       localStorage.removeItem("user");
-      // dispatch(removeSelectedUser());
       navigate("/login");
     } catch (e) {
       console.log(e);

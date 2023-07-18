@@ -8,15 +8,12 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import InfoIcon from "@mui/icons-material/Info";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 import { TableUploadFile } from "../../cmp/table-upload-file/tableUploadFile";
 import { createProjectFromFile } from "../../serverApi/rest/projectApi";
-// import  ReactTooltip  from 'react-tooltip';
-import { Tooltip } from "react-tooltip";
-
-import InfoIcon from "@mui/icons-material/Info";
-
 import "./formNewProjectCsv.scss";
 
 export function FormNewProjectCSV() {
@@ -45,9 +42,6 @@ export function FormNewProjectCSV() {
     } catch (err) {
       console.log(err);
     }
-
-    // send the user to /project/:projectId
-    // navigate(`/project/${res.projectId}`);
   };
 
   const form = useForm({
@@ -190,7 +184,6 @@ export function FormNewProjectCSV() {
                 className="step"
               >
                 <Box>
-                  {/* <h3 className="info-icon-tool">Upload File  */}
                   <h3>
                     Upload File
                     <InfoIcon

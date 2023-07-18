@@ -16,20 +16,20 @@
     min-height: calc(100vh - 154px);
 
     .button-dataset {
-      background: #000000;
-      border: 0;
-      border-radius: 5px;
-      color: #fff;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 300;
-      padding: 10px 15px;
-      transition: transform 100ms ease-out;
-      
-      &:hover {
-          background: #414140;
-          transform: scale(1.1);
-      }
+        background: #000000;
+        border: 0;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 300;
+        padding: 10px 15px;
+        transition: transform 100ms ease-out;
+        
+        &:hover {
+            background: #414140;
+            transform: scale(1.1);
+        }
     }
 
     .title-timerange-top{
@@ -37,7 +37,7 @@
     }
     
 
-   .project-container {
+    .project-container {
         max-width: 80vw;
         margin: 0 auto;
         // margin-top: 50px;
@@ -75,10 +75,10 @@
 
         .text-dataset{
             margin-left: 10px;
-           }
-   }
+        }
+    }
 
-   .network-filter {
+    .network-filter {
         width: fit-content;
         margin-bottom: 10px;
     }
@@ -92,12 +92,12 @@
         flex-direction: column;
         margin-bottom: 50px;
     }
-   
+
     .width-element-top{
         width: 70%;
     }
 
-   
+
     .tags{
         margin-top: 10px;
     }

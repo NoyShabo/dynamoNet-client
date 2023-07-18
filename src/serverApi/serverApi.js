@@ -69,7 +69,6 @@ export const handleResult = async (
   customMessage = null
 ) => {
   const resData = await res.json();
-  // console.log("serverApi", resData);
   if (res && resData && res.status < 400) {
     return resData;
   }

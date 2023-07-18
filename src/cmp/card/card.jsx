@@ -1,6 +1,5 @@
 import { Card, Image, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
 
 import "../../globalStyle.scss";
 import projectImg from "./project.png";
@@ -13,7 +12,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import React, { useState } from "react";
-import { deleteTimeRange } from "../../serverApi/rest/timeRangeApi";
 import "./card.scss";
 
 export function GlobalCard({
@@ -31,7 +29,6 @@ export function GlobalCard({
 
   const deleteTRShowConfirm = (e) => {
     e.preventDefault();
-    // console.log("delete TR "+id)
     setShowConfirmDelete(true);
   };
 

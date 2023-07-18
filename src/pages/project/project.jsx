@@ -1,47 +1,39 @@
-import { Select } from "@mantine/core";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import PeopleIcon from "@mui/icons-material/People";
 import { Button } from "@mui/material";
 import Chip from "@mui/material/Chip";
-import * as FileSaver from "file-saver";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import BeatLoader from "react-spinners/BeatLoader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import XLSX from "sheetjs-style";
 import { GlobalCard } from "../../cmp/card/card";
 import { CommunityEvolution } from "../../cmp/community-evolution/CommunityEvolution";
 import { Delete } from "../../cmp/delete/delete";
 import { Edit } from "../../cmp/edit/edit";
 import { Modal } from "../../cmp/modal/modal";
 import { NetworkEvolution } from "../../cmp/network-evolution/networkEvolution";
-import { DisplayGraph } from "../../cmp/network-graph/networkGraph";
-import { NetworkMetrics } from "../../cmp/network-metrics/networkMetrics";
 import { Scroll } from "../../cmp/scroll/scroll";
 import { MyTabs } from "../../cmp/tabs/tabs";
 import { ProjectStatus } from "../../constants";
 import "../../globalStyle.scss";
 import newTimeRangeImg from "../../images/add_timerange.png";
 import calendarImg from "../../images/calendar.png";
-import {
-  removeSelectedProject,
-  setProject,
-} from "../../redux/actions/projectActions";
+import { setProject } from "../../redux/actions/projectActions";
 import { getNetwork } from "../../serverApi/rest/networkApi";
 import {
   deleteProject,
   getProject,
   updateProject,
 } from "../../serverApi/rest/projectApi";
+import { deleteTimeRange } from "../../serverApi/rest/timeRangeApi";
 import { NodesPage } from "../nodesMetrics/nodesMetrics";
 import "./project.scss";
+import { SourceNetwork } from "./source-network/SourceNetwork";
 
-// import { active, randomNormal } from "d3";
-import { deleteTimeRange } from "../../serverApi/rest/timeRangeApi";
 function getTimeRangeCards(project, handleDeleteTimeRange, isOwner) {
   const timeRanges = project.timeRanges;
   const cards = timeRanges.map((timeRange) => {
@@ -66,38 +58,11 @@ function getTimeRangeCards(project, handleDeleteTimeRange, isOwner) {
   return cards;
 }
 
-function SourceNetwork({ network }) {
-  const [networkGraph, setNetworkGraph] = useState(null);
-  const getNetworkById = async (id) => {
-    const res = await getNetwork(id);
-    setNetworkGraph(res.network);
-  };
-
-  // useEffect(() => {
-  //   if (network) getNetworkById(network._id);
-  // }, [network]);
-
-  return (
-    <div className="source-network">
-      <div className="title-project">Source Network</div>
-      {network && <NetworkMetrics network={network} />}
-    </div>
-  );
-}
-
 function mapCommunities(project, slice = 5) {
-  // sort communities by size
-  // communities look like: { "0": ["node1", "node5"], "1": ["node2", "node3"]}
-  // const communities = Object.entries(project.communities).sort((a, b) => b[1].length - a[1].length);
   const communitiesPerTimeRangeSorted = project.timeRanges.map((timeRange) => {
     const communities = Object.entries(timeRange.network.communities).sort(
       (a, b) => b[1].length - a[1].length
     );
-    //     const communitiesMap = {};
-    //     communities.forEach(community => {
-    //         communitiesMap[community[0]] = community[1];
-    //     });
-    //     return communitiesMap;
     const topCommunities = communities.slice(0, slice);
     const topCommunitiesMap = {};
     topCommunities.forEach((community) => {
@@ -112,27 +77,6 @@ function mapCommunities(project, slice = 5) {
       communities: communities,
     };
   });
-
-  // return communitiesPerTimeRangeSorted.map((communities, index) => {
-  //     return {
-  //         title: `Time Range ${index + 1}`,
-  //         communities: communities
-  //     }
-  // })
-
-  // return communities.map((community, index) => {
-  //     return {
-  //         title: `Community ${index + 1}`,
-  //         nodes: community[1]
-  //     }
-  // })
-
-  // return project.timeRanges.map(timeRange => {
-  //     return {
-  //         title: timeRange.title,
-  //         communities: timeRange.network.communities
-  //     }
-  // })
 }
 
 export function Project() {
@@ -177,9 +121,6 @@ export function Project() {
 
   useEffect(() => {
     if (projectId && projectId !== "") getProjectById(projectId);
-    // return () => {
-    //   dispatch(removeSelectedProject());
-    // };
   }, []);
 
   useEffect(() => {
@@ -271,8 +212,6 @@ export function Project() {
 
     try {
       const res = await updateProject(projectId, newVales);
-      // project.title = res.project.title;
-      // project.description = res.project.description;
       const tempProject = { ...project };
       tempProject.title = res.project.title;
       tempProject.description = res.project.description;
@@ -280,7 +219,6 @@ export function Project() {
       setTitle(res.project.title);
       setDescription(res.project.description);
     } catch (err) {
-      // console.error("Updating project error!: ", err);
       toast.error(err.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -300,7 +238,6 @@ export function Project() {
         position: toast.POSITION.TOP_RIGHT,
       });
     } catch (e) {
-      // console.error("error deleting time range: ", e);
       toast.error(e.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -499,10 +436,6 @@ export function Project() {
                               Community Evolution
                             </div>
                             <div className="small-title-project">
-                              {/* <CommunityEvolution communities={project.timeRanges.map((timeRange) => {
-                            return timeRange.network.communities;
-                          })}/> */}
-                              {/* input to set threshold */}
                               <div className="small-title-project">
                                 <div style={{ color: "white" }}>Threshold</div>
                                 <input
@@ -593,13 +526,14 @@ export function Project() {
                       }}
                     >
                       <FileDownloadIcon />
-                      Export
+                      Export Project's Data
                     </Button>
                     {isOwner && (
                       <>
                         <Delete
                           onDelete={handleDelete}
                           title={`Delete Project: ${title}`}
+                          label={"Delete Project"}
                         />
                         <Edit
                           inputs={[
@@ -615,6 +549,7 @@ export function Project() {
                             },
                           ]}
                           onSubmit={handleEdit}
+                          label={"Edit Project"}
                         />
                       </>
                     )}
@@ -631,6 +566,7 @@ export function Project() {
                     <Delete
                       onDelete={handleDelete}
                       title={`Delete Project: ${title}`}
+                      label={"Delete Project"}
                     />
                   )}
                 </>

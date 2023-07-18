@@ -40,7 +40,6 @@ export function LineChart({ isDashboard = false, data, max, min }) {
       }}
       curve="catmullRom"
       data={data}
-      // colors="#70d8bd"
       margin={{ top: 50, right: 120, bottom: 50, left: 60 }}
       xScale={{ type: "point" }}
       yScale={{
@@ -75,9 +74,7 @@ export function LineChart({ isDashboard = false, data, max, min }) {
       enableGridX={false}
       enableGridY={!isDashboard}
       pointSize={10}
-      // pointColor="#70d8bd"
       pointBorderWidth={2}
-      // pointBorderColor="#70d8bd"
       pointLabelYOffset={-12}
       useMesh={true}
       legends={[

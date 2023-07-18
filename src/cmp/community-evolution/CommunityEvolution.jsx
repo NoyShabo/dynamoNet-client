@@ -1,19 +1,8 @@
 import { AlluvialChart } from "@carbon/charts-react";
 import "@carbon/styles/index.scss";
 import { useEffect, useRef, useState } from "react";
-import seedrandom from "seedrandom";
+import { genColor } from "../../utils";
 import "./communityEvolution.scss";
-
-function genColor(seed) {
-  const random = seedrandom(seed);
-  let color = Math.floor(random() * 16777215);
-  color = color.toString(16);
-  while (color.length < 6) {
-    color = "0" + color;
-  }
-
-  return "#" + color;
-}
 
 function commonBetweenCommunities(community1, community2) {
   const set1 = new Set(community1);
@@ -22,17 +11,18 @@ function commonBetweenCommunities(community1, community2) {
   return commonStrings.size;
 }
 
-function getData(communities, threshold = 0.3) {
+// calculate the values for the alluvial chart to display the community evolution
+function calculateEvolutionValues(communities, threshold = 0.3) {
   const communityGroups = [];
-  const initializedGroups = {};
   const communityLinks = [];
   const timeRangesLength = communities.length;
   const colorScale = {};
+  // iterate through all time ranges
   for (let i = 0; i < timeRangesLength; i++) {
     const timeRange = communities[i];
-    console.log("~~~~~~~~", i, timeRange);
-
+    // iterate through all communities in time range
     Object.keys(timeRange.communities).forEach((communityIndex) => {
+      // add community to communityGroups
       communityGroups.push({
         name: `${timeRange.title}-${communityIndex}`,
         category: `${timeRange.title}`,
@@ -42,15 +32,20 @@ function getData(communities, threshold = 0.3) {
       );
     });
   }
+
+  // iterate through all time ranges
   for (let i = 0; i < timeRangesLength - 1; i++) {
     const timeRange1 = communities[i];
     const timeRange2 = communities[i + 1];
     const timeRange1Communities = timeRange1.communities;
     const timeRange2Communities = timeRange2.communities;
+    // iterate through all communities in time range 1
     Object.keys(timeRange1Communities).forEach((communityIndex1) => {
       const community1 = timeRange1Communities[communityIndex1];
+      // iterate through all communities in time range 2
       Object.keys(timeRange2Communities).forEach((communityIndex2) => {
         const community2 = timeRange2Communities[communityIndex2];
+        // evaluate if there is a link between the two communities
         const commonStrings = commonBetweenCommunities(community1, community2);
         if (
           commonStrings === 0 ||
@@ -65,7 +60,6 @@ function getData(communities, threshold = 0.3) {
       });
     });
   }
-  console.log(communityLinks);
 
   return {
     communityGroups,
@@ -79,10 +73,8 @@ export function CommunityEvolution({ communities, threshold, active }) {
   const alluvialRef = useRef(null);
 
   useEffect(() => {
-    const { communityGroups, communityLinks, colorScale } = getData(
-      communities,
-      threshold
-    );
+    const { communityGroups, communityLinks, colorScale } =
+      calculateEvolutionValues(communities, threshold);
     setMyState({
       data: communityLinks,
       options: {
@@ -95,7 +87,7 @@ export function CommunityEvolution({ communities, threshold, active }) {
         color: {
           scale: colorScale,
           gradient: {
-            enabled: true,
+            enabled: false,
           },
         },
       },
@@ -134,7 +126,6 @@ export function CommunityEvolution({ communities, threshold, active }) {
     return (
       <div className="community-evolution">
         <AlluvialChart
-          // className="alluvial"
           data={myState.data}
           options={myState.options}
           ref={alluvialRef}

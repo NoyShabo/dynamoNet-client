@@ -48,7 +48,6 @@ export function FormNewProject() {
       userEmail: values.userEmail,
     };
     const res = await createProject(project);
-    // send the user to /project/:projectId
     navigate(`/project/${res.project._id}`);
   };
 
@@ -180,7 +179,6 @@ export function FormNewProject() {
   ));
 
   const fieldsKeywords = form.values.keywords.map((_, index) => {
-    // index = index +5000
     return (
       <Draggable key={index + "k"} index={index} draggableId={index.toString()}>
         {(provided) => (
@@ -261,7 +259,7 @@ export function FormNewProject() {
               primaryColor: "brand",
             }}
           >
-            <Stepper active={active} breakpoint="sm"  color={"#70d8bd"}>
+            <Stepper active={active} breakpoint="sm" color={"#70d8bd"}>
               <Stepper.Step
                 label="First step"
                 description="New project settings"
@@ -276,7 +274,7 @@ export function FormNewProject() {
                   pt="5px"
                   ta="start"
                   styles={{
-                    label: {color: '#e0e0e0'}
+                    label: { color: "#e0e0e0" },
                   }}
                 />
                 <TextInput
@@ -286,7 +284,7 @@ export function FormNewProject() {
                   placeholder="Description"
                   {...form.getInputProps("description")}
                   styles={{
-                    label: {color: '#e0e0e0'}
+                    label: { color: "#e0e0e0" },
                   }}
                 />
               </Stepper.Step>
@@ -295,7 +293,6 @@ export function FormNewProject() {
                 label="Second step"
                 description="Add Twitter usernames"
                 className="step"
-
               >
                 <Box>
                   <h3>Add Usernames from twitter</h3>
@@ -395,10 +392,13 @@ export function FormNewProject() {
                 </Box>
               </Stepper.Step>
 
-              <Stepper.Step label="Final step" description="Pick dates range"  className="step"
->
+              <Stepper.Step
+                label="Final step"
+                description="Pick dates range"
+                className="step"
+              >
                 <h3>Pick start and end date</h3>
-                
+
                 <DateRangePicker
                   mt="5px"
                   label="Pick dates range"
@@ -406,22 +406,21 @@ export function FormNewProject() {
                   placeholder="Pick dates range"
                   {...form.getInputProps("timerange")}
                   styles={{
-                    label: {color: '#e0e0e0'}
+                    label: { color: "#e0e0e0" },
                   }}
                 />
-               
               </Stepper.Step>
               <Stepper.Completed>
                 <h3>Enter Email</h3>
-                  <TextInput
-                    ta="start"
-                    label="Email:"
-                    placeholder="Email to get notified when the project is ready"
-                    {...form.getInputProps("userEmail")}
-                    styles={{
-                      label: {color: '#e0e0e0', marginTop:"20px"}
-                    }}
-                  />
+                <TextInput
+                  ta="start"
+                  label="Email:"
+                  placeholder="Email to get notified when the project is ready"
+                  {...form.getInputProps("userEmail")}
+                  styles={{
+                    label: { color: "#e0e0e0", marginTop: "20px" },
+                  }}
+                />
                 <Group position="right" mt="xl">
                   <Button
                     w="100%"

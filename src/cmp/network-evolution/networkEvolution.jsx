@@ -186,14 +186,6 @@ export function NetworkEvolution({ project }) {
             data={communities}
           />
         </div>
-        {/* <div className="chart-container">
-          <div className="small-title-project">Reciprocity Evolution</div>
-          <BarChart
-            width={100 * reciprocity.length}
-            height={400}
-            data={reciprocity}
-          />
-        </div> */}
 
         <div className="chart-container chart-container-line">
           <div className="small-title-project">Modularity Evolution</div>
@@ -208,10 +200,6 @@ export function NetworkEvolution({ project }) {
             max={Math.ceil(Math.max(...degreeCentrality))}
           />
         </div>
-        {/* <div className="chart-container chart-container-line">
-          <div className="small-title-project">Radius Evolution</div>
-          <LineChart data={radius} />
-        </div> */}
         <div className="chart-container chart-container-line">
           <div className="small-title-project">Diameter Evolution</div>
           <LineChart data={diameter} />

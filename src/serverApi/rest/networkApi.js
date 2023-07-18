@@ -11,7 +11,6 @@ export const getNetwork = async (network) => {
     if (done) {
       const json = JSON.parse(data);
 
-      // Do something with the JSON data
       return json;
     }
 
@@ -20,6 +19,4 @@ export const getNetwork = async (network) => {
   }
 
   return reader.read().then(processChunk);
-
-  //return serverApi.handleResult(res, "Get network error");
 };

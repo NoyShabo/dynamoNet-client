@@ -1,8 +1,6 @@
 import React from "react";
 import "./profileCard.scss";
 
-// המרת תאריך ושעה להמשך שיגיע מהבקנד
-// { new Date(nodeDetails.registrationDateTwitter).toLocaleDateString()== '1.1.1' ? 'Not Available' : new Date(nodeDetails.registrationDateTwitter).toLocaleDateString()}
 export function ProfileCard({
   name,
   email,
@@ -14,7 +12,7 @@ export function ProfileCard({
   return (
     <div className="profile-page">
       <div className="card-container">
-        <header>{/* <img src={avatar} alt={props.name} /> */}</header>
+        <header></header>
         <h1 className="title">{name}</h1>
         <h2 className="normal-text">{email}</h2>
         <h2 className="normal-text">
